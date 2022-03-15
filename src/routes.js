@@ -46,17 +46,17 @@ const routes = [
         path: '/404',
         component: lazy(() => import('src/views/errors/NotFoundView'))
     },
-    // {
-    //     exact: true,
-    //     guard: GuestGuard,
-    //     path: '/login',
-    //     component: lazy(() => import('src/views/Login/login'))
-    // },
+    {
+        exact: true,
+        // guard: GuestGuard,
+        path: '/login',
+        component: lazy(() => import('src/views/Login/login'))
+    },
     {
         exact: true,
         // guard: GuestGuard,
         layout: RegisterLayout,
-        path: '/',
+        path: '/register',
         component: lazy(() => import('src/views/Register/register'))
     },
     // {

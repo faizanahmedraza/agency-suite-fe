@@ -1,5 +1,5 @@
 import React from 'react'
-import Controllers from 'src/components/Controllers';
+import Controllers from 'src/Controllers';
 
 const Register = () => {
 
