@@ -5,7 +5,7 @@ const Login = () => {
     return (
         <div className='bg-gray-50 w-full h-screen'>
             <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-md w-full space-y-6">
+                <div className="max-w-md w-full space-y-5">
                     <div>
                         <img
                             className="mx-auto h-12 w-auto"
@@ -19,7 +19,7 @@ const Login = () => {
                     <form className="mt-8 bg-white p-10 rounded-md shadow-sm border" action="#" method="POST">
                         <input type="hidden" name="remember" defaultValue="true" />
                         <div>
-                            <label htmlFor="email-address" className='text-sm'>
+                            <label htmlFor="email-address" className='text-sm font-semibold'>
                                 Enter your portal URL
                             </label>
                             <div className='flex justify-center'>
@@ -52,8 +52,7 @@ const Login = () => {
                         </div>
                     </form>
                     <div className='text-center'>
-
-                    <span className='text-gray-500'>Powered by <a className='text-indigo-600'>ManyRequests</a></span>
+                    <span className='text-gray-500 text-sm'>Powered by <a className='text-indigo-600 text-sm'>ManyRequests</a></span>
                     </div>
                 </div>
             </div>
