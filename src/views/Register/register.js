@@ -2,10 +2,10 @@ import React from 'react'
 import Controllers from 'src/components/Controllers';
 
 const Register = () => {
-  
+
   return (
     <div>
-      <div className='container mx-auto py-4 px-6'>
+      <div className='container mx-auto mb-10 pt-4 px-6'>
         <div className='text-center mt-20'>
           <h2 className='font-extrabold text-4xl'>Start your free trial</h2>
           <p className='pt-2 font-semibold text-gray-500'>14-day free trial. No credit card needed.</p>
@@ -46,6 +46,15 @@ const Register = () => {
             { id: 3, name: 'Dummy Text' },
             { id: 4, name: 'Dummy Text' },
           ]}
+        />
+
+        <div className='flex justify-center'>
+          <Controllers.Toggler />
+          By selecting this, you agree to the Privacy Policy and Cookie Policy .
+        </div>
+
+        <Controllers.Button
+          label="Start a free trail"
         />
 
       </div>
