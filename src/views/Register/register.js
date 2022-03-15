@@ -2,6 +2,7 @@ import React from 'react'
 import Controllers from 'src/components/Controllers';
 
 const Register = () => {
+  
   return (
     <div>
       <div className='container mx-auto py-4 px-6'>
@@ -9,6 +10,7 @@ const Register = () => {
           <h2 className='font-extrabold text-4xl'>Start your free trial</h2>
           <p className='pt-2 font-semibold text-gray-500'>14-day free trial. No credit card needed.</p>
         </div>
+
         <Controllers.Input
           label="Name"
         />
@@ -45,6 +47,7 @@ const Register = () => {
             { id: 4, name: 'Dummy Text' },
           ]}
         />
+
       </div>
     </div >
   )

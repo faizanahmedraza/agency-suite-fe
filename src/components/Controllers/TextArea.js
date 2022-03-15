@@ -2,7 +2,7 @@ import React from 'react'
 
 const TextArea = () => {
     return (
-        <div className="m-auto my-10 w-[500px]">
+        <div className="m-auto my-10 max-w-[500px]">
             <label htmlFor="country" className="block text-sm font-medium text-gray-700">
                 What services are you selling? *
             </label>

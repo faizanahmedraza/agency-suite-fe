@@ -2,7 +2,7 @@ import React from 'react'
 
 const Navbar = () => {
     return (
-        <nav className='w-screen h-[80px]'>
+        <nav className='w-full h-[80px]'>
             <div className='px-6 flex justify-between'>
                 <div className='py-5'>
                     <h1 className='text-3xl font-bold'>Many Request</h1>

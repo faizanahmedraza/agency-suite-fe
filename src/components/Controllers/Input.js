@@ -3,7 +3,7 @@ import React from 'react'
 const Input = ({ label , smallLabel }) => {
     return (
         <div className='my-10'>
-            <div className='w-[500px] m-auto'>
+            <div className='max-w-[500px] m-auto'>
                 <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
                     {label}
                 </label>
