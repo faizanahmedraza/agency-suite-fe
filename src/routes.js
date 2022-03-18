@@ -75,6 +75,13 @@ const routes = [
         path: '/dashboard',
         component: lazy(() => import('src/views/Dashboard/dashboard'))
     },
+    {
+        exact: true,
+        // guard: GuestGuard,
+        layout: DashboardLayout,
+        path: '/dashboard/services',
+        component: lazy(() => import('src/views/Dashboard/Services/services'))
+    },
     // {
     //     exact: true,
     //     guard: AuthGuard,
