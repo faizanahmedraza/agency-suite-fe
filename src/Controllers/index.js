@@ -9,7 +9,7 @@ const Controllers = {
     Select: Select,
     TextArea: TextArea,
     Toggler: Toggler,
-    Button: Button
+    Button: Button,
 }
 
 export default Controllers

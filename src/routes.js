@@ -1,9 +1,11 @@
 import React, { Suspense, Fragment, lazy } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 
-import RegisterLayout from './layouts/Register Layout'
+import RegisterLayout from 'src/layouts/Register Layout'
+import MainLayout from 'src/layouts/Main Layout'
+import DashboardLayout from 'src/layouts/Dashboard Layout'
 
-import LoadingScreen from './components/Loaders/loading';
+import LoadingScreen from 'src/components/Loaders/loading';
 // import AuthGuard from './components/Guards/AuthGuard';
 // import GuestGuard from './components/Guards/GuestGuard';
 
@@ -58,6 +60,20 @@ const routes = [
         layout: RegisterLayout,
         path: '/register',
         component: lazy(() => import('src/views/Register/register'))
+    },
+    {
+        exact: true,
+        // guard: GuestGuard,
+        layout: MainLayout,
+        path: '/',
+        component: lazy(() => import('src/views/Home/home'))
+    },
+    {
+        exact: true,
+        // guard: GuestGuard,
+        layout: DashboardLayout,
+        path: '/dashboard',
+        component: lazy(() => import('src/views/Dashboard/dashboard'))
     },
     // {
     //     exact: true,

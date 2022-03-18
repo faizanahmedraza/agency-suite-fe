@@ -52,7 +52,7 @@ const Login = () => {
                         </div>
                     </form>
                     <div className='text-center'>
-                    <span className='text-gray-500 text-sm'>Powered by <a className='text-indigo-600 text-sm'>ManyRequests</a></span>
+                    <span className='text-gray-500 text-sm'>Powered by <a href='/' className='text-indigo-600 text-sm'>ManyRequests</a></span>
                     </div>
                 </div>
             </div>
