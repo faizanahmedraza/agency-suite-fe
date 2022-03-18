@@ -1,12 +1,25 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import {
     PlusCircleIcon
 } from "@heroicons/react/outline"
-import { Tab } from '@headlessui/react'
+import { TabPanel, useTabs } from "react-headless-tabs";
 
 
 const Services = () => {
+    const items = ["All", "Active", "One-off", "Subscription"];
+    const [selectedTab, setSelectedTab] = useTabs(items);
+
+    const changeTab = (e) => {
+        e.preventDefault();
+        const target = (e.target).dataset.tab;
+        if (typeof target !== "string") {
+            return;
+        }
+        setSelectedTab(target);
+    };
+    const getSelectedTabIndex = () => items.findIndex((item) => item === selectedTab);
+
     return (
         <div className='bg-gray-50 w-full'>
             <div className='container px-6'>
@@ -33,19 +46,63 @@ const Services = () => {
                         <span className='w-6 mx-3 text-gray-500'><PlusCircleIcon /></span>
                     </Link>
                 </div>
-                <div>
-                    <Tab.Group>
-                        <Tab.List>
-                            <Tab>Tab 1</Tab>
-                            <Tab>Tab 2</Tab>
-                            <Tab>Tab 3</Tab>
-                        </Tab.List>
-                        <Tab.Panels>
-                            <Tab.Panel>Content 1</Tab.Panel>
-                            <Tab.Panel>Content 2</Tab.Panel>
-                            <Tab.Panel>Content 3</Tab.Panel>
-                        </Tab.Panels>
-                    </Tab.Group>
+                <div className='py-5'>
+                        <nav
+                            style={{
+                                position: "relative"
+                            }}
+                        >
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    bottom: 0,
+                                    left: `calc((100% / ${items.length}) * ${getSelectedTabIndex()})`,
+                                    height: "2px",
+                                    width: `calc(100% / ${items.length})`,
+                                    background: "rgb(99 102 241)",
+                                    transition: "all ease 0.2s"
+                                }}
+                            />
+                            <div
+                                style={{
+                                    display: "flex"
+                                }}
+                            >
+                                {items.map((item) => {
+                                    return (
+                                        <a
+                                            href="#tab"
+                                            key={item}
+                                            style={{
+                                                flexGrow: 1,
+                                                display: "block",
+                                                padding: "1rem",
+                                                textDecoration: "none",
+                                                color: selectedTab === item ? "rgb(99 102 241)" : "black",
+                                            }}
+                                            onClick={changeTab}
+                                            data-tab={item}
+                                        >
+                                            {item}
+                                        </a>
+                                    );
+                                })}
+                            </div>
+                        </nav>
+                        <div
+                            style={{
+                                padding: "2rem",
+                                background: "#ececec"
+                            }}
+                        >
+                            {items.map((item) => {
+                                return (
+                                    <TabPanel key={item} hidden={selectedTab !== item}>
+                                        {item}
+                                    </TabPanel>
+                                );
+                            })}
+                        </div>
                 </div>
             </div>
         </div>
