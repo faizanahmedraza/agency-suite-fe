@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Login = () => {
 
@@ -34,8 +35,9 @@ const Login = () => {
                                     required
                                     className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                     placeholder="Your portal url"
+                                    value="example@url.com"
                                 />
-                                 <span class="inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm ">
+                                <span class="inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm ">
                                     manyrequest.com
                                 </span>
                             </div>
@@ -43,16 +45,18 @@ const Login = () => {
 
 
                         <div>
-                            <button
-                                type="submit"
-                                className="group relative w-full flex justify-center mt-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                Continue
-                            </button>
+                            <Link to="/dashboard">
+                                <button
+                                    type="submit"
+                                    className="group relative w-full flex justify-center mt-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                >
+                                    Continue
+                                </button>
+                            </Link>
                         </div>
                     </form>
                     <div className='text-center'>
-                    <span className='text-gray-500 text-sm'>Powered by <a href='/' className='text-indigo-600 text-sm'>ManyRequests</a></span>
+                        <span className='text-gray-500 text-sm'>Powered by <a href='/' className='text-indigo-600 text-sm'>ManyRequests</a></span>
                     </div>
                 </div>
             </div>
