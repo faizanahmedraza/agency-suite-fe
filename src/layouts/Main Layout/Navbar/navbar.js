@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
 
@@ -206,8 +207,8 @@ const Navbar = () => {
             </div>
           </nav>
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <a href="/" className="whitespace-nowrap rounded-md text-base font-medium px-4 py-2 text-indigo-600 bg-white border shadow-sm hover:text-indigo-500"> Sign in </a>
-            <a href="/" className="ml-2 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gray-800 hover:bg-gray-900"> Try it now </a>
+            <Link to="/login" className="whitespace-nowrap rounded-md text-base font-medium px-4 py-2 text-indigo-600 bg-white border shadow-sm hover:text-indigo-500"> Sign in </Link>
+            <Link to="/register" className="ml-2 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gray-800 hover:bg-gray-900"> Try it now </Link>
           </div>
         </div>
       </div>

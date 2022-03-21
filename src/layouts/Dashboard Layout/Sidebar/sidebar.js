@@ -12,9 +12,9 @@ import {
 
 const Sidebar = () => {
     return (
-        <div>
-            <div className='bg-gray-800 w-60 text-gray-400'>
-                <div className='h-[100vh] py-3'>
+        <div className='bg-gray-800'>
+            <div className='w-60 text-gray-400'>
+                <div className='h-[100vh]  py-3'>
                     <ul className='mx-4 text-white'>
                         <li className='bg-gray-900 py-2 px-1 rounded-md'>
                             <Link className='flex' to="/dashboard">

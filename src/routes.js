@@ -68,6 +68,7 @@ const routes = [
         path: '/',
         component: lazy(() => import('src/views/Home/home'))
     },
+    // Dashboard
     {
         exact: true,
         // guard: GuestGuard,
@@ -75,12 +76,20 @@ const routes = [
         path: '/dashboard',
         component: lazy(() => import('src/views/Dashboard/dashboard'))
     },
+    // Dashboard Services
     {
         exact: true,
         // guard: GuestGuard,
         layout: DashboardLayout,
         path: '/dashboard/services',
         component: lazy(() => import('src/views/Dashboard/Services/services'))
+    },
+    {
+        exact: true,
+        // guard: GuestGuard,
+        layout: DashboardLayout,
+        path: '/dashboard/services/create',
+        component: lazy(() => import('src/views/Dashboard/Services/Create Service/createService'))
     },
     // {
     //     exact: true,
