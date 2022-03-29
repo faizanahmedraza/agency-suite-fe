@@ -1,21 +1,28 @@
-import React from 'react'
-import { Router } from 'react-router-dom'
-import routes, { renderRoutes } from './routes';
-import { createBrowserHistory } from 'history';
-import { AuthProvider } from 'src/contexts/JWTAuthContext';
+import React, { useState, useEffect, Suspense } from 'react'
+
+// ** Router Import
+import Router from './router/Router'
+
+// ** Routes & Default Routes
+import { getRoutes } from './router/routes'
+
+// ** Hooks Imports
+import { useLayout } from '@hooks/useLayout'
 
 const App = () => {
+  const [allRoutes, setAllRoutes] = useState([])
 
-  const history = createBrowserHistory({});
+  // ** Hooks
+  const { layout } = useLayout()
+
+  useEffect(() => {
+    setAllRoutes(getRoutes(layout))
+  }, [layout])
 
   return (
-    <>
-        <Router history={history}>
-          <AuthProvider>
-            {renderRoutes(routes)}
-          </AuthProvider>
-        </Router>
-    </>
+    <Suspense fallback={null}>
+      <Router allRoutes={allRoutes} />
+    </Suspense>
   )
 }
 
