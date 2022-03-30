@@ -129,12 +129,6 @@ const AnalyticsDashboard = () => {
         <Col lg='12' sm='12'>
           <CardCongratulations />
         </Col>
-        <Col lg='3' sm='6'>
-          <SubscribersGained kFormatter={kFormatter} />
-        </Col>
-        <Col lg='3' sm='6'>
-          <OrdersReceived kFormatter={kFormatter} warning={colors.warning.main} />
-        </Col>
       </Row>
       <Row className='match-height'>
         <Col lg='6' xs='12'>
