@@ -28,6 +28,7 @@ const DefaultRoute = '/dashboard'
 const Dashboard = lazy(() => import('../../views/Dashboard/dashboard'))
 const Services = lazy(() => import('../../views/Services/services'))
 const Portal = lazy(() => import('../../views/Portal/portal'))
+const Invoice = lazy(() => import('../../views/Invoice/invoice'))
 const CreateServices = lazy(() => import('../../views/Services/Create Service/createService'))
 const Login = lazy(() => import('../../views/Login'))
 const Register = lazy(() => import('../../views/Register'))
@@ -56,6 +57,13 @@ const Routes = [
   {
     path: '/portal',
     element: <Portal />,
+  },
+  {
+    path: '/invoice',
+    element: <Invoice />,
+    meta:{
+      layout : 'vertical'
+    }
   },
   {
     path: '/login',

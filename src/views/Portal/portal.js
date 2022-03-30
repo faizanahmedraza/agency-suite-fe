@@ -10,12 +10,43 @@ import {
     NavLink,
     Form,
     Label,
-    Input
+    Input,
+    Col,
+    Row,
+    Button,
+    Container
 } from 'reactstrap'
+import { convertBase64 } from "@utils"
 
 const Portal = () => {
 
     const [active, setActive] = useState('1')
+
+    const [portalSetting, setPortalSetting] = useState({
+        name: null,
+        logo: null,
+        favicon: null,
+        primary_color: null,
+        secondary_color: null
+    })
+
+    const handleInputField = async (e) => {
+
+        const file = e.target.files ? e.target.files[0] : null
+
+        const base64 = file && await convertBase64(file)
+
+        setPortalSetting({
+            ...portalSetting,
+            [e.target.name]: base64 ? base64 : e.target.value
+        })
+
+    }
+
+    const onSubmitHandler = (e) => {
+        e.preventDefault()
+        console.log(portalSetting)
+    }
 
     const toggle = tab => {
         if (active !== tab) {
@@ -68,32 +99,71 @@ const Portal = () => {
                         <TabPane tabId='1'>
                             <div>
                                 <h3>Client portal details</h3>
+                                <hr />
+                                <Form onSubmit={onSubmitHandler}>
+                                    <Col md="6">
+                                        <div className='mb-1'>
+                                            <Label className='form-label'>
+                                                Name
+                                            </Label>
+                                            <Input type='text' onChange={handleInputField} name='name' />
+                                        </div>
+                                        <div className='mb-1'>
+                                            <Label className='form-label'>
+                                                Primary Color ( The primary color will apply to buttons and links. )
+                                            </Label>
+                                            <Input type='color' className='w-25' onChange={handleInputField} name='primary_color' placeholder='Enter Service Name' />
+                                        </div>
+                                        <div className='mb-1'>
+                                            <Label className='form-label'>
+                                                Seconday Color  ( The secondary color will apply to backgrounds and headers. )
+                                            </Label>
+                                            <Input type='color' className='w-25' onChange={handleInputField} name='secondary_color' placeholder='Enter Service Name' />
+                                        </div>
+                                        <div className='mb-1'>
+                                            <Label className='form-label'>
+                                                Logo
+                                            </Label>
+                                            &nbsp;
+                                            <small><Label>( Recommended: 200x50 px or similar proportions. Transparent background image. )  </Label></small>
+                                            <Row>
+                                                <Col md="6">
+                                                    <div>
+                                                        <img src={portalSetting.logo || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} width="100%" height="50" alt="service image" />
+                                                    </div>
+                                                </Col>
+                                                <Col md="6" >
+                                                    <Input type='file' onChange={handleInputField} accept="image/*" name='logo' id='nameMulti' />
+                                                </Col>
+                                            </Row>
+                                        </div>
+                                        <div className='mb-1'>
+                                            <Label className='form-label' for='nameMulti'>
+                                                Favicon
+                                            </Label>
+                                            <Row>
+                                                <Col md="6">
+                                                    <div>
+                                                        <img src={portalSetting.favicon || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} width="100%" height="50" alt="service image" />
+                                                    </div>
+                                                </Col>
+                                                <Col md="6">
+                                                    <Input type='file' onChange={handleInputField} accept="image/*" name='favicon' id='nameMulti' />
+                                                </Col>
+                                            </Row>
+                                        </div>
+                                    </Col>
+                                    <Col sm='12'>
+                                        <div className='d-flex justify-content-between'>
+                                            <Button outline className='me-1' color='secondary' type='reset'>
+                                                Cancel
+                                            </Button>
+                                            <Button color='primary' type='submit'>
+                                                Create
+                                            </Button>
 
-                                <Form>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='nameMulti'>
-                                            Service Name
-                                        </Label>
-                                        <Input type='text' onChange={(e) => setServiceDetails({ ...serviceDetails, name: e.target.value })} name='name' id='nameMulti' placeholder='Enter Service Name' />
-                                    </div>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='nameMulti'>
-                                            Service Name
-                                        </Label>
-                                        <Input type='text' onChange={(e) => setServiceDetails({ ...serviceDetails, name: e.target.value })} name='name' id='nameMulti' placeholder='Enter Service Name' />
-                                    </div>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='nameMulti'>
-                                            Service Name
-                                        </Label>
-                                        <Input type='text' onChange={(e) => setServiceDetails({ ...serviceDetails, name: e.target.value })} name='name' id='nameMulti' placeholder='Enter Service Name' />
-                                    </div>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='nameMulti'>
-                                            Service Name
-                                        </Label>
-                                        <Input type='text' onChange={(e) => setServiceDetails({ ...serviceDetails, name: e.target.value })} name='name' id='nameMulti' placeholder='Enter Service Name' />
-                                    </div>
+                                        </div>
+                                    </Col>
                                 </Form>
                             </div>
                         </TabPane>
