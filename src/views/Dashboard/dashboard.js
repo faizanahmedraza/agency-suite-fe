@@ -9,9 +9,6 @@ import Avatar from '@components/avatar'
 import Timeline from '@components/timeline'
 import AvatarGroup from '@components/avatar-group'
 
-// ** Utils
-import { kFormatter } from '@utils'
-
 // ** Context
 import { ThemeColors } from '@src/utility/context/ThemeColors'
 
@@ -19,13 +16,8 @@ import { ThemeColors } from '@src/utility/context/ThemeColors'
 import { Row, Col, Card, CardHeader, CardTitle, CardBody } from 'reactstrap'
 
 // ** Demo Components
-import InvoiceList from '@src/views/apps/invoice/list'
 import Sales from '@src/views/ui-elements/cards/analytics/Sales'
-import AvgSessions from '@src/views/ui-elements/cards/analytics/AvgSessions'
 import CardAppDesign from '@src/views/ui-elements/cards/advance/CardAppDesign'
-import SupportTracker from '@src/views/ui-elements/cards/analytics/SupportTracker'
-import OrdersReceived from '@src/views/ui-elements/cards/statistics/OrdersReceived'
-import SubscribersGained from '@src/views/ui-elements/cards/statistics/SubscribersGained'
 import CardCongratulations from '@src/views/ui-elements/cards/advance/CardCongratulations'
 
 // ** Images
@@ -130,11 +122,6 @@ const AnalyticsDashboard = () => {
           <CardCongratulations />
         </Col>
       </Row>
-      {/* <Row className='match-height'>
-        <Col xs='12'>
-          <SupportTracker primary={colors.primary.main} danger={colors.danger.main} />
-        </Col>
-      </Row> */}
       <Row className='match-height'>
         <Col lg='4' xs='12'>
           <Card className='card-user-timeline'>
@@ -156,11 +143,6 @@ const AnalyticsDashboard = () => {
           <CardAppDesign />
         </Col>
       </Row>
-      {/* <Row className='match-height'>
-        <Col xs='12'>
-          <InvoiceList />
-        </Col>
-      </Row> */}
     </div>
   )
 }
