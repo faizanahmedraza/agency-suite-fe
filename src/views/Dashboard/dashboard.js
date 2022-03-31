@@ -131,10 +131,7 @@ const AnalyticsDashboard = () => {
         </Col>
       </Row>
       <Row className='match-height'>
-        <Col lg='6' xs='12'>
-          <AvgSessions primary={colors.primary.main} />
-        </Col>
-        <Col lg='6' xs='12'>
+        <Col xs='12'>
           <SupportTracker primary={colors.primary.main} danger={colors.danger.main} />
         </Col>
       </Row>
@@ -159,11 +156,11 @@ const AnalyticsDashboard = () => {
           <CardAppDesign />
         </Col>
       </Row>
-      {/* <Row className='match-height'>
+      <Row className='match-height'>
         <Col xs='12'>
           <InvoiceList />
         </Col>
-      </Row> */}
+      </Row>
     </div>
   )
 }
