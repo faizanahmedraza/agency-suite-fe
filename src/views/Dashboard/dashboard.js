@@ -159,11 +159,11 @@ const AnalyticsDashboard = () => {
           <CardAppDesign />
         </Col>
       </Row>
-      <Row className='match-height'>
+      {/* <Row className='match-height'>
         <Col xs='12'>
           <InvoiceList />
         </Col>
-      </Row>
+      </Row> */}
     </div>
   )
 }
