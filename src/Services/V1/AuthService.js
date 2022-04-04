@@ -4,8 +4,7 @@ import V1 from "@src/Constants/V1ApiConstant";
 
 async function loginPost(data) {
     const _data = LoginPostBody(data);
-    console.log(DOMAIN)
-    const response = await Gateway.guestGateway("POST", DOMAIN, V1.auth.login, _data);
+    const response = await Gateway.guestGateway("POST", V1.DOMAIN, V1.auth.login, _data);
     return response;
 }
 

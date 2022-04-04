@@ -18,7 +18,7 @@ function* postLogin(data) {
             // yield put(LoginAction.postLoginFailed(response.error.message));
         }
     } catch (error) {
-        toast.error()
+        toast.error("Something Went Wrong Please Try Again Later")
     }
 }
 
