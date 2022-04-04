@@ -13,13 +13,20 @@ import { UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem } from
 // ** Default Avatar Image
 import defaultAvatar from '@src/assets/images/portrait/small/avatar-s-11.jpg'
 
+import { useSelector } from "@store/store"
+
+import LogoutHelper  from "@src/Helpers/LogoutHelper"
+
 const UserDropdown = () => {
+
+  const { user } = useSelector((state) => state.login)
+
   return (
     <UncontrolledDropdown tag='li' className='dropdown-user nav-item'>
       <DropdownToggle href='/' tag='a' className='nav-link dropdown-user-link' onClick={e => e.preventDefault()}>
         <div className='user-nav d-sm-flex d-none'>
-          <span className='user-name fw-bold'>John Doe</span>
-          <span className='user-status'>Admin</span>
+          <span className='user-name fw-bold'>{user?.first_name}</span>
+          <span className='user-status'>{user?.roles[0].name}</span>
         </div>
         <Avatar img={defaultAvatar} imgHeight='40' imgWidth='40' status='online' />
       </DropdownToggle>
@@ -53,9 +60,9 @@ const UserDropdown = () => {
           <HelpCircle size={14} className='me-75' />
           <span className='align-middle'>FAQ</span>
         </DropdownItem>
-        <DropdownItem tag={Link} to='/login'>
+        <DropdownItem onClick={() => LogoutHelper.logout()} tag={Link} to='/login'>
           <Power size={14} className='me-75' />
-          <span className='align-middle'>Logout</span>
+          <span  className='align-middle'>Logout</span>
         </DropdownItem>
       </DropdownMenu>
     </UncontrolledDropdown>

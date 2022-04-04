@@ -1,14 +1,21 @@
-// ** Redux Imports
-import rootReducer from './rootReducer'
-import { configureStore } from '@reduxjs/toolkit'
+import { createStore, applyMiddleware } from "redux";
+import createSagaMiddleware from "redux-saga";
+import rootReducer from "@store/rootReducer";
+import rootSaga from "@store/rootSaga";
+import logger from "redux-logger";
+import { 
+  useDispatch as useReduxDispatch,
+  useSelector as useReduxSelector
+} from 'react-redux';
 
-const store = configureStore({
-  reducer: rootReducer,
-  middleware: getDefaultMiddleware => {
-    return getDefaultMiddleware({
-      serializableCheck: false
-    })
-  }
-})
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware, logger));
+sagaMiddleware.run(rootSaga);
 
-export { store }
+export {
+  store
+};
+
+export const useSelector = useReduxSelector;
+
+export const useDispatch = () => useReduxDispatch();

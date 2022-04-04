@@ -9,6 +9,7 @@ import LayoutWrapper from '@src/@core/layouts/components/layout-wrapper'
 
 // ** Route Components
 import PublicRoute from '@components/routes/PublicRoute'
+import PrivateRoute from '@components/routes/PrivateRoute'
 
 // ** Utils
 import { isObjEmpty } from '@utils'
@@ -32,6 +33,7 @@ const Invoice = lazy(() => import('../../views/Invoice/invoice'))
 const CreateServices = lazy(() => import('../../views/Services/Create Service/createService'))
 const Login = lazy(() => import('../../views/Login'))
 const Register = lazy(() => import('../../views/Register'))
+const Verification = lazy(() => import('../../views/Verification'))
 const ForgotPassword = lazy(() => import('../../views/ForgotPassword'))
 const Error = lazy(() => import('../../views/Error'))
 
@@ -44,7 +46,10 @@ const Routes = [
   },
   {
     path: '/dashboard',
-    element: <Dashboard />
+    element: <Dashboard />,
+    meta: {
+      publicRoute: false
+    }
   },
   {
     path: '/services',
@@ -61,22 +66,35 @@ const Routes = [
   {
     path: '/invoice',
     element: <Invoice />,
-    meta:{
-      layout : 'vertical'
+    meta: {
+      layout: 'vertical'
     }
   },
   {
     path: '/login',
     element: <Login />,
     meta: {
-      layout: 'blank'
+      layout: 'blank',
+      publicRoute: true,
+      restricted: true
     }
   },
   {
     path: '/register',
     element: <Register />,
     meta: {
-      layout: 'blank'
+      layout: 'blank',
+      publicRoute: true,
+      restricted: true
+    }
+  },
+  {
+    path: '/verify/:token',
+    element: <Verification />,
+    meta: {
+      layout: 'blank',
+      publicRoute: true,
+      restricted: true
     }
   },
   {
@@ -117,18 +135,19 @@ const MergeLayoutRoutes = (layout, defaultLayout) => {
         (route.meta && route.meta.layout && route.meta.layout === layout) ||
         ((route.meta === undefined || route.meta.layout === undefined) && defaultLayout === layout)
       ) {
-        const RouteTag = PublicRoute
+        let RouteTag = PrivateRoute
 
         // ** Check for public or private route
         if (route.meta) {
           route.meta.layout === 'blank' ? (isBlank = true) : (isBlank = false)
+          RouteTag = route.meta.publicRoute ? PublicRoute : PrivateRoute
         }
         if (route.element) {
           const Wrapper =
             // eslint-disable-next-line multiline-ternary
             isObjEmpty(route.element.props) && isBlank === false
               ? // eslint-disable-next-line multiline-ternary
-                LayoutWrapper
+              LayoutWrapper
               : Fragment
 
           route.element = (
@@ -164,5 +183,6 @@ const getRoutes = layout => {
   })
   return AllRoutes
 }
+
 
 export { DefaultRoute, TemplateTitle, Routes, getRoutes }

@@ -3,7 +3,8 @@ import { Suspense } from 'react'
 import { Navigate } from 'react-router-dom'
 
 // ** Utils
-import { getUserData, getHomeRouteForLoggedInUser } from '@utils'
+// import { getUserData, getHomeRouteForLoggedInUser } from '@utils'
+import { getUserData } from '@utils'
 
 const PublicRoute = ({ children, route }) => {
   if (route) {
@@ -12,7 +13,7 @@ const PublicRoute = ({ children, route }) => {
     const restrictedRoute = route.meta && route.meta.restricted
 
     if (user && restrictedRoute) {
-      return <Navigate to={getHomeRouteForLoggedInUser(user.role)} />
+      return <Navigate replace to="/dashboard" />
     }
   }
 
