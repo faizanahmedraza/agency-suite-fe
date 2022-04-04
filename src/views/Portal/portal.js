@@ -101,7 +101,7 @@ const Portal = () => {
                                 <h3>Client portal details</h3>
                                 <hr />
                                 <Form onSubmit={onSubmitHandler}>
-                                    <Col md="6">
+                                    <Col md="5">
                                         <div className='mb-1'>
                                             <Label className='form-label'>
                                                 Name
@@ -129,25 +129,25 @@ const Portal = () => {
                                             <Row>
                                                 <Col md="6">
                                                     <div>
-                                                        <img src={portalSetting.logo || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} width="100%" height="50" alt="service image" />
+                                                        <img src={portalSetting.logo || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} width="100%" height="80" alt="service image" />
                                                     </div>
                                                 </Col>
-                                                <Col md="6" >
+                                                <Col md="6" className='pt-1'>
                                                     <Input type='file' onChange={handleInputField} accept="image/*" name='logo' id='nameMulti' />
                                                 </Col>
                                             </Row>
                                         </div>
-                                        <div className='mb-1'>
+                                        <div className='mb-1' >
                                             <Label className='form-label' for='nameMulti'>
                                                 Favicon
                                             </Label>
                                             <Row>
                                                 <Col md="6">
                                                     <div>
-                                                        <img src={portalSetting.favicon || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} width="100%" height="50" alt="service image" />
+                                                        <img src={portalSetting.favicon || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} width="100%" height="80" alt="service image" />
                                                     </div>
                                                 </Col>
-                                                <Col md="6">
+                                                <Col md="6"  className='pt-1'>
                                                     <Input type='file' onChange={handleInputField} accept="image/*" name='favicon' id='nameMulti' />
                                                 </Col>
                                             </Row>
