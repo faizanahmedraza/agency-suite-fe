@@ -14,11 +14,12 @@ function* postLogin(data) {
             toast.success(response.message)
             yield put(LoginAction.postLoginSuccess(response.data));
         } else {
-            toast.error(response.error.message)
-            // yield put(LoginAction.postLoginFailed(response.error.message));
+            yield put(LoginAction.postLoginFailed(response.error.message))
         }
     } catch (error) {
         toast.error("Something Went Wrong Please Try Again Later")
+
+        yield put(LoginAction.postLoginFailed(error))
     }
 }
 
@@ -48,7 +49,7 @@ export function* postLoginSaga() {
 }
 
 export function* postLoginSuccessSaga() {
-    yield takeEvery(LOGIN_ACTION_TYPE.POST_LOGIN_SCCUESS, postLoginSuccess);
+    yield takeEvery(LOGIN_ACTION_TYPE.POST_LOGIN_SUCCESS, postLoginSuccess);
 }
 
 export function* postLoginFailedSaga() {

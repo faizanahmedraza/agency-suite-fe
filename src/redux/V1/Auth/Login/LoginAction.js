@@ -5,7 +5,7 @@ function postLogin(request) {
 }
 
 function postLoginSuccess(response) {
-    return { type: LOGIN_ACTION_TYPE.POST_LOGIN_SCCUESS, response };
+    return { type: LOGIN_ACTION_TYPE.POST_LOGIN_SUCCESS, response };
 }
 
 function postLoginFailed(response) {

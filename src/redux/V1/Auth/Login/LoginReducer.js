@@ -18,7 +18,7 @@ export default (
     switch (action.type) {
         case LOGIN_ACTION_TYPE.POST_LOGIN:
             return { ...state, loading: true };
-        case LOGIN_ACTION_TYPE.POST_LOGIN_SCCUESS:
+        case LOGIN_ACTION_TYPE.POST_LOGIN_SUCCESS:
             return { ...state, loading: false };
         case LOGIN_ACTION_TYPE.POST_LOGIN_FAILED:
             return { ...state, loading: false };
