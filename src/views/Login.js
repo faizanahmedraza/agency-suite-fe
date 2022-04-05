@@ -89,7 +89,7 @@ const LoginCover = () => {
               </g>
             </g>
           </svg>
-          <h2 className='brand-text text-primary ms-1'>Vuexy</h2>
+          <h2 className='brand-text text-primary ms-1'>Agency Tool</h2>
         </Link>
         <Col className='d-none d-lg-flex align-items-center p-5' lg='8' sm='12'>
           <div className='w-100 d-lg-flex align-items-center justify-content-center px-5'>
@@ -114,15 +114,15 @@ const LoginCover = () => {
                   <Label className='form-label' for='login-password'>
                     Password
                   </Label>
-                  <Link to='/' onClick={e => e.preventDefault()}>
+                  {/* <Link to='/' onClick={e => e.preventDefault()}>
                     <small>Forgot Password?</small>
-                  </Link>
+                  </Link> */}
                 </div>
                 <InputPasswordToggle className='input-group-merge' value={agencyInformation.password} name="password" onChange={handleInputChange} id='login-password' />
               </div>
               <div className='form-check mb-1'>
-                <Input type='checkbox' id='remember-me' />
-                <Label className='form-check-label' for='remember-me'>
+                <Input type='checkbox' id='remember-me' required />
+                <Label className='form-check-label'  for='remember-me'>
                   Remember Me
                 </Label>
               </div>

@@ -49,29 +49,47 @@ const Routes = [
   {
     path: '/dashboard',
     element: <Dashboard />,
+    meta: {
+      publicRoute: true,
+    }
    
   },
   {
     path: '/services',
     element: <Services />,
+    meta: {
+      publicRoute: true,
+    }
    
   },
   {
     path: '/services/create',
     element: <CreateServices />,
+    meta: {
+      publicRoute: true,
+    }
    
   },
   {
     path: '/customers',
     element: <Customers />,
+    meta: {
+      publicRoute: true,
+    }
   },
   {
     path: '/customers/create',
     element: <CreateCustomers />,
+    meta: {
+      publicRoute: true,
+    }
   },
   {
     path: '/portal',
     element: <Portal />,
+    meta: {
+      publicRoute: true,
+    }
    
   },
   {
