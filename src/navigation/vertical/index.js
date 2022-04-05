@@ -1,4 +1,4 @@
-import { Zap, Home, ShoppingCart, File } from 'react-feather'
+import { Zap, Home, Users, ShoppingCart, File } from 'react-feather'
 
 export default [
   {
@@ -31,5 +31,10 @@ export default [
     icon: <Zap size={20} />,
     navLink: '/services'
   },
-
+  {
+    id: 'Customers',
+    title: 'Customers',
+    icon: <Users size={20} />,
+    navLink: '/customers'
+  },
 ]
