@@ -28,8 +28,9 @@ const DefaultRoute = '/dashboard'
 
 const Dashboard = lazy(() => import('../../views/Dashboard/dashboard'))
 const Services = lazy(() => import('../../views/Services/services'))
-const Customers = lazy(() => import('../../views/Customers/index'))
-const CreateCustomers = lazy(() => import('../../views/Customers/CreateCustomer'))
+const Customers = lazy(() => import('../../views/Customers/Customers'))
+const CreateCustomer = lazy(() => import('../../views/Customers/CreateCustomer'))
+const UpdateCustomer = lazy(() => import('../../views/Customers/UpdateCustomer'))
 const Portal = lazy(() => import('../../views/Portal/portal'))
 const Invoice = lazy(() => import('../../views/Invoice/invoice'))
 const CreateServices = lazy(() => import('../../views/Services/Create Service/createService'))
@@ -79,7 +80,23 @@ const Routes = [
   },
   {
     path: '/customers/create',
-    element: <CreateCustomers />,
+    element: <CreateCustomer />,
+    meta: {
+      publicRoute: true,
+    }
+  }
+  ,
+  {
+    path: '/customers/edit/:id',
+    element: <UpdateCustomer />,
+    meta: {
+      publicRoute: true,
+    }
+  }
+  ,
+  {
+    path: '/customers/delete/:id',
+    element: <UpdateCustomer />,
     meta: {
       publicRoute: true,
     }
