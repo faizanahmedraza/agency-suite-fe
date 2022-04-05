@@ -50,11 +50,11 @@ module.exports = {
     'no-mixed-operators': 'error',
     'no-multiple-empty-lines': ['error', { max: 2, maxEOF: 1 }],
     'no-tabs': 'error',
-    'no-unneeded-ternary': 'error',
+    // 'no-unneeded-ternary': 'error',
     'no-whitespace-before-property': 'error',
     'nonblock-statement-body-position': 'error',
     'object-property-newline': ['error', { allowAllPropertiesOnSameLine: true }],
-    'quote-props': ['error', 'as-needed'],
+    // 'quote-props': ['error', 'as-needed'],
     // quotes: ['error', 'prefer-single'],
     // semi: ['error', 'never'],
     // 'semi-spacing': 'error',
@@ -70,8 +70,8 @@ module.exports = {
     'no-duplicate-imports': 'error',
     'no-var': 'error',
     'object-shorthand': 'error',
-    'prefer-const': 'error',
-    'prefer-template': 'error'
+    // 'prefer-const': 'error',
+    // 'prefer-template': 'error'
   }
 
   // rules: {
