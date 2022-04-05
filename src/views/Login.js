@@ -120,12 +120,6 @@ const LoginCover = () => {
                 </div>
                 <InputPasswordToggle className='input-group-merge' value={agencyInformation.password} name="password" onChange={handleInputChange} id='login-password' />
               </div>
-              <div className='form-check mb-1'>
-                <Input type='checkbox' id='remember-me' required />
-                <Label className='form-check-label'  for='remember-me'>
-                  Remember Me
-                </Label>
-              </div>
               <Button color='primary' block disabled={loading}>
                 {
                   loading ?

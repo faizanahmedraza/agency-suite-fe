@@ -21,7 +21,7 @@ import {
 } from 'reactstrap'
 import react from '@src/assets/images/icons/react.svg'
 import { MoreVertical, Edit, Trash } from 'react-feather'
-import angular from '@src/assets/images/icons/angular.svg'
+// import angular from '@src/assets/images/icons/angular.svg'
 import avatar1 from '@src/assets/images/portrait/small/avatar-s-5.jpg'
 import avatar2 from '@src/assets/images/portrait/small/avatar-s-6.jpg'
 import avatar3 from '@src/assets/images/portrait/small/avatar-s-7.jpg'
@@ -31,47 +31,47 @@ const Customers = () => {
     const [active, setActive] = useState('1');
     const [formModal, setFormModal] = useState(false);
 
-    const avatarGroupData1 = [
-        {
-            title: 'Leslie',
-            img: avatar1,
-            imgHeight: 26,
-            imgWidth: 26
-        },
-        {
-            title: 'Quinn',
-            img: avatar2,
-            imgHeight: 26,
-            imgWidth: 26
-        },
-        {
-            title: 'Quinn',
-            img: avatar3,
-            imgHeight: 26,
-            imgWidth: 26
-        }
-    ]
+    // const avatarGroupData1 = [
+    //     {
+    //         title: 'Leslie',
+    //         img: avatar1,
+    //         imgHeight: 26,
+    //         imgWidth: 26
+    //     },
+    //     {
+    //         title: 'Quinn',
+    //         img: avatar2,
+    //         imgHeight: 26,
+    //         imgWidth: 26
+    //     },
+    //     {
+    //         title: 'Quinn',
+    //         img: avatar3,
+    //         imgHeight: 26,
+    //         imgWidth: 26
+    //     }
+    // ]
 
-    const avatarGroupData2 = [
-        {
-            title: 'Felicia',
-            img: avatar1,
-            imgHeight: 26,
-            imgWidth: 26
-        },
-        {
-            title: 'Brent',
-            img: avatar2,
-            imgHeight: 26,
-            imgWidth: 26
-        },
-        {
-            title: 'Patricia',
-            img: avatar3,
-            imgHeight: 26,
-            imgWidth: 26
-        }
-    ]
+    // const avatarGroupData2 = [
+    //     {
+    //         title: 'Felicia',
+    //         img: avatar1,
+    //         imgHeight: 26,
+    //         imgWidth: 26
+    //     },
+    //     {
+    //         title: 'Brent',
+    //         img: avatar2,
+    //         imgHeight: 26,
+    //         imgWidth: 26
+    //     },
+    //     {
+    //         title: 'Patricia',
+    //         img: avatar3,
+    //         imgHeight: 26,
+    //         imgWidth: 26
+    //     }
+    // ]
 
 
     const toggle = tab => {
@@ -84,11 +84,15 @@ const Customers = () => {
         <div>
             <Card>
                 <CardBody>
-                    <div className='d-flex justify-content-between'>
-                        <h1>Customers</h1>
-                        <Link to="/customers/create">
-                            <Button.Ripple className="w-100" color='primary' >Create Customers</Button.Ripple>
-                        </Link>
+                    <div className='row'>
+                        <div className='col-md-9'>
+                            <h1>Customers</h1>
+                        </div>
+                        <div className='col-md-3'>
+                            <Link to="/customers/create">
+                                <Button.Ripple className="w-100" color='primary'>Create Customers</Button.Ripple>
+                            </Link>
+                        </div>
                     </div>
                 </CardBody >
             </Card >

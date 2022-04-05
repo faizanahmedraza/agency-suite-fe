@@ -69,6 +69,14 @@ const Routes = [
     meta: {
       publicRoute: true,
     }
+    
+  },
+  {
+    path: '/services/edit/:id',
+    element: <CreateServices />,
+    meta: {
+      publicRoute: true,
+    }
    
   },
   {

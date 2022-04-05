@@ -14,7 +14,9 @@ import {
     Nav,
     NavItem,
     NavLink,
-    Button
+    Button,
+    Label,
+    Input
 } from 'reactstrap'
 import react from '@src/assets/images/icons/react.svg'
 import { MoreVertical, Edit, Trash } from 'react-feather'
@@ -81,21 +83,13 @@ const Services = () => {
             <Card>
                 <CardBody>
                     <div className='row'>
-                        <div className='col-md-3'>
+                        <div className='col-md-9'>
                             <h1>Services</h1>
                         </div>
-                        <div className='row col-md-9'>
-                            <div className='col-md-4'>
-                                <Button.Ripple className="w-100" color='primary' outline>Manage discount coupons</Button.Ripple>
-                            </div>
-                            <div className='col-md-4' >
-                                <Button.Ripple className="w-100" color='primary' outline>Preview service catalog</Button.Ripple>
-                            </div>
-                            <div className='col-md-4'>
-                                <Link to="/services/create">
-                                <Button.Ripple className="w-100" color='primary' >Create Services</Button.Ripple>
-                                </Link>
-                            </div>
+                        <div className='col-md-3'>
+                            <Link to="/services/create">
+                                <Button.Ripple color='primary' className="w-100">Create Services</Button.Ripple>
+                            </Link>
                         </div>
                     </div>
                 </CardBody>
@@ -161,19 +155,20 @@ const Services = () => {
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <img className='me-75' src={angular} alt='angular' height='20' width='20' />
-                                            <span className='align-middle fw-bold'>Angular Project</span>
+                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
+                                            <span className='align-middle fw-bold'>JHON DOE</span>
                                         </td>
-                                        <td>Peter Charles</td>
-                                        <td>Jhone Doe</td>
-                                        <td>Peter Charles</td>
+                                        <td>$ 100</td>
                                         <td>
-                                            <AvatarGroup data={avatarGroupData1} />
+                                            <div className='form-check form-switch'>
+                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
+                                            </div></td>
+                                        <td>0</td>
+                                        <td>
+                                            Mar 29, 2022
                                         </td>
                                         <td>
-                                            <Badge pill color='light-primary' className='me-1'>
-                                                Active
-                                            </Badge>
+                                            Apr 05, 2022
                                         </td>
                                         <td>
                                             <UncontrolledDropdown>
@@ -181,11 +176,11 @@ const Services = () => {
                                                     <MoreVertical size={15} />
                                                 </DropdownToggle>
                                                 <DropdownMenu>
-                                                    <DropdownItem href='/' onClick={e => e.preventDefault()}>
-                                                        <Edit className='me-50' size={15} /> <span className='align-middle'>Edit</span>
-                                                    </DropdownItem>
-                                                    <DropdownItem href='/' onClick={e => e.preventDefault()}>
-                                                        <Trash className='me-50' size={15} /> <span className='align-middle'>Delete</span>
+                                                        <Link className='dropdown-item' to="/services/edit/1">
+                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
+                                                        </Link>
+                                                    <DropdownItem href='/' >
+                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
                                                     </DropdownItem>
                                                 </DropdownMenu>
                                             </UncontrolledDropdown>
@@ -193,19 +188,20 @@ const Services = () => {
                                     </tr>
                                     <tr>
                                         <td>
-                                            <img className='me-75' src={react} alt='react' height='20' width='20' />
-                                            <span className='align-middle fw-bold'>React Project</span>
+                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
+                                            <span className='align-middle fw-bold'>TREVOR</span>
                                         </td>
-                                        <td>Ronald Frest</td>
-                                        <td>Haris Ghori</td>
-                                        <td>Ronald Frest</td>
+                                        <td>$ 400</td>
                                         <td>
-                                            <AvatarGroup data={avatarGroupData2} />
+                                            <div className='form-check form-switch'>
+                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
+                                            </div></td>
+                                        <td>5</td>
+                                        <td>
+                                            Mar 29, 2023
                                         </td>
                                         <td>
-                                            <Badge pill color='light-success' className='me-1'>
-                                                Completed
-                                            </Badge>
+                                            Nov 05, 2022
                                         </td>
                                         <td>
                                             <UncontrolledDropdown>
@@ -213,11 +209,110 @@ const Services = () => {
                                                     <MoreVertical size={15} />
                                                 </DropdownToggle>
                                                 <DropdownMenu>
-                                                    <DropdownItem href='/' onClick={e => e.preventDefault()}>
-                                                        <Edit className='me-50' size={15} /> <span className='align-middle'>Edit</span>
+                                                        <Link className='dropdown-item' to="/services/edit/2">
+                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
+                                                        </Link>
+                                                    <DropdownItem href='/' >
+                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
                                                     </DropdownItem>
-                                                    <DropdownItem href='/' onClick={e => e.preventDefault()}>
-                                                        <Trash className='me-50' size={15} /> <span className='align-middle'>Delete</span>
+                                                </DropdownMenu>
+                                            </UncontrolledDropdown>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
+                                            <span className='align-middle fw-bold'>Zach</span>
+                                        </td>
+                                        <td>$ 300</td>
+                                        <td>
+                                            <div className='form-check form-switch'>
+                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
+                                            </div></td>
+                                        <td>2</td>
+                                        <td>
+                                            Apr 29, 2022
+                                        </td>
+                                        <td>
+                                            Nov 23, 2022
+                                        </td>
+                                        <td>
+                                            <UncontrolledDropdown>
+                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
+                                                    <MoreVertical size={15} />
+                                                </DropdownToggle>
+                                                <DropdownMenu>
+                                                        <Link className='dropdown-item' to="/services/edit/3">
+                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
+                                                        </Link>
+                                                    <DropdownItem href='/' >
+                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
+                                                    </DropdownItem>
+                                                </DropdownMenu>
+                                            </UncontrolledDropdown>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
+                                            <span className='align-middle fw-bold'>Franklin</span>
+                                        </td>
+                                        <td>$ 300</td>
+                                        <td>
+                                            <div className='form-check form-switch'>
+                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
+                                            </div></td>
+                                        <td>9</td>
+                                        <td>
+                                            May 30, 2023
+                                        </td>
+                                        <td>
+                                            Dec 05, 2022
+                                        </td>
+                                        <td>
+                                            <UncontrolledDropdown>
+                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
+                                                    <MoreVertical size={15} />
+                                                </DropdownToggle>
+                                                <DropdownMenu>
+                                                        <Link className='dropdown-item' to="/services/edit/4">
+                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
+                                                        </Link>
+                                                    <DropdownItem href='/' >
+                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
+                                                    </DropdownItem>
+                                                </DropdownMenu>
+                                            </UncontrolledDropdown>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
+                                            <span className='align-middle fw-bold'>Micheal</span>
+                                        </td>
+                                        <td>$ 800</td>
+                                        <td>
+                                            <div className='form-check form-switch'>
+                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
+                                            </div></td>
+                                        <td>7</td>
+                                        <td>
+                                            Jun 30, 2023
+                                        </td>
+                                        <td>
+                                            July 10, 2022
+                                        </td>
+                                        <td>
+                                            <UncontrolledDropdown>
+                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
+                                                    <MoreVertical size={15} />
+                                                </DropdownToggle>
+                                                <DropdownMenu>
+                                                        <Link className='dropdown-item' to="/services/edit/5    ">
+                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
+                                                        </Link>
+                                                    <DropdownItem href='/' >
+                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
                                                     </DropdownItem>
                                                 </DropdownMenu>
                                             </UncontrolledDropdown>
@@ -227,22 +322,252 @@ const Services = () => {
                             </Table>
                         </TabPane>
                         <TabPane tabId='2'>
-                            <p>This is where you create services. Once created, you can add the link to your website or share it directly with clients so they can complete the check out process and payment.</p>
-                            <div className='text-center'>
-                                <Button.Ripple color='primary'>Create Services</Button.Ripple>
-                            </div>
+                            <Table bordered responsive>
+                                <thead>
+                                    <tr>
+                                        <th>NAME</th>
+                                        <th>PRICE</th>
+                                        <th>SHOW CATALOG</th>
+                                        <th>SALES</th>
+                                        <th>CREATED</th>
+                                        <th>UPDATED</th>
+                                        <th>ACTIONS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
+                                            <span className='align-middle fw-bold'>FAHAD KHAN</span>
+                                        </td>
+                                        <td>$ 200</td>
+                                        <td>
+                                            <div className='form-check form-switch'>
+                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
+                                            </div></td>
+                                        <td>0</td>
+                                        <td>
+                                            May 30, 2022
+                                        </td>
+                                        <td>
+                                            Dec 05, 2022
+                                        </td>
+                                        <td>
+                                            <UncontrolledDropdown>
+                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
+                                                    <MoreVertical size={15} />
+                                                </DropdownToggle>
+                                                <DropdownMenu>
+                                                        <Link className='dropdown-item' to="/services/edit/1">
+                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
+                                                        </Link>
+                                                    <DropdownItem href='/' >
+                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
+                                                    </DropdownItem>
+                                                </DropdownMenu>                                            </UncontrolledDropdown>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
+                                            <span className='align-middle fw-bold'>Zain</span>
+                                        </td>
+                                        <td>$ 4800</td>
+                                        <td>
+                                            <div className='form-check form-switch'>
+                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
+                                            </div></td>
+                                        <td>5</td>
+                                        <td>
+                                            Mar 29, 2023
+                                        </td>
+                                        <td>
+                                            Nov 05, 2022
+                                        </td>
+                                        <td>
+                                            <UncontrolledDropdown>
+                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
+                                                    <MoreVertical size={15} />
+                                                </DropdownToggle>
+                                                <DropdownMenu>
+                                                        <Link className='dropdown-item' to="/services/edit/2">
+                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
+                                                        </Link>
+                                                    <DropdownItem href='/' >
+                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
+                                                    </DropdownItem>
+                                                </DropdownMenu>
+                                            </UncontrolledDropdown>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </Table>
                         </TabPane>
                         <TabPane tabId='3'>
-                            <p>This is where you create services. Once created, you can add the link to your website or share it directly with clients so they can complete the check out process and payment.</p>
-                            <div className='text-center'>
-                                <Button.Ripple color='primary'>Create Services</Button.Ripple>
-                            </div>
+                            <Table bordered responsive>
+                                <thead>
+                                    <tr>
+                                        <th>NAME</th>
+                                        <th>PRICE</th>
+                                        <th>SHOW CATALOG</th>
+                                        <th>SALES</th>
+                                        <th>CREATED</th>
+                                        <th>UPDATED</th>
+                                        <th>ACTIONS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
+                                            <span className='align-middle fw-bold'>IRFAN MUMTAZ</span>
+                                        </td>
+                                        <td>$ 3500</td>
+                                        <td>
+                                            <div className='form-check form-switch'>
+                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
+                                            </div></td>
+                                        <td>0</td>
+                                        <td>
+                                            Feb 29, 2022
+                                        </td>
+                                        <td>
+                                            Sep 15, 2022
+                                        </td>
+                                        <td>
+                                            <UncontrolledDropdown>
+                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
+                                                    <MoreVertical size={15} />
+                                                </DropdownToggle>
+                                                <DropdownMenu>
+                                                        <Link className='dropdown-item' to="/services/edit/1">
+                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
+                                                        </Link>
+                                                    <DropdownItem href='/' >
+                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
+                                                    </DropdownItem>
+                                                </DropdownMenu>
+                                            </UncontrolledDropdown>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
+                                            <span className='align-middle fw-bold'>FAIZAN</span>
+                                        </td>
+                                        <td>$ 200</td>
+                                        <td>
+                                            <div className='form-check form-switch'>
+                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
+                                            </div></td>
+                                        <td>3</td>
+                                        <td>
+                                            Mar 29, 2023
+                                        </td>
+                                        <td>
+                                            Nov 05, 2022
+                                        </td>
+                                        <td>
+                                            <UncontrolledDropdown>
+                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
+                                                    <MoreVertical size={15} />
+                                                </DropdownToggle>
+                                                <DropdownMenu>
+                                                        <Link className='dropdown-item' to="/services/edit/2">
+                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
+                                                        </Link>
+                                                    <DropdownItem href='/' >
+                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
+                                                    </DropdownItem>
+                                                </DropdownMenu>
+                                            </UncontrolledDropdown>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
+                                            <span className='align-middle fw-bold'>Omer</span>
+                                        </td>
+                                        <td>$ 900</td>
+                                        <td>
+                                            <div className='form-check form-switch'>
+                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
+                                            </div></td>
+                                        <td>7</td>
+                                        <td>
+                                            Jun 28, 2022
+                                        </td>
+                                        <td>
+                                            Sep 15, 2022
+                                        </td>
+                                        <td>
+                                            <UncontrolledDropdown>
+                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
+                                                    <MoreVertical size={15} />
+                                                </DropdownToggle>
+                                                <DropdownMenu>
+                                                        <Link className='dropdown-item' to="/services/edit/3">
+                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
+                                                        </Link>
+                                                    <DropdownItem href='/' >
+                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
+                                                    </DropdownItem>
+                                                </DropdownMenu>
+                                            </UncontrolledDropdown>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </Table>
                         </TabPane>
                         <TabPane tabId='4'>
-                            <p>This is where you create services. Once created, you can add the link to your website or share it directly with clients so they can complete the check out process and payment.</p>
-                            <div className='text-center'>
-                                <Button.Ripple color='primary'>Create Services</Button.Ripple>
-                            </div>
+                            <Table bordered responsive>
+                                <thead>
+                                    <tr>
+                                        <th>NAME</th>
+                                        <th>PRICE</th>
+                                        <th>SHOW CATALOG</th>
+                                        <th>SALES</th>
+                                        <th>CREATED</th>
+                                        <th>UPDATED</th>
+                                        <th>ACTIONS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
+                                            <span className='align-middle fw-bold'>Jack</span>
+                                        </td>
+                                        <td>$ 300</td>
+                                        <td>
+                                            <div className='form-check form-switch'>
+                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
+                                            </div></td>
+                                        <td>4</td>
+                                        <td>
+                                            Jul 29, 2022
+                                        </td>
+                                        <td>
+                                            Oct 05, 2022
+                                        </td>
+                                        <td>
+                                            <UncontrolledDropdown>
+                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
+                                                    <MoreVertical size={15} />
+                                                </DropdownToggle>
+                                                <DropdownMenu>
+                                                        <Link className='dropdown-item' to="/services/edit/1">
+                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
+                                                        </Link>
+                                                    <DropdownItem href='/' >
+                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
+                                                    </DropdownItem>
+                                                </DropdownMenu>
+                                            </UncontrolledDropdown>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </Table>
                         </TabPane>
                     </TabContent>
                 </CardBody>

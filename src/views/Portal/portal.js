@@ -63,7 +63,7 @@ const Portal = () => {
             </Card>
             <Card>
                 <CardBody>
-                    <Nav tabs fill>
+                    {/* <Nav tabs fill>
                         <NavItem>
                             <NavLink
                                 active={active === '1'}
@@ -94,7 +94,7 @@ const Portal = () => {
                                 Modules and extensions
                             </NavLink>
                         </NavItem>
-                    </Nav>
+                    </Nav> */}
                     <TabContent className='py-50' activeTab={active}>
                         <TabPane tabId='1'>
                             <div>
@@ -112,24 +112,22 @@ const Portal = () => {
                                             <Label className='form-label'>
                                                 Primary Color ( The primary color will apply to buttons and links. )
                                             </Label>
-                                            <Input type='color' className='w-25' onChange={handleInputField} name='primary_color' placeholder='Enter Service Name' />
+                                            <Input type='color' className='w-25' style={{height:'30px'}} onChange={handleInputField} name='primary_color' placeholder='Enter Service Name' />
                                         </div>
                                         <div className='mb-1'>
                                             <Label className='form-label'>
                                                 Seconday Color  ( The secondary color will apply to backgrounds and headers. )
                                             </Label>
-                                            <Input type='color' className='w-25' onChange={handleInputField} name='secondary_color' placeholder='Enter Service Name' />
+                                            <Input type='color' className='w-25' style={{height:'30px'}} onChange={handleInputField} name='secondary_color' placeholder='Enter Service Name' />
                                         </div>
                                         <div className='mb-1'>
                                             <Label className='form-label'>
-                                                Logo
+                                                Logo <small>( Recommended: 200x50 px or similar proportions. Transparent background image. )  </small>
                                             </Label>
-                                            &nbsp;
-                                            <small><Label>( Recommended: 200x50 px or similar proportions. Transparent background image. )  </Label></small>
                                             <Row>
                                                 <Col md="6">
                                                     <div>
-                                                        <img src={portalSetting.logo || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} width="100%" height="80" alt="service image" />
+                                                        <img src={portalSetting.logo || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} width="100%" height="70" alt="service image" />
                                                     </div>
                                                 </Col>
                                                 <Col md="6" className='pt-1'>
@@ -144,7 +142,7 @@ const Portal = () => {
                                             <Row>
                                                 <Col md="6">
                                                     <div>
-                                                        <img src={portalSetting.favicon || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} width="100%" height="80" alt="service image" />
+                                                        <img src={portalSetting.favicon || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} width="100%" height="70" alt="service image" />
                                                     </div>
                                                 </Col>
                                                 <Col md="6"  className='pt-1'>

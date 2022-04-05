@@ -24,15 +24,17 @@ import {
     ListGroupItem,
     ListGroup
 } from 'reactstrap'
-import { FileText, X, DownloadCloud } from 'react-feather'
+import { FileText, VolumeX } from 'react-feather'
 import { useDropzone } from 'react-dropzone'
 import { convertBase64 } from "@utils"
+import { useParams } from 'react-router-dom'
 
 const CreateService = () => {
 
     const [active, setActive] = useState('1')
     const [formModal, setFormModal] = useState(false)
     const [files, setFiles] = useState([])
+    const { id } = useParams()
 
     const [serviceDetails, setServiceDetails] = useState({
         name: null,
@@ -189,13 +191,13 @@ const CreateService = () => {
                                                     <Label className='form-label' for='nameMulti'>
                                                         Service Name
                                                     </Label>
-                                                    <Input type='text' onChange={handleInputField} name='name' id='nameMulti' placeholder='Enter Service Name' />
+                                                    <Input type='text' value={id ? "Lorem ipsum dolor" : null} onChange={handleInputField} name='name' id='nameMulti' placeholder='Enter Service Name' />
                                                 </div>
                                                 <div className='mb-1'>
                                                     <Label className='form-label' for='nameMulti'>
                                                         Description
                                                     </Label>
-                                                    <Input type='textarea' onChange={handleInputField} name='description' id='nameMulti' placeholder='Enter Description' />
+                                                    <Input type='textarea' value={id ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " : null} onChange={handleInputField} name='description' id='nameMulti' placeholder='Enter Description' />
                                                 </div>
                                             </Col>
                                             <Col md='6' sm='12'>
@@ -393,9 +395,9 @@ const CreateService = () => {
 
                                     </div>
                                     <div>
-                                        <Button color='primary' onClick={() => setFormModal(!formModal)}>
+                                        {/* <Button color='primary' onClick={() => setFormModal(!formModal)}>
                                             Add new field
-                                        </Button>
+                                        </Button> */}
                                     </div>
                                 </CardHeader>
                                 <hr />
@@ -407,15 +409,15 @@ const CreateService = () => {
                                                     <Label className='form-label' for='nameMulti'>
                                                         Title
                                                     </Label>
-                                                    <Input type='text' name='name' id='nameMulti' placeholder='First Name' />
+                                                    <Input type='text' name='name' id='nameMulti' placeholder='Enter Title' />
                                                 </div>
                                                 <div className='mb-1' >
                                                     <Label className='form-label' for='nameMulti'>
                                                         Description
                                                     </Label>
-                                                    <Input type='textarea' name='name' id='nameMulti' placeholder='First Name' />
+                                                    <Input type='textarea' name='name' id='nameMulti' placeholder='Enter Description    ' />
                                                 </div>
-                                                <div className='mb-1'>
+                                                {/* <div className='mb-1'>
                                                     <div {...getRootProps({ className: 'dropzone' })}>
                                                         <input {...getInputProps()} />
                                                         <div className='d-flex align-items-center justify-content-center flex-column'>
@@ -441,7 +443,7 @@ const CreateService = () => {
                                                             </div>
                                                         </Fragment>
                                                     ) : null}
-                                                </div>
+                                                </div> */}
                                             </Container>
                                         </Col>
                                     </Form>
@@ -466,11 +468,11 @@ const CreateService = () => {
                         </div>
                         <div className='mb-2'>
                             <Label className='form-label' for='title'>Title:</Label>
-                            <Input type='text' id='title' placeholder='Enter field title' />
+                            <Input type='text'  id='title' placeholder='Enter field title' />
                         </div>
                         <div className='mb-2'>
                             <Label className='form-label' for='placeholder'>Place Holder:</Label>
-                            <Input type='text' id='placeholder' placeholder='Enter field placeholder' />
+                            <Input  type='text' id='placeholder' placeholder='Enter field placeholder' />
                         </div>
                         <div className='mb-2'>
                             <div className='form-check form-check-inline'>
