@@ -27,6 +27,8 @@ const DefaultRoute = '/dashboard'
 
 const Dashboard = lazy(() => import('../../views/Dashboard/dashboard'))
 const Services = lazy(() => import('../../views/Services/services'))
+const Customers = lazy(() => import('../../views/Customers/index'))
+const CreateCustomers = lazy(() => import('../../views/Customers/CreateCustomer'))
 const Portal = lazy(() => import('../../views/Portal/portal'))
 const Invoice = lazy(() => import('../../views/Invoice/invoice'))
 const CreateServices = lazy(() => import('../../views/Services/Create Service/createService'))
@@ -53,6 +55,14 @@ const Routes = [
   {
     path: '/services/create',
     element: <CreateServices />,
+  },
+  {
+    path: '/customers',
+    element: <Customers />,
+  },
+  {
+    path: '/customers/create',
+    element: <CreateCustomers />,
   },
   {
     path: '/portal',
