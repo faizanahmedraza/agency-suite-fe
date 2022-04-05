@@ -10,11 +10,10 @@ import {
     CardHeader,
 } from 'reactstrap';
 
-const CreateCustomer = () => {
+const UpdateCustomer = () => {
     const [CustomerDetails, setCustomerDetails] = useState({
         first_name: null,
-        last_name: null,
-        email: null
+        last_name: null
     })
 
     const handleInputField = (e) => {
@@ -35,7 +34,7 @@ const CreateCustomer = () => {
                 <CardBody>
                     <div className='row'>
                         <div className='col-md-4'>
-                            <h1>Create Customer</h1>
+                            <h1>Update Customer</h1>
                         </div>
                     </div>
                 </CardBody>
@@ -57,19 +56,13 @@ const CreateCustomer = () => {
                                                     </Label>
                                             <Input type='text' onChange={handleInputField} name='name' id='first_name' placeholder='Enter Customer First Name' />
                                         </div>
-                                        <div className='mb-1'>
-                                            <Label className='form-label' for='nameMulti'>
-                                                Email
-                                                    </Label>
-                                            <Input type='text' onChange={handleInputField} name='name' id='last_name' placeholder='Enter Customer Last Name' />
-                                        </div>
                                     </Col>
                                     <Col md='6' sm='12'>
                                         <div className='mb-1'>
                                             <Label className='form-label' for='nameMulti'>
                                                 Last Name
                                                     </Label>
-                                            <Input type='email' onChange={handleInputField} name='name' id='email' placeholder='Enter Customer Email' />
+                                            <Input type='email' onChange={handleInputField} name='name' id='email' placeholder='Enter Customer Last Name' />
                                         </div>
                                     </Col>
                                 </Row>
@@ -83,4 +76,4 @@ const CreateCustomer = () => {
     )
 }
 
-export default CreateCustomer
+export default UpdateCustomer
