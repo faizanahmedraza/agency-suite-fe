@@ -27,6 +27,7 @@ const TemplateTitle = '%s - Vuexy React Admin Template'
 const DefaultRoute = '/dashboard'
 
 const Dashboard = lazy(() => import('../../views/Dashboard/dashboard'))
+const Profile = lazy(() => import('../../views/Profile/Profile'))
 const Services = lazy(() => import('../../views/Services/services'))
 const Customers = lazy(() => import('../../views/Customers/Customers'))
 const CreateCustomer = lazy(() => import('../../views/Customers/CreateCustomer'))
@@ -50,6 +51,14 @@ const Routes = [
   {
     path: '/dashboard',
     element: <Dashboard />,
+    meta: {
+      publicRoute: true,
+    }
+   
+  },
+  {
+    path: '/profile',
+    element: <Profile />,
     meta: {
       publicRoute: true,
     }
