@@ -21,7 +21,6 @@ import {
 } from 'reactstrap'
 import react from '@src/assets/images/icons/react.svg'
 import { MoreVertical, Edit, Trash } from 'react-feather'
-// import angular from '@src/assets/images/icons/angular.svg'
 import avatar1 from '@src/assets/images/portrait/small/avatar-s-5.jpg'
 import avatar2 from '@src/assets/images/portrait/small/avatar-s-6.jpg'
 import avatar3 from '@src/assets/images/portrait/small/avatar-s-7.jpg'
