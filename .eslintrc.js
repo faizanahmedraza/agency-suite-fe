@@ -28,12 +28,12 @@ module.exports = {
 
     // Variable
     // 'init-declarations': 'error',
-    'no-use-before-define': 'error',
+    // 'no-use-before-define': 'error',
 
     // 'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z]' }],
 
     // Stylistic Issues
-    'array-bracket-newline': ['error', { multiline: true, minItems: null }],
+    // 'array-bracket-newline': ['error', { multiline: true, minItems: null }],
     'array-bracket-spacing': 'error',
     'brace-style': ['error', '1tbs', { allowSingleLine: true }],
     'block-spacing': 'error',
@@ -45,7 +45,7 @@ module.exports = {
     'implicit-arrow-linebreak': ['error', 'beside'],
     // indent: ['error', 4],
     'keyword-spacing': 'error',
-    'multiline-ternary': ['error', 'never'],
+    // 'multiline-ternary': ['error', 'never'],
     // 'no-lonely-if': 'error',
     'no-mixed-operators': 'error',
     'no-multiple-empty-lines': ['error', { max: 2, maxEOF: 1 }],
@@ -56,9 +56,9 @@ module.exports = {
     'object-property-newline': ['error', { allowAllPropertiesOnSameLine: true }],
     'quote-props': ['error', 'as-needed'],
     // quotes: ['error', 'prefer-single'],
-    semi: ['error', 'never'],
-    'semi-spacing': 'error',
-    'space-before-blocks': 'error',
+    // semi: ['error', 'never'],
+    // 'semi-spacing': 'error',
+    // 'space-before-blocks': 'error',
     // 'space-before-function-paren': 'error',
     'space-in-parens': 'error',
     'space-infix-ops': 'error',

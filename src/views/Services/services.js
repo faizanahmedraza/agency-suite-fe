@@ -69,47 +69,6 @@ const Services = () => {
         }
     ]
 
-    const avatarGroupData3 = [
-        {
-            title: 'Breanna',
-            img: avatar1,
-            imgHeight: 26,
-            imgWidth: 26
-        },
-        {
-            title: 'Peter',
-            img: avatar2,
-            imgHeight: 26,
-            imgWidth: 26
-        },
-        {
-            title: 'Cherokee',
-            img: avatar3,
-            imgHeight: 26,
-            imgWidth: 26
-        }
-    ]
-
-    const avatarGroupData4 = [
-        {
-            title: 'Martina',
-            img: avatar1,
-            imgHeight: 26,
-            imgWidth: 26
-        },
-        {
-            title: 'Butcher',
-            img: avatar2,
-            imgHeight: 26,
-            imgWidth: 26
-        },
-        {
-            title: 'Noel',
-            img: avatar3,
-            imgHeight: 26,
-            imgWidth: 26
-        }
-    ]
 
     const toggle = tab => {
         if (active !== tab) {

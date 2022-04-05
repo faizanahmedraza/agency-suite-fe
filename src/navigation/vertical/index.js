@@ -1,4 +1,4 @@
-import { Mail, Home } from 'react-feather'
+import { Zap, Home, Users, ShoppingCart, File } from 'react-feather'
 
 export default [
   {
@@ -8,9 +8,33 @@ export default [
     navLink: '/dashboard'
   },
   {
+    header: 'Orders'
+  },
+  {
+    id: 'Invoice',
+    title: 'Invoice',
+    icon: <File size={20} />,
+    navLink: '/invoice'
+  },
+  {
+    header: 'Set up'
+  },
+  {
+    id: 'Portal',
+    title: 'Portal',
+    icon: <ShoppingCart size={20} />,
+    navLink: '/portal'
+  },
+  {
     id: 'Services',
     title: 'Services',
-    icon: <Mail size={20} />,
+    icon: <Zap size={20} />,
     navLink: '/services'
-  }
+  },
+  {
+    id: 'Customers',
+    title: 'Customers',
+    icon: <Users size={20} />,
+    navLink: '/customers'
+  },
 ]
