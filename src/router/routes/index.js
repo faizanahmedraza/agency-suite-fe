@@ -33,6 +33,7 @@ const CreateCustomer = lazy(() => import('../../views/Customers/CreateCustomer')
 const UpdateCustomer = lazy(() => import('../../views/Customers/UpdateCustomer'))
 const Portal = lazy(() => import('../../views/Portal/portal'))
 const Invoice = lazy(() => import('../../views/Invoice/invoice'))
+const CreateInvoice = lazy(() => import('../../views/Invoice/Create Invoice'))
 const CreateServices = lazy(() => import('../../views/Services/Create Service/createService'))
 const Login = lazy(() => import('../../views/Login'))
 const Register = lazy(() => import('../../views/Register'))
@@ -50,52 +51,77 @@ const Routes = [
   {
     path: '/dashboard',
     element: <Dashboard />,
-   
+    meta: {
+      publicRoute: true,
+    }
    
   },
   {
     path: '/services',
     element: <Services />,
+    meta: {
+      publicRoute: true,
+    }
    
    
   },
   {
     path: '/services/create',
     element: <CreateServices />,
+    meta: {
+      publicRoute: true,
+    }
    
     
   },
   {
     path: '/services/edit/:id',
     element: <CreateServices />,
-   
+    meta: {
+      publicRoute: true,
+    }
    
   },
   {
     path: '/customers',
     element: <Customers />,
+    meta: {
+      publicRoute: true,
+    }
    
   },
   {
     path: '/customers/create',
     element: <CreateCustomer />,
+    meta: {
+      publicRoute: true,
+    }
    
   }
   ,
   {
     path: '/customers/edit/:id',
     element: <UpdateCustomer />,
+    meta: {
+      publicRoute: true,
+    }
    
   }
   ,
   {
     path: '/customers/delete/:id',
     element: <UpdateCustomer />,
+    meta: {
+      publicRoute: true,
+    }
    
   },
   {
     path: '/portal',
     element: <Portal />,
+    meta: {
+      publicRoute: true,
+    }
    
    
   },
@@ -103,7 +129,24 @@ const Routes = [
     path: '/invoice',
     element: <Invoice />,
     meta: {
-      layout: 'vertical'
+      layout: 'vertical',
+      publicRoute: true,
+    }
+  },
+  {
+    path: '/invoice/create',
+    element: <CreateInvoice />,
+    meta: {
+      layout: 'vertical',
+      publicRoute: true,
+    }
+  },
+  {
+    path: '/invoice/edit/:id',
+    element: <CreateInvoice />,
+    meta: {
+      layout: 'vertical',
+      publicRoute: true,
     }
   },
   {
