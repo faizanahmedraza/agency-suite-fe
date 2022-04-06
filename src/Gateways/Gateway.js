@@ -2,7 +2,7 @@ import config from '@src/configs/Config';
 import { store } from '@store/store';
 import LogoutHelper from '@src/Helpers/LogoutHelper';
 
-async function authGateway(METHOD, API, BODY = null) {
+async function authGateway(METHOD, DOMAIN = null, API, BODY = null) {
     const URL = `${config.base_url}${API}`;
     const TOKEN = store.getState().login.token;
     const OPTIONS = {
@@ -10,6 +10,7 @@ async function authGateway(METHOD, API, BODY = null) {
         headers: {
             'access-control-allow-origin': '*',
             'Content-Type': 'application/json',
+            "Domain": DOMAIN ? DOMAIN : "",
             Authorization: `Bearer ${TOKEN}`,
         },
         body: BODY,

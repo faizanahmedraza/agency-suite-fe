@@ -11,8 +11,8 @@ const V1 = {
   user: {
     users: "v1/admin/users",
   },
-  customer: {
-    customers: "v1/admin/customers",
+  agency: {
+    customers: "v1/agencies/customers",
   },
   tag: {
     tags: "v1/admin/blog/tags",
@@ -26,7 +26,7 @@ const V1 = {
     posts: "v1/guest/blog/posts",
     tags: "v1/guest/blog/tags",
   },
-  DOMAIN : window.location.hostname
+  DOMAIN : 'fahadagency.allthingswordpress.io'
 };
 
 export default V1;
