@@ -2,7 +2,7 @@ import config from '@src/configs/Config';
 import { store } from '@store/store';
 import LogoutHelper from '@src/Helpers/LogoutHelper';
 
-async function authGateway(METHOD, API, BODY = null) {
+async function authGateway(METHOD, DOMAIN, API, BODY = null) {
     const URL = `${config.base_url}${API}`;
     const TOKEN = store.getState().login.token;
     const OPTIONS = {
@@ -10,7 +10,8 @@ async function authGateway(METHOD, API, BODY = null) {
         headers: {
             'access-control-allow-origin': '*',
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${TOKEN}`,
+            "Domain": DOMAIN,
+            "Authorization": `Bearer ${TOKEN}`
         },
         body: BODY,
     };
@@ -18,12 +19,8 @@ async function authGateway(METHOD, API, BODY = null) {
         .then(handleResponse)
         .then((response) => {
             if (response.success !== true) {
-                if (response.error.code === 'BIOWP-401') {
+                if (response.error.code === 401) {
                     LogoutHelper.logout();
-                } else if (response.error.code === 'BIOWP-404') {
-                    // window.location.href = "/404";
-                } else if (response.error.code === 'BIOWP-403') {
-                    window.location.href = '/403';
                 }
             } else {
                 localStorage.setItem(
