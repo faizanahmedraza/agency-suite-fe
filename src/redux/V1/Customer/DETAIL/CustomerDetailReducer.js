@@ -1,6 +1,6 @@
 import CUSTOMER from "@store/V1/Customer/ActionType";
 
-const CustomerFirstReducer = (
+const CustomerDetailReducer = (
   state = {
     loading: false,
     customer: {
@@ -16,24 +16,28 @@ const CustomerFirstReducer = (
   action
 ) => {
   switch (action.type) {
-    case CUSTOMER.CUSTOMER_FIRST:
+    case CUSTOMER.CUSTOMER_DETAIL:
       return {
         ...state,
         loading: true,
         fetched: false,
       };
-    case CUSTOMER.CUSTOMER_FIRST_SUCCESS:
+    case CUSTOMER.CUSTOMER_DETAIL_SUCCESS:
       return {
         ...state,
         loading: false,
         customer: action.response.customer,
         fetched: true,
       };
-    case CUSTOMER.CUSTOMER_FIRST_FAILED:
-      return { ...state, loading: false, err_mess: action.response };
+    case CUSTOMER.CUSTOMER_DETAIL_FAILED:
+      return {
+         ...state,
+          loading: false,
+           err_mess: action.response
+      };
     default:
       return state;
   }
 };
 
-export default CustomerFirstReducer;
+export default CustomerDetailReducer;

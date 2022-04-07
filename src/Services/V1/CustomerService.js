@@ -11,7 +11,7 @@ async function customerList(params) {
     return response;
 }
 
-async function customerFirst(id) {
+async function customerDetail(id) {
     const response = await Gateway.authGateway(
         "GET",
         V1.DOMAIN,
@@ -58,7 +58,7 @@ const customerBodyData = (data) => {
 
 const CustomerService = {
     customerList,
-    customerFirst,
+    customerDetail,
     customerPost,
     customerPut,
     customerDelete

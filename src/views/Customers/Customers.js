@@ -8,9 +8,6 @@ import {
     CardBody,
     TabContent,
     TabPane,
-    UncontrolledDropdown,
-    Badge, DropdownMenu,
-    DropdownToggle,
     Nav,
     NavItem,
     NavLink,
@@ -20,7 +17,6 @@ import {
     ModalBody,
 } from 'reactstrap'
 import react from '@src/assets/images/icons/react.svg'
-import { MoreVertical, Edit, Trash } from 'react-feather';
 import CustomerList from './CustomerList';
 
 const Loader = () => {

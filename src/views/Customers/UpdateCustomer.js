@@ -1,4 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from '@store/store';
+import CustomerDetailAction from "@store/V1/Customer/DETAIL/CustomerDetailAction";
 import {
     Card,
     Row,
@@ -11,10 +14,16 @@ import {
 } from 'reactstrap';
 
 const UpdateCustomer = () => {
+
+    const state = useSelector((state => state.customers.detail));
+
     const [CustomerDetails, setCustomerDetails] = useState({
-        first_name: null,
-        last_name: null
+        first_name: "",
+        last_name: ""
     })
+
+    const dispatch = useDispatch();
+    const { id } = useParams();
 
     const handleInputField = (e) => {
         setCustomerDetails({
@@ -27,6 +36,13 @@ const UpdateCustomer = () => {
         e.preventDefault()
         console.log(CustomerDetails)
     }
+
+    useEffect(() => {
+        dispatch(CustomerDetailAction.customerDetail(id));
+        if (state) {
+            setCustomerDetails(state.customer)
+        }
+    }, []);
 
     return (
         <div>
@@ -54,7 +70,7 @@ const UpdateCustomer = () => {
                                             <Label className='form-label' for='nameMulti'>
                                                 First Name
                                                     </Label>
-                                            <Input type='text' onChange={handleInputField} name='name' id='first_name' placeholder='Enter Customer First Name' />
+                                            <Input type='text' onChange={handleInputField} name='name' id='first_name' placeholder='Enter Customer First Name' value={CustomerDetails.first_name}/>
                                         </div>
                                     </Col>
                                     <Col md='6' sm='12'>
@@ -62,7 +78,7 @@ const UpdateCustomer = () => {
                                             <Label className='form-label' for='nameMulti'>
                                                 Last Name
                                                     </Label>
-                                            <Input type='email' onChange={handleInputField} name='name' id='email' placeholder='Enter Customer Last Name' />
+                                            <Input type='email' onChange={handleInputField} name='name' id='email' placeholder='Enter Customer Last Name' value={CustomerDetails.last_name}/>
                                         </div>
                                     </Col>
                                 </Row>

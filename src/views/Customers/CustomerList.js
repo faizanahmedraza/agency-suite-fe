@@ -9,6 +9,7 @@ import { MoreVertical, Edit, Trash } from 'react-feather';
 
 const CustomerList = (props) => {
     const _data = props.data;
+    
     return (
         _data.length > 0 ?
             _data.map((customer) => (
@@ -29,10 +30,10 @@ const CustomerList = (props) => {
                                 <MoreVertical size={15} />
                             </DropdownToggle>
                             <DropdownMenu>
-                                <Link className='dropdown-item' to='/customers/edit/1'>
+                                <Link className='dropdown-item' to={`/customers/edit/${customer.id}`}>
                                     <Edit className='me-50' size={15} /> <span className='align-middle'>Edit</span>
                                 </Link>
-                                <div className='dropdown-item' onClick={() => setFormModal(!formModal)}>
+                                <div className='dropdown-item'>
                                     <Trash className='me-50' size={15} /> <span className='align-middle'>Delete</span>
                                 </div>
                             </DropdownMenu>
