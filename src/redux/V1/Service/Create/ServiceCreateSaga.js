@@ -15,6 +15,14 @@ function* serviceCreate(data) {
     }
 }
 
+function serviceCreateSuccess() {
+    window.location.href = "/services";
+}
+
+export function* serviceCreateSuccessSaga() {
+    yield takeEvery(SERVICE.SERVICE_CREATE_SUCCESS, serviceCreateSuccess);
+}
+
 export function* ServiceCreateSaga() {
     yield takeEvery(SERVICE.SERVICE_CREATE, serviceCreate);
 }

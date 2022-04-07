@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import AvatarGroup from '@components/avatar-group'
+import React, { useState, useEffect } from 'react'
+// import AvatarGroup from '@components/avatar-group'
 import { Link } from 'react-router-dom'
 import {
     Table,
@@ -8,75 +8,35 @@ import {
     TabContent,
     TabPane,
     UncontrolledDropdown,
-    Badge, DropdownMenu,
+    DropdownMenu,
     DropdownItem,
     DropdownToggle,
     Nav,
     NavItem,
     NavLink,
     Button,
-    Label,
-    Input
 } from 'reactstrap'
-import react from '@src/assets/images/icons/react.svg'
 import { MoreVertical, Edit, Trash } from 'react-feather'
-import angular from '@src/assets/images/icons/angular.svg'
-import avatar1 from '@src/assets/images/portrait/small/avatar-s-5.jpg'
-import avatar2 from '@src/assets/images/portrait/small/avatar-s-6.jpg'
-import avatar3 from '@src/assets/images/portrait/small/avatar-s-7.jpg'
+import { useDispatch, useSelector } from "@store/store"
+import ServiceActions from '@store/V1/Service/List/ServiceListAction'
+import { formatDate } from '@utils'
 
 const Services = () => {
 
     const [active, setActive] = useState('1')
-
-    const avatarGroupData1 = [
-        {
-            title: 'Leslie',
-            img: avatar1,
-            imgHeight: 26,
-            imgWidth: 26
-        },
-        {
-            title: 'Quinn',
-            img: avatar2,
-            imgHeight: 26,
-            imgWidth: 26
-        },
-        {
-            title: 'Quinn',
-            img: avatar3,
-            imgHeight: 26,
-            imgWidth: 26
-        }
-    ]
-
-    const avatarGroupData2 = [
-        {
-            title: 'Felicia',
-            img: avatar1,
-            imgHeight: 26,
-            imgWidth: 26
-        },
-        {
-            title: 'Brent',
-            img: avatar2,
-            imgHeight: 26,
-            imgWidth: 26
-        },
-        {
-            title: 'Patricia',
-            img: avatar3,
-            imgHeight: 26,
-            imgWidth: 26
-        }
-    ]
-
+    const dispatch = useDispatch()
+    const { loading, services } = useSelector(state => state.service.list)
 
     const toggle = tab => {
         if (active !== tab) {
             setActive(tab)
         }
     }
+
+    useEffect(() => {
+        if (!services.length) return dispatch(ServiceActions.serviceList())
+    }, [])
+
 
     return (
         <div>
@@ -114,7 +74,7 @@ const Services = () => {
                                     toggle('2')
                                 }}
                             >
-                                Active
+                                Catalog
                             </NavLink>
                         </NavItem>
                         <NavItem>
@@ -139,436 +99,219 @@ const Services = () => {
                         </NavItem>
                     </Nav>
                     <TabContent className='py-50' activeTab={active}>
-                        <TabPane tabId='1'>
-                            <Table bordered responsive>
-                                <thead>
-                                    <tr>
-                                        <th>NAME</th>
-                                        <th>PRICE</th>
-                                        <th>SHOW CATALOG</th>
-                                        <th>SALES</th>
-                                        <th>CREATED</th>
-                                        <th>UPDATED</th>
-                                        <th>ACTIONS</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
-                                            <span className='align-middle fw-bold'>JHON DOE</span>
-                                        </td>
-                                        <td>$ 100</td>
-                                        <td>
-                                            <div className='form-check form-switch'>
-                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
-                                            </div></td>
-                                        <td>0</td>
-                                        <td>
-                                            Mar 29, 2022
-                                        </td>
-                                        <td>
-                                            Apr 05, 2022
-                                        </td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                        <Link className='dropdown-item' to="/services/edit/1">
-                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
-                                                        </Link>
-                                                    <DropdownItem href='/' >
-                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
-                                                    </DropdownItem>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
-                                            <span className='align-middle fw-bold'>TREVOR</span>
-                                        </td>
-                                        <td>$ 400</td>
-                                        <td>
-                                            <div className='form-check form-switch'>
-                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
-                                            </div></td>
-                                        <td>5</td>
-                                        <td>
-                                            Mar 29, 2023
-                                        </td>
-                                        <td>
-                                            Nov 05, 2022
-                                        </td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                        <Link className='dropdown-item' to="/services/edit/2">
-                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
-                                                        </Link>
-                                                    <DropdownItem href='/' >
-                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
-                                                    </DropdownItem>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
-                                            <span className='align-middle fw-bold'>Zach</span>
-                                        </td>
-                                        <td>$ 300</td>
-                                        <td>
-                                            <div className='form-check form-switch'>
-                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
-                                            </div></td>
-                                        <td>2</td>
-                                        <td>
-                                            Apr 29, 2022
-                                        </td>
-                                        <td>
-                                            Nov 23, 2022
-                                        </td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                        <Link className='dropdown-item' to="/services/edit/3">
-                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
-                                                        </Link>
-                                                    <DropdownItem href='/' >
-                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
-                                                    </DropdownItem>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
-                                            <span className='align-middle fw-bold'>Franklin</span>
-                                        </td>
-                                        <td>$ 300</td>
-                                        <td>
-                                            <div className='form-check form-switch'>
-                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
-                                            </div></td>
-                                        <td>9</td>
-                                        <td>
-                                            May 30, 2023
-                                        </td>
-                                        <td>
-                                            Dec 05, 2022
-                                        </td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                        <Link className='dropdown-item' to="/services/edit/4">
-                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
-                                                        </Link>
-                                                    <DropdownItem href='/' >
-                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
-                                                    </DropdownItem>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
-                                            <span className='align-middle fw-bold'>Micheal</span>
-                                        </td>
-                                        <td>$ 800</td>
-                                        <td>
-                                            <div className='form-check form-switch'>
-                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
-                                            </div></td>
-                                        <td>7</td>
-                                        <td>
-                                            Jun 30, 2023
-                                        </td>
-                                        <td>
-                                            July 10, 2022
-                                        </td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                        <Link className='dropdown-item' to="/services/edit/5    ">
-                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
-                                                        </Link>
-                                                    <DropdownItem href='/' >
-                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
-                                                    </DropdownItem>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </Table>
-                        </TabPane>
-                        <TabPane tabId='2'>
-                            <Table bordered responsive>
-                                <thead>
-                                    <tr>
-                                        <th>NAME</th>
-                                        <th>PRICE</th>
-                                        <th>SHOW CATALOG</th>
-                                        <th>SALES</th>
-                                        <th>CREATED</th>
-                                        <th>UPDATED</th>
-                                        <th>ACTIONS</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
-                                            <span className='align-middle fw-bold'>FAHAD KHAN</span>
-                                        </td>
-                                        <td>$ 200</td>
-                                        <td>
-                                            <div className='form-check form-switch'>
-                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
-                                            </div></td>
-                                        <td>0</td>
-                                        <td>
-                                            May 30, 2022
-                                        </td>
-                                        <td>
-                                            Dec 05, 2022
-                                        </td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                        <Link className='dropdown-item' to="/services/edit/1">
-                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
-                                                        </Link>
-                                                    <DropdownItem href='/' >
-                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
-                                                    </DropdownItem>
-                                                </DropdownMenu>                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
-                                            <span className='align-middle fw-bold'>Zain</span>
-                                        </td>
-                                        <td>$ 4800</td>
-                                        <td>
-                                            <div className='form-check form-switch'>
-                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
-                                            </div></td>
-                                        <td>5</td>
-                                        <td>
-                                            Mar 29, 2023
-                                        </td>
-                                        <td>
-                                            Nov 05, 2022
-                                        </td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                        <Link className='dropdown-item' to="/services/edit/2">
-                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
-                                                        </Link>
-                                                    <DropdownItem href='/' >
-                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
-                                                    </DropdownItem>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </Table>
-                        </TabPane>
-                        <TabPane tabId='3'>
-                            <Table bordered responsive>
-                                <thead>
-                                    <tr>
-                                        <th>NAME</th>
-                                        <th>PRICE</th>
-                                        <th>SHOW CATALOG</th>
-                                        <th>SALES</th>
-                                        <th>CREATED</th>
-                                        <th>UPDATED</th>
-                                        <th>ACTIONS</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
-                                            <span className='align-middle fw-bold'>IRFAN MUMTAZ</span>
-                                        </td>
-                                        <td>$ 3500</td>
-                                        <td>
-                                            <div className='form-check form-switch'>
-                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
-                                            </div></td>
-                                        <td>0</td>
-                                        <td>
-                                            Feb 29, 2022
-                                        </td>
-                                        <td>
-                                            Sep 15, 2022
-                                        </td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                        <Link className='dropdown-item' to="/services/edit/1">
-                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
-                                                        </Link>
-                                                    <DropdownItem href='/' >
-                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
-                                                    </DropdownItem>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
-                                            <span className='align-middle fw-bold'>FAIZAN</span>
-                                        </td>
-                                        <td>$ 200</td>
-                                        <td>
-                                            <div className='form-check form-switch'>
-                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
-                                            </div></td>
-                                        <td>3</td>
-                                        <td>
-                                            Mar 29, 2023
-                                        </td>
-                                        <td>
-                                            Nov 05, 2022
-                                        </td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                        <Link className='dropdown-item' to="/services/edit/2">
-                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
-                                                        </Link>
-                                                    <DropdownItem href='/' >
-                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
-                                                    </DropdownItem>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
-                                            <span className='align-middle fw-bold'>Omer</span>
-                                        </td>
-                                        <td>$ 900</td>
-                                        <td>
-                                            <div className='form-check form-switch'>
-                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
-                                            </div></td>
-                                        <td>7</td>
-                                        <td>
-                                            Jun 28, 2022
-                                        </td>
-                                        <td>
-                                            Sep 15, 2022
-                                        </td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                        <Link className='dropdown-item' to="/services/edit/3">
-                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
-                                                        </Link>
-                                                    <DropdownItem href='/' >
-                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
-                                                    </DropdownItem>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </Table>
-                        </TabPane>
-                        <TabPane tabId='4'>
-                            <Table bordered responsive>
-                                <thead>
-                                    <tr>
-                                        <th>NAME</th>
-                                        <th>PRICE</th>
-                                        <th>SHOW CATALOG</th>
-                                        <th>SALES</th>
-                                        <th>CREATED</th>
-                                        <th>UPDATED</th>
-                                        <th>ACTIONS</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
-                                            <span className='align-middle fw-bold'>Jack</span>
-                                        </td>
-                                        <td>$ 300</td>
-                                        <td>
-                                            <div className='form-check form-switch'>
-                                                <Input type='switch' className='w-75' name='customSwitch' id='exampleCustomSwitch' />
-                                            </div></td>
-                                        <td>4</td>
-                                        <td>
-                                            Jul 29, 2022
-                                        </td>
-                                        <td>
-                                            Oct 05, 2022
-                                        </td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                        <Link className='dropdown-item' to="/services/edit/1">
-                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
-                                                        </Link>
-                                                    <DropdownItem href='/' >
-                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
-                                                    </DropdownItem>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </Table>
-                        </TabPane>
+                        {!loading ?
+                            <>
+                                <TabPane tabId='1'>
+                                    <Table bordered responsive>
+                                        <thead>
+                                            <tr>
+                                                <th>NAME</th>
+                                                <th>PRICE</th>
+                                                <th>Subscription Type</th>
+                                                <th>CREATED</th>
+                                                <th>UPDATED</th>
+                                                <th>ACTIONS</th>
+                                            </tr>
+                                        </thead>
+
+
+                                        <tbody>
+                                            {services && services.map((service) => {
+                                                return (
+                                                    <tr key={service.id}>
+                                                        <td>
+                                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
+                                                            <span className='align-middle fw-bold'>{service.name}</span>
+                                                        </td>
+                                                        <td>$ {service.price_types.price}</td>
+                                                        <td>{service.subscription_type}</td>
+                                                        <td>
+                                                            {formatDate(service.created_at)}
+                                                        </td>
+                                                        <td>
+                                                            {formatDate(service.updated_at)}
+                                                        </td>
+                                                        <td>
+                                                            <UncontrolledDropdown>
+                                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
+                                                                    <MoreVertical size={15} />
+                                                                </DropdownToggle>
+                                                                <DropdownMenu>
+                                                                    <Link className='dropdown-item' to="/services/edit/1">
+                                                                        <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
+                                                                    </Link>
+                                                                    <DropdownItem href='/' >
+                                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
+                                                                    </DropdownItem>
+                                                                </DropdownMenu>
+                                                            </UncontrolledDropdown>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })}
+                                        </tbody>
+                                    </Table>
+                                </TabPane>
+                                <TabPane tabId='2'>
+                                    <Table bordered responsive>
+                                        <thead>
+                                            <tr>
+                                                <th>NAME</th>
+                                                <th>PRICE</th>
+                                                <th>Subscription Type</th>
+                                                <th>CREATED</th>
+                                                <th>UPDATED</th>
+                                                <th>ACTIONS</th>
+                                            </tr>
+                                        </thead>
+
+
+                                        <tbody>
+                                            {services && services.map((service) => {
+                                                if (service.catalog_status !== "active") return
+                                                return (
+                                                    <tr key={service.id}>
+                                                        <td>
+                                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
+                                                            <span className='align-middle fw-bold'>{service.name}</span>
+                                                        </td>
+                                                        <td>$ {service.price_types.price}</td>
+                                                        <td>{service.subscription_type}</td>
+                                                        <td>
+                                                            {formatDate(service.created_at)}
+                                                        </td>
+                                                        <td>
+                                                            {formatDate(service.updated_at)}
+                                                        </td>
+                                                        <td>
+                                                            <UncontrolledDropdown>
+                                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
+                                                                    <MoreVertical size={15} />
+                                                                </DropdownToggle>
+                                                                <DropdownMenu>
+                                                                    <Link className='dropdown-item' to="/services/edit/1">
+                                                                        <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
+                                                                    </Link>
+                                                                    <DropdownItem href='/' >
+                                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
+                                                                    </DropdownItem>
+                                                                </DropdownMenu>
+                                                            </UncontrolledDropdown>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })}
+                                        </tbody>
+                                    </Table>
+                                </TabPane>
+                                <TabPane tabId='3'>
+                                    <Table bordered responsive>
+                                    <thead>
+                                            <tr>
+                                                <th>NAME</th>
+                                                <th>PRICE</th>
+                                                <th>Subscription Type</th>
+                                                <th>CREATED</th>
+                                                <th>UPDATED</th>
+                                                <th>ACTIONS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {services && services.map((service) => {
+                                                if (service.subscription_type !== "one-off") return
+                                                return (
+                                                    <tr key={service.id}>
+                                                        <td>
+                                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
+                                                            <span className='align-middle fw-bold'>{service.name}</span>
+                                                        </td>
+                                                        <td>$ {service.price_types.price}</td>
+                                                        <td>{service.subscription_type}</td>
+                                                        <td>
+                                                            {formatDate(service.created_at)}
+                                                        </td>
+                                                        <td>
+                                                            {formatDate(service.updated_at)}
+                                                        </td>
+                                                        <td>
+                                                            <UncontrolledDropdown>
+                                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
+                                                                    <MoreVertical size={15} />
+                                                                </DropdownToggle>
+                                                                <DropdownMenu>
+                                                                    <Link className='dropdown-item' to="/services/edit/1">
+                                                                        <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
+                                                                    </Link>
+                                                                    <DropdownItem href='/' >
+                                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
+                                                                    </DropdownItem>
+                                                                </DropdownMenu>
+                                                            </UncontrolledDropdown>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })}
+                                        </tbody>
+                                    </Table>
+                                </TabPane>
+                                <TabPane tabId='4'>
+                                    <Table bordered responsive>
+                                    <thead>
+                                            <tr>
+                                                <th>NAME</th>
+                                                <th>PRICE</th>
+                                                <th>Subscription Type</th>
+                                                <th>CREATED</th>
+                                                <th>UPDATED</th>
+                                                <th>ACTIONS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {services && services.map((service) => {
+                                                if (service.subscription_type !== "recurring") return
+                                                return (
+                                                    <tr key={service.id}>
+                                                        <td>
+                                                            {/* <img className='me-75' src={angular} alt='angular' height='20' width='20' /> */}
+                                                            <span className='align-middle fw-bold'>{service.name}</span>
+                                                        </td>
+                                                        <td>$ {service.price_types.price}</td>
+                                                        <td>{service.subscription_type}</td>
+                                                        <td>
+                                                            {formatDate(service.created_at)}
+                                                        </td>
+                                                        <td>
+                                                            {formatDate(service.updated_at)}
+                                                        </td>
+                                                        <td>
+                                                            <UncontrolledDropdown>
+                                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
+                                                                    <MoreVertical size={15} />
+                                                                </DropdownToggle>
+                                                                <DropdownMenu>
+                                                                    <Link className='dropdown-item' to="/services/edit/1">
+                                                                        <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
+                                                                    </Link>
+                                                                    <DropdownItem href='/' >
+                                                                        <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
+                                                                    </DropdownItem>
+                                                                </DropdownMenu>
+                                                            </UncontrolledDropdown>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })}
+                                        </tbody>
+                                    </Table>
+                                </TabPane>
+                            </>
+                            : (
+                                <div className='text-center '>
+                                    <strong>Loading....</strong>
+
+                                </div>
+                            )
+                        }
                     </TabContent>
                 </CardBody>
             </Card>

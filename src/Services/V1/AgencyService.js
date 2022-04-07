@@ -8,6 +8,12 @@ async function servicePost(data) {
     return response;
 }
 
+async function serviceList() {
+
+    const response = await Gateway.authGateway("GET", V1.DOMAIN, V1.service.read);
+    return response;
+}
+
 const createServiceBody = (data) => {
     let _data = {};
 
@@ -38,7 +44,8 @@ const createServiceBody = (data) => {
 
 
 const AgencyService = {
-    servicePost
+    servicePost,
+    serviceList
 }
 
 export default AgencyService;
