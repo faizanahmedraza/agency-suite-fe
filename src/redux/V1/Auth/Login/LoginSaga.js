@@ -8,7 +8,6 @@ function* postLogin(data) {
     console.log(data.request)
     try {
         const response = yield AuthService.loginPost(data.request);
-        console.log(response)
         // return
         if (response.success) {
             toast.success(response.message)

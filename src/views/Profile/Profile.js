@@ -87,12 +87,12 @@ const Profile = () => {
                   &nbsp;
                   <small><Label>( Recommended: 50x50 px. )  </Label></small>
                   <Row>
-                    <Col md="3">
+                    <Col md="2">
                       <div className='mt-0'>
                         <img className='rounded-circle' src={portalSetting.logo || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} width="60px" alt="service image" />
                       </div>
                     </Col>
-                    <Col md="7" className='pt-1'>
+                    <Col md="8" className='pt-1' >
                       <Input type='file' onChange={handleInputField} accept="image/*" name='logo' id='nameMulti' />
                     </Col>
                   </Row>

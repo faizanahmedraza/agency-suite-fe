@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState } from 'react'
 import {
     Card,
     Row,
@@ -21,35 +21,40 @@ import {
     InputGroup,
     InputGroupText,
     Container,
+    Spinner,
     ListGroupItem,
     ListGroup
 } from 'reactstrap'
-import { FileText, VolumeX } from 'react-feather'
+import { FileText } from 'react-feather'
 import { useDropzone } from 'react-dropzone'
 import { convertBase64 } from "@utils"
 import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from '@store/store'
+import ServiceActions from '@store/V1/Service/Create/ServiceCreateAction'
 
 const CreateService = () => {
 
     const [active, setActive] = useState('1')
     const [formModal, setFormModal] = useState(false)
-    const [files, setFiles] = useState([])
-    const { id } = useParams()
+    const dispatch = useDispatch()
+    const { loading } = useSelector(state => state.service.create)
+    // const [files, setFiles] = useState([])
+    // const { id } = useParams()
 
     const [serviceDetails, setServiceDetails] = useState({
-        name: null,
-        description: null,
-        image: null,
-        subscription_type: null,
-        price: null,
-        purchase_limit: null,
-        weekly: null,
-        monthly: null,
-        quarterly: null,
-        biannually: null,
-        annually: null,
-        max_concurrent_requests: null,
-        max_requests_per_month: null,
+        name: "",
+        description: "",
+        image: "",
+        subscription_type: "",
+        price: "",
+        purchase_limit: "",
+        weekly: "",
+        monthly: "",
+        quarterly: "",
+        biannually: "",
+        annually: "",
+        max_concurrent_requests: "",
+        max_requests_per_month: "",
         intakes: {
             intake: [
                 {
@@ -89,56 +94,56 @@ const CreateService = () => {
         }
     }
 
-    const { getRootProps, getInputProps } = useDropzone({
-        onDrop: acceptedFiles => {
-            setFiles([...files, ...acceptedFiles.map(file => Object.assign(file))])
-        }
-    })
+    // const { getRootProps, getInputProps } = useDropzone({
+    //     onDrop: acceptedFiles => {
+    //         setFiles([...files, ...acceptedFiles.map(file => Object.assign(file))])
+    //     }
+    // })
 
-    const renderFilePreview = file => {
-        if (file.type.startsWith('image')) {
-            return <img className='rounded' alt={file.name} src={URL.createObjectURL(file)} height='28' width='28' />
-        } else {
-            return <FileText size='28' />
-        }
-    }
+    // const renderFilePreview = file => {
+    //     if (file.type.startsWith('image')) {
+    //         return <img className='rounded' alt={file.name} src={URL.createObjectURL(file)} height='28' width='28' />
+    //     } else {
+    //         return <FileText size='28' />
+    //     }
+    // }
 
-    const handleRemoveFile = file => {
-        const uploadedFiles = files
-        const filtered = uploadedFiles.filter(i => i.name !== file.name)
-        setFiles([...filtered])
-    }
+    // const handleRemoveFile = file => {
+    //     const uploadedFiles = files
+    //     const filtered = uploadedFiles.filter(i => i.name !== file.name)
+    //     setFiles([...filtered])
+    // }
 
-    const renderFileSize = size => {
-        if (Math.round(size / 100) / 10 > 1000) {
-            return `${(Math.round(size / 100) / 10000).toFixed(1)} mb`
-        } else {
-            return `${(Math.round(size / 100) / 10).toFixed(1)} kb`
-        }
-    }
+    // const renderFileSize = size => {
+    //     if (Math.round(size / 100) / 10 > 1000) {
+    //         return `${(Math.round(size / 100) / 10000).toFixed(1)} mb`
+    //     } else {
+    //         return `${(Math.round(size / 100) / 10).toFixed(1)} kb`
+    //     }
+    // }
 
-    const fileList = files.map((file, index) => (
-        <ListGroupItem key={`${file.name}-${index}`} className='d-flex align-items-center justify-content-between'>
-            <div className='file-details d-flex align-items-center'>
-                <div className='file-preview me-1'>{renderFilePreview(file)}</div>
-                <div>
-                    <p className='file-name mb-0'>{file.name}</p>
-                    <p className='file-size mb-0'>{renderFileSize(file.size)}</p>
-                </div>
-            </div>
-            <Button color='danger' outline size='sm' className='btn-icon' onClick={() => handleRemoveFile(file)}>
-                <X size={14} />
-            </Button>
-        </ListGroupItem>
-    ))
+    // const fileList = files.map((file, index) => (
+    //     <ListGroupItem key={`${file.name}-${index}`} className='d-flex align-items-center justify-content-between'>
+    //         <div className='file-details d-flex align-items-center'>
+    //             <div className='file-preview me-1'>{renderFilePreview(file)}</div>
+    //             <div>
+    //                 <p className='file-name mb-0'>{file.name}</p>
+    //                 <p className='file-size mb-0'>{renderFileSize(file.size)}</p>
+    //             </div>
+    //         </div>
+    //         <Button color='danger' outline size='sm' className='btn-icon' onClick={() => handleRemoveFile(file)}>
+    //             <X size={14} />
+    //         </Button>
+    //     </ListGroupItem>
+    // ))
 
-    const handleRemoveAllFiles = () => {
-        setFiles([])
-    }
+    // const handleRemoveAllFiles = () => {
+    //     setFiles([])
+    // }
 
     const onSubmitHandler = (e) => {
         e.preventDefault()
-        console.log(serviceDetails)
+        dispatch(ServiceActions.serviceCreate(serviceDetails))
     }
 
     return (
@@ -191,13 +196,13 @@ const CreateService = () => {
                                                     <Label className='form-label' for='nameMulti'>
                                                         Service Name
                                                     </Label>
-                                                    <Input type='text' value={id ? "Lorem ipsum dolor" : null} onChange={handleInputField} name='name' id='nameMulti' placeholder='Enter Service Name' />
+                                                    <Input type='text' value={serviceDetails.name} onChange={handleInputField} name='name' id='nameMulti' placeholder='Enter Service Name' />
                                                 </div>
                                                 <div className='mb-1'>
                                                     <Label className='form-label' for='nameMulti'>
                                                         Description
                                                     </Label>
-                                                    <Input type='textarea' value={id ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " : null} onChange={handleInputField} name='description' id='nameMulti' placeholder='Enter Description' />
+                                                    <Input type='textarea' value={serviceDetails.description} onChange={handleInputField} name='description' id='nameMulti' placeholder='Enter Description' />
                                                 </div>
                                             </Col>
                                             <Col md='6' sm='12'>
@@ -227,7 +232,7 @@ const CreateService = () => {
                                                     <Label className='form-label' for='select-basic'>
                                                         Type
                                                     </Label>
-                                                    <Input type='select' name='subscription_type' onChange={handleInputField} id='select-basic'>
+                                                    <Input type='select' value={serviceDetails.subscription_type} name='subscription_type' onChange={handleInputField} id='select-basic'>
                                                         <option value="">Please , choose a type</option>
                                                         <option value="one-off">One-off</option>
                                                         <option value="recurring">Recurring</option>
@@ -245,7 +250,7 @@ const CreateService = () => {
                                                                 </Label>
                                                                 <InputGroup className='input-group-merge mb-2'>
                                                                     <InputGroupText>$</InputGroupText>
-                                                                    <Input placeholder='0.00' name="price" onChange={handleInputField} />
+                                                                    <Input value={serviceDetails.price} placeholder='0.00' name="price" onChange={handleInputField} />
                                                                 </InputGroup>
                                                             </div>
                                                         </Col>
@@ -254,7 +259,7 @@ const CreateService = () => {
                                                                 <Label className='form-label' for='select-basic'>
                                                                     Purchase limit
                                                                 </Label>
-                                                                <Input type='number' onChange={handleInputField} name='purchase_limit' id='nameMulti' placeholder='0' />
+                                                                <Input type='number' value={serviceDetails.purchase_limit} onChange={handleInputField} name='purchase_limit' id='nameMulti' placeholder='0' />
                                                             </div>
                                                         </Col>
                                                     </>
@@ -273,7 +278,7 @@ const CreateService = () => {
                                                                 </Label>
                                                                 <InputGroup className='input-group-merge mb-2'>
                                                                     <InputGroupText>$</InputGroupText>
-                                                                    <Input onChange={handleInputField} name="weekly" placeholder='0.00' />
+                                                                    <Input value={serviceDetails.weekly} onChange={handleInputField} name="weekly" placeholder='0.00' />
                                                                 </InputGroup>
                                                             </div>
                                                         </Col>
@@ -287,7 +292,7 @@ const CreateService = () => {
                                                                 </Label>
                                                                 <InputGroup className='input-group-merge mb-2'>
                                                                     <InputGroupText>$</InputGroupText>
-                                                                    <Input placeholder='0.00' name="monthly" onChange={handleInputField} />
+                                                                    <Input value={serviceDetails.monthly} placeholder='0.00' name="monthly" onChange={handleInputField} />
                                                                 </InputGroup>
                                                             </div>
                                                         </Col>
@@ -301,7 +306,7 @@ const CreateService = () => {
                                                                 </Label>
                                                                 <InputGroup className='input-group-merge mb-2'>
                                                                     <InputGroupText>$</InputGroupText>
-                                                                    <Input placeholder='0.00' name="quarterly" onChange={handleInputField} />
+                                                                    <Input value={serviceDetails.quarterly} placeholder='0.00' name="quarterly" onChange={handleInputField} />
                                                                 </InputGroup>
                                                             </div>
                                                         </Col>
@@ -314,7 +319,7 @@ const CreateService = () => {
                                                                 </Label>
                                                                 <InputGroup className='input-group-merge mb-2'>
                                                                     <InputGroupText>$</InputGroupText>
-                                                                    <Input placeholder='0.00' name="biannually" onChange={handleInputField} />
+                                                                    <Input value={serviceDetails.biannually} placeholder='0.00' name="biannually" onChange={handleInputField} />
                                                                 </InputGroup>
                                                             </div>
                                                         </Col>
@@ -327,7 +332,7 @@ const CreateService = () => {
                                                                 </Label>
                                                                 <InputGroup className='input-group-merge mb-2'>
                                                                     <InputGroupText>$</InputGroupText>
-                                                                    <Input placeholder='0.00' name="annually" onChange={handleInputField} />
+                                                                    <Input value={serviceDetails.annually} placeholder='0.00' name="annually" onChange={handleInputField} />
                                                                 </InputGroup>
                                                             </div>
                                                         </Col>
@@ -347,7 +352,7 @@ const CreateService = () => {
                                                                 </Label>
                                                                 <InputGroup className='input-group-merge mb-2'>
                                                                     <InputGroupText>$</InputGroupText>
-                                                                    <Input placeholder='0.00' name="max_concurrent_requests" onChange={handleInputField} />
+                                                                    <Input value={serviceDetails.max_concurrent_requests} placeholder='0.00' name="max_concurrent_requests" onChange={handleInputField} />
                                                                 </InputGroup>
                                                             </div>
                                                         </Col>
@@ -363,7 +368,7 @@ const CreateService = () => {
                                                                 </Label>
                                                                 <InputGroup className='input-group-merge mb-2'>
                                                                     <InputGroupText>$</InputGroupText>
-                                                                    <Input placeholder='0.00' name="max_requests_per_month" onChange={handleInputField} />
+                                                                    <Input value={serviceDetails.max_requests_per_month} placeholder='0.00' name="max_requests_per_month" onChange={handleInputField} />
                                                                 </InputGroup>
                                                             </div>
                                                         </Col>
@@ -376,8 +381,18 @@ const CreateService = () => {
                                                     <Button outline className='me-1' color='secondary' type='reset'>
                                                         Cancel
                                                     </Button>
-                                                    <Button color='primary' type='submit'>
-                                                        Create
+                                                    <Button color='primary' type='submit' disabled={loading}>
+                                                        {
+                                                            loading ?
+                                                                <>
+                                                                    <Spinner color='white' size='sm' type='grow' />
+                                                                    <span className='ms-50'>Loading...</span>
+                                                                </>
+                                                                :
+                                                                <span>
+                                                                    Create
+                                                                </span>
+                                                        }
                                                     </Button>
 
                                                 </div>
@@ -468,11 +483,11 @@ const CreateService = () => {
                         </div>
                         <div className='mb-2'>
                             <Label className='form-label' for='title'>Title:</Label>
-                            <Input type='text'  id='title' placeholder='Enter field title' />
+                            <Input type='text' id='title' placeholder='Enter field title' />
                         </div>
                         <div className='mb-2'>
                             <Label className='form-label' for='placeholder'>Place Holder:</Label>
-                            <Input  type='text' id='placeholder' placeholder='Enter field placeholder' />
+                            <Input type='text' id='placeholder' placeholder='Enter field placeholder' />
                         </div>
                         <div className='mb-2'>
                             <div className='form-check form-check-inline'>

@@ -4,6 +4,12 @@ const V1 = {
     login: "v1/agencies/auth/login",
     verification: "v1/agencies/auth/verify-token"
   },
+  service: {
+    create: "v1/agencies/services",
+    read: "v1/agencies/services",
+    update: "v1/agencies/services/{id}",
+    delete: "v1/agencies/services/{id}"
+  },
   dashboard: {
     dashboards: "v1/admin/dashboard",
   },
@@ -26,7 +32,8 @@ const V1 = {
     posts: "v1/guest/blog/posts",
     tags: "v1/guest/blog/tags",
   },
-  DOMAIN : 'fahadagency.allthingswordpress.io'
+  // DOMAIN: window.location.hostname,
+  DOMAIN: 'fahadagency.allthingswordpress.io',
 };
 
 export default V1;
