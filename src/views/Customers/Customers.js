@@ -12,11 +12,7 @@ import {
     NavItem,
     NavLink,
     Button,
-    Modal,
-    ModalHeader,
-    ModalBody,
 } from 'reactstrap'
-import react from '@src/assets/images/icons/react.svg'
 import CustomerList from './CustomerList';
 
 const Loader = () => {
@@ -28,7 +24,6 @@ const Loader = () => {
 const Customers = () => {
 
     const [active, setActive] = useState('1');
-    const [formModal, setFormModal] = useState(false);
 
     const dispatch = useDispatch();
     const state = useSelector((state => state.customers.list));
@@ -165,22 +160,6 @@ const Customers = () => {
                     </TabContent>
                 </CardBody>
             </Card>
-            <Modal isOpen={formModal} toggle={() => setFormModal(!formModal)} className='modal-dialog-centered'>
-                <ModalHeader toggle={() => setFormModal(!formModal)}></ModalHeader>
-                <ModalBody>
-                    <h3 className='text-center mb-2'>Are you sure you want to delete?</h3>
-                    <div className='d-flex justify-content-around'>
-                        <Button.Ripple color="secondary" onClick={() => setFormModal(!formModal)}>
-                            Cancel
-                        </Button.Ripple>
-                        <Button.Ripple color='danger'>
-                            <Link className='text-white' to='/customers/delete/1'>
-                                Delete
-                            </Link>
-                        </Button.Ripple>
-                    </div>
-                </ModalBody>
-            </Modal>
         </div >
     )
 }

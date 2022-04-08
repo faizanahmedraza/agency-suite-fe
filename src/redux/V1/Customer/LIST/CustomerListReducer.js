@@ -3,6 +3,7 @@ import CUSTOMER from "@store/V1/Customer/ActionType";
 const CustomerListReducer = (
   state = {
     loading: false,
+    error: null,
     customers: [],
     pagination: {},
   },
@@ -28,7 +29,7 @@ const CustomerListReducer = (
       return {
         ...state,
         loading: false,
-        error: action.response,
+        error: action.response.message,
         customers: [],
         pagination: {},
       };

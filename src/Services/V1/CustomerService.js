@@ -30,7 +30,7 @@ async function customerPost(data) {
     return response;
 }
 
-async function customerPut(data,id) {
+async function customerPut(data, id) {
     const response = await Gateway.authGateway(
         "PUT",
         V1.DOMAIN,
@@ -53,7 +53,10 @@ const customerBodyData = (data) => {
     let _data = {};
     _data.first_name = data.first_name;
     _data.last_name = data.last_name;
-    _data.email = data.email;
+    if (data.email !== undefined) {
+        _data.email = data.email;
+    }
+    return JSON.stringify(_data);
 }
 
 const CustomerService = {

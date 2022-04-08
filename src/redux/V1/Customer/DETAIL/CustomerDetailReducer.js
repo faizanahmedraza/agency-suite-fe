@@ -10,7 +10,7 @@ const CustomerDetailReducer = (
       status: null,
       last_logged_in: null,
     },
-    err_mess: null,
+    error: null,
     fetched: false,
   },
   action
@@ -20,7 +20,6 @@ const CustomerDetailReducer = (
       return {
         ...state,
         loading: true,
-        fetched: false,
       };
     case CUSTOMER.CUSTOMER_DETAIL_SUCCESS:
       return {
@@ -33,7 +32,7 @@ const CustomerDetailReducer = (
       return {
          ...state,
           loading: false,
-           err_mess: action.response
+          error: action.response.message
       };
     default:
       return state;

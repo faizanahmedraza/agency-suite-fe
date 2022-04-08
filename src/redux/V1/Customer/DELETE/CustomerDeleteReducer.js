@@ -4,8 +4,7 @@ const CustomerDeleteReducer = (
   state = {
     loading: false,
     success: false,
-    customer_delete: {},
-    err_mess: "",
+    error: null,
   },
   action
 ) => {
@@ -14,17 +13,19 @@ const CustomerDeleteReducer = (
       return {
         ...state,
         loading: true,
-        err_mess: null,
       };
     case CUSTOMER.CUSTOMER_DELETE_SUCCESS:
       return {
         ...state,
         loading: false,
         success: true,
-        customer_delete: action.response,
       };
     case CUSTOMER.CUSTOMER_DELETE_FAILED:
-      return { ...state, loading: false, err_mess: action.response };
+      return {
+         ...state,
+          loading: false,
+          error: action.response.message
+        };
     default:
       return state;
   }
