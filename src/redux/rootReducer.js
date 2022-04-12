@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 
 // ** Reducers Imports
 import LoginReducer from "@store/V1/Auth/Login/LoginReducer";
+import CustomerRootReducer from "@store/V1/Customer/CustomerRootReducer";
 import RegisterReducer from "@store/V1/Auth/Register/RegisterReducers";
 import VerificationReducer from "@store/V1/Auth/Verification/VerificationReducers";
 import ServiceReducer from "@store/V1/Service/serviceRootReducer"
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   login: LoginReducer,
   register: RegisterReducer,
   verification: VerificationReducer,
-  service : ServiceReducer
+  service : ServiceReducer,
+  customers: CustomerRootReducer
 });
 
 export default rootReducer

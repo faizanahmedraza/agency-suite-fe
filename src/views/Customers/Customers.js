@@ -1,77 +1,54 @@
-import React, { useState } from 'react'
-import AvatarGroup from '@components/avatar-group'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from '@store/store';
+import CustomerListAction from "@store/V1/Customer/LIST/CustomerListAction";
+import { Link } from 'react-router-dom';
 import {
     Table,
     Card,
     CardBody,
     TabContent,
     TabPane,
-    UncontrolledDropdown,
-    Badge, DropdownMenu,
-    DropdownToggle,
     Nav,
     NavItem,
     NavLink,
     Button,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
 } from 'reactstrap'
-import react from '@src/assets/images/icons/react.svg'
-import { MoreVertical, Edit, Trash } from 'react-feather'
-import avatar1 from '@src/assets/images/portrait/small/avatar-s-5.jpg'
-import avatar2 from '@src/assets/images/portrait/small/avatar-s-6.jpg'
-import avatar3 from '@src/assets/images/portrait/small/avatar-s-7.jpg'
+import CustomerList from './CustomerList';
+
+const Loader = () => {
+    return (
+        <tr><td colSpan={5} className="text-center"><strong>Loading...</strong></td></tr>
+    );
+}
 
 const Customers = () => {
 
     const [active, setActive] = useState('1');
-    const [formModal, setFormModal] = useState(false);
 
-    // const avatarGroupData1 = [
-    //     {
-    //         title: 'Leslie',
-    //         img: avatar1,
-    //         imgHeight: 26,
-    //         imgWidth: 26
-    //     },
-    //     {
-    //         title: 'Quinn',
-    //         img: avatar2,
-    //         imgHeight: 26,
-    //         imgWidth: 26
-    //     },
-    //     {
-    //         title: 'Quinn',
-    //         img: avatar3,
-    //         imgHeight: 26,
-    //         imgWidth: 26
-    //     }
-    // ]
+    const dispatch = useDispatch();
+    const state = useSelector((state => state.customers.list));
+    const loading = state.loading;
+    const customers = state.customers;
 
-    // const avatarGroupData2 = [
-    //     {
-    //         title: 'Felicia',
-    //         img: avatar1,
-    //         imgHeight: 26,
-    //         imgWidth: 26
-    //     },
-    //     {
-    //         title: 'Brent',
-    //         img: avatar2,
-    //         imgHeight: 26,
-    //         imgWidth: 26
-    //     },
-    //     {
-    //         title: 'Patricia',
-    //         img: avatar3,
-    //         imgHeight: 26,
-    //         imgWidth: 26
-    //     }
-    // ]
+    function activeCustomers (){
+        const activeCustomers = customers.filter((customer) => {
+            return customer.status === "active";
+        });
 
+        return <CustomerList data={activeCustomers}/>
+    }
+
+    function pendingCustomers(){
+        const pendingCustomers = customers.filter((customer) => {
+            return customer.status === "pending";
+        });
+
+        return <CustomerList data={pendingCustomers}/>
+    }
+
+    useEffect(() => {
+        dispatch(CustomerListAction.customerList());
+    }, []);
 
     const toggle = tab => {
         if (active !== tab) {
@@ -137,119 +114,14 @@ const Customers = () => {
                                         <th>NAME</th>
                                         <th>EMAIL</th>
                                         <th>STATUS</th>
-                                        <th>CREATED</th>
+                                        <th>LAST LOGGED IN</th>
                                         <th>ACTIONS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <span className='align-middle fw-bold'>FAIZAN AHMED RAZA</span>
-                                        </td>
-                                        <td>faizan@saasfa.com</td>
-                                        <td>
-                                            <Badge pill color='light-primary' className='me-1'>
-                                                Active
-                                            </Badge>
-                                        </td>
-                                        <td>11 Minutes ago</td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                    <Link className='dropdown-item' to='/customers/edit/1'>
-                                                        <Edit className='me-50' size={15} /> <span className='align-middle'>Edit</span>
-                                                    </Link>
-                                                    <div className='dropdown-item' onClick={() => setFormModal(!formModal)}>
-                                                        <Trash className='me-50' size={15} /> <span className='align-middle'>Delete</span>
-                                                    </div>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span className='align-middle fw-bold'>HARIS GHORI</span>
-                                        </td>
-                                        <td>faizan@saasfa.com</td>
-                                        <td>
-                                            <Badge pill color='light-primary' className='me-1'>
-                                                Active
-                                            </Badge>
-                                        </td>
-                                        <td>11 Minutes ago</td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                    <Link className='dropdown-item' to='/customers/edit/1'>
-                                                        <Edit className='me-50' size={15} /> <span className='align-middle'>Edit</span>
-                                                    </Link>
-                                                    <div className='dropdown-item' onClick={() => setFormModal(!formModal)}>
-                                                        <Trash className='me-50' size={15} /> <span className='align-middle'>Delete</span>
-                                                    </div>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span className='align-middle fw-bold'>Mehmood</span>
-                                        </td>
-                                        <td>mehmood@saasfa.com</td>
-                                        <td>
-                                            <Badge pill color='light-primary' className='me-1'>
-                                                Pending
-                                            </Badge>
-                                        </td>
-                                        <td>11 Minutes ago</td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                    <Link className='dropdown-item' to='/customers/edit/1'>
-                                                        <Edit className='me-50' size={15} /> <span className='align-middle'>Edit</span>
-                                                    </Link>
-                                                    <div className='dropdown-item' onClick={() => setFormModal(!formModal)}>
-                                                        <Trash className='me-50' size={15} /> <span className='align-middle'>Delete</span>
-                                                    </div>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span className='align-middle fw-bold'>Fahad</span>
-                                        </td>
-                                        <td>fahad@saasfa.com</td>
-                                        <td>
-                                            <Badge pill color='light-primary' className='me-1'>
-                                                Pending
-                                            </Badge>
-                                        </td>
-                                        <td>11 Minutes ago</td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                    <Link className='dropdown-item' to='/customers/edit/1'>
-                                                        <Edit className='me-50' size={15} /> <span className='align-middle'>Edit</span>
-                                                    </Link>
-                                                    <div className='dropdown-item' onClick={() => setFormModal(!formModal)}>
-                                                        <Trash className='me-50' size={15} /> <span className='align-middle'>Delete</span>
-                                                    </div>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
+                                    {
+                                        loading ? <Loader/> : <CustomerList data={customers}/>
+                                    }
                                 </tbody>
                             </Table>
                         </TabPane>
@@ -260,66 +132,12 @@ const Customers = () => {
                                         <th>NAME</th>
                                         <th>EMAIL</th>
                                         <th>STATUS</th>
-                                        <th>CREATED</th>
+                                        <th>LAST LOGGED IN</th>
                                         <th>ACTIONS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <img className='me-75' src={react} alt='angular' height='20' width='20' />
-                                            <span className='align-middle fw-bold'>FAIZAN AHMED RAZA</span>
-                                        </td>
-                                        <td>faizan@saasfa.com</td>
-                                        <td>
-                                            <Badge pill color='light-primary' className='me-1'>
-                                                Active
-                                            </Badge>
-                                        </td>
-                                        <td>11 Minutes ago</td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                    <Link className='dropdown-item' to='/customers/edit/1'>
-                                                        <Edit className='me-50' size={15} /> <span className='align-middle'>Edit</span>
-                                                    </Link>
-                                                    <div className='dropdown-item' onClick={() => setFormModal(!formModal)}>
-                                                        <Trash className='me-50' size={15} /> <span className='align-middle'>Delete</span>
-                                                    </div>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span className='align-middle fw-bold'>HARIS GHORI</span>
-                                        </td>
-                                        <td>faizan@saasfa.com</td>
-                                        <td>
-                                            <Badge pill color='light-primary' className='me-1'>
-                                                Active
-                                            </Badge>
-                                        </td>
-                                        <td>11 Minutes ago</td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                    <Link className='dropdown-item' to='/customers/edit/1'>
-                                                        <Edit className='me-50' size={15} /> <span className='align-middle'>Edit</span>
-                                                    </Link>
-                                                    <div className='dropdown-item' onClick={() => setFormModal(!formModal)}>
-                                                        <Trash className='me-50' size={15} /> <span className='align-middle'>Delete</span>
-                                                    </div>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
+                                    {  loading ? <Loader/> : customers && activeCustomers(customers)}
                                 </tbody>
                             </Table>
                         </TabPane>
@@ -330,87 +148,18 @@ const Customers = () => {
                                         <th>NAME</th>
                                         <th>EMAIL</th>
                                         <th>STATUS</th>
-                                        <th>CREATED</th>
+                                        <th>LAST LOGGED IN</th>
                                         <th>ACTIONS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <span className='align-middle fw-bold'>Mehmood</span>
-                                        </td>
-                                        <td>mehmood@saasfa.com</td>
-                                        <td>
-                                            <Badge pill color='light-primary' className='me-1'>
-                                                Pending
-                                            </Badge>
-                                        </td>
-                                        <td>11 Minutes ago</td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                    <Link className='dropdown-item' to='/customers/edit/1'>
-                                                        <Edit className='me-50' size={15} /> <span className='align-middle'>Edit</span>
-                                                    </Link>
-                                                    <div className='dropdown-item' onClick={() => setFormModal(!formModal)}>
-                                                        <Trash className='me-50' size={15} /> <span className='align-middle'>Delete</span>
-                                                    </div>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span className='align-middle fw-bold'>Fahad</span>
-                                        </td>
-                                        <td>fahad@saasfa.com</td>
-                                        <td>
-                                            <Badge pill color='light-primary' className='me-1'>
-                                                Pending
-                                            </Badge>
-                                        </td>
-                                        <td>11 Minutes ago</td>
-                                        <td>
-                                            <UncontrolledDropdown>
-                                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                    <MoreVertical size={15} />
-                                                </DropdownToggle>
-                                                <DropdownMenu>
-                                                    <Link className='dropdown-item' to='/customers/edit/1'>
-                                                        <Edit className='me-50' size={15} /> <span className='align-middle'>Edit</span>
-                                                    </Link>
-                                                    <div className='dropdown-item' onClick={() => setFormModal(!formModal)}>
-                                                        <Trash className='me-50' size={15} /> <span className='align-middle'>Delete</span>
-                                                    </div>
-                                                </DropdownMenu>
-                                            </UncontrolledDropdown>
-                                        </td>
-                                    </tr>
+                                    {  loading ? <Loader/> : customers && pendingCustomers(customers)}
                                 </tbody>
                             </Table>
                         </TabPane>
                     </TabContent>
                 </CardBody>
             </Card>
-            <Modal isOpen={formModal} toggle={() => setFormModal(!formModal)} className='modal-dialog-centered'>
-                <ModalHeader toggle={() => setFormModal(!formModal)}></ModalHeader>
-                <ModalBody>
-                    <h3 className='text-center mb-2'>Are you sure you want to delete?</h3>
-                    <div className='d-flex justify-content-around'>
-                        <Button.Ripple color="secondary" onClick={() => setFormModal(!formModal)}>
-                            Cancel
-                        </Button.Ripple>
-                        <Button.Ripple color='danger'>
-                            <Link className='text-white' to='/customers/delete/1'>
-                                Delete
-                            </Link>
-                        </Button.Ripple>
-                    </div>
-                </ModalBody>
-            </Modal>
         </div >
     )
 }

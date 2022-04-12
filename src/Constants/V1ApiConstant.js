@@ -17,8 +17,8 @@ const V1 = {
   user: {
     users: "v1/admin/users",
   },
-  customer: {
-    customers: "v1/admin/customers",
+  agency: {
+    customers: "v1/agencies/customers",
   },
   tag: {
     tags: "v1/admin/blog/tags",

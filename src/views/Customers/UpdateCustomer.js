@@ -1,4 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from '@store/store';
+import CustomerDetailAction from "@store/V1/Customer/DETAIL/CustomerDetailAction";
+import CustomerUpdateAction from "@store/V1/Customer/UPDATE/CustomerUpdateAction";
 import {
     Card,
     Row,
@@ -8,26 +12,56 @@ import {
     CardBody,
     Form,
     CardHeader,
+    Button,
+    Spinner,
 } from 'reactstrap';
 
+const Loader = () => {
+    return (
+        <div className='d-flex justify-content-center'><strong>Loading...</strong></div>
+    );
+}
+
 const UpdateCustomer = () => {
-    const [CustomerDetails, setCustomerDetails] = useState({
-        first_name: null,
-        last_name: null
-    })
+
+    const { detail : {customer , fetched, loading}, update: { loading : updateLoading } } = useSelector((state => state.customers));
+
+    const initialState = {
+        first_name:  "",
+        last_name: "",
+    }
+
+    const [customerDetails, setCustomerDetails] = useState(initialState);
+
+    const dispatch = useDispatch();
+    const { id } = useParams();
 
     const handleInputField = (e) => {
         setCustomerDetails({
-            ...CustomerDetails,
+            ...customerDetails,
             [e.target.name]: e.target.value
         })
     }
 
-    const onSubmitHandler = (e) => {
-        e.preventDefault()
-        console.log(CustomerDetails)
+    const resetInputField = (e) => {
+        setCustomerDetails(initialState)
     }
 
+    const onSubmitHandler = (e) => {
+        e.preventDefault();
+        dispatch(CustomerUpdateAction.customerUpdate({
+            form: customerDetails,
+            id
+        }));
+    }
+
+    useEffect(() => {
+        dispatch(CustomerDetailAction.customerDetail(id));
+        if (fetched){
+            setCustomerDetails(customer)
+        }
+    }, [fetched]);
+    
     return (
         <div>
             <Card>
@@ -46,6 +80,7 @@ const UpdateCustomer = () => {
                             <h4>Customer Details</h4>
                         </CardHeader>
                         <hr />
+                        { loading ? <Loader/> :
                         <CardBody>
                             <Form onSubmit={onSubmitHandler}>
                                 <Row>
@@ -53,21 +88,43 @@ const UpdateCustomer = () => {
                                         <div className='mb-1'>
                                             <Label className='form-label' for='nameMulti'>
                                                 First Name
-                                                    </Label>
-                                            <Input type='text' onChange={handleInputField} name='name' id='first_name' placeholder='Enter Customer First Name' />
+                                            </Label>
+                                            <Input type='text' onChange={handleInputField} name='first_name' id='first_name' placeholder='Enter Customer First Name' value={customerDetails.first_name } />
                                         </div>
                                     </Col>
                                     <Col md='6' sm='12'>
                                         <div className='mb-1'>
                                             <Label className='form-label' for='nameMulti'>
                                                 Last Name
-                                                    </Label>
-                                            <Input type='email' onChange={handleInputField} name='name' id='email' placeholder='Enter Customer Last Name' />
+                                            </Label>
+                                            <Input type='text' onChange={handleInputField} name='last_name' id='last_name' placeholder='Enter Customer Last Name' value={customerDetails.last_name} />
+                                        </div>
+                                    </Col>
+                                    <Col md='12' sm='12'>
+                                        <div className='d-flex justify-content-between'>
+                                            <Button outline className='me-1' color='secondary' type='button' onClick={resetInputField}>
+                                                Cancel
+                                            </Button>
+                                            <Button color='primary' type='submit' disabled={updateLoading}>
+                                                {
+                                                    updateLoading ?
+                                                        <>
+                                                            <Spinner color='white' size='sm' type='grow' />
+                                                            <span className='ms-50'>Loading...</span>
+                                                        </>
+                                                        :
+                                                        <span>
+                                                            Update
+                                                        </span>
+                                                }
+                                            </Button>
+
                                         </div>
                                     </Col>
                                 </Row>
                             </Form>
                         </CardBody>
+}
                     </Card>
                 </CardBody>
             </Card>
