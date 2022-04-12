@@ -2,7 +2,8 @@ const V1 = {
   auth: {
     register: 'v1/agencies/auth/register',
     login: "v1/agencies/auth/login",
-    verification: "v1/agencies/auth/verify-token"
+    verification: "v1/agencies/auth/verify-token",
+    forgot_password: "v1/agencies/auth/forget-password",
   },
   service: {
     create: "v1/agencies/services",

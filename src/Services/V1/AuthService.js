@@ -17,10 +17,16 @@ async function registerPost(data) {
 }
 
 async function verificationPost(data) {
-    
     const _data = VerificationPostBody(data);
     console.log(_data)
     const response = await Gateway.guestGateway("POST", V1.DOMAIN, V1.auth.verification, _data);
+    return response;
+}
+
+async function forgotPasswordPost(data) {
+    const _data = forgotPasswordPostBody(data);
+    console.log(_data)
+    const response = await Gateway.guestGateway("POST", V1.DOMAIN, V1.auth.forgot_password, _data);
     return response;
 }
 
@@ -43,10 +49,16 @@ const VerificationPostBody = (data) => {
     _data.token = data.token;
     return JSON.stringify(_data);
 };
+const forgotPasswordPostBody = (data) => {
+    let _data = {};
+    _data.email = data.email;
+    return JSON.stringify(_data);
+};
 
 const AuthService = {
     loginPost,
     registerPost,
-    verificationPost
+    verificationPost,
+    forgotPasswordPost
 };
 export default AuthService;

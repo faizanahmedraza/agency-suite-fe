@@ -4,6 +4,7 @@ import { combineReducers } from "redux";
 import LoginReducer from "@store/V1/Auth/Login/LoginReducer";
 import RegisterReducer from "@store/V1/Auth/Register/RegisterReducers";
 import VerificationReducer from "@store/V1/Auth/Verification/VerificationReducers";
+import ForgotPasswordReducer from "@store/V1/Auth/Forgot Password/ForgotPasswordReducers"
 import ServiceReducer from "@store/V1/Service/serviceRootReducer"
 import navbar from './navbar'
 import layout from './layout'
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   login: LoginReducer,
   register: RegisterReducer,
   verification: VerificationReducer,
-  service : ServiceReducer
+  forgotPassword: ForgotPasswordReducer,
+  service: ServiceReducer
 });
 
 export default rootReducer

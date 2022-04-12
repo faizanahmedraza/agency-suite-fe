@@ -114,9 +114,9 @@ const LoginCover = () => {
                   <Label className='form-label' for='login-password'>
                     Password
                   </Label>
-                  {/* <Link to='/' onClick={e => e.preventDefault()}>
+                  <Link to='/forgot-password'>
                     <small>Forgot Password?</small>
-                  </Link> */}
+                  </Link>
                 </div>
                 <InputPasswordToggle className='input-group-merge' value={agencyInformation.password} name="password" onChange={handleInputChange} id='login-password' />
               </div>
