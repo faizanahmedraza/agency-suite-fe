@@ -26,11 +26,11 @@ const Invoice = () => {
             <div className='col-md-9'>
               <h1>Invoices</h1>
             </div>
-            <div className='col-md-3'>
+            {/* <div className='col-md-3'>
               <Link to="/invoice/create">
                 <Button.Ripple className="w-100" color='primary'>Create Invoice</Button.Ripple>
               </Link>
-            </div>
+            </div> */}
           </div>
         </CardBody >
       </Card >

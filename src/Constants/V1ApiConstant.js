@@ -7,8 +7,8 @@ const V1 = {
   service: {
     create: "v1/agencies/services",
     read: "v1/agencies/services",
-    update: "v1/agencies/services/{id}",
-    delete: "v1/agencies/services/{id}"
+    update: "v1/agencies/services",
+    delete: "v1/agencies/services"
   },
   dashboard: {
     dashboards: "v1/admin/dashboard",

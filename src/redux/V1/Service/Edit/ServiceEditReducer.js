@@ -1,27 +1,23 @@
 import SERVICE from "@store/V1/Service/ActionTypes"
 
-const ServiceListReducer = (
+const ServiceEditReducer = (
     state = {
         loading: false,
-        services: [],
-        pagination : null
     },
     action
 ) => {
     switch (action.type) {
-        case SERVICE.SERVICE_LIST:
+        case SERVICE.SERVICE_EDIT:
             return {
                 ...state,
                 loading: true,
             }
-        case SERVICE.SERVICE_LIST_SUCCESS:
+        case SERVICE.SERVICE_EDIT_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                services: action.response.services,
-                pagination : action.response.pagination
             }
-        case SERVICE.SERVICE_LIST_FAILED:
+        case SERVICE.SERVICE_EDIT_FAILED:
             return {
                 ...state,
                 loading: false,
@@ -31,4 +27,4 @@ const ServiceListReducer = (
     }
 }
 
-export default ServiceListReducer;
+export default ServiceEditReducer;

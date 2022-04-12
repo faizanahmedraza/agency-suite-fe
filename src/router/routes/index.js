@@ -36,6 +36,7 @@ const Portal = lazy(() => import('../../views/Portal/portal'))
 const Invoice = lazy(() => import('../../views/Invoice/invoice'))
 const CreateInvoice = lazy(() => import('../../views/Invoice/Create Invoice'))
 const CreateServices = lazy(() => import('../../views/Services/Create Service/createService'))
+const EditServices = lazy(() => import('../../views/Services/Edit Service/editService'))
 const Login = lazy(() => import('../../views/Login'))
 const Register = lazy(() => import('../../views/Register'))
 const Verification = lazy(() => import('../../views/Verification'))
@@ -85,7 +86,7 @@ const Routes = [
   },
   {
     path: '/services/edit/:id',
-    element: <CreateServices />,
+    element: <EditServices />,
     meta: {
       publicRoute: true,
     }

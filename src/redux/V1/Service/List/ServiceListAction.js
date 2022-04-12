@@ -17,10 +17,10 @@ const serviceListFailed = () => {
     };
 };
 
-const ServiceCreateAction = {
+const ServiceListAction = {
     serviceList,
     serviceListSuccess,
     serviceListFailed
 }
 
-export default ServiceCreateAction;
+export default ServiceListAction;

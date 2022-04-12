@@ -1,27 +1,25 @@
 import SERVICE from "@store/V1/Service/ActionTypes"
 
-const ServiceListReducer = (
+const ServiceDeleteReducer = (
     state = {
         loading: false,
-        services: [],
-        pagination : null
+        isDeleted: false
     },
     action
 ) => {
     switch (action.type) {
-        case SERVICE.SERVICE_LIST:
+        case SERVICE.SERVICE_DELETE:
             return {
                 ...state,
                 loading: true,
             }
-        case SERVICE.SERVICE_LIST_SUCCESS:
+        case SERVICE.SERVICE_DELETE_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                services: action.response.services,
-                pagination : action.response.pagination
+                isDeleted: true,
             }
-        case SERVICE.SERVICE_LIST_FAILED:
+        case SERVICE.SERVICE_DELETE_FAILED:
             return {
                 ...state,
                 loading: false,
@@ -31,4 +29,4 @@ const ServiceListReducer = (
     }
 }
 
-export default ServiceListReducer;
+export default ServiceDeleteReducer;
