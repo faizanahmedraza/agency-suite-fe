@@ -5,6 +5,7 @@ import LoginReducer from "@store/V1/Auth/Login/LoginReducer";
 import CustomerRootReducer from "@store/V1/Customer/CustomerRootReducer";
 import RegisterReducer from "@store/V1/Auth/Register/RegisterReducers";
 import VerificationReducer from "@store/V1/Auth/Verification/VerificationReducers";
+import ForgotPasswordReducer from "@store/V1/Auth/Forgot Password/ForgotPasswordReducers"
 import ServiceReducer from "@store/V1/Service/serviceRootReducer"
 import navbar from './navbar'
 import layout from './layout'
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   register: RegisterReducer,
   verification: VerificationReducer,
   service : ServiceReducer,
-  customers: CustomerRootReducer
+  customers: CustomerRootReducer,
+  forgotPassword: ForgotPasswordReducer,
 });
 
 export default rootReducer

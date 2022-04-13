@@ -23,6 +23,16 @@ async function serviceDelete(data) {
     return response;
 }
 
+async function servicePagination(data) {
+    const response = await Gateway.authGateway("GET", V1.DOMAIN, V1.service.read + "?page=" + data);
+    return response;
+}
+
+async function serviceCatalog(data) {
+    const response = await Gateway.authGateway("PUT", V1.DOMAIN, V1.service.change_catalog_status + "/" + data);
+    return response;
+}
+
 const editServiceBody = (data) => {
 
     let _data = {};
@@ -81,7 +91,9 @@ const AgencyService = {
     servicePost,
     serviceList,
     servicEdit,
-    serviceDelete
+    serviceDelete,
+    servicePagination,
+    serviceCatalog
 }
 
 export default AgencyService;

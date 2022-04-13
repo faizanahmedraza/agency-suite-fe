@@ -11,7 +11,7 @@ import { User,Power } from 'react-feather'
 import { UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap'
 
 // ** Default Avatar Image
-import defaultAvatar from '@src/assets/images/portrait/small/avatar-s-11.jpg'
+import defaultAvatar from '@src/assets/images/portrait/small/avatar-s-27.png'
 
 import { useSelector } from "@store/store"
 

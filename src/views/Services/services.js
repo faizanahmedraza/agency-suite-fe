@@ -18,7 +18,7 @@ import ServiceTable from './ServiceTable'
 const Services = () => {
 
     const [active, setActive] = useState('1')
-   
+
     const dispatch = useDispatch()
     const {
         list: {
@@ -28,8 +28,13 @@ const Services = () => {
         },
         delete: {
             isDeleted
+        },
+        catalog: {
+            isChanged
         }
     } = useSelector(state => state.service)
+
+    console.log(services)
 
     const catalog_service = services.filter(service => service.catalog_status === "active")
     const one_off_services = services.filter(service => service.subscription_type === "one-off")
@@ -42,8 +47,8 @@ const Services = () => {
     }
 
     useEffect(() => {
-        if (!services.length || isDeleted) return dispatch(ServiceActions.serviceList())
-    }, [isDeleted])
+        if (!services.length || isDeleted || isChanged) return dispatch(ServiceActions.serviceList())
+    }, [isDeleted , isChanged])
 
     return (
         <div>
@@ -116,7 +121,6 @@ const Services = () => {
                                     <>
                                         <TabPane tabId='1'>
                                             <ServiceTable services={services} pagination={pagination} />
-                                           
                                         </TabPane>
                                         <TabPane tabId='2'>
                                             <ServiceTable services={catalog_service} pagination={pagination} />

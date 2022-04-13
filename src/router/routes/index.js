@@ -183,21 +183,25 @@ const Routes = [
     meta: {
       layout: 'blank',
       publicRoute: true,
-      restricted: true
+      restricted: true,
+      
     }
   },
   {
     path: '/forgot-password',
     element: <ForgotPassword />,
     meta: {
-      layout: 'blank'
+      layout: 'blank',
+      publicRoute: true,
+      restricted: true
     }
   },
   {
     path: '/error',
     element: <Error />,
     meta: {
-      layout: 'blank'
+      layout: 'blank',
+      
     }
   }
 ]
