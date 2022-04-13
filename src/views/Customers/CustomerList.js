@@ -1,81 +1,164 @@
-import React, { useState } from 'react';
-import { useDispatch } from '@store/store';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "@store/store";
+import { Link } from "react-router-dom";
 import {
-    UncontrolledDropdown,
-    Badge, DropdownMenu,
-    DropdownToggle,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    Button
-} from 'reactstrap';
+  UncontrolledDropdown,
+  Badge,
+  DropdownMenu,
+  DropdownToggle,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  Table,
+} from "reactstrap";
+import ReactPaginate from "react-paginate";
 import CustomerDeleteAction from "@store/V1/Customer/DELETE/CustomerDeleteAction";
-import { MoreVertical, Edit, Trash } from 'react-feather';
+import { MoreVertical, Edit, Trash } from "react-feather";
 
 const CustomerList = (props) => {
-    const _data = props.data;
-    const dispatch = useDispatch();
-    const [formModal, setFormModal] = useState(false);
-    const [deleteCustomerId, setCustomerId] = useState();
+  const _data = props.data;
+  const dispatch = useDispatch();
+  const [formModal, setFormModal] = useState(false);
+  const [deleteCustomerId, setCustomerId] = useState();
+  const [currentItems, setCurrentItems] = useState(null);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(props.pagination.per_page);
 
-    const customerDelete = (id) => {
-        dispatch(CustomerDeleteAction.customerDelete(id));
-        setFormModal(!formModal);
-    }
+  const customerDelete = (id) => {
+    dispatch(CustomerDeleteAction.customerDelete(id));
+    setFormModal(!formModal);
+  };
 
-    return (
-        <React.Fragment>
-            {_data.length > 0 ?
-                _data.map((customer) => (
-                    <tr key={customer.id}>
-                        <td>
-                            <span className='align-middle fw-bold'>{customer.first_name + ' ' + customer.last_name}</span>
-                        </td>
-                        <td>{customer.email}</td>
-                        <td>
-                            <Badge pill color='light-primary' className='me-1'>
-                                {customer.status}
-                            </Badge>
-                        </td>
-                        <td>{customer.last_logged_in}</td>
-                        <td>
-                            <UncontrolledDropdown>
-                                <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                    <MoreVertical size={15} />
-                                </DropdownToggle>
-                                <DropdownMenu>
-                                    <Link className='dropdown-item' to={`/customers/edit/${customer.id}`}>
-                                        <Edit className='me-50' size={15} /> <span className='align-middle'>Edit</span>
-                                    </Link>
-                                    <div className='dropdown-item' onClick={() => {
-                                        setFormModal(!formModal)
-                                        setCustomerId(customer.id)
-                                    }}>
-                                        <Trash className='me-50' size={15} /> <span className='align-middle'>Delete</span>
-                                    </div>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
-                        </td>
-                    </tr>
-                ))
-                :
-                <tr><td colSpan={5} className="text-center"><strong>No Record Exist.</strong></td></tr>}
-            <Modal isOpen={formModal} toggle={() => setFormModal(!formModal)} className='modal-dialog-centered'>
-                <ModalHeader toggle={() => setFormModal(!formModal)}></ModalHeader>
-                <ModalBody>
-                    <h3 className='text-center mb-2'>Are you sure you want to delete?</h3>
-                    <div className='d-flex justify-content-around'>
-                        <Button.Ripple color="secondary" onClick={() => setFormModal(!formModal)}>
-                            Cancel
-                        </Button.Ripple>
-                        <Button.Ripple color='danger' onClick={() => customerDelete(deleteCustomerId)}>
-                                Delete
-                        </Button.Ripple>
-                    </div>
-                </ModalBody>
-            </Modal>
-        </React.Fragment>);
-}
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(_data.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(_data.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage]);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % _data.length;
+    setItemOffset(newOffset);
+  };
+
+  return (
+    <React.Fragment>
+      <Table bordered responsive>
+        <thead>
+          <tr>
+            <th>NAME</th>
+            <th>EMAIL</th>
+            <th>STATUS</th>
+            <th>LAST LOGGED IN</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentItems &&
+            currentItems.map((customer) => {
+              return (
+                <tr key={customer.id}>
+                  <td>
+                    <Link to={`/customers/edit/${customer.id}`}>
+                      <span className="align-middle fw-bold">
+                        {customer.first_name + " " + customer.last_name}
+                      </span>
+                    </Link>
+                  </td>
+                  <td>{customer.email}</td>
+                  <td>
+                    <Badge pill color="light-primary" className="me-1">
+                      {customer.status}
+                    </Badge>
+                  </td>
+                  <td>{customer.last_logged_in}</td>
+                  <td>
+                    <UncontrolledDropdown>
+                      <DropdownToggle
+                        className="icon-btn hide-arrow"
+                        color="transparent"
+                        size="sm"
+                        caret
+                      >
+                        <MoreVertical size={15} />
+                      </DropdownToggle>
+                      <DropdownMenu>
+                        <Link
+                          className="dropdown-item"
+                          to={`/customers/edit/${customer.id}`}
+                        >
+                          <Edit className="me-50" size={15} />{" "}
+                          <span className="align-middle">Edit</span>
+                        </Link>
+                        <div
+                          className="dropdown-item"
+                          onClick={() => {
+                            setFormModal(!formModal);
+                            setCustomerId(customer.id);
+                          }}
+                        >
+                          <Trash className="me-50" size={15} />{" "}
+                          <span className="align-middle">Delete</span>
+                        </div>
+                      </DropdownMenu>
+                    </UncontrolledDropdown>
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </Table>
+      <div className="d-flex justify-content-end pt-1">
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="< previous"
+          renderOnZeroPageCount={null}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          containerClassName={"pagination"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          activeClassName={"active"}
+        />
+      </div>
+      <div className="vertically-centered-modal">
+        <Modal
+          isOpen={formModal}
+          toggle={() => setCenteredModal(!formModal)}
+          className="modal-dialog-centered"
+        >
+          <ModalHeader toggle={() => setCenteredModal(!formModal)}>
+            Confirmation
+          </ModalHeader>
+          <ModalBody>Are you sure you want to delete this customer ?</ModalBody>
+          <ModalFooter>
+            <Button
+              color="primary"
+              onClick={() => setCenteredModal(!formModal)}
+            >
+              Cancel
+            </Button>
+            <Button
+              color="danger"
+              onClick={() => customerDelete(deleteCustomerId)}
+            >
+              Delete
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </div>
+    </React.Fragment>
+  );
+};
 
 export default CustomerList;

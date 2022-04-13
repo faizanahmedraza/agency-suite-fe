@@ -9,6 +9,7 @@ function* customerUpdate(data) {
     if (response.success) {
         toast.success(response.message)
         yield put(CustomerUpdateAction.customerUpdateSuccess(response.data))
+        window.location.href = "/customers";
     } else {
         toast.error(response.error.message)
         yield put(CustomerUpdateAction.customerUpdateFailed(response))

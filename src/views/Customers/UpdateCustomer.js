@@ -80,7 +80,6 @@ const UpdateCustomer = () => {
                             <h4>Customer Details</h4>
                         </CardHeader>
                         <hr />
-                        { loading ? <Loader/> :
                         <CardBody>
                             <Form onSubmit={onSubmitHandler}>
                                 <Row>
@@ -89,7 +88,7 @@ const UpdateCustomer = () => {
                                             <Label className='form-label' for='nameMulti'>
                                                 First Name
                                             </Label>
-                                            <Input type='text' onChange={handleInputField} name='first_name' id='first_name' placeholder='Enter Customer First Name' value={customerDetails.first_name } />
+                                            <Input type='text' onChange={handleInputField} name='first_name' id='first_name' placeholder='Enter Customer First Name' value={ !loading ? customerDetails.first_name : "" } />
                                         </div>
                                     </Col>
                                     <Col md='6' sm='12'>
@@ -97,7 +96,7 @@ const UpdateCustomer = () => {
                                             <Label className='form-label' for='nameMulti'>
                                                 Last Name
                                             </Label>
-                                            <Input type='text' onChange={handleInputField} name='last_name' id='last_name' placeholder='Enter Customer Last Name' value={customerDetails.last_name} />
+                                            <Input type='text' onChange={handleInputField} name='last_name' id='last_name' placeholder='Enter Customer Last Name' value={ !loading ? customerDetails.last_name : ""} />
                                         </div>
                                     </Col>
                                     <Col md='12' sm='12'>
@@ -124,7 +123,6 @@ const UpdateCustomer = () => {
                                 </Row>
                             </Form>
                         </CardBody>
-}
                     </Card>
                 </CardBody>
             </Card>

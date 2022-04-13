@@ -10,7 +10,6 @@ function* customerList(data) {
     if (response.success) {
       yield put(CustomerListAction.customerListSuccess(response.data));
     } else {
-      toast.error(response.error.message);
       yield put(CustomerListAction.customerListFailed(response.error));
     }
   } catch (error) {

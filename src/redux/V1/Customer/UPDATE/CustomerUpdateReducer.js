@@ -4,10 +4,7 @@ const CustomerUpdateReducer = (
     state = {
         loading: false,
         success: false,
-        customer: {
-            first_name: null,
-            last_name: null,
-        },
+        customer: {},
         error: null
     },
     action
