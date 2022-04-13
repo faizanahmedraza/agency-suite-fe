@@ -53,85 +53,85 @@ const Routes = [
   {
     path: '/dashboard',
     element: <Dashboard />,
-    meta: {
-      publicRoute: true,
-    }
+    // meta: {
+    //   publicRoute: true,
+    // }
    
   },
   {
     path: '/profile',
     element: <Profile />,
-    meta: {
-      publicRoute: true,
-    }
+    // meta: {
+    //   publicRoute: true,
+    // }
    
   },
   {
     path: '/services',
     element: <Services />,
-    meta: {
-      publicRoute: true,
-    }
+    // meta: {
+    //   publicRoute: true,
+    // }
    
    
   },
   {
     path: '/services/create',
     element: <CreateServices />,
-    meta: {
-      publicRoute: true,
-    }
+    // meta: {
+    //   publicRoute: true,
+    // }
    
     
   },
   {
     path: '/services/edit/:id',
     element: <EditServices />,
-    meta: {
-      publicRoute: true,
-    }
+    // meta: {
+    //   publicRoute: true,
+    // }
    
   },
   {
     path: '/customers',
     element: <Customers />,
-    meta: {
-      publicRoute: true,
-    }
+    // meta: {
+    //   publicRoute: true,
+    // }
    
   },
   {
     path: '/customers/create',
     element: <CreateCustomer />,
-    meta: {
-      publicRoute: true,
-    }
+    // meta: {
+    //   publicRoute: true,
+    // }
    
   }
   ,
   {
     path: '/customers/edit/:id',
     element: <UpdateCustomer />,
-    meta: {
-      publicRoute: true,
-    }
+    // meta: {
+    //   publicRoute: true,
+    // }
    
   }
   ,
   {
     path: '/customers/delete/:id',
     element: <UpdateCustomer />,
-    meta: {
-      publicRoute: true,
-    }
+    // meta: {
+    //   publicRoute: true,
+    // }
    
   },
   {
     path: '/portal',
     element: <Portal />,
-    meta: {
-      publicRoute: true,
-    }
+    // meta: {
+    //   publicRoute: true,
+    // }
    
    
   },
@@ -148,7 +148,7 @@ const Routes = [
     element: <CreateInvoice />,
     meta: {
       layout: 'vertical',
-      publicRoute: true,
+      // publicRoute: true,
     }
   },
   {
@@ -156,7 +156,7 @@ const Routes = [
     element: <CreateInvoice />,
     meta: {
       layout: 'vertical',
-      publicRoute: true,
+      // publicRoute: true,
     }
   },
   {

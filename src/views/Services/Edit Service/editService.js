@@ -41,8 +41,8 @@ const EditService = () => {
             services,
             loading
         },
-        edit : {
-            loading : editLoading
+        edit: {
+            loading: editLoading
         }
     } = useSelector(state => state.service)
 
@@ -81,6 +81,16 @@ const EditService = () => {
             ...serviceDetails,
             [e.target.name]: e.target.value
         })
+    }
+
+    const handleNestedObject = (e) => {
+        setServiceDetails((prevState) => ({
+            ...prevState,
+            price_types: {
+                ...prevState.price_types,
+                [e.target.name]: e.target.value
+            }
+        }))
     }
 
     const uploadImage = async (e) => {
@@ -223,7 +233,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.price} placeholder='0.00' name="price" onChange={handleInputField} />
+                                                                                <Input value={serviceDetails.price_types.price} placeholder='0.00' name="price" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -232,7 +242,7 @@ const EditService = () => {
                                                                             <Label className='form-label' for='select-basic'>
                                                                                 Purchase limit
                                                                             </Label>
-                                                                            <Input type='number' value={serviceDetails.price_types.purchase_limit} onChange={handleInputField} name='purchase_limit' id='nameMulti' placeholder='0' />
+                                                                            <Input type='number' value={serviceDetails.price_types.purchase_limit} onChange={handleNestedObject} name='purchase_limit' id='nameMulti' placeholder='0' />
                                                                         </div>
                                                                     </Col>
                                                                 </>
@@ -251,7 +261,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.weekly} onChange={handleInputField} name="weekly" placeholder='0.00' />
+                                                                                <Input value={serviceDetails.price_types.weekly} onChange={handleNestedObject} name="weekly" placeholder='0.00' />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -265,7 +275,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.monthly} placeholder='0.00' name="monthly" onChange={handleInputField} />
+                                                                                <Input value={serviceDetails.price_types.monthly} placeholder='0.00' name="monthly" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -279,7 +289,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.quarterly} placeholder='0.00' name="quarterly" onChange={handleInputField} />
+                                                                                <Input value={serviceDetails.price_types.quarterly} placeholder='0.00' name="quarterly" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -292,7 +302,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.biannually} placeholder='0.00' name="biannually" onChange={handleInputField} />
+                                                                                <Input value={serviceDetails.price_types.biannually} placeholder='0.00' name="biannually" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -305,7 +315,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.annually} placeholder='0.00' name="annually" onChange={handleInputField} />
+                                                                                <Input value={serviceDetails.price_types.annually} placeholder='0.00' name="annually" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -325,7 +335,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.max_concurrent_requests} placeholder='0.00' name="max_concurrent_requests" onChange={handleInputField} />
+                                                                                <Input value={serviceDetails.price_types.max_concurrent_requests} placeholder='0.00' name="max_concurrent_requests" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -341,7 +351,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.max_requests_per_month} placeholder='0.00' name="max_requests_per_month" onChange={handleInputField} />
+                                                                                <Input value={serviceDetails.price_types.max_requests_per_month} placeholder='0.00' name="max_requests_per_month" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
