@@ -101,7 +101,7 @@ const ForgotPassword = () => {
                   </Label>
                   <Input type='email' name="email" value={agencyInformation.email} onChange={(e) => setAgencyInformation({ ...agencyInformation, email: e.target.value })} id='login-email' placeholder='Enter Your Email' autoFocus />
                 </div>
-                <Button color='primary' block>
+                <Button color='primary' block disabled={loading}>
                   {
                     loading ?
                       <>

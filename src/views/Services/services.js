@@ -28,6 +28,9 @@ const Services = () => {
         },
         delete: {
             isDeleted
+        },
+        pagination : {
+           loading : paginationLoading
         }
     } = useSelector(state => state.service)
 

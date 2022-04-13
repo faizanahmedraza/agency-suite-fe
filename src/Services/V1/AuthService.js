@@ -10,22 +10,18 @@ async function loginPost(data) {
 
 async function registerPost(data) {
     const _data = RegisterPostBody(data);
-
-    console.log(_data)
     const response = await Gateway.guestGateway("POST", null, V1.auth.register, _data);
     return response;
 }
 
 async function verificationPost(data) {
     const _data = VerificationPostBody(data);
-    console.log(_data)
     const response = await Gateway.guestGateway("POST", V1.DOMAIN, V1.auth.verification, _data);
     return response;
 }
 
 async function forgotPasswordPost(data) {
     const _data = forgotPasswordPostBody(data);
-    console.log(_data)
     const response = await Gateway.guestGateway("POST", V1.DOMAIN, V1.auth.forgot_password, _data);
     return response;
 }

@@ -1,4 +1,4 @@
-import ForgotPassword from "@store/V1/Auth/Register/ActionTypes";
+import ForgotPassword from "@store/V1/Auth/Forgot Password/ActionTypes";
 
 const forgotPassword = (
     state = {

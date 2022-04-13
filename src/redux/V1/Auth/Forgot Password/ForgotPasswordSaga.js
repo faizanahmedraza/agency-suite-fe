@@ -8,16 +8,16 @@ function* forgotPassword(data) {
     try {
         const response = yield AuthService.forgotPasswordPost(data.request);
         if (response.success) {
-            toast.error(response.message)
+            toast.success(response.message)
             yield put(ForgotPasswordAction.forgotPasswordSuccess(response.data));
         } else {
             toast.error(response.error.message)
             yield put(
                 ForgotPasswordAction.forgotPasswordFailed(response.error.message)
-            );
-        }
-    } catch (error) {
-        console.log(error);
+                );
+            }
+        } catch (error) {
+            console.log(error);
     }
 }
 
