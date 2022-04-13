@@ -16,11 +16,9 @@ import CustomerList from "./CustomerList";
 
 const Loader = () => {
   return (
-    <tr>
-      <td colSpan={5} className="text-center">
-        <strong>Loading...</strong>
-      </td>
-    </tr>
+    <div className="text-center">
+      <strong>Loading...</strong>
+    </div>
   );
 };
 

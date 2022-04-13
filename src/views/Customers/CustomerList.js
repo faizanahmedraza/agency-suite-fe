@@ -25,7 +25,7 @@ const CustomerList = (props) => {
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(props.pagination.per_page);
+  const [itemsPerPage, setItemsPerPage] = useState(props?.pagination?.per_page);
 
   const customerDelete = (id) => {
     dispatch(CustomerDeleteAction.customerDelete(id));
