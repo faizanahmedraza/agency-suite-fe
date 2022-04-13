@@ -77,6 +77,7 @@ const CreateService = () => {
         const base64 = await convertBase64(file)
 
         if (!base64) return
+        
         setServiceDetails({ ...serviceDetails, image: base64 })
 
     }

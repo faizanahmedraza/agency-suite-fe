@@ -10,7 +10,7 @@ async function loginPost(data) {
 
 async function registerPost(data) {
     const _data = RegisterPostBody(data);
-    const response = await Gateway.guestGateway("POST", null, V1.auth.register, _data);
+    const response = await Gateway.guestGateway("POST", V1.DOMAIN, V1.auth.register, _data);
     return response;
 }
 

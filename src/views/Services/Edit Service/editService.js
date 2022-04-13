@@ -50,7 +50,7 @@ const EditService = () => {
 
     const [serviceDetails, setServiceDetails] = useState({
         name: "",
-        description: "",
+        description: " ",
         image: "",
         subscription_type: "",
         price: "",
@@ -76,6 +76,8 @@ const EditService = () => {
         }
     })
 
+    console.log(serviceDetails)
+
     const handleInputField = (e) => {
         setServiceDetails({
             ...serviceDetails,
@@ -99,7 +101,9 @@ const EditService = () => {
 
         const base64 = await convertBase64(file)
 
-        if (!base64) return setServiceDetails({ ...serviceDetails, image: base64 })
+        if (!base64) return 
+        
+        setServiceDetails({ ...serviceDetails, image: base64 })
 
     }
 
@@ -192,7 +196,7 @@ const EditService = () => {
                                                             <Row>
                                                                 <Col md='6' sm='12'>
                                                                     <div>
-                                                                        <img src={serviceDetails.image || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} width="100%" height="200" alt="service image" />
+                                                                        <img src={serviceDetails.image} width="100%" height="200" alt="service image" />
                                                                     </div>
                                                                 </Col>
                                                                 <Col md='6' sm='12' className='d-flex flex-column'>
