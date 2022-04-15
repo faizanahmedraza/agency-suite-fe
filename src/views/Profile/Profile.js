@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
+import { useDispatch, useSelector } from '@store/store';
 import { Link } from 'react-router-dom';
 import {
   Card,
@@ -13,18 +14,14 @@ import {
 
 } from 'reactstrap'
 import { convertBase64 } from "@utils"
-import { ArrowRight } from 'react-feather';
 
 const Profile = () => {
 
   const [active, setActive] = useState('1')
 
-  const [portalSetting, setPortalSetting] = useState({
+  const [profileSetting, setProfileSetting] = useState({
     name: null,
-    profile: null,
-    favicon: null,
-    primary_color: null,
-    secondary_color: null
+    image: null,
   })
 
   const handleInputField = async (e) => {

@@ -1,4 +1,4 @@
-import PORTAL_SETTING from "@store/V1/PortalSetting/ActionType";
+import PORTAL_SETTING from "@store/V1/PortalSetting/ActionTypes";
 
 const PortalSettingDetailReducer = (
   state = {

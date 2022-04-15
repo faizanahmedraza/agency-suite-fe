@@ -1,12 +1,12 @@
 import { takeEvery, put } from "redux-saga/effects";
-import PORTAL_SETTING from "@store/V1/PortalSetting/ActionType";
+import PORTAL_SETTING from "@store/V1/PortalSetting/ActionTypes";
 import PortalSettingUpdateAction from "@store/V1/PortalSetting/UPDATE/PortalSettingUpdateAction";
 import PortalSettingService from "@src/Services/V1/PortalSettingService";
 import toast from "react-hot-toast";
 
 function* portalSettingUpdate(data) {
   try {
-    const response = yield PortalSettingService.servicEdit(data.request);
+    const response = yield PortalSettingService.portalSettingPut(data.request);
     if (response.success) {
       toast.success(response.message);
       yield put(PortalSettingUpdateAction.portalSettingUpdateSuccess(response.data));

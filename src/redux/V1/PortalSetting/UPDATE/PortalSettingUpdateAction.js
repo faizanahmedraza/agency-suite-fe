@@ -1,4 +1,4 @@
-import PORTAL_SETTING from "@store/V1/PortalSetting/ActionType";
+import PORTAL_SETTING from "@store/V1/PortalSetting/ActionTypes";
 
 const portalSettingUpdate = (data) => {
     return {
@@ -6,14 +6,16 @@ const portalSettingUpdate = (data) => {
         request: data
     };
 };
-const portalSettingUpdateSuccess = () => {
+const portalSettingUpdateSuccess = (data) => {
     return {
-        type: PORTAL_SETTING.PORTAL_SETTING_UPDATE_SUCCESS
+        type: PORTAL_SETTING.PORTAL_SETTING_UPDATE_SUCCESS,
+        response: data
     };
 };
-const portalSettingUpdateFailed = () => {
+const portalSettingUpdateFailed = (data) => {
     return {
         type: PORTAL_SETTING.PORTAL_SETTING_UPDATE_FAILED,
+        response: data
     };
 };
 

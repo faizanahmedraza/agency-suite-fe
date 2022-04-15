@@ -1,16 +1,15 @@
 import { takeEvery, put } from "redux-saga/effects";
-import PORTAL_SETTING from "@store/V1/PortalSetting/ActionType";
+import PORTAL_SETTING from "@store/V1/PortalSetting/ActionTypes";
 import PortalSettingDetailAction from "@store/V1/PortalSetting/DETAIL/PortalSettingDetailAction";
 import PortalSettingService from "@src/Services/V1/PortalSettingService";
 import toast from 'react-hot-toast';
 
 function* portalSettingDetail() {
   try {
-    const response = yield PortalSettingService.portalSettingDetail();
-    if (response.success) {
+    const response = yield PortalSettingService.portalSettingGet();
+     if (response.success) {
       yield put(PortalSettingDetailAction.portalSettingDetailSuccess(response.data));
     } else {
-      toast.error(response.error.message);
       yield put(PortalSettingDetailAction.portalSettingDetailFailed(response.error));
     }
   } catch (error) {
@@ -21,6 +20,6 @@ function* portalSettingDetail() {
   }
 }
 
-export function* portalSettingDetailSaga() {
+export function* PortalSettingDetailSaga() {
   yield takeEvery(PORTAL_SETTING.PORTAL_SETTING_DETAIL, portalSettingDetail);
 }

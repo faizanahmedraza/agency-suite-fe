@@ -1,4 +1,4 @@
-import SERVICE from "@store/V1/Service/ActionTypes"
+import PORTAL_SETTING from "@store/V1/PortalSetting/ActionTypes";
 
 const PortalSettingUpdateReducer = (
     state = {
@@ -8,18 +8,18 @@ const PortalSettingUpdateReducer = (
     action
 ) => {
     switch (action.type) {
-        case PORT_SETTING_UPDATE.PORT_SETTING_UPDATE:
+        case PORTAL_SETTING.PORTAL_SETTING_UPDATE:
             return {
                 ...state,
                 loading: true,
             }
-        case PORT_SETTING_UPDATE.PORT_SETTING_UPDATE_SUCCESS:
+        case PORTAL_SETTING.PORTAL_SETTING_UPDATE_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 portal_settings: action.response.portal_settings,
             }
-        case PORT_SETTING_UPDATE.PORT_SETTING_UPDATE_FAILED:
+        case PORTAL_SETTING.PORTAL_SETTING_UPDATE_FAILED:
             return {
                 ...state,
                 loading: false,
