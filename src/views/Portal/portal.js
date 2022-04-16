@@ -34,8 +34,6 @@ const Portal = () => {
         detail: { portal_settings, fetched, loading },
     } = useSelector((state) => state.portal_settings);
 
-    console.log(portal_settings)
-
     const handleInputField = async (e) => {
         const file = e.target.files ? e.target.files[0] : null;
 
@@ -47,22 +45,23 @@ const Portal = () => {
         });
     };
 
+    const handleNestedObject = (e) => {
+        setPortalSetting((prevPortalSetting) => ({
+            ...prevPortalSetting,
+            agency: { name: e.target.value }
+        }));
+    }
+
     useEffect(() => {
         dispatch(PortalSettingDetailAction.portalSettingDetail());
         if (fetched) {
-            setPortalSetting(portal_settings);
+            setPortalSetting(portal_settings); 
         }
     }, [fetched]);
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
         dispatch(PortalSettingUpdateAction.portalSettingUpdate(portalSetting));
-    };
-
-    const toggle = (tab) => {
-        if (active !== tab) {
-            setActive(tab);
-        }
     };
 
     return (
@@ -82,12 +81,13 @@ const Portal = () => {
                                 <Form onSubmit={onSubmitHandler}>
                                     <Col md="6">
                                         <div className="mb-1">
-                                            <Label className="form-label">Name</Label>
+                                            <Label className="form-label" for="name">Name</Label>
                                             <Input
                                                 type="text"
-                                                onChange={handleInputField}
+                                                onChange={handleNestedObject}
                                                 name="name"
-                                                value={!loading ? portalSetting.agency.name : ""}
+                                                id="name"
+                                                value={!loading ? portalSetting.agency.name : ''}
                                             />
                                         </div>
                                         <div className="mb-1">
@@ -102,7 +102,7 @@ const Portal = () => {
                                                 onChange={handleInputField}
                                                 name="primary_color"
                                                 placeholder="Enter Service Name"
-                                                value={!loading ? portalSetting.primary_color : ""}
+                                                value={!loading ? portalSetting.primary_color : ''}
                                             />
                                         </div>
                                         <div className="mb-1">
@@ -117,7 +117,7 @@ const Portal = () => {
                                                 onChange={handleInputField}
                                                 name="secondary_color"
                                                 placeholder="Enter Service Name"
-                                                value={!loading ? portalSetting.secondary_color : ""}
+                                                value={!loading ? portalSetting.secondary_color : ''}
                                             />
                                         </div>
                                         <div className="mb-1">
@@ -148,7 +148,7 @@ const Portal = () => {
                                                         onChange={handleInputField}
                                                         accept="image/*"
                                                         name="logo"
-                                                        id="nameMulti"
+                                                        id="logo"
                                                     />
                                                 </Col>
                                             </Row>
@@ -177,7 +177,7 @@ const Portal = () => {
                                                         onChange={handleInputField}
                                                         accept="image/*"
                                                         name="favicon"
-                                                        id="nameMulti"
+                                                        id="fav"
                                                     />
                                                 </Col>
                                             </Row>
@@ -186,7 +186,7 @@ const Portal = () => {
                                     <Col sm="12">
                                         <div className="d-flex justify-content-end">
                                             <Button color="primary" type="submit">
-                                                Update
+                                                Save
                       </Button>
                                         </div>
                                     </Col>

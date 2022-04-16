@@ -10,6 +10,7 @@ function* portalSettingUpdate(data) {
     if (response.success) {
       toast.success(response.message);
       yield put(PortalSettingUpdateAction.portalSettingUpdateSuccess(response.data));
+      window.location.reload();
     } else {
       toast.error(response.error.message);
       yield put(PortalSettingUpdateAction.portalSettingUpdateFailed(response.error));

@@ -2,7 +2,7 @@ import Gateway from "@src/Gateways/Gateway";
 import V1 from "@src/Constants/V1ApiConstant";
 
 async function profileSettingGet() {
-    const response = await Gateway.guestGateway(
+    const response = await Gateway.authGateway(
         "GET",
         V1.DOMAIN,
         `${V1.agency.profile_settings}`

@@ -10,7 +10,7 @@ function* portalSettingDetail() {
      if (response.success) {
       yield put(PortalSettingDetailAction.portalSettingDetailSuccess(response.data));
     } else {
-      yield put(PortalSettingDetailAction.portalSettingDetailFailed(response.error));
+      yield put(PortalSettingDetailAction.portalSettingDetailFailed());
     }
   } catch (error) {
     toast.error(

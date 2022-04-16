@@ -26,7 +26,6 @@ const PortalSettingDetailReducer = (
       return {
          ...state,
           loading: false,
-          error: action.response.message
       };
     default:
       return state;
