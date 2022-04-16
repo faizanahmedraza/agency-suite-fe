@@ -23,7 +23,9 @@ async function profileSettingPut(data) {
 const profileSettingBodyData = (data) => {
     let _data = {};
     _data.name = data.name;
-    _data.image = data.image;
+    if (data.image.substr(0, 33) !== "https://res.cloudinary.com/saasfa") {
+        _data.image = data.image;
+    }
     return JSON.stringify(_data);
 }
 
