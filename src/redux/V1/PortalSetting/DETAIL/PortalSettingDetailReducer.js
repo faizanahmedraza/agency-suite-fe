@@ -3,7 +3,8 @@ import PORTAL_SETTING from "@store/V1/PortalSetting/ActionTypes";
 const PortalSettingDetailReducer = (
   state = {
     loading: false,
-    portal_settings: {},
+    portal_settings: localStorage.getItem("portal_settings")
+      ? SettingHelper.localData(localStorage.getItem("portal_settings")) : {},
     error: null,
     fetched: false,
   },
@@ -24,8 +25,8 @@ const PortalSettingDetailReducer = (
       };
     case PORTAL_SETTING.PORTAL_SETTING_DETAIL_FAILED:
       return {
-         ...state,
-          loading: false,
+        ...state,
+        loading: false,
       };
     default:
       return state;

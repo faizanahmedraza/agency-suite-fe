@@ -31,12 +31,11 @@ function postLoginSuccess(data) {
         "user",
         JSON.stringify(data.response.authentication.user)
     );
-    console.log(data);
     localStorage.setItem(
         "permissions",
         JSON.stringify(data.response.authentication.user.roles[0].permissions)
     );
-        window.location.href = "/dashboard";
+    window.location.href = "/dashboard";
 }
 
 function postLoginFailed(data) {
