@@ -22,6 +22,11 @@ const V1 = {
   },
   agency: {
     customers: "v1/agencies/customers",
+    portal_settings: {
+      get: "v1/agencies/public/portal-settings",
+      put: "v1/agencies/portal-settings",
+    },
+    profile_settings: "v1/agencies/profile",
   },
   tag: {
     tags: "v1/admin/blog/tags",

@@ -5,6 +5,8 @@ import VerificationRootSaga from "@store/V1/Auth/Verification/VerificationRootSa
 import ServiceRootSaga from "@store/V1/Service/serviceRootSaga";
 import CustomerRootSaga from "@store/V1/Customer/CustomerRootSaga";
 import ForgotPasswordSaga from "@store/V1/Auth/Forgot Password/ForgotPasswordRootSaga";
+import PortalSettingRootSaga from "@store/V1/PortalSetting/PortalSettingRootSaga";
+import ProfileSettingRootSaga from "@store/V1/ProfileSetting/ProfileSettingRootSaga";
 
 
 export default function* rootSaga() {
@@ -15,5 +17,7 @@ export default function* rootSaga() {
     ServiceRootSaga(),
     CustomerRootSaga(),
     ForgotPasswordSaga(),
+    PortalSettingRootSaga(),
+    ProfileSettingRootSaga(),
   ]);
 }

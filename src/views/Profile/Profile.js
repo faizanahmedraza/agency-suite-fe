@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "@store/store";
 import { Link } from 'react-router-dom';
 import {
   Card,
@@ -10,22 +11,22 @@ import {
   Col,
   Row,
   Button
-
 } from 'reactstrap'
-import { convertBase64 } from "@utils"
-import { ArrowRight } from 'react-feather';
+import { convertBase64 } from "@utils";
+import ProfileSettingDetailAction from "@store/V1/ProfileSetting/DETAIL/ProfileSettingDetailAction";
+import ProfileSettingUpdateAction from "@store/V1/ProfileSetting/UPDATE/ProfileSettingUpdateAction";
 
 const Profile = () => {
 
-  const [active, setActive] = useState('1')
+  const [profileSetting, setProfileSetting] = useState({
+    name: "",
+    image: null,
+  });
+  const dispatch = useDispatch();
+  const {
+    detail: { profile_settings, fetched, loading },
+  } = useSelector((state) => state.profile_settings);
 
-  const [portalSetting, setPortalSetting] = useState({
-    name: null,
-    profile: null,
-    favicon: null,
-    primary_color: null,
-    secondary_color: null
-  })
 
   const handleInputField = async (e) => {
 
@@ -33,22 +34,23 @@ const Profile = () => {
 
     const base64 = file && await convertBase64(file)
 
-    setPortalSetting({
-      ...portalSetting,
+    setProfileSetting({
+      ...profileSetting,
       [e.target.name]: base64 ? base64 : e.target.value
     })
 
   }
 
-  const onSubmitHandler = (e) => {
-    e.preventDefault()
-    console.log(portalSetting)
-  }
-
-  const toggle = tab => {
-    if (active !== tab) {
-      setActive(tab)
+  useEffect(() => {
+    dispatch(ProfileSettingDetailAction.profileSettingDetail());
+    if (fetched) {
+      setProfileSetting(profile_settings);
     }
+  }, [fetched]);
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    dispatch(ProfileSettingUpdateAction.profileSettingUpdate(profileSetting));
   }
 
   return (
@@ -78,7 +80,7 @@ const Profile = () => {
                   <Label className='form-label'>
                     Name
                   </Label>
-                  <Input type='text' onChange={handleInputField} name='name' />
+                  <Input type='text' onChange={handleInputField} name='name' value={!loading ? profileSetting.name : ''} />
                 </div>
                 <div className='mb-1'>
                   <Label className='form-label'>
@@ -89,21 +91,22 @@ const Profile = () => {
                   <Row>
                     <Col md="2">
                       <div className='mt-0'>
-                        <img className='rounded-circle' src={portalSetting.logo || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} width="60px" alt="service image" />
+                        <img className='rounded-circle' src={
+                          profileSetting.image || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
+                        } width="60px" alt="service image" />
                       </div>
                     </Col>
                     <Col md="8" className='pt-1' >
-                      <Input type='file' onChange={handleInputField} accept="image/*" name='logo' id='nameMulti' />
+                      <Input type='file' onChange={handleInputField} accept="image/*" name='image' id='nameMulti' />
                     </Col>
                   </Row>
                 </div>
               </Col>
-              <Col sm='12'>
-                <div className='d-flex justify-content-between'>
-                  <Button color='primary' type='submit'>
+              <Col sm="12">
+                <div className="d-flex justify-content-end">
+                  <Button color="primary" type="submit">
                     Save
-                  </Button>
-
+                      </Button>
                 </div>
               </Col>
             </Form>
