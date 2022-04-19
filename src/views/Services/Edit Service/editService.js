@@ -101,7 +101,7 @@ const EditService = () => {
 
         const base64 = await convertBase64(file)
 
-        if (!base64) return 
+        if (!base64) return  
         
         setServiceDetails({ ...serviceDetails, image: base64 })
 
@@ -270,7 +270,7 @@ const EditService = () => {
                                                                         </div>
                                                                     </Col>
 
-                                                                    <Col md="6" sm='12'>
+                                                                       <Col md="6" sm='12'>
                                                                         <div className='mb-1'>
                                                                             <Label className='form-label' for='select-basic'>
                                                                                 Monthly
@@ -304,7 +304,7 @@ const EditService = () => {
                                                                                 &nbsp;
                                                                                 <small>( Billed every six months. Leave empty to disable )</small>
                                                                             </Label>
-                                                                            <InputGroup className='input-group-merge mb-2'>
+                                                                         <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
                                                                                 <Input value={serviceDetails.price_types.biannually} placeholder='0.00' name="biannually" onChange={handleNestedObject} />
                                                                             </InputGroup>
