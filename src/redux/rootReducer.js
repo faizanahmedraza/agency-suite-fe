@@ -4,6 +4,7 @@ import { combineReducers } from "redux";
 import LoginReducer from "@store/V1/Auth/Login/LoginReducer";
 import CustomerRootReducer from "@store/V1/Customer/CustomerRootReducer";
 import RegisterReducer from "@store/V1/Auth/Register/RegisterReducers";
+import CustomerRegistrationReducer from "@store/V1/Auth/CustomerRegister/CustomerRegisterReducers";
 import VerificationReducer from "@store/V1/Auth/Verification/VerificationReducers";
 import ForgotPasswordReducer from "@store/V1/Auth/Forgot Password/ForgotPasswordReducers";
 import ServiceReducer from "@store/V1/Service/serviceRootReducer";
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   dataTables,
   login: LoginReducer,
   register: RegisterReducer,
+  customer_register: CustomerRegistrationReducer,
   verification: VerificationReducer,
   service : ServiceReducer,
   customers: CustomerRootReducer,

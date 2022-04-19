@@ -14,6 +14,12 @@ async function registerPost(data) {
     return response;
 }
 
+async function customerRegisterPost(data) {
+    const _data = CustomerRegisterPostBody(data);
+    const response = await Gateway.guestGateway("POST", V1.DOMAIN, V1.auth.customer_register, _data);
+    return response;
+}
+
 async function verificationPost(data) {
     const _data = VerificationPostBody(data);
     const response = await Gateway.guestGateway("POST", V1.DOMAIN, V1.auth.verification, _data);
@@ -38,6 +44,13 @@ const RegisterPostBody = (data) => {
     _data.email = data.email;
     return JSON.stringify(_data);
 };
+const CustomerRegisterPostBody = (data) => {
+    let _data = {};
+    _data.first_name = data.first_name;
+    _data.last_name = data.last_name;
+    _data.email = data.email;
+    return JSON.stringify(_data);
+};
 const VerificationPostBody = (data) => {
     let _data = {};
     _data.password = data.password;
@@ -55,6 +68,7 @@ const AuthService = {
     loginPost,
     registerPost,
     verificationPost,
-    forgotPasswordPost
+    forgotPasswordPost,
+    customerRegisterPost
 };
 export default AuthService;
