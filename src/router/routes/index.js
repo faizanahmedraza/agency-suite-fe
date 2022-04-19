@@ -197,6 +197,15 @@ const Routes = [
     }
   },
   {
+    path: '/create-password/:token',
+    element: <Verification />,
+    meta: {
+      layout: 'blank',
+      publicRoute: true,
+      restricted: true
+    }
+  },
+  {
     path: '/error',
     element: <Error />,
     meta: {
