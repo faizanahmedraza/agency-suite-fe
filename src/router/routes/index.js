@@ -41,6 +41,7 @@ const Login = lazy(() => import('../../views/Login'))
 const Register = lazy(() => import('../../views/Register'))
 const Verification = lazy(() => import('../../views/Verification'))
 const ForgotPassword = lazy(() => import('../../views/ForgotPassword'))
+const CreatePassword = lazy(() => import('../../views/CreatePassword'))
 const Error = lazy(() => import('../../views/Error'))
 
 // ** Merge Routes
@@ -198,7 +199,7 @@ const Routes = [
   },
   {
     path: '/create-password/:token',
-    element: <Verification />,
+    element: <CreatePassword />,
     meta: {
       layout: 'blank',
       publicRoute: true,
