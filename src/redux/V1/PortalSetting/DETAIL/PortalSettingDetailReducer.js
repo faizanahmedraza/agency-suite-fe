@@ -1,10 +1,10 @@
 import PORTAL_SETTING from "@store/V1/PortalSetting/ActionTypes";
+import SettingHelper from "@src/Helpers/SettingHelper";
 
 const PortalSettingDetailReducer = (
   state = {
     loading: false,
-    portal_settings: localStorage.getItem("portal_settings")
-      ? SettingHelper.localData(localStorage.getItem("portal_settings")) : {},
+    portal_settings: localStorage.getItem("portal_settings") ? SettingHelper.localData(localStorage.getItem("portal_settings")) : {},
     error: null,
     fetched: false,
   },

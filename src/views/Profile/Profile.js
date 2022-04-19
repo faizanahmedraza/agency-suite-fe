@@ -10,7 +10,8 @@ import {
   Input,
   Col,
   Row,
-  Button
+  Button,
+  Spinner
 } from 'reactstrap'
 import { convertBase64 } from "@utils";
 import ProfileSettingDetailAction from "@store/V1/ProfileSetting/DETAIL/ProfileSettingDetailAction";
@@ -24,9 +25,9 @@ const Profile = () => {
   });
   const dispatch = useDispatch();
   const {
-    detail: { profile_settings, fetched, loading },
+    detail: { profile_settings, fetched },
+    update: { loading }
   } = useSelector((state) => state.profile_settings);
-
 
   const handleInputField = async (e) => {
 
@@ -80,7 +81,7 @@ const Profile = () => {
                   <Label className='form-label'>
                     Name
                   </Label>
-                  <Input type='text' onChange={handleInputField} name='name' value={!loading ? profileSetting.name : ''} />
+                  <Input type='text' onChange={handleInputField} name='name' value={profileSetting.name} />
                 </div>
                 <div className='mb-1'>
                   <Label className='form-label'>
@@ -105,7 +106,17 @@ const Profile = () => {
               <Col sm="12">
                 <div className="d-flex justify-content-end">
                   <Button color="primary" type="submit">
-                    Save
+                  {
+                                                    loading ?
+                                                        <>
+                                                            <Spinner color='white' size='sm' type='grow' />
+                                                            <span className='ms-50'>Loading...</span>
+                                                        </>
+                                                        :
+                                                        <span>
+                                                            Save
+                                                        </span>
+                                                }
                       </Button>
                 </div>
               </Col>

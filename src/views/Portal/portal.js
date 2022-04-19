@@ -12,6 +12,7 @@ import {
     Col,
     Row,
     Button,
+    Spinner
 } from "reactstrap";
 import { convertBase64 } from "@utils";
 import PortalSettingDetailAction from "@store/V1/PortalSetting/DETAIL/PortalSettingDetailAction";
@@ -32,6 +33,7 @@ const Portal = () => {
     const dispatch = useDispatch();
     const {
         detail: { portal_settings, fetched, loading },
+        update: { loading: updateLoading },
     } = useSelector((state) => state.portal_settings);
 
     const handleInputField = async (e) => {
@@ -186,7 +188,17 @@ const Portal = () => {
                                     <Col sm="12">
                                         <div className="d-flex justify-content-end">
                                             <Button color="primary" type="submit">
-                                                Save
+                                            {
+                                                    updateLoading ?
+                                                        <>
+                                                            <Spinner color='white' size='sm' type='grow' />
+                                                            <span className='ms-50'>Loading...</span>
+                                                        </>
+                                                        :
+                                                        <span>
+                                                            Save
+                                                        </span>
+                                                }
                       </Button>
                                         </div>
                                     </Col>

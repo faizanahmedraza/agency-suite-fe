@@ -4,8 +4,10 @@ import SettingHelper from "@src/Helpers/SettingHelper";
 const ProfileSettingDetailReducer = (
   state = {
     loading: false,
-    profile_settings: localStorage.getItem("profile_settings")
-      ? SettingHelper.localData(localStorage.getItem("profile_settings")): {},
+    profile_settings: {
+      name: "",
+      image: null
+    },
     error: null,
     fetched: false,
   },

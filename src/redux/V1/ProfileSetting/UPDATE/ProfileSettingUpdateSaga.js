@@ -10,7 +10,7 @@ function* profileSettingUpdate(data) {
     if (response.success) {
       toast.success(response.message);
       yield put(ProfileSettingUpdateAction.profileSettingUpdateSuccess(response.data));
-      window.location.reload();
+      window.location.href="/profile";
     } else {
       toast.error(response.error.message);
       yield put(ProfileSettingUpdateAction.profileSettingUpdateFailed(response.error));

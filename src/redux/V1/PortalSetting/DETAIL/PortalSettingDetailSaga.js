@@ -20,6 +20,17 @@ function* portalSettingDetail() {
   }
 }
 
+function portalSettingDetailSuccess(data) {
+  localStorage.setItem(
+      "portal_settings",
+      JSON.stringify(data.response.portal_settings)
+  );
+}
+
 export function* PortalSettingDetailSaga() {
   yield takeEvery(PORTAL_SETTING.PORTAL_SETTING_DETAIL, portalSettingDetail);
+}
+
+export function* PortalSettingDetailSuccessSaga() {
+  yield takeEvery(PORTAL_SETTING.PORTAL_SETTING_DETAIL_SUCCESS, portalSettingDetailSuccess);
 }
