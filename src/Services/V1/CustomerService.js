@@ -49,6 +49,11 @@ async function customerDelete(id) {
     return response;
 }
 
+async function customerToggleStatus(data) {
+    const response = await Gateway.authGateway("PUT", V1.DOMAIN, V1.agency.change_customer_status + "/" + data);
+    return response;
+}
+
 const customerBodyData = (data) => {
     let _data = {};
     _data.first_name = data.first_name;
@@ -64,7 +69,8 @@ const CustomerService = {
     customerDetail,
     customerPost,
     customerPut,
-    customerDelete
+    customerDelete,
+    customerToggleStatus,
 }
 
 export default CustomerService;

@@ -3,7 +3,7 @@ import { useDispatch } from "@store/store";
 import { Link } from "react-router-dom";
 import {
   UncontrolledDropdown,
-  Badge,
+  Input,
   DropdownMenu,
   DropdownToggle,
   Modal,
@@ -15,6 +15,7 @@ import {
 } from "reactstrap";
 import ReactPaginate from "react-paginate";
 import CustomerDeleteAction from "@store/V1/Customer/DELETE/CustomerDeleteAction";
+import CustomerStatusAction from "@store/V1/Customer/STATUS/CustomerStatusAction";
 import { MoreVertical, Edit, Trash } from "react-feather";
 
 const CustomerList = (props) => {
@@ -43,6 +44,10 @@ const CustomerList = (props) => {
     setItemOffset(newOffset);
   };
 
+  const handleCustomerStatus = (e, id) => {
+    dispatch(CustomerStatusAction.customerStatus(id))
+  }
+
   return (
     <React.Fragment>
       <Table bordered responsive>
@@ -68,10 +73,10 @@ const CustomerList = (props) => {
                     </Link>
                   </td>
                   <td>{customer.email}</td>
-                  <td>
-                    <Badge pill color="light-primary" className="me-1">
-                      {customer.status}
-                    </Badge>
+                  <td className='text-center'>
+                    <div className='form-switch form-check-primary'>
+                      <Input type='switch' className='w-full' onChange={(e) => handleCustomerStatus(e, customer.id)} defaultChecked={customer.status === "active"} id='icon-primary' name='icon-primary' />
+                    </div>
                   </td>
                   <td>{customer.last_logged_in}</td>
                   <td>

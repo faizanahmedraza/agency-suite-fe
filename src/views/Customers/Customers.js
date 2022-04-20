@@ -26,10 +26,18 @@ const Customers = () => {
   const [active, setActive] = useState("1");
 
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.customers.list);
-  const loading = state.loading;
-  const customers = state.customers;
-  const pagination = state.pagination;
+  const {
+    list: {
+      loading,
+      customers,
+      pagination
+    },
+    customer_status: {
+      isChanged
+    }
+  } = useSelector(state => state.customers)
+
+  const state = useSelector(state => state.customers)
 
   function activeCustomers() {
     const activeCustomers = customers.filter((customer) => {
@@ -48,8 +56,8 @@ const Customers = () => {
   }
 
   useEffect(() => {
-    dispatch(CustomerListAction.customerList());
-  }, []);
+    if (!customers.length || isChanged) return dispatch(CustomerListAction.customerList());
+  }, [isChanged])
 
   const toggle = (tab) => {
     if (active !== tab) {
@@ -113,18 +121,18 @@ const Customers = () => {
             {loading ? (
               <Loader />
             ) : (
-              <>
-                <TabPane tabId="1">
-                  <CustomerList data={customers} pagination={pagination} />
-                </TabPane>
-                <TabPane tabId="2">
-                  {customers && activeCustomers(customers)}
-                </TabPane>
-                <TabPane tabId="3">
-                  {customers && pendingCustomers(customers)}
-                </TabPane>
-              </>
-            )}
+                <>
+                  <TabPane tabId="1">
+                    <CustomerList data={customers} pagination={pagination} />
+                  </TabPane>
+                  <TabPane tabId="2">
+                    {customers && activeCustomers(customers)}
+                  </TabPane>
+                  <TabPane tabId="3">
+                    {customers && pendingCustomers(customers)}
+                  </TabPane>
+                </>
+              )}
           </TabContent>
         </CardBody>
       </Card>
