@@ -17,7 +17,6 @@ function* customerDelete(data) {
       yield put(CustomerDeleteAction.customerDeleteFailed(response.error));
     }
   } catch (error) {
-    console.log(error);
     toast.error(
       "Something went wrong and we have been notified about the problem"
     );

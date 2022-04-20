@@ -101,7 +101,7 @@ const ServiceTable = ({ services, pagination }) => {
                                             <td>{service.subscription_type !== "recurring" ? `$${service.price_types.price}` : "-"}</td>
                                             <td className='text-center'>
                                                 <div className='form-switch form-check-primary'>
-                                                    <Input type='switch' className='w-50' onChange={(e) => handleShowCatalogStatus(e, service.id)} defaultChecked={service.catalog_status === "active"} id='icon-primary' name='icon-primary' />
+                                                    <Input type='switch'  onChange={(e) => handleShowCatalogStatus(e, service.id)} defaultChecked={service.catalog_status === "active"} id='icon-primary' name='icon-primary' />
                                                 </div>
                                             </td>
                                             <td>{service.subscription_type}</td>

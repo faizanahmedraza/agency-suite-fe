@@ -5,7 +5,6 @@ import AuthService from "@src/Services/V1/AuthService";
 import toast from 'react-hot-toast'
 
 function* postLogin(data) {
-    console.log(data.request)
     try {
         const response = yield AuthService.loginPost(data.request);
         // return

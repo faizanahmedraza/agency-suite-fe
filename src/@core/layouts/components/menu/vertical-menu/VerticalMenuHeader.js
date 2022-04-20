@@ -1,19 +1,17 @@
-// ** React Imports
 import { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-
-// ** Icons Imports
 import { Disc, X, Circle } from 'react-feather'
-
-// ** Config
 import themeConfig from '@configs/themeConfig'
-
-// ** Utils
 import { getUserData, getHomeRouteForLoggedInUser } from '@utils'
+import { useSelector } from "@store/store"
 
 const VerticalMenuHeader = props => {
   // ** Props
   const { menuCollapsed, setMenuCollapsed, setMenuVisibility, setGroupOpen, menuHover } = props
+
+  const { detail } = useSelector(state => state.portal_settings)
+
+  const { logo, agency } = detail.portal_settings
 
   // ** Vars
   const user = getUserData()
@@ -52,9 +50,9 @@ const VerticalMenuHeader = props => {
         <li className='nav-item me-auto'>
           <NavLink to={user ? getHomeRouteForLoggedInUser(user.role) : '/'} className='navbar-brand'>
             <span className='brand-logo'>
-              <img src={themeConfig.app.appLogoImage} alt='logo' />
+              <img src={logo} alt='logo' />
             </span>
-            <h2 className='brand-text mb-0'>{themeConfig.app.appName}</h2>
+            <h2 className='brand-text mb-0'>{agency.name}</h2>
           </NavLink>
         </li>
         <li className='nav-item nav-toggle'>

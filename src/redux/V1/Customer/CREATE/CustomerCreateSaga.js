@@ -5,7 +5,6 @@ import CustomerService from "@src/Services/V1/CustomerService";
 import toast from 'react-hot-toast';
 
 function* customerCreate(data) {
-    console.log(data, 'saga');
     const response = yield CustomerService.customerPost(data.request)
     if (response.success) {
         toast.success(response.message)

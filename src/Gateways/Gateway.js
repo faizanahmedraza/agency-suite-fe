@@ -34,7 +34,6 @@ async function authGateway(METHOD, DOMAIN, API, BODY = null) {
 
 async function guestGateway(METHOD, DOMAIN = null, API, BODY = null) {
     const URL = `${config.base_url}${API}`;
-    console.log(DOMAIN)
     const OPTIONS = {
         method: METHOD,
         headers: {
