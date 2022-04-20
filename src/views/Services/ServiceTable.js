@@ -9,6 +9,7 @@ import ReactPaginate from 'react-paginate';
 import ServicePaginationAction from '@store/V1/Service/Pagination/ServicePaginationAction'
 import ServiceActions from '@store/V1/Service/List/ServiceListAction'
 import ServiceCatalogActions from '@store/V1/Service/Catalog Status/CatalogStatusAction'
+import ServiceStatusAction from '@store/V1/Service/ServiceStatus/ServiceStatusAction'
 
 
 const ServiceTable = ({ services, pagination }) => {
@@ -62,6 +63,10 @@ const ServiceTable = ({ services, pagination }) => {
         dispatch(ServiceCatalogActions.serviceCatalog(id))
     }
 
+    const handleShowServiceStatus = (e, id) => {
+        dispatch(ServiceStatusAction.serviceStatus(id))
+    }
+
     return (
         <div>
             {
@@ -78,6 +83,7 @@ const ServiceTable = ({ services, pagination }) => {
                                     <th>PRICE</th>
                                     <th className='text-center'>Show in catalog ?</th>
                                     <th>Service Type</th>
+                                    <th className='text-center'>Status </th>
                                     <th>CREATED</th>
                                     <th>ACTIONS</th>
                                 </tr>
@@ -99,6 +105,11 @@ const ServiceTable = ({ services, pagination }) => {
                                                 </div>
                                             </td>
                                             <td>{service.subscription_type}</td>
+                                            <td className='text-center'>
+                                                <div className='form-switch form-check-primary'>
+                                                    <Input type='switch' className='' onChange={(e) => handleShowServiceStatus(e, service.id)} defaultChecked={service.status === "active"} id='icon-secondnary' name='icon-status' />
+                                                </div>
+                                            </td>
                                             <td>
                                                 {formatDate(service.created_at)}
                                             </td>

@@ -31,10 +31,11 @@ const Services = () => {
         },
         catalog: {
             isChanged
+        },
+        service_status: {
+            isChanged: isChangedService
         }
     } = useSelector(state => state.service)
-
-    console.log(services)
 
     const catalog_service = services.filter(service => service.catalog_status === "active")
     const one_off_services = services.filter(service => service.subscription_type === "one-off")
@@ -47,8 +48,8 @@ const Services = () => {
     }
 
     useEffect(() => {
-        if (!services.length || isDeleted || isChanged) return dispatch(ServiceActions.serviceList())
-    }, [isDeleted , isChanged])
+        if (!services.length || isDeleted || isChanged || isChangedService) return dispatch(ServiceActions.serviceList())
+    }, [isDeleted , isChanged, isChangedService])
 
     return (
         <div>

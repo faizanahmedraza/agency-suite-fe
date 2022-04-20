@@ -11,7 +11,7 @@ const V1 = {
     read: "v1/agencies/services",
     update: "v1/agencies/services",
     delete: "v1/agencies/services",
-    change_status: "v1/agencies/services/change-status/{id}",
+    change_status: "v1/agencies/services/change-status",
     change_catalog_status: "v1/agencies/services/change-catalog-status",
   },
   dashboard: {
