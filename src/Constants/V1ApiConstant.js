@@ -42,8 +42,8 @@ const V1 = {
     posts: "v1/guest/blog/posts",
     tags: "v1/guest/blog/tags",
   },
-  // DOMAIN: window.location.hostname,
-  DOMAIN: 'fahadagency.allthingswordpress.io',
+  DOMAIN: window.location.hostname,
+  // DOMAIN: 'fahadagency.allthingswordpress.io',
 };
 
 export default V1;
