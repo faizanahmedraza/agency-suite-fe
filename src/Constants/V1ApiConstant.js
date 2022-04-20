@@ -23,6 +23,7 @@ const V1 = {
   },
   agency: {
     customers: "v1/agencies/customers",
+    change_customer_status: "v1/agencies/customers/change-status",
     portal_settings: {
       get: "v1/public/portal-settings",
       put: "v1/agencies/portal-settings",
