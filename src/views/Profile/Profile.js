@@ -44,9 +44,7 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(ProfileSettingDetailAction.profileSettingDetail());
-    if (fetched) {
-      setProfileSetting(profile_settings);
-    }
+    setProfileSetting(profile_settings)
   }, [fetched]);
 
   const onSubmitHandler = (e) => {

@@ -39,7 +39,7 @@ const editServiceBody = (data) => {
 
     _data.name = data.name;
     _data.description = data.description;
-    _data.image = data.image;
+    _data.image = data.image ? data.image : "";
     _data.subscription_type = data.subscription_type;
 
     if (data.subscription_type === "one-off") {

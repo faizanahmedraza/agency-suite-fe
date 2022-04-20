@@ -46,11 +46,13 @@ const Sidebar = props => {
   return (
     <Fragment>
       <div
-        className={classnames('main-menu menu-fixed menu-accordion menu-shadow', {
+        className={classnames('main-menu menu-fixed menu-accordion menu-shadow', 
+        {
           expanded: menuHover || menuCollapsed === false,
           'menu-light': skin !== 'semi-dark' && skin !== 'dark',
           'menu-dark': skin === 'semi-dark' || skin === 'dark'
-        })}
+        }
+        )}
         onMouseEnter={onMouseEnter}
         onMouseLeave={() => setMenuHover(false)}
       >

@@ -76,8 +76,6 @@ const EditService = () => {
         }
     })
 
-    console.log(serviceDetails)
-
     const handleInputField = (e) => {
         setServiceDetails({
             ...serviceDetails,
@@ -101,8 +99,8 @@ const EditService = () => {
 
         const base64 = await convertBase64(file)
 
-        if (!base64) return  
-        
+        if (!base64) return
+
         setServiceDetails({ ...serviceDetails, image: base64 })
 
     }
@@ -196,7 +194,13 @@ const EditService = () => {
                                                             <Row>
                                                                 <Col md='6' sm='12'>
                                                                     <div>
-                                                                        <img src={serviceDetails.image} width="100%" height="200" alt="service image" />
+                                                                        {serviceDetails.image ?
+                                                                            <img src={serviceDetails.image} width="100%" height="200" alt="service image" />
+                                                                            :
+                                                                            <div className='text-center'>
+                                                                            <span>No Image Selected</span>
+                                                                            </div>
+                                                                        }
                                                                     </div>
                                                                 </Col>
                                                                 <Col md='6' sm='12' className='d-flex flex-column'>
@@ -270,7 +274,7 @@ const EditService = () => {
                                                                         </div>
                                                                     </Col>
 
-                                                                       <Col md="6" sm='12'>
+                                                                    <Col md="6" sm='12'>
                                                                         <div className='mb-1'>
                                                                             <Label className='form-label' for='select-basic'>
                                                                                 Monthly
@@ -304,7 +308,7 @@ const EditService = () => {
                                                                                 &nbsp;
                                                                                 <small>( Billed every six months. Leave empty to disable )</small>
                                                                             </Label>
-                                                                         <InputGroup className='input-group-merge mb-2'>
+                                                                            <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
                                                                                 <Input value={serviceDetails.price_types.biannually} placeholder='0.00' name="biannually" onChange={handleNestedObject} />
                                                                             </InputGroup>

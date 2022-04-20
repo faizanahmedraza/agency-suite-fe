@@ -62,6 +62,10 @@ const ServiceTable = ({ services, pagination }) => {
         dispatch(ServiceCatalogActions.serviceCatalog(id))
     }
 
+    const handleChangeStatus = () => {
+
+    }
+
     return (
         <div>
             {
@@ -78,6 +82,7 @@ const ServiceTable = ({ services, pagination }) => {
                                     <th>PRICE</th>
                                     <th className='text-center'>Show in catalog ?</th>
                                     <th>Service Type</th>
+                                    <th className='text-center'>Status</th>
                                     <th>CREATED</th>
                                     <th>ACTIONS</th>
                                 </tr>
@@ -95,10 +100,15 @@ const ServiceTable = ({ services, pagination }) => {
                                             <td>{service.subscription_type !== "recurring" ? `$${service.price_types.price}` : "-"}</td>
                                             <td className='text-center'>
                                                 <div className='form-switch form-check-primary'>
-                                                    <Input type='switch' className='w-50' onChange={(e) => handleShowCatalogStatus(e, service.id)} defaultChecked={service.catalog_status === "active"} id='icon-primary' name='icon-primary' />
+                                                    <Input type='switch'  onChange={(e) => handleShowCatalogStatus(e, service.id)} defaultChecked={service.catalog_status === "active"} id='icon-primary' name='icon-primary' />
                                                 </div>
                                             </td>
                                             <td>{service.subscription_type}</td>
+                                            <td className='text-center'>
+                                                <div className='form-switch form-check-primary'>
+                                                    <Input type='switch' defaultChecked={service.catalog_status === "active"} id='icon-primary' name='icon-primary' />
+                                                </div>
+                                            </td>
                                             <td>
                                                 {formatDate(service.created_at)}
                                             </td>

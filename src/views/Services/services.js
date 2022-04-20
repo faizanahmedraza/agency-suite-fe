@@ -34,8 +34,6 @@ const Services = () => {
         }
     } = useSelector(state => state.service)
 
-    console.log(services)
-
     const catalog_service = services.filter(service => service.catalog_status === "active")
     const one_off_services = services.filter(service => service.subscription_type === "one-off")
     const subscription = services.filter(service => service.subscription_type === "recurring")
@@ -60,7 +58,7 @@ const Services = () => {
                         </div>
                         <div className='col-md-3'>
                             <Link to="/services/create">
-                                <Button.Ripple color='primary' className="w-100">Create Services</Button.Ripple>
+                                <Button.Ripple color='primary' className="w-100">Create Service</Button.Ripple>
                             </Link>
                         </div>
                     </div>
@@ -115,7 +113,6 @@ const Services = () => {
                             loading ?
                                 <div className='text-center'>
                                     <strong>Loading....</strong>
-
                                 </div>
                                 : (
                                     <>

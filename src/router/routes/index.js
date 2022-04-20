@@ -38,6 +38,7 @@ const CreateInvoice = lazy(() => import('../../views/Invoice/Create Invoice'))
 const CreateServices = lazy(() => import('../../views/Services/Create Service/createService'))
 const EditServices = lazy(() => import('../../views/Services/Edit Service/editService'))
 const Login = lazy(() => import('../../views/Login'))
+const Launch = lazy(() => import('../../views/Launch/launch'))
 const Register = lazy(() => import('../../views/Register'))
 const Verification = lazy(() => import('../../views/Verification'))
 const ForgotPassword = lazy(() => import('../../views/ForgotPassword'))
@@ -158,6 +159,15 @@ const Routes = [
     meta: {
       layout: 'vertical',
       // publicRoute: true,
+    }
+  },
+  {
+    path: '/launch',
+    element: <Launch />,
+    meta: {
+      layout: 'blank',
+      publicRoute: true,
+      restricted: true
     }
   },
   {
