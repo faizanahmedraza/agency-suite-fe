@@ -5,6 +5,7 @@ import { ServiceEditSaga, ServiceEditSuccessSaga } from "@store/V1/Service/Edit/
 import { serviceDeleteSaga } from "@store/V1/Service/Delete/ServiceDeleteSaga"
 import { ServicePaginationSaga } from "@store/V1/Service/Pagination/ServicePaginationSaga"
 import { ServiceCatalogSaga } from "@store/V1/Service/Catalog Status/CatalogStatusSaga"
+import { ServiceStatusSaga } from "@store/V1/Service/ServiceStatus/ServiceStatusSaga"
 
 export default function* ServiceRootSaga() {
     yield all([
@@ -15,6 +16,7 @@ export default function* ServiceRootSaga() {
         ServiceEditSuccessSaga(),
         serviceDeleteSaga(),
         ServicePaginationSaga(),
-        ServiceCatalogSaga()
+        ServiceCatalogSaga(),
+        ServiceStatusSaga(),
     ]);
 }
