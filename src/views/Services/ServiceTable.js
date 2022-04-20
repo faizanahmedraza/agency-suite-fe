@@ -4,7 +4,7 @@ import { formatDate } from '@utils'
 import { MoreVertical, Edit, Trash, Check, X } from 'react-feather'
 import { Link } from "react-router-dom"
 import ServiceDeleteActions from '@store/V1/Service/Delete/ServiceDeleteAction'
-import { useDispatch, useSelector } from "@store/store"
+import { useDispatch, useSelector } from "@store/store"     
 import ReactPaginate from 'react-paginate';
 import ServicePaginationAction from '@store/V1/Service/Pagination/ServicePaginationAction'
 import ServiceActions from '@store/V1/Service/List/ServiceListAction'
@@ -18,7 +18,7 @@ const ServiceTable = ({ services, pagination }) => {
     const [itemOffset, setItemOffset] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(6);
     const [pageCount, setPageCount] = useState(0);
-    const [current_id, setCurrent_id] = useState(null);
+    // const [current_id, setCurrent_id] = useState(null);
 
     const {
         pagination: {
