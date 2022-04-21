@@ -22,7 +22,7 @@ const VerifyEmailCover = () => {
   }
 
   const illustration = skin === 'dark' ? 'verify-email-illustration-dark.svg' : 'verify-email-illustration.svg',
-    source = require(`@src/assets/images/pages/${illustration}`).default
+    source = require(`@src/assets/images/pages/verify-email-illustration.svg`).default
 
   return (
     <div className='auth-wrapper auth-cover'>

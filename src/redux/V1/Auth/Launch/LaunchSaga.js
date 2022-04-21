@@ -8,6 +8,7 @@ import { Navigate } from "react-router-dom"
 function* postLaunch(data) {
     try {
         const response = yield AuthService.launchPost(data.request);
+        console.log(response)
         if (response.success) {
             toast.success(response.message)
             yield put(LaunchAction.postLaunchSuccess(response.data));
@@ -16,7 +17,7 @@ function* postLaunch(data) {
         }
     } catch (error) {
         toast.error("Something Went Wrong Please Try Again Later")
-
+        console.log(error)
         yield put(LaunchAction.postLaunchFailed(error))
     }
 }
@@ -27,11 +28,11 @@ function postLaunchSuccess(data) {
 }
 
 function postLaunchFailed(data) {
+    console.log(data)
     toast.error(data.response)
 }
 
 export function* postLaunchSaga() {
-    console.log("sagaaaas")
     yield takeEvery(LAUNCH_ACTION_TYPE.POST_LAUNCH, postLaunch);
 }
 

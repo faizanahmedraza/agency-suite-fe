@@ -129,5 +129,9 @@
   "resolutions": {
     "react-error-overlay": "6.0.9"
   },
-  "homepage": ""
+  "homepage": "",
+  "main": "index.js",
+  "repository": "https://github.com/SAASFA/agt-client.git",
+  "author": "haris12390 <92376056+haris12390@users.noreply.github.com>",
+  "license": "MIT"
 }
