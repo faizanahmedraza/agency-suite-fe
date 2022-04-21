@@ -25,7 +25,7 @@ function* profileSettingDetail() {
 
 function profileSettingDetailSuccess(data) {
   let _data = localStorage.getItem("user");
-  if (_data != null) {
+  if (_data !== null) {
     let profile = data.response.profile;
     let user = SettingHelper.localData(_data);
     user.first_name = profile.name;
