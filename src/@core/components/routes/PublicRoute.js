@@ -8,13 +8,13 @@ import { getUserData } from '@utils'
 const PublicRoute = ({ children, route }) => {
   if (route) {
 
-    if (window.location.hostname === config.public_url+"/login") {
-      window.location === "/launch"
-    }
+    // if (window.location.hostname === config.public_url+"/login") {
+    //   window.location === "/launch"
+    // }
 
     const user = getUserData()
 
-    console.log(window.location.hostname)
+    // console.log(window.location.hostname)
 
     const restrictedRoute = route.meta && route.meta.restricted
 
