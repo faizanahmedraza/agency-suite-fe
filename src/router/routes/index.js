@@ -43,6 +43,7 @@ const Register = lazy(() => import('../../views/Register'))
 const Verification = lazy(() => import('../../views/Verification'))
 const ForgotPassword = lazy(() => import('../../views/ForgotPassword'))
 const CreatePassword = lazy(() => import('../../views/CreatePassword'))
+const CustomerRegister = lazy(() => import('../../views/CustomerRegister'))
 const Error = lazy(() => import('../../views/Error'))
 
 // ** Merge Routes
@@ -58,7 +59,7 @@ const Routes = [
     // meta: {
     //   publicRoute: true,
     // }
-   
+
   },
   {
     path: '/profile',
@@ -66,7 +67,7 @@ const Routes = [
     // meta: {
     //   publicRoute: true,
     // }
-   
+
   },
   {
     path: '/services',
@@ -74,8 +75,8 @@ const Routes = [
     // meta: {
     //   publicRoute: true,
     // }
-   
-   
+
+
   },
   {
     path: '/services/create',
@@ -83,8 +84,8 @@ const Routes = [
     // meta: {
     //   publicRoute: true,
     // }
-   
-    
+
+
   },
   {
     path: '/services/edit/:id',
@@ -92,7 +93,7 @@ const Routes = [
     // meta: {
     //   publicRoute: true,
     // }
-   
+
   },
   {
     path: '/customers',
@@ -100,7 +101,7 @@ const Routes = [
     // meta: {
     //   publicRoute: true,
     // }
-   
+
   },
   {
     path: '/customers/create',
@@ -108,7 +109,7 @@ const Routes = [
     // meta: {
     //   publicRoute: true,
     // }
-   
+
   }
   ,
   {
@@ -117,7 +118,7 @@ const Routes = [
     // meta: {
     //   publicRoute: true,
     // }
-   
+
   }
   ,
   {
@@ -126,7 +127,7 @@ const Routes = [
     // meta: {
     //   publicRoute: true,
     // }
-   
+
   },
   {
     path: '/portal',
@@ -134,8 +135,8 @@ const Routes = [
     // meta: {
     //   publicRoute: true,
     // }
-   
-   
+
+
   },
   {
     path: '/invoice',
@@ -180,6 +181,15 @@ const Routes = [
     }
   },
   {
+    path: '/customers/register',
+    element: <CustomerRegister />,
+    meta: {
+      layout: 'blank',
+      publicRoute: true,
+      restricted: true
+    }
+  },
+  {
     path: '/register',
     element: <Register />,
     meta: {
@@ -195,7 +205,7 @@ const Routes = [
       layout: 'blank',
       publicRoute: true,
       restricted: true,
-      
+
     }
   },
   {
@@ -221,7 +231,7 @@ const Routes = [
     element: <Error />,
     meta: {
       layout: 'blank',
-      
+
     }
   }
 ]

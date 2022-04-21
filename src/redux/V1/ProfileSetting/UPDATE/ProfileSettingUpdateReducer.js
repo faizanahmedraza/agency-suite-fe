@@ -3,7 +3,8 @@ import PROFILE_SETTING from "@store/V1/ProfileSetting/ActionTypes";
 const ProfileSettingUpdateReducer = (
     state = {
         loading: false,
-        profile_settings: {}
+        user: null,
+        isFetched : false
     },
     action
 ) => {
@@ -17,7 +18,8 @@ const ProfileSettingUpdateReducer = (
             return {
                 ...state,
                 loading: false,
-                profile_settings: action.response.profile,
+                user: action.response.user,
+                isFetched : true
             }
         case PROFILE_SETTING.PROFILE_SETTING_UPDATE_FAILED:
             return {

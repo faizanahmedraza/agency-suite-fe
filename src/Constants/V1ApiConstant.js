@@ -5,13 +5,14 @@ const V1 = {
     login: "v1/auth/login",
     verification: "v1/auth/verify-token",
     forgot_password: "v1/auth/forget-password",
+    launch: "v1/public/domain-launch"
   },
   service: {
     create: "v1/agencies/services",
     read: "v1/agencies/services",
     update: "v1/agencies/services",
     delete: "v1/agencies/services",
-    change_status: "v1/agencies/services/change-status/{id}",
+    change_status: "v1/agencies/services/change-status",
     change_catalog_status: "v1/agencies/services/change-catalog-status",
   },
   dashboard: {
@@ -23,6 +24,7 @@ const V1 = {
   },
   agency: {
     customers: "v1/agencies/customers",
+    change_customer_status: "v1/agencies/customers/change-status",
     portal_settings: {
       get: "v1/public/portal-settings",
       put: "v1/agencies/portal-settings",
@@ -41,8 +43,8 @@ const V1 = {
     posts: "v1/guest/blog/posts",
     tags: "v1/guest/blog/tags",
   },
-  // DOMAIN: window.location.hostname,
-  DOMAIN: 'fahadagency.allthingswordpress.io',
+  DOMAIN: window.location.hostname,
+  // DOMAIN: 'fahadagency.allthingswordpress.io',
 };
 
 export default V1;

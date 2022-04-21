@@ -33,6 +33,11 @@ async function serviceCatalog(data) {
     return response;
 }
 
+async function serviceStatus(data) {
+    const response = await Gateway.authGateway("PUT", V1.DOMAIN, V1.service.change_status + "/" + data);
+    return response;
+}
+
 const editServiceBody = (data) => {
 
     let _data = {};
@@ -93,7 +98,8 @@ const AgencyService = {
     servicEdit,
     serviceDelete,
     servicePagination,
-    serviceCatalog
+    serviceCatalog,
+    serviceStatus,
 }
 
 export default AgencyService;

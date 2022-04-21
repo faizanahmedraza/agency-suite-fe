@@ -31,6 +31,9 @@ const Services = () => {
         },
         catalog: {
             isChanged
+        },
+        service_status: {
+            isChanged: isChangedService
         }
     } = useSelector(state => state.service)
 
@@ -45,8 +48,8 @@ const Services = () => {
     }
 
     useEffect(() => {
-        if (!services.length || isDeleted || isChanged) return dispatch(ServiceActions.serviceList())
-    }, [isDeleted , isChanged])
+        if (!services.length || isDeleted || isChanged || isChangedService) return dispatch(ServiceActions.serviceList())
+    }, [isDeleted , isChanged, isChangedService])
 
     return (
         <div>

@@ -79,7 +79,7 @@ const Profile = () => {
                   <Label className='form-label'>
                     Name
                   </Label>
-                  <Input type='text' onChange={handleInputField} name='name' value={profileSetting.name} />
+                  <Input type='text' onChange={handleInputField} name='name' value={profileSetting?.name} />
                 </div>
                 <div className='mb-1'>
                   <Label className='form-label'>
@@ -91,7 +91,7 @@ const Profile = () => {
                     <Col md="2">
                       <div className='mt-0'>
                         <img className='rounded-circle' src={
-                          profileSetting.image || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
+                          profileSetting?.image || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
                         } width="60px" alt="service image" />
                       </div>
                     </Col>

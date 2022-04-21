@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 function* profileSettingUpdate(data) {
   try {
     const response = yield ProfileSettingService.profileSettingPut(data.request);
+    console.log(response)
     if (response.success) {
       toast.success(response.message);
       yield put(ProfileSettingUpdateAction.profileSettingUpdateSuccess(response.data));
@@ -22,6 +23,18 @@ function* profileSettingUpdate(data) {
   }
 }
 
+function* profileSettingUpdateSuccess(data) {
+  const { user } = data.response
+  localStorage.setItem(
+    "user",
+    JSON.stringify(user)
+);
+}
+
 export function* ProfileSettingUpdateSaga() {
   yield takeEvery(PROFILE_SETTING.PROFILE_SETTING_UPDATE, profileSettingUpdate);
+}
+
+export function* ProfileSettingUpdatSuccesseSaga() {
+  yield takeEvery(PROFILE_SETTING.PROFILE_SETTING_UPDATE_SUCCESS, profileSettingUpdateSuccess);
 }

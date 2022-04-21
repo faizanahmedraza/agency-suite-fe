@@ -1,6 +1,11 @@
 import Gateway from "@src/Gateways/Gateway";
 import V1 from "@src/Constants/V1ApiConstant";
 
+async function launchPost(data) {
+    const _data = LaunchPostBody(data);
+    const response = await Gateway.guestGateway("POST", V1.DOMAIN, V1.auth.launch, _data);
+    return response;
+}
 
 async function loginPost(data) {
     const _data = LoginPostBody(data);
@@ -11,6 +16,12 @@ async function loginPost(data) {
 async function registerPost(data) {
     const _data = RegisterPostBody(data);
     const response = await Gateway.guestGateway("POST", V1.DOMAIN, V1.auth.register, _data);
+    return response;
+}
+
+async function customerRegisterPost(data) {
+    const _data = CustomerRegisterPostBody(data);
+    const response = await Gateway.guestGateway("POST", V1.DOMAIN, V1.auth.customer_register, _data);
     return response;
 }
 
@@ -26,6 +37,11 @@ async function forgotPasswordPost(data) {
     return response;
 }
 
+const LaunchPostBody = (data) => {
+    let _data = {};
+    _data.domain = data.domain;
+    return JSON.stringify(_data);
+};
 const LoginPostBody = (data) => {
     let _data = {};
     _data.email = data.email;
@@ -35,6 +51,13 @@ const LoginPostBody = (data) => {
 const RegisterPostBody = (data) => {
     let _data = {};
     _data.agency_name = data.agency_name;
+    _data.email = data.email;
+    return JSON.stringify(_data);
+};
+const CustomerRegisterPostBody = (data) => {
+    let _data = {};
+    _data.first_name = data.first_name;
+    _data.last_name = data.last_name;
     _data.email = data.email;
     return JSON.stringify(_data);
 };
@@ -55,6 +78,8 @@ const AuthService = {
     loginPost,
     registerPost,
     verificationPost,
-    forgotPasswordPost
+    forgotPasswordPost,
+    customerRegisterPost,
+    launchPost
 };
 export default AuthService;

@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 
 // ** Reducers Imports
+import LaunchReducer from "@store/V1/Auth/Launch/LaunchReducer";
 import LoginReducer from "@store/V1/Auth/Login/LoginReducer";
 import CustomerRootReducer from "@store/V1/Customer/CustomerRootReducer";
 import RegisterReducer from "@store/V1/Auth/Register/RegisterReducers";
+import CustomerRegistrationReducer from "@store/V1/Auth/CustomerRegister/CustomerRegisterReducers";
 import VerificationReducer from "@store/V1/Auth/Verification/VerificationReducers";
 import ForgotPasswordReducer from "@store/V1/Auth/Forgot Password/ForgotPasswordReducers";
 import ServiceReducer from "@store/V1/Service/serviceRootReducer";
@@ -18,9 +20,11 @@ const rootReducer = combineReducers({
   layout,
   dataTables,
   login: LoginReducer,
+  launch: LaunchReducer,
   register: RegisterReducer,
+  customer_register: CustomerRegistrationReducer,
   verification: VerificationReducer,
-  service : ServiceReducer,
+  service: ServiceReducer,
   customers: CustomerRootReducer,
   forgotPassword: ForgotPasswordReducer,
   portal_settings: PortalSettingRootReducer,
