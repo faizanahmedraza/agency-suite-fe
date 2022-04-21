@@ -5,11 +5,15 @@ import { UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem } from
 import defaultAvatar from '@src/assets/images/portrait/small/avatar-s-27.png'
 import LogoutHelper from "@src/Helpers/LogoutHelper"
 import { useSelector } from "@store/store"
+<<<<<<< HEAD
 import { useState, useEffect } from "react"
+=======
+>>>>>>> c838262e0e9e8277d3861169947ee5427e2cbce0
 
 const UserDropdown = () => {
   const {
     login: {
+<<<<<<< HEAD
       user: login_user
     },
     profile_settings:
@@ -29,6 +33,12 @@ const UserDropdown = () => {
     setUser(profile_user)
   }, [profile_user])
 
+=======
+      user 
+    },
+  } = useSelector(state => state)
+
+>>>>>>> c838262e0e9e8277d3861169947ee5427e2cbce0
   const role = user?.roles[0].name;
   const logo = user?.image;
 

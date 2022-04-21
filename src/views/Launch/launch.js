@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // ** React Imports
 import { useState } from "react"
 import { Link } from 'react-router-dom'
@@ -123,3 +124,14 @@ const VerifyEmailCover = () => {
 }
 
 export default VerifyEmailCover
+=======
+import React from 'react'
+
+const Launch = () => {
+  return (
+    <div>Launch</div>
+  )
+}
+
+export default Launch
+>>>>>>> c838262e0e9e8277d3861169947ee5427e2cbce0
