@@ -76,8 +76,6 @@ const EditService = () => {
         }
     })
 
-    console.log(serviceDetails)
-
     const handleInputField = (e) => {
         setServiceDetails({
             ...serviceDetails,
@@ -101,8 +99,8 @@ const EditService = () => {
 
         const base64 = await convertBase64(file)
 
-        if (!base64) return 
-        
+        if (!base64) return
+
         setServiceDetails({ ...serviceDetails, image: base64 })
 
     }
@@ -196,7 +194,13 @@ const EditService = () => {
                                                             <Row>
                                                                 <Col md='6' sm='12'>
                                                                     <div>
-                                                                        <img src={serviceDetails.image} width="100%" height="200" alt="service image" />
+                                                                        {serviceDetails.image ?
+                                                                            <img src={serviceDetails.image} width="100%" height="200" alt="service image" />
+                                                                            :
+                                                                            <div className='text-center'>
+                                                                            <span>No Image Selected</span>
+                                                                            </div>
+                                                                        }
                                                                     </div>
                                                                 </Col>
                                                                 <Col md='6' sm='12' className='d-flex flex-column'>

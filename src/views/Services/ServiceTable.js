@@ -4,7 +4,7 @@ import { formatDate } from '@utils'
 import { MoreVertical, Edit, Trash, Check, X } from 'react-feather'
 import { Link } from "react-router-dom"
 import ServiceDeleteActions from '@store/V1/Service/Delete/ServiceDeleteAction'
-import { useDispatch, useSelector } from "@store/store"
+import { useDispatch, useSelector } from "@store/store"     
 import ReactPaginate from 'react-paginate';
 import ServicePaginationAction from '@store/V1/Service/Pagination/ServicePaginationAction'
 import ServiceActions from '@store/V1/Service/List/ServiceListAction'
@@ -18,7 +18,7 @@ const ServiceTable = ({ services, pagination }) => {
     const [itemOffset, setItemOffset] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(6);
     const [pageCount, setPageCount] = useState(0);
-    const [current_id, setCurrent_id] = useState(null);
+    // const [current_id, setCurrent_id] = useState(null);
 
     const {
         pagination: {
@@ -63,8 +63,8 @@ const ServiceTable = ({ services, pagination }) => {
         dispatch(ServiceCatalogActions.serviceCatalog(id))
     }
 
-    const handleShowServiceStatus = (e, id) => {
-        dispatch(ServiceStatusAction.serviceStatus(id))
+    const handleChangeStatus = () => {
+
     }
 
     return (
@@ -83,7 +83,7 @@ const ServiceTable = ({ services, pagination }) => {
                                     <th>PRICE</th>
                                     <th className='text-center'>Show in catalog ?</th>
                                     <th>Service Type</th>
-                                    <th className='text-center'>Status </th>
+                                    <th className='text-center'>Status</th>
                                     <th>CREATED</th>
                                     <th>ACTIONS</th>
                                 </tr>
@@ -101,13 +101,13 @@ const ServiceTable = ({ services, pagination }) => {
                                             <td>{service.subscription_type !== "recurring" ? `$${service.price_types.price}` : "-"}</td>
                                             <td className='text-center'>
                                                 <div className='form-switch form-check-primary'>
-                                                    <Input type='switch' className='w-50' onChange={(e) => handleShowCatalogStatus(e, service.id)} defaultChecked={service.catalog_status === "active"} id='icon-primary' name='icon-primary' />
+                                                    <Input type='switch'  onChange={(e) => handleShowCatalogStatus(e, service.id)} defaultChecked={service.catalog_status === "active"} id='icon-primary' name='icon-primary' />
                                                 </div>
                                             </td>
                                             <td>{service.subscription_type}</td>
                                             <td className='text-center'>
                                                 <div className='form-switch form-check-primary'>
-                                                    <Input type='switch' className='' onChange={(e) => handleShowServiceStatus(e, service.id)} defaultChecked={service.status === "active"} id='icon-secondnary' name='icon-status' />
+                                                    <Input type='switch' defaultChecked={service.catalog_status === "active"} id='icon-primary' name='icon-primary' />
                                                 </div>
                                             </td>
                                             <td>

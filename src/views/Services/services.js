@@ -61,7 +61,7 @@ const Services = () => {
                         </div>
                         <div className='col-md-3'>
                             <Link to="/services/create">
-                                <Button.Ripple color='primary' className="w-100">Create Services</Button.Ripple>
+                                <Button.Ripple color='primary' className="w-100">Create Service</Button.Ripple>
                             </Link>
                         </div>
                     </div>
@@ -116,7 +116,6 @@ const Services = () => {
                             loading ?
                                 <div className='text-center'>
                                     <strong>Loading....</strong>
-
                                 </div>
                                 : (
                                     <>

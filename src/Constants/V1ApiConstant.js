@@ -5,6 +5,7 @@ const V1 = {
     login: "v1/auth/login",
     verification: "v1/auth/verify-token",
     forgot_password: "v1/auth/forget-password",
+    launch: "v1/public/domain-launch"
   },
   service: {
     create: "v1/agencies/services",

@@ -16,6 +16,7 @@ const App = () => {
   const { layout } = useLayout()
 
   useEffect(() => {
+    console.log("chala")
     setAllRoutes(getRoutes(layout))
   }, [layout])
 

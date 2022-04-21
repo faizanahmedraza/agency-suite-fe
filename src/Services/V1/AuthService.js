@@ -1,6 +1,11 @@
 import Gateway from "@src/Gateways/Gateway";
 import V1 from "@src/Constants/V1ApiConstant";
 
+async function launchPost(data) {
+    const _data = LaunchPostBody(data);
+    const response = await Gateway.guestGateway("POST", V1.DOMAIN, V1.auth.launch, _data);
+    return response;
+}
 
 async function loginPost(data) {
     const _data = LoginPostBody(data);
@@ -32,6 +37,11 @@ async function forgotPasswordPost(data) {
     return response;
 }
 
+const LaunchPostBody = (data) => {
+    let _data = {};
+    _data.domain = data.domain;
+    return JSON.stringify(_data);
+};
 const LoginPostBody = (data) => {
     let _data = {};
     _data.email = data.email;
@@ -69,6 +79,7 @@ const AuthService = {
     registerPost,
     verificationPost,
     forgotPasswordPost,
-    customerRegisterPost
+    customerRegisterPost,
+    launchPost
 };
 export default AuthService;

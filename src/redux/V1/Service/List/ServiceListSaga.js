@@ -5,7 +5,6 @@ import AgencyService from "@src/Services/V1/AgencyService"
 
 function* serviceList(data) {
     const response = yield AgencyService.serviceList()
-    console.log(response)
     if (response.success) {
         yield put(ServiceActions.serviceListSuccess(response.data))
     } else {
