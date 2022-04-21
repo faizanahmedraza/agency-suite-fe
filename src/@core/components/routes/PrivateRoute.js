@@ -8,10 +8,8 @@ import { AbilityContext } from '@src/utility/context/Can'
 
 const PrivateRoute = ({ children, route }) => {
   // ** Hooks & Vars
-  const ability = useContext(AbilityContext)
+  // const ability = useContext(AbilityContext)
   const user = JSON.parse(localStorage.getItem('user'))
-
-  console.log(config)
 
   if (route) {
     let action = null

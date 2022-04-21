@@ -95,3 +95,18 @@ export const convertBase64 = (file) => {
 
   })
 }
+
+export const setFavIcon = () => {
+  const portal_settings = localStorage.getItem("portal_settings")
+  const set_fav_icon = document.getElementById("favicon")
+  if (!portal_settings) return
+  const { favicon } = JSON.parse(portal_settings)
+  set_fav_icon.href = favicon
+}
+
+export const setTitle = () => {
+  const portal_settings = localStorage.getItem("portal_settings")
+  if (!portal_settings) return
+  const { agency: { name } } = JSON.parse(portal_settings)
+  document.title = name
+}

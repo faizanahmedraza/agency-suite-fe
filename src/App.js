@@ -9,14 +9,16 @@ import { getRoutes } from './router/routes'
 // ** Hooks Imports
 import { useLayout } from '@hooks/useLayout'
 
+import { setFavIcon, setTitle } from "@utils"
+
 const App = () => {
   const [allRoutes, setAllRoutes] = useState([])
-
   // ** Hooks
   const { layout } = useLayout()
 
   useEffect(() => {
-    console.log("chala")
+    setFavIcon()
+    setTitle()
     setAllRoutes(getRoutes(layout))
   }, [layout])
 

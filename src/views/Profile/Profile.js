@@ -25,7 +25,7 @@ const Profile = () => {
   });
   const dispatch = useDispatch();
   const {
-    detail: { profile_settings, fetched },
+    detail: { profile_settings, fetched, loading: detail_loading },
     update: { loading }
   } = useSelector((state) => state.profile_settings);
 
@@ -73,52 +73,64 @@ const Profile = () => {
           <div>
             <h3>Profile details</h3>
             <hr />
-            <Form onSubmit={onSubmitHandler}>
-              <Col md="5">
-                <div className='mb-1'>
-                  <Label className='form-label'>
-                    Name
-                  </Label>
-                  <Input type='text' onChange={handleInputField} name='name' value={profileSetting?.name} />
-                </div>
-                <div className='mb-1'>
-                  <Label className='form-label'>
-                    Photo
-                  </Label>
-                  &nbsp;
-                  <small><Label>( Recommended: 50x50 px. )  </Label></small>
-                  <Row>
-                    <Col md="2">
-                      <div className='mt-0'>
-                        <img className='rounded-circle' src={
-                          profileSetting?.image || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
-                        } width="60px" alt="service image" />
-                      </div>
-                    </Col>
-                    <Col md="8" className='pt-1' >
-                      <Input type='file' onChange={handleInputField} accept="image/*" name='image' id='nameMulti' />
-                    </Col>
-                  </Row>
-                </div>
-              </Col>
-              <Col sm="12">
-                <div className="d-flex justify-content-end">
-                  <Button color="primary" type="submit">
-                  {
-                                                    loading ?
-                                                        <>
-                                                            <Spinner color='white' size='sm' type='grow' />
-                                                            <span className='ms-50'>Loading...</span>
-                                                        </>
-                                                        :
-                                                        <span>
-                                                            Save
-                                                        </span>
-                                                }
+            {
+              detail_loading ?
+                <Row>
+                  <div className="text-center fw-bold">
+                    <p>Loading...</p>
+                  </div>
+                </Row>
+                :
+
+                <Form onSubmit={onSubmitHandler}>
+                  <Col md="5">
+                    <div className='mb-1'>
+                      <Label className='form-label'>
+                        Name
+                      </Label>
+                      <Input type='text' onChange={handleInputField} name='name' value={profileSetting?.name} />
+                    </div>
+                    <div className='mb-1'>
+                      <Label className='form-label'>
+                        Photo
+                      </Label>
+                      &nbsp;
+                      <small><Label>( Recommended: 50x50 px. )  </Label></small>
+                      <Row>
+                        <Col md="2">
+                          <div className='mt-0'>
+                            <img className='rounded-circle' src={
+                              profileSetting?.image || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
+                            } width="60px" alt="service image" />
+                          </div>
+                        </Col>
+                        <Col md="8" className='pt-1' >
+                          <Input type='file' onChange={handleInputField} accept="image/*" name='image' id='nameMulti' />
+                        </Col>
+                      </Row>
+                    </div>
+                  </Col>
+                  <Col sm="12">
+                    <div className="d-flex justify-content-end">
+                      <Button color="primary" disabled={loading} type="submit">
+                        {
+                          loading ?
+                            <>
+                              <Spinner color='white' size='sm' type='grow' />
+                              <span className='ms-50'>Loading...</span>
+                            </>
+                            :
+                            <span>
+                              Save
+                            </span>
+                        }
                       </Button>
-                </div>
-              </Col>
-            </Form>
+                    </div>
+                  </Col>
+                </Form>
+
+            }
+
           </div>
         </CardBody>
       </Card>

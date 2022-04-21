@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 function* portalSettingDetail() {
   try {
     const response = yield PortalSettingService.portalSettingGet();
-     if (response.success) {
+    if (response.success) {
       yield put(PortalSettingDetailAction.portalSettingDetailSuccess(response.data));
     } else {
       yield put(PortalSettingDetailAction.portalSettingDetailFailed());
@@ -22,8 +22,8 @@ function* portalSettingDetail() {
 
 function portalSettingDetailSuccess(data) {
   localStorage.setItem(
-      "portal_settings",
-      JSON.stringify(data.response.portal_settings)
+    "portal_settings",
+    JSON.stringify(data.response.portal_settings)
   );
 }
 

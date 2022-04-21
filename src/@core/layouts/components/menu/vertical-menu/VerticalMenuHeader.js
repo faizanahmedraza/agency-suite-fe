@@ -48,12 +48,11 @@ const VerticalMenuHeader = props => {
     <div className='navbar-header'>
       <ul className='nav navbar-nav flex-row'>
         <li className='nav-item me-auto'>
-          <NavLink to={user ? getHomeRouteForLoggedInUser(user.role) : '/'} className='navbar-brand'>
-            <span className='brand-logo'>
-              <img src={logo} alt='logo' />
-            </span>
-            <h2 className='brand-text mb-0'>{agency.name}</h2>
-          </NavLink>
+          {/* <NavLink to={user ? getHomeRouteForLoggedInUser(user.role) : '/'} className='navbar-brand bg-info '> */}
+            <div className='brand-logo w-100'>
+              <img src={logo} height="70" alt='logo'/>
+            </div>
+          {/* </NavLink> */}
         </li>
         <li className='nav-item nav-toggle'>
           <div className='nav-link modern-nav-toggle cursor-pointer'>
