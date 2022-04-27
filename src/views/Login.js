@@ -58,7 +58,7 @@ const LoginCover = () => {
   };
 
   const illustration = skin === "dark" ? "login-v2-dark.svg" : "login-v2.svg",
-    source = require(`@src/assets/images/pages/${illustration}`).default;
+    source = require(`@src/assets/images/pages/login-v2.svg`).default;
 
   return (
     <div className="auth-wrapper auth-cover">

@@ -10,6 +10,7 @@ export const useLayout = () => {
   const dispatch = useDispatch()
   const store = useSelector(state => state.layout)
 
+
   const setLayout = value => {
     dispatch(handleLayout(value))
   }

@@ -41,7 +41,7 @@ const RegisterCover = () => {
   }
 
   const illustration = skin === 'dark' ? 'register-v2-dark.svg' : 'register-v2.svg',
-    source = require(`@src/assets/images/pages/${illustration}`).default
+    source = require(`@src/assets/images/pages/register-v2.svg`).default
 
   return (
     <div className='auth-wrapper auth-cover'>

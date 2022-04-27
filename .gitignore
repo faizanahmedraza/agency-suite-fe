@@ -26,4 +26,5 @@ yarn-error.log*
 .eslintcache
 .vscode
 package-lock.json
+node_modules.zip
 yarn.lock
