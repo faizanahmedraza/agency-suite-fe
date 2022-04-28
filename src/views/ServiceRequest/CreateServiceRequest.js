@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Card,
     Row,
@@ -9,64 +9,94 @@ import {
     Form,
     Button,
     CardHeader,
-    InputGroup,
-    InputGroupText,
     Spinner,
 } from 'reactstrap'
-import { convertBase64 } from "@utils"
 import { useDispatch, useSelector } from '@store/store'
-import ServiceActions from '@store/V1/Service/Create/ServiceCreateAction'
+import ServiceRequestCreateAction from "@store/V1/ServiceRequest/CREATE/ServiceRequestCreateAction";
+import ServiceActions from '@store/V1/Service/List/ServiceListAction';
+import CustomerListAction from "@store/V1/Customer/LIST/CustomerListAction";
+import AsyncSelect from 'react-select/async';
 
 const CreateServiceRequest = () => {
 
-    const [active, setActive] = useState('1')
-    const [formModal, setFormModal] = useState(false)
     const dispatch = useDispatch()
-    const { loading } = useSelector(state => state.service.create)
+    const {
+        service: { list: { services } = [] } = [],
+        customers: { list: { customers } = [] } = [],
+        service_requests: { create: { loading } } = {}
+    } = useSelector(state => state);
 
-    const [serviceDetails, setServiceDetails] = useState({
-        name: "",
+    const [serviceRequestDetails, setServiceRequestDetails] = useState({
+        service_id: "",
+        customer_id: "",
+        recurring_type: "",
+        title: "",
         description: "",
-        image: "",
-        subscription_type: "",
-        price: "",
-        purchase_limit: "",
-        weekly: "",
-        monthly: "",
-        quarterly: "",
-        biannually: "",
-        annually: "",
-        max_concurrent_requests: "",
-        max_requests_per_month: "",
-        intakes: {
-            intake: [
-                {
-                    field: "text",
-                    name: "Title"
-                },
-                {
-                    field: "text",
-                    name: "Description"
-                },
-            ]
-        }
+        is_recurring: false,
+        selected_service: null,
     })
 
+    const [inputCustomerValue, setCustomerValue] = useState('');
+    const [inputServiceValue, setServiceValue] = useState('');
+
     const handleInputField = (e) => {
-        setServiceDetails({
-            ...serviceDetails,
+        setServiceRequestDetails({
+            ...serviceRequestDetails,
             [e.target.name]: e.target.value
         })
     }
 
-    const resetInputField = (e) => {
-        setCustomerDetails(initialState)
+    // handle input change event
+    const handleInputChange = value => {
+        setCustomerValue(value);
+    };
+
+    // handle selection
+    const handleAsyncCustomerChange = value => {
+        setServiceRequestDetails({
+            ...serviceRequestDetails,
+            customer_id: value
+        })
     }
+
+    const handleServiceInput = (e) => {
+        if (e.target.value !== "") {
+            const selectedService = services.find(service => service.id === Number(e.target.value))
+            setServiceRequestDetails({
+                ...serviceRequestDetails,
+                service_id: e.target.value,
+                is_recurring: selectedService.subscription_type == "recurring" ? true : false,
+                selected_service: selectedService,
+            })
+        } else {
+            setServiceRequestDetails({
+                ...serviceRequestDetails,
+                is_recurring: false,
+            })
+        }
+    }
+
+    useEffect(() => {
+        dispatch(ServiceActions.serviceList());
+        dispatch(CustomerListAction.customerList());
+    }, []);
+
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        dispatch(CustomerCreateAction.customerCreate(customerDetails));
+        dispatch(ServiceRequestCreateAction.serviceRequestCreate(serviceRequestDetails));
     }
+
+    const loadOptions = async (inputValue, callback) => {
+        const data = customers;
+        const result = data.map((d) => {
+            return {
+                value: `${d.id}`,
+                label: `${d.first_name + ' ' + d.last_name}`,
+            };
+        });
+        callback(result);
+    };
 
     return (
         <div>
@@ -94,11 +124,26 @@ const CreateServiceRequest = () => {
                                             <Label className='form-label' for='select-basic'>
                                                 Customer
                                             </Label>
-                                            <Input type='select' value={serviceDetails.subscription_type} name='subscription_type' onChange={handleInputField} id='select-basic'>
+                                            <AsyncSelect
+                                                isClearable={false}
+                                                className='react-select'
+                                                classNamePrefix='select'
+                                                value=""
+                                                // getOptionLabel={e => label}
+                                                // getOptionValue={e => e.id}
+                                                loadOptions={[
+                                                    {label: "irfan", value: 1},
+                                                    {label: "faizan", value:2}
+                                                ]}
+                                                // onInputChange={handleInputChange}
+                                                onChange={handleAsyncCustomerChange}
+                                            />
+                                            {/* <Input type='select' name='customer_id' onChange={handleInputField} id='customers'>
                                                 <option value="">Select Customer</option>
-                                                <option value="one-off">One-off</option>
-                                                <option value="recurring">Recurring</option>
-                                            </Input>
+                                                {
+                                                    customers.map((customer) => <option key={customer.id} value={customer.id}>{customer.first_name}</option>)
+                                                }
+                                            </Input> */}
                                         </div>
                                     </Col>
                                     <Col md="6" sm='12'>
@@ -106,38 +151,64 @@ const CreateServiceRequest = () => {
                                             <Label className='form-label' for='select-basic'>
                                                 Service
                                             </Label>
-                                            <Input type='select' value={serviceDetails.subscription_type} name='subscription_type' onChange={handleInputField} id='select-basic'>
+                                            <Input type='select' name='service_id' onChange={handleServiceInput} id='services'>
                                                 <option value="">Select Service</option>
-                                                <option value="one-off">One-off</option>
-                                                <option value="recurring">Recurring</option>
+                                                {
+                                                    services.map((service) => <option key={service.id} value={service.id}>{service.name}</option>)
+                                                }
                                             </Input>
                                         </div>
                                     </Col>
                                     {
-                                        serviceDetails.subscription_type === "recurring" &&
-                                        (
-                                            <>
-                                                <Col md="12" sm='12'>
+                                        serviceRequestDetails.is_recurring && serviceRequestDetails.selected_service != null ?
+                                            (
+                                                <Col md='12' sm='12'>
                                                     <div className='mb-1'>
-                                                        <Label className='form-label' for='select-basic'>
-                                                            Service Type
+                                                        <Label className='form-label pb-0 mb-0' for='select-basic'>
+                                                            Service Subscription
                                                         </Label>
-                                                        <Input type='select' value={serviceDetails.subscription_type} name='subscription_type' onChange={handleInputField} id='select-basic'>
-                                                            <option value="">Select Service</option>
-                                                            <option value="one-off">One-off</option>
-                                                            <option value="recurring">Recurring</option>
-                                                        </Input>
+                                                        <div className='demo-inline-spacing'>
+                                                            <div className='form-check'>
+                                                                <Input type='radio' name='recurring_type' id='sr1' value="annualy" />
+                                                                <Label className='form-check-label' for='sr1'>
+                                                                    {'annualy - ' + serviceRequestDetails.selected_service.price_types.annually + '$'}
+                                                                </Label>
+                                                            </div>
+                                                            <div className='form-check'>
+                                                                <Input type='radio' name='recurring_type' id='sr2' value="biannually" />
+                                                                <Label className='form-check-label' for='sr2'>
+                                                                    {'biannually - ' + serviceRequestDetails.selected_service.price_types.biannually + '$'}
+                                                                </Label>
+                                                            </div>
+                                                            <div className='form-check'>
+                                                                <Input type='radio' name='recurring_type' id='sr3' value="quarterly" />
+                                                                <Label className='form-check-label' for='sr3'>
+                                                                    {'quarterly - ' + serviceRequestDetails.selected_service.price_types.quarterly + '$'}
+                                                                </Label>
+                                                            </div>
+                                                            <div className='form-check'>
+                                                                <Input type='radio' name='recurring_type' value="weekly" />
+                                                                <Label className='form-check-label' for='sr4'>
+                                                                    {'weekly - ' + serviceRequestDetails.selected_service.price_types.weekly + '$'}
+                                                                </Label>
+                                                            </div>
+                                                            <div className='form-check'>
+                                                                <Input type='radio' name='recurring_type' id='sr5' value="monthly" defaultChecked />
+                                                                <Label className='form-check-label' for='sr5'>
+                                                                    {'monthly - ' + serviceRequestDetails.selected_service.price_types.monthly + '$'}
+                                                                </Label>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </Col>
-                                            </>
-                                        )
+                                            ) : ""
                                     }
                                     <Col md='12' sm='12'>
                                         <div className='mb-1'>
                                             <Label className='form-label' for='nameMulti'>
                                                 Title
                                             </Label>
-                                            <Input type='text' value={serviceDetails.name} onChange={handleInputField} name='name' id='nameMulti' placeholder='Enter Service Name' />
+                                            <Input type='text' value={serviceRequestDetails.name} onChange={handleInputField} name='name' id='nameMulti' placeholder='Enter Service Name' />
                                         </div>
                                     </Col>
                                     <Col md='12' sm='12'>
@@ -145,7 +216,7 @@ const CreateServiceRequest = () => {
                                             <Label className='form-label' for='nameMulti'>
                                                 Description
                                             </Label>
-                                            <Input type='textarea' value={serviceDetails.description} onChange={handleInputField} name='description' id='nameMulti' placeholder='Enter Description' />
+                                            <Input type='textarea' value={serviceRequestDetails.description} onChange={handleInputField} name='description' id='nameMulti' placeholder='Enter Description' />
                                         </div>
                                     </Col>
                                     <Col md='12' sm='12'>
@@ -174,9 +245,9 @@ const CreateServiceRequest = () => {
                         </CardBody>
                     </Card>
                 </CardBody>
-            </Card>
+            </Card >
 
-        </div>
+        </div >
     )
 }
 
