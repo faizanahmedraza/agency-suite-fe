@@ -54,6 +54,21 @@ async function customerToggleStatus(data) {
     return response;
 }
 
+async function customerSearch(data) {
+    const response = await Gateway.authGateway(
+        "GET",
+        V1.DOMAIN,
+        `${V1.agency.customers}${smartSearchBody(data)}`
+    );
+    return response;
+}
+
+const smartSearchBody = (data) => {
+    let query = "?";
+    query += `${data.field}=${data.value}`;
+    return query;
+};
+
 const customerBodyData = (data) => {
     let _data = {};
     _data.first_name = data.first_name;
@@ -71,6 +86,7 @@ const CustomerService = {
     customerPut,
     customerDelete,
     customerToggleStatus,
+    customerSearch,
 }
 
 export default CustomerService;

@@ -14,9 +14,8 @@ import {
   Table,
 } from "reactstrap";
 import ReactPaginate from "react-paginate";
-import CustomerDeleteAction from "@store/V1/Customer/DELETE/CustomerDeleteAction";
-import CustomerStatusAction from "@store/V1/Customer/STATUS/CustomerStatusAction";
-import { MoreVertical, Edit, Trash } from "react-feather";
+import { MoreVertical, Edit } from "react-feather";
+import moment from "moment";
 
 const ServiceRequestList = (props) => {
   const _data = props.data;
@@ -28,8 +27,8 @@ const ServiceRequestList = (props) => {
   const [itemOffset, setItemOffset] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(props?.pagination?.per_page);
 
-  const customerDelete = (id) => {
-    dispatch(CustomerDeleteAction.customerDelete(id));
+  const serviceRequestDelete = (id) => {
+    //action
     setFormModal(!formModal);
   };
 
@@ -44,8 +43,8 @@ const ServiceRequestList = (props) => {
     setItemOffset(newOffset);
   };
 
-  const handleCustomerStatus = (e, id) => {
-    dispatch(CustomerStatusAction.customerStatus(id))
+  const handleServiceRequestStatus = (e, id) => {
+    //action
   }
 
   return (
@@ -53,32 +52,34 @@ const ServiceRequestList = (props) => {
       <Table bordered responsive>
         <thead>
           <tr>
-            <th>NAME</th>
-            <th>EMAIL</th>
+            <th>CUSTOMER NAME</th>
+            <th>SERVICE NAME</th>
             <th>STATUS</th>
-            <th>LAST LOGGED IN</th>
+            <th>CREATED AT</th>
             <th>ACTIONS</th>
           </tr>
         </thead>
         <tbody>
           {currentItems &&
-            currentItems.map((customer) => {
+            currentItems.map((request) => {
               return (
-                <tr key={customer.id}>
+                <tr key={request.id}>
                   <td>
-                    <Link to={`/customers/edit/${customer.id}`}>
                       <span className="align-middle fw-bold">
-                        {customer.first_name + " " + customer.last_name}
+                        {request.customer_name}
                       </span>
-                    </Link>
                   </td>
-                  <td>{customer.email}</td>
+                  <td>
+                      <span className="align-middle fw-bold">
+                        {request.service_name}
+                      </span>
+                  </td>
                   <td className='text-center'>
                     <div className='form-switch form-check-primary'>
-                      <Input type='switch' className='w-full' onChange={(e) => handleCustomerStatus(e, customer.id)} defaultChecked={customer.status === "active"} id='icon-primary' name='icon-primary' />
+                      <Input type='switch' className='w-full' onChange={(e) => handleServiceRequestStatus(e, request.id)} defaultChecked={request.status === "completed"} id='icon-primary' name='icon-primary' />
                     </div>
                   </td>
-                  <td>{customer.last_logged_in}</td>
+                  <td>{moment(request.created_at).format('YYYY-MM-DD')}</td>
                   <td>
                     <UncontrolledDropdown>
                       <DropdownToggle
@@ -92,21 +93,11 @@ const ServiceRequestList = (props) => {
                       <DropdownMenu>
                         <Link
                           className="dropdown-item"
-                          to={`/customers/edit/${customer.id}`}
+                          to={`/service-requests/detail/${request.id}`}
                         >
                           <Edit className="me-50" size={15} />{" "}
-                          <span className="align-middle">Edit</span>
+                          <span className="align-middle">Detail</span>
                         </Link>
-                        <div
-                          className="dropdown-item"
-                          onClick={() => {
-                            setFormModal(!formModal);
-                            setCustomerId(customer.id);
-                          }}
-                        >
-                          <Trash className="me-50" size={15} />{" "}
-                          <span className="align-middle">Delete</span>
-                        </div>
                       </DropdownMenu>
                     </UncontrolledDropdown>
                   </td>
@@ -145,7 +136,7 @@ const ServiceRequestList = (props) => {
           <ModalHeader toggle={() => setCenteredModal(!formModal)}>
             Confirmation
           </ModalHeader>
-          <ModalBody>Are you sure you want to delete this customer ?</ModalBody>
+          <ModalBody>Are you sure you want to delete this service request ?</ModalBody>
           <ModalFooter>
             <Button
               color="primary"
@@ -155,7 +146,7 @@ const ServiceRequestList = (props) => {
             </Button>
             <Button
               color="danger"
-              onClick={() => customerDelete(deleteCustomerId)}
+              onClick={() => serviceRequestDelete(deleteCustomerId)}
             >
               Delete
             </Button>

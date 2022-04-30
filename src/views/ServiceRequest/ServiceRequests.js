@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "@store/store";
-import CustomerListAction from "@store/V1/Customer/LIST/CustomerListAction";
+import ServiceRequestListAction from "@store/V1/ServiceRequest/LIST/ServiceRequestListAction";
 import { Link } from "react-router-dom";
 import {
   Card,
@@ -12,6 +12,7 @@ import {
   NavLink,
   Button,
 } from "reactstrap";
+import ServiceRequestList from "./ServiceRequestList";
 
 const Loader = () => {
   return (
@@ -28,35 +29,22 @@ const ServiceRequests = () => {
   const {
     list: {
       loading,
-      customers,
+      service_requests,
       pagination
     },
-    customer_status: {
-      isChanged
-    }
-  } = useSelector(state => state.customers)
+  } = useSelector(state => state.service_requests);
 
-  const state = useSelector(state => state.customers)
-
-  function activeCustomers() {
-    const activeCustomers = customers.filter((customer) => {
-      return customer.status === "active";
+  function submittedRequests() {
+    const submittedRequests = service_requests.filter((service) => {
+      return service.status == "submitted";
     });
 
-    return <CustomerList data={activeCustomers} pagination={pagination} />;
-  }
-
-  function pendingCustomers() {
-    const pendingCustomers = customers.filter((customer) => {
-      return customer.status === "pending";
-    });
-
-    return <CustomerList data={pendingCustomers} pagination={pagination} />;
+    return <ServiceRequestList data={submittedRequests} pagination={pagination} />;
   }
 
   useEffect(() => {
-    if (!customers.length || isChanged) return dispatch(CustomerListAction.customerList());
-  }, [isChanged])
+    if (!service_requests.length) return dispatch(ServiceRequestListAction.serviceRequestList());
+  }, [])
 
   const toggle = (tab) => {
     if (active !== tab) {
@@ -66,50 +54,61 @@ const ServiceRequests = () => {
 
   return (
     <div>
-    <Card>
+      <Card>
         <CardBody>
-            <div className='row'>
-                <div className='col-md-9'>
-                    <h1>Requests</h1>
-                </div>
-                <div className='col-md-3'>
-                    <Link to="/service-requests/create">
-                        <Button.Ripple color='primary' className="w-100">Create Request</Button.Ripple>
-                    </Link>
-                </div>
+          <div className='row'>
+            <div className='col-md-9'>
+              <h1>Requests</h1>
             </div>
+            <div className='col-md-3'>
+              <Link to="/service-requests/create">
+                <Button.Ripple color='primary' className="w-100">Create Request</Button.Ripple>
+              </Link>
+            </div>
+          </div>
         </CardBody>
-    </Card>
-    <Card>
+      </Card>
+      <Card>
         <CardBody>
-            <Nav tabs fill>
-                <NavItem>
-                    <NavLink
-                        active={active === '1'}
-                        onClick={() => {
-                            toggle('1')
-                        }}
-                    >
-                        All
+          <Nav tabs fill>
+            <NavItem>
+              <NavLink
+                active={active === '1'}
+                onClick={() => {
+                  toggle('1')
+                }}
+              >
+                All
                     </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink
-                        active={active === '2'}
-                        onClick={() => {
-                            toggle('2')
-                        }}
-                    >
-                        Pending
+            </NavItem>
+            <NavItem>
+              <NavLink
+                active={active === '2'}
+                onClick={() => {
+                  toggle('2')
+                }}
+              >
+                Submitted
                     </NavLink>
-                </NavItem>
-            </Nav>
-            <TabContent className='py-50' activeTab={active}>
-              
-            </TabContent>
+            </NavItem>
+          </Nav>
+          <TabContent className='py-50' activeTab={active}>
+          {loading ? (
+              <Loader />
+            ) : (
+                <>
+                  <TabPane tabId="1">
+                  <ServiceRequestList data={service_requests} pagination={pagination} />
+                  </TabPane>
+                  <TabPane tabId="2">
+                    {service_requests && submittedRequests(service_requests)}
+                  </TabPane>
+                </>
+              )}
+          </TabContent>
         </CardBody>
-    </Card>
-</div>
+      </Card>
+    </div>
   );
 };
 

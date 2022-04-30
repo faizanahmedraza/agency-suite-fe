@@ -54,7 +54,7 @@ const CreatePassword = lazy(() => import("../../views/CreatePassword"));
 const CustomerRegister = lazy(() => import("../../views/CustomerRegister"));
 const ServiceRequests = lazy(() => import("../../views/ServiceRequest/ServiceRequests"));
 const CreateServiceRequest = lazy(() => import("../../views/ServiceRequest/CreateServiceRequest"));
-const UpdateServiceRequest = lazy(() => import("../../views/ServiceRequest/UpdateServiceRequest"));
+const DetailServiceRequest = lazy(() => import("../../views/ServiceRequest/DetailServiceRequest"));
 const Error = lazy(() => import("../../views/Error"));
 
 // ** Merge Routes
@@ -176,7 +176,7 @@ const Routes = [
   },
   {
     path: "/service-requests/edit/:id",
-    element: <UpdateServiceRequest />,
+    element: <DetailServiceRequest />,
     meta: {
       layout: "vertical",
       publicRoute: true,

@@ -16,7 +16,7 @@ function* serviceRequestCreate(data) {
 }
 
 function serviceRequestCreateSuccess() {
-    window.location.href = "/request-services";
+    window.location.href = "/service-requests";
 }
 
 export function* ServiceRequestCreateSuccessSaga() {

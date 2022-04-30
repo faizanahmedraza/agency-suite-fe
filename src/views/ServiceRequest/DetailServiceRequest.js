@@ -22,7 +22,7 @@ const Loader = () => {
     );
 }
 
-const UpdateServiceRequest = () => {
+const DetailServiceRequest = () => {
 
     const { detail: { customer, fetched, loading }, update: { loading: updateLoading } } = useSelector((state => state.customers));
 
@@ -133,4 +133,4 @@ const UpdateServiceRequest = () => {
     )
 }
 
-export default UpdateServiceRequest;
+export default DetailServiceRequest;
