@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 
 function* serviceRequestDetail(data) {
   try {
+    console.log(data);
     const response = yield AgencyServiceRequestService.serviceRequestDetail(data.request);
     if (response.success) {
       yield put(ServiceRequestDetailAction.serviceRequestDetailSuccess(response.data));

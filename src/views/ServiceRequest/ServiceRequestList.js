@@ -74,7 +74,7 @@ const ServiceRequestList = (props) => {
                         {request.service_name}
                       </span>
                   </td>
-                  <td className='text-center'>
+                  <td className='text-left'>
                     <div className='form-switch form-check-primary'>
                       <Input type='switch' className='w-full' onChange={(e) => handleServiceRequestStatus(e, request.id)} defaultChecked={request.status === "completed"} id='icon-primary' name='icon-primary' />
                     </div>
@@ -93,7 +93,7 @@ const ServiceRequestList = (props) => {
                       <DropdownMenu>
                         <Link
                           className="dropdown-item"
-                          to={`/service-requests/detail/${request.id}`}
+                          to={`/service-requests/edit/${request.id}`}
                         >
                           <Edit className="me-50" size={15} />{" "}
                           <span className="align-middle">Detail</span>

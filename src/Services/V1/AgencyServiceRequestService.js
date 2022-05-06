@@ -8,7 +8,7 @@ async function serviceRequestPost(data) {
 }
 
 async function serviceRequestDetail(data) {
-    const response = await Gateway.authGateway("GET",V1.DOMAIN,V1.agency.service_request + "/" + data.id);
+    const response = await Gateway.authGateway("GET",V1.DOMAIN,V1.agency.service_request + "/" + data);
     return response;
 }
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import {
     Card,
     Row,
@@ -21,7 +22,8 @@ import AgencyService from '@src/Services/V1/AgencyService';
 
 const CreateServiceRequest = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {
         service: { list: { services, loading: serviceLoading } = [] } = [],
         customers: { list: { customers, loading: customerLoading } = [] } = [],
@@ -221,25 +223,25 @@ const CreateServiceRequest = () => {
                                                         </Label>
                                                         <div className='demo-inline-spacing'>
                                                             <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' id='sr1' value="annualy" onChange={handleInputField}/>
+                                                                <Input type='radio' name='recurring_type' id='sr1' value="annualy" onChange={handleInputField} />
                                                                 <Label className='form-check-label' for='sr1'>
                                                                     {'annualy - ' + serviceRequestDetails.selected_service.price_types.annually + '$'}
                                                                 </Label>
                                                             </div>
                                                             <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleInputField}/>
+                                                                <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleInputField} />
                                                                 <Label className='form-check-label' for='sr2'>
                                                                     {'biannually - ' + serviceRequestDetails.selected_service.price_types.biannually + '$'}
                                                                 </Label>
                                                             </div>
                                                             <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleInputField}/>
+                                                                <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleInputField} />
                                                                 <Label className='form-check-label' for='sr3'>
                                                                     {'quarterly - ' + serviceRequestDetails.selected_service.price_types.quarterly + '$'}
                                                                 </Label>
                                                             </div>
                                                             <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' value="weekly" onChange={handleInputField}/>
+                                                                <Input type='radio' name='recurring_type' value="weekly" onChange={handleInputField} />
                                                                 <Label className='form-check-label' for='sr4'>
                                                                     {'weekly - ' + serviceRequestDetails.selected_service.price_types.weekly + '$'}
                                                                 </Label>
@@ -273,7 +275,7 @@ const CreateServiceRequest = () => {
                                     </Col>
                                     <Col md='12' sm='12'>
                                         <div className='d-flex justify-content-between'>
-                                            <Button outline className='me-1' color='secondary' type='reset'>
+                                            <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
                                                 Cancel
                                             </Button>
                                             <Button color='primary' type='submit' disabled={loading}>
