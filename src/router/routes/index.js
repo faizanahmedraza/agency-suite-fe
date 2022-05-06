@@ -175,7 +175,7 @@ const Routes = [
     },
   },
   {
-    path: "/service-requests/edit/:id",
+    path: "/service-requests/detail/:id",
     element: <DetailServiceRequest />,
     meta: {
       layout: "vertical",

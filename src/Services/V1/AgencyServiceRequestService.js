@@ -22,6 +22,13 @@ async function serviceRequestPagination(data) {
     return response;
 }
 
+async function serviceRequestStatus(data) {
+    const _data = {};
+    _data.status = data.status;
+    const response = await Gateway.authGateway("PUT", V1.DOMAIN, V1.service.service_request + "/change-status/" + data.id, JSON.stringify(_data));
+    return response;
+}
+
 const serviceRequestBody = (data) => {
     let _data = {};
 
@@ -42,6 +49,7 @@ const AgencyServiceRequest = {
     serviceRequestList,
     serviceRequestDetail,
     serviceRequestPagination,
+    serviceRequestStatus,
 }
 
 export default AgencyServiceRequest;

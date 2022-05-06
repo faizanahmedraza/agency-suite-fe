@@ -16,6 +16,7 @@ import {
 import ReactPaginate from "react-paginate";
 import { MoreVertical, Edit } from "react-feather";
 import moment from "moment";
+import ServiceRequestStatusAction from "@store/V1/ServiceRequest/STATUS/ServiceRequestStatusAction";
 
 const ServiceRequestList = (props) => {
   const _data = props.data;
@@ -44,7 +45,10 @@ const ServiceRequestList = (props) => {
   };
 
   const handleServiceRequestStatus = (e, id) => {
-    //action
+    dispatch(ServiceRequestStatusAction.serviceRequestStatus(JSON.stringify({
+      id: id,
+      status: e.target.value
+    })));
   }
 
   return (
@@ -65,19 +69,21 @@ const ServiceRequestList = (props) => {
               return (
                 <tr key={request.id}>
                   <td>
-                      <span className="align-middle fw-bold">
-                        {request.customer_name}
-                      </span>
+                    <span className="align-middle fw-bold">
+                      {request.customer_name}
+                    </span>
                   </td>
                   <td>
-                      <span className="align-middle fw-bold">
-                        {request.service_name}
-                      </span>
+                    <span className="align-middle fw-bold">
+                      {request.service_name}
+                    </span>
                   </td>
                   <td className='text-left'>
-                    <div className='form-switch form-check-primary'>
-                      <Input type='switch' className='w-full' onChange={(e) => handleServiceRequestStatus(e, request.id)} defaultChecked={request.status === "completed"} id='icon-primary' name='icon-primary' />
-                    </div>
+                    <Input type='select' name='select' id='select-basic' onChange={(e) => handleServiceRequestStatus(e, request.id)}>
+                      <option value="pending" selected={request.status === 0}>Pending</option>
+                      <option value="active" selected={request.status === 1}>Active</option>
+                      <option value="hold" selected={request.status === 2}>Hold</option>
+                    </Input>
                   </td>
                   <td>{moment(request.created_at).format('YYYY-MM-DD')}</td>
                   <td>
@@ -93,7 +99,7 @@ const ServiceRequestList = (props) => {
                       <DropdownMenu>
                         <Link
                           className="dropdown-item"
-                          to={`/service-requests/edit/${request.id}`}
+                          to={`/service-requests/detail/${request.id}`}
                         >
                           <Edit className="me-50" size={15} />{" "}
                           <span className="align-middle">Detail</span>

@@ -4,9 +4,25 @@ const ServiceRequestDetailReducer = (
   state = {
     loading: false,
     serivice_request: {
-      service_id: null,
-      customer_id: null,
+      customer: {
+        id: null,
+        first_name: null,
+        last_name: null,
+      },
+      service: {
+        id: null,
+        name: null,
+        price_types: {
+          weekly: null,
+          monthly: null,
+          quarterly: null,
+          biannually: null,
+          annually: null,
+          price: null,
+        }
+      },
       recurring_type: null,
+      is_recurring: false,
       intake_form: {
         title: null,
         description: null
