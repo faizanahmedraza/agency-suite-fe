@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 function* profileSettingUpdate(data) {
   try {
     const response = yield ProfileSettingService.profileSettingPut(data.request);
-    console.log(response)
     if (response.success) {
       toast.success(response.message);
       yield put(ProfileSettingUpdateAction.profileSettingUpdateSuccess(response.data));

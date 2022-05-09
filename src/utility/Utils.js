@@ -110,3 +110,10 @@ export const setTitle = () => {
   const { agency: { name } } = JSON.parse(portal_settings)
   document.title = name
 }
+
+
+
+export const userHeaders = ["Orders"]
+export const userRoutes = ["Invoice", "Dashboard", "Customer_Requests"]
+export const adminHeaders = ["Orders", "Set up"]
+export const adminRoutes = ["Invoice", "Requests", "Dashboard" , "Portal" , "Services" , "Customers"]

@@ -21,7 +21,7 @@ async function authGateway(METHOD, DOMAIN, API, BODY = null) {
             if (response.success !== true) {
                 if (response.error.code === 401) {
                     // LogoutHelper.logout();
-                    console.log(response)
+                    // console.log(response)
                 }
             } else {
                 localStorage.setItem(

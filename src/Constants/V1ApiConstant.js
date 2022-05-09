@@ -29,7 +29,8 @@ const V1 = {
       get: "v1/public/portal-settings",
       put: "v1/agencies/portal-settings",
     },
-    profile_settings: "v1/agencies/profile",
+    profile_settings: "v1/profile",
+    service_request: "v1/agencies/request-services"
   },
   tag: {
     tags: "v1/admin/blog/tags",

@@ -11,6 +11,7 @@ import ForgotPasswordReducer from "@store/V1/Auth/Forgot Password/ForgotPassword
 import ServiceReducer from "@store/V1/Service/serviceRootReducer";
 import PortalSettingRootReducer from "@store/V1/PortalSetting/PortalSettingRootReducer";
 import ProfileSettingRootReducer from "@store/V1/ProfileSetting/ProfileSettingRootReducer";
+import ServiceRequestRootReducer from "@store/V1/ServiceRequest/ServiceRequestRootReducer";
 import navbar from './navbar'
 import layout from './layout'
 import dataTables from '@src/views/tables/data-tables/store'
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   forgotPassword: ForgotPasswordReducer,
   portal_settings: PortalSettingRootReducer,
   profile_settings: ProfileSettingRootReducer,
+  service_requests: ServiceRequestRootReducer,
 });
 
 export default rootReducer

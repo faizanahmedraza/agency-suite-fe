@@ -38,6 +38,21 @@ async function serviceStatus(data) {
     return response;
 }
 
+async function serviceSearch(data) {
+    const response = await Gateway.authGateway(
+        "GET",
+        V1.DOMAIN,
+        `${V1.service.read}${smartSearchBody(data)}`
+    );
+    return response;
+}
+
+const smartSearchBody = (data) => {
+    let query = "?";
+    query += `${data.field}=${data.value}`;
+    return query;
+};
+
 const editServiceBody = (data) => {
 
     let _data = {};
@@ -100,6 +115,7 @@ const AgencyService = {
     servicePagination,
     serviceCatalog,
     serviceStatus,
+    serviceSearch,
 }
 
 export default AgencyService;

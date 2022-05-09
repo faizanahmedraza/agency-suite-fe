@@ -5,7 +5,8 @@ const ProfileSettingDetailReducer = (
   state = {
     loading: false,
     profile_settings: {
-      name: "",
+      first_name: "",
+      last_name: "",
       image: null
     },
     error: null,

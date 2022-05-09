@@ -11,18 +11,21 @@ async function profileSettingGet() {
 }
 
 async function profileSettingPut(data) {
+
+    const _data = profileSettingBodyData(data)
     const response = await Gateway.authGateway(
         "PUT",
         V1.DOMAIN,
         `${V1.agency.profile_settings}`,
-        profileSettingBodyData(data)
+        _data
     );
     return response;
 }
 
 const profileSettingBodyData = (data) => {
     let _data = {};
-    _data.name = data.name;
+    _data.first_name = data.first_name;
+    _data.last_name = data.last_name;
     if (data.image.substr(0, 33) !== "https://res.cloudinary.com/saasfa") {
         _data.image = data.image;
     }

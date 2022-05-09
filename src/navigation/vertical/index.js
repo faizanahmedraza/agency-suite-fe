@@ -1,4 +1,4 @@
-import { Zap, Home, Users, ShoppingCart, File } from 'react-feather'
+import { Zap, Home, Users, ShoppingCart, File, Settings } from 'react-feather'
 
 export default [
   {
@@ -17,12 +17,18 @@ export default [
     navLink: '/invoice'
   },
   {
+    id: 'Requests',
+    title: 'Requests',
+    icon: <ShoppingCart size={20} />,
+    navLink: '/service-requests'
+  },
+  {
     header: 'Set up'
   },
   {
     id: 'Portal',
     title: 'Portal',
-    icon: <ShoppingCart size={20} />,
+    icon: <Settings size={20} />,
     navLink: '/portal'
   },
   {
@@ -36,5 +42,12 @@ export default [
     title: 'Customers',
     icon: <Users size={20} />,
     navLink: '/customers'
+  },
+   // Customer Routes
+  {
+    id: 'Customer_Requests',
+    title: 'Requests',
+    icon: <ShoppingCart size={20} />,
+    navLink: '/customer-service-requests'
   },
 ]

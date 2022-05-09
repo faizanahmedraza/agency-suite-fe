@@ -20,7 +20,8 @@ import ProfileSettingUpdateAction from "@store/V1/ProfileSetting/UPDATE/ProfileS
 const Profile = () => {
 
   const [profileSetting, setProfileSetting] = useState({
-    name: "",
+    first_name: "",
+    last_name: "",
     image: null,
   });
   const dispatch = useDispatch();
@@ -86,9 +87,15 @@ const Profile = () => {
                   <Col md="5">
                     <div className='mb-1'>
                       <Label className='form-label'>
-                        Name
+                        First Name
                       </Label>
-                      <Input type='text' onChange={handleInputField} name='name' value={profileSetting?.name} />
+                      <Input type='text' onChange={handleInputField} name='first_name' value={profileSetting?.first_name} />
+                    </div>
+                    <div className='mb-1'>
+                      <Label className='form-label'>
+                        Last Name
+                      </Label>
+                      <Input type='text' onChange={handleInputField} name='last_name' value={profileSetting?.last_name} />
                     </div>
                     <div className='mb-1'>
                       <Label className='form-label'>
