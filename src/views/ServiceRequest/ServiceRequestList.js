@@ -69,17 +69,21 @@ const ServiceRequestList = (props) => {
               return (
                 <tr key={request.id}>
                   <td>
-                    <span className="align-middle fw-bold">
-                      {request.customer_name}
-                    </span>
+                    <Link to={`/customers/edit/${request?.customer?.id}`}>
+                      <span className="align-middle fw-bold">
+                        {request?.customer?.first_name}
+                      </span>
+                    </Link>
                   </td>
                   <td>
-                    <span className="align-middle fw-bold">
-                      {request.service_name}
-                    </span>
+                    <Link to={`/services/edit/${request?.service?.id}`}>
+                      <span className="align-middle fw-bold">
+                        {request?.service?.name}
+                      </span>
+                    </Link>
                   </td>
                   <td className='text-left'>
-                    <Input type='select' name='select' id='select-basic' value={request.status}  onChange={(e) => handleServiceRequestStatus(e, request.id)}>
+                    <Input type='select' name='select' id='select-basic' value={request.status} onChange={(e) => handleServiceRequestStatus(e, request.id)}>
                       <option value="pending">Pending</option>
                       <option value="active">Active</option>
                       <option value="hold">Hold</option>
