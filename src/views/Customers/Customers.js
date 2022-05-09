@@ -33,11 +33,9 @@ const Customers = () => {
       pagination
     },
     customer_status: {
-      isChanged
+      isChanged,
     }
   } = useSelector(state => state.customers)
-
-  const state = useSelector(state => state.customers)
 
   function activeCustomers() {
     const activeCustomers = customers.filter((customer) => {
@@ -46,7 +44,6 @@ const Customers = () => {
 
     return <CustomerList data={activeCustomers} pagination={pagination} />;
   }
-
   function pendingCustomers() {
     const pendingCustomers = customers.filter((customer) => {
       return customer.status === "pending";

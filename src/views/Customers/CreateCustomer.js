@@ -68,13 +68,13 @@ const CreateCustomer = () => {
                                             <Label className='form-label' for='nameMulti'>
                                                 First Name
                                             </Label>
-                                            <Input type='text' onChange={handleInputField} name='first_name' id='first_name' placeholder='Enter Customer First Name' value={customerDetails.first_name}/>
+                                            <Input type='text' tabIndex="1" onChange={handleInputField} name='first_name' id='first_name' placeholder='Enter Customer First Name' value={customerDetails.first_name}/>
                                         </div>
                                         <div className='mb-1'>
                                             <Label className='form-label' for='nameMulti'>
                                                 Email
                                             </Label>
-                                            <Input type='email' onChange={handleInputField} name='email' id='email' placeholder='Enter Customer Email' value={customerDetails.email}/>
+                                            <Input type='email' tabIndex="3" onChange={handleInputField} name='email' id='email' placeholder='Enter Customer Email' value={customerDetails.email}/>
                                         </div>
                                     </Col>
                                     <Col md='6' sm='12'>
@@ -82,15 +82,15 @@ const CreateCustomer = () => {
                                             <Label className='form-label' for='nameMulti'>
                                                 Last Name
                                             </Label>
-                                            <Input type='text' onChange={handleInputField} name='last_name' id='last_name' placeholder='Enter Customer Last Name' value={customerDetails.last_name}/>
+                                            <Input type='text' tabIndex="2" onChange={handleInputField} name='last_name' id='last_name' placeholder='Enter Customer Last Name' value={customerDetails.last_name}/>
                                         </div>
                                     </Col>
                                     <Col md='12' sm='12'>
                                         <div className='d-flex justify-content-between'>
-                                            <Button outline className='me-1' color='secondary' type='button' onClick={resetInputField}>
+                                            <Button outline className='me-1' tabIndex="4" color='secondary' type='button' onClick={resetInputField}>
                                                 Cancel
                                             </Button>
-                                            <Button color='primary' type='submit' disabled={loading}>
+                                            <Button color='primary' tabIndex="5" type='submit' disabled={loading}>
                                                 {
                                                     loading ?
                                                         <>
