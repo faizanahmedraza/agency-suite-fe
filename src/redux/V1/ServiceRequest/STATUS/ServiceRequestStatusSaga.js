@@ -8,10 +8,10 @@ function* serviceRequestStatus(data) {
     const response = yield AgencyServiceRequestService.serviceRequestStatus(data.request)
     if (response.success) {
         toast.success("Status Changed")
-        yield put(ServiceRequestStatusAction.customerStatusSuccess(response.data))
+        yield put(ServiceRequestStatusAction.serviceRequestStatusSuccess(response.data))
     } else {
         toast.error(response.error.message)
-        yield put(ServiceRequestStatusAction.customerStatusFailed(response))
+        yield put(ServiceRequestStatusAction.serviceRequestStatusFailed(response))
     }
 }
 

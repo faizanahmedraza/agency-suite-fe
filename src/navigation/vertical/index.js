@@ -17,6 +17,12 @@ export default [
     navLink: '/invoice'
   },
   {
+    id: 'Requests',
+    title: 'Requests',
+    icon: <ShoppingCart size={20} />,
+    navLink: '/service-requests'
+  },
+  {
     header: 'Set up'
   },
   {
@@ -36,11 +42,5 @@ export default [
     title: 'Customers',
     icon: <Users size={20} />,
     navLink: '/customers'
-  },
-  {
-    id: 'Requests',
-    title: 'Requests',
-    icon: <ShoppingCart size={20} />,
-    navLink: '/service-requests'
   },
 ]

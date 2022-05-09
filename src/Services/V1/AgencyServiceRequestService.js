@@ -25,7 +25,7 @@ async function serviceRequestPagination(data) {
 async function serviceRequestStatus(data) {
     const _data = {};
     _data.status = data.status;
-    const response = await Gateway.authGateway("PUT", V1.DOMAIN, V1.service.service_request + "/change-status/" + data.id, JSON.stringify(_data));
+    const response = await Gateway.authGateway("PUT", V1.DOMAIN, V1.agency.service_request + "/change-status/" + data.id, JSON.stringify(_data));
     return response;
 }
 

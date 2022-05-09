@@ -32,19 +32,22 @@ const ServiceRequests = () => {
       service_requests,
       pagination
     },
+    change_status: {
+      isChanged
+    }
   } = useSelector(state => state.service_requests);
 
-  function submittedRequests() {
-    const submittedRequests = service_requests.filter((service) => {
-      return service.status == "submitted";
+  function activeRequests() {
+    const activeRequests = service_requests.filter((service) => {
+      return service.status == "active";
     });
 
-    return <ServiceRequestList data={submittedRequests} pagination={pagination} />;
+    return <ServiceRequestList data={activeRequests} pagination={pagination} />;
   }
 
   useEffect(() => {
-    if (!service_requests.length) return dispatch(ServiceRequestListAction.serviceRequestList());
-  }, [])
+    if (!service_requests.length || isChanged) return dispatch(ServiceRequestListAction.serviceRequestList());
+  }, [isChanged])
 
   const toggle = (tab) => {
     if (active !== tab) {
@@ -88,7 +91,7 @@ const ServiceRequests = () => {
                   toggle('2')
                 }}
               >
-                Submitted
+                Active
                     </NavLink>
             </NavItem>
           </Nav>
@@ -101,7 +104,7 @@ const ServiceRequests = () => {
                   <ServiceRequestList data={service_requests} pagination={pagination} />
                   </TabPane>
                   <TabPane tabId="2">
-                    {service_requests && submittedRequests(service_requests)}
+                    {service_requests && activeRequests(service_requests)}
                   </TabPane>
                 </>
               )}

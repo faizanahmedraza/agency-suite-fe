@@ -45,10 +45,10 @@ const ServiceRequestList = (props) => {
   };
 
   const handleServiceRequestStatus = (e, id) => {
-    dispatch(ServiceRequestStatusAction.serviceRequestStatus(JSON.stringify({
+    dispatch(ServiceRequestStatusAction.serviceRequestStatus({
       id: id,
       status: e.target.value
-    })));
+    }));
   }
 
   return (
@@ -79,10 +79,10 @@ const ServiceRequestList = (props) => {
                     </span>
                   </td>
                   <td className='text-left'>
-                    <Input type='select' name='select' id='select-basic' onChange={(e) => handleServiceRequestStatus(e, request.id)}>
-                      <option value="pending" selected={request.status === 0}>Pending</option>
-                      <option value="active" selected={request.status === 1}>Active</option>
-                      <option value="hold" selected={request.status === 2}>Hold</option>
+                    <Input type='select' name='select' id='select-basic' value={request.status}  onChange={(e) => handleServiceRequestStatus(e, request.id)}>
+                      <option value="pending">Pending</option>
+                      <option value="active">Active</option>
+                      <option value="hold">Hold</option>
                     </Input>
                   </td>
                   <td>{moment(request.created_at).format('YYYY-MM-DD')}</td>
