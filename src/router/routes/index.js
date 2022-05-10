@@ -63,7 +63,11 @@ const Routes = [
   {
     path: "/",
     index: true,
-    element: <Navigate replace to={DefaultRoute} />
+    element: <Navigate replace to={DefaultRoute} />,
+    meta: {
+      publicRoute: true,
+      customer_restricted: false
+    }
   },
   {
     path: "/dashboard",
