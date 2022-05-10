@@ -65,7 +65,7 @@ const Routes = [
     index: true,
     element: <Navigate replace to={DefaultRoute} />,
     meta: {
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: false
     }
   },
@@ -73,7 +73,7 @@ const Routes = [
     path: "/dashboard",
     element: <Dashboard />,
     meta: {
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: false
     }
   },
@@ -81,7 +81,7 @@ const Routes = [
     path: "/profile",
     element: <Profile />,
     meta: {
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: false
     }
   },
@@ -89,7 +89,7 @@ const Routes = [
     path: "/services",
     element: <Services />,
     meta: {
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: true
     }
   },
@@ -97,7 +97,7 @@ const Routes = [
     path: "/services/create",
     element: <CreateServices />,
     meta: {
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: true
     }
   },
@@ -105,7 +105,7 @@ const Routes = [
     path: "/services/edit/:id",
     element: <EditServices />,
     meta: {
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: true
     }
   },
@@ -113,7 +113,7 @@ const Routes = [
     path: "/customers",
     element: <Customers />,
     meta: {
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: true
     }
   },
@@ -121,7 +121,7 @@ const Routes = [
     path: "/customers/create",
     element: <CreateCustomer />,
     meta: {
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: true
     }
   },
@@ -129,7 +129,7 @@ const Routes = [
     path: "/customers/edit/:id",
     element: <UpdateCustomer />,
     meta: {
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: true
     }
   },
@@ -137,7 +137,7 @@ const Routes = [
     path: "/customers/delete/:id",
     element: <UpdateCustomer />,
     meta: {
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: true
     }
   },
@@ -145,7 +145,7 @@ const Routes = [
     path: "/portal",
     element: <Portal />,
     meta: {
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: true
     }
   },
@@ -154,7 +154,7 @@ const Routes = [
     element: <Invoice />,
     meta: {
       layout: "vertical",
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: false
     },
   },
@@ -163,7 +163,7 @@ const Routes = [
     element: <CreateInvoice />,
     meta: {
       layout: "vertical",
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: false
     },
   },
@@ -172,7 +172,7 @@ const Routes = [
     element: <CreateInvoice />,
     meta: {
       layout: "vertical",
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: false
     },
   },
@@ -181,7 +181,7 @@ const Routes = [
     element: <ServiceRequests />,
     meta: {
       layout: "vertical",
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: true
     },
   },
@@ -190,7 +190,7 @@ const Routes = [
     element: <CreateServiceRequest />,
     meta: {
       layout: "vertical",
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: true
     },
   },
@@ -199,7 +199,7 @@ const Routes = [
     element: <DetailServiceRequest />,
     meta: {
       layout: "vertical",
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: true
     },
   },
@@ -348,11 +348,11 @@ const MergeLayoutRoutes = (layout, defaultLayout) => {
               : Fragment;
 
           route.element = (
-            <AbilityWrapper route={route}>
-              <Wrapper {...(isBlank === false ? getRouteMeta(route) : {})}>
+            <Wrapper {...(isBlank === false ? getRouteMeta(route) : {})}>
+              <AbilityWrapper route={route}>
                 <RouteTag route={route}>{route.element}</RouteTag>
-              </Wrapper>
-            </AbilityWrapper>
+              </AbilityWrapper>
+            </Wrapper>
           );
         }
 
