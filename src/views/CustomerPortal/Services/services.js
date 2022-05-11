@@ -13,7 +13,7 @@ import {
 } from 'reactstrap'
 import { useDispatch, useSelector } from "@store/store"
 import ServiceActions from '@store/V1/CustomerPortal/Service/List/ServiceListAction'
-import ServicesGrid from './ServicesGrid'
+import ServicesGrid from './servicesGrid'
 
 const Services = () => {
 

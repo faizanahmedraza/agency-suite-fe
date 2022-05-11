@@ -31,9 +31,7 @@ const Dashboard = lazy(() => import("../../views/Dashboard/dashboard"));
 const Profile = lazy(() => import("../../views/Profile/Profile"));
 const Services = lazy(() => import("../../views/Services/services"));
 const Customers = lazy(() => import("../../views/Customers/Customers"));
-const CustomerServices = lazy(() =>
-  import("../../views/CustomerPortal/Services/Services")
-);
+const CustomerServices = lazy(() =>import("../../views/CustomerPortal/Services/services"));
 const CreateCustomer = lazy(() =>
   import("../../views/Customers/CreateCustomer")
 );
