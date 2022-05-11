@@ -217,7 +217,7 @@ const Routes = [
     },
   },
   {
-    path: "/customer-service-requests/create",
+    path: "/customer-service-requests/create/:service_id",
     element: <CreateServiceRequest />,
     meta: {
       layout: "vertical",

@@ -71,7 +71,7 @@ const ServiceRequestList = (props) => {
                   <td>
                     <Link to={`/customers/edit/${request?.customer?.id}`}>
                       <span className="align-middle fw-bold">
-                        {request?.customer?.first_name}
+                        {request?.customer?.first_name+ " "+request?.customer?.last_name}
                       </span>
                     </Link>
                   </td>

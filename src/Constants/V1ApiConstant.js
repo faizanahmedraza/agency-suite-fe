@@ -32,11 +32,8 @@ const V1 = {
     profile_settings: "v1/profile",
     service_request: "v1/agencies/request-services"
   },
-  tag: {
-    tags: "v1/admin/blog/tags",
-  },
-  blog: {
-    blogs: "v1/admin/blog/posts",
+  customer: {
+    services: "v1/customers/services",
   },
   changePassword: "v1/admin/change-password",
   roles: "v1/admin/roles",
