@@ -113,7 +113,7 @@ export const setTitle = () => {
 
 
 
-export const userHeaders = ["Orders"]
-export const userRoutes = ["Invoice", "Dashboard", "Customer_Requests"]
+export const userHeaders = ["Orders","Catalog"]
+export const userRoutes = ["Invoice", "Dashboard", "Customer_Requests","Customer_Services"]
 export const adminHeaders = ["Orders", "Set up"]
 export const adminRoutes = ["Invoice", "Requests", "Dashboard" , "Portal" , "Services" , "Customers"]

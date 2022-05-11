@@ -48,7 +48,6 @@ const ServiceRequestList = (props) => {
       <Table bordered responsive>
         <thead>
           <tr>
-            <th>CUSTOMER NAME</th>
             <th>SERVICE NAME</th>
             <th>STATUS</th>
             <th>CREATED AT</th>
@@ -61,14 +60,7 @@ const ServiceRequestList = (props) => {
               return (
                 <tr key={request.id}>
                   <td>
-                    <Link to={`/customers/edit/${request?.customer?.id}`}>
-                      <span className="align-middle fw-bold">
-                        {request?.customer?.first_name}
-                      </span>
-                    </Link>
-                  </td>
-                  <td>
-                    <Link to={`/services/edit/${request?.service?.id}`}>
+                    <Link to={``}>
                       <span className="align-middle fw-bold">
                         {request?.service?.name}
                       </span>
@@ -93,7 +85,7 @@ const ServiceRequestList = (props) => {
                       <DropdownMenu>
                         <Link
                           className="dropdown-item"
-                          to={`/service-requests/detail/${request.id}`}
+                          to={``}
                         >
                           <Edit className="me-50" size={15} />{" "}
                           <span className="align-middle">Detail</span>

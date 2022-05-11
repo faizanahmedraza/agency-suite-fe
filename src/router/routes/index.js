@@ -31,6 +31,9 @@ const Dashboard = lazy(() => import("../../views/Dashboard/dashboard"));
 const Profile = lazy(() => import("../../views/Profile/Profile"));
 const Services = lazy(() => import("../../views/Services/services"));
 const Customers = lazy(() => import("../../views/Customers/Customers"));
+const CustomerServices = lazy(() =>
+  import("../../views/CustomerPortal/Services/Services")
+);
 const CreateCustomer = lazy(() =>
   import("../../views/Customers/CreateCustomer")
 );
@@ -204,9 +207,6 @@ const Routes = [
     },
   },
   // Customer Request
-
-
-
   {
     path: "/customer-service-requests",
     element: <ServiceRequests />,
@@ -234,7 +234,15 @@ const Routes = [
       customer_restricted: false,
     },
   },
-
+  {
+    path: "/customer-services",
+    element: <CustomerServices />,
+    meta: {
+      layout: "vertical",
+      publicRoute: true,
+      customer_restricted: false,
+    },
+  },
 
 
   {

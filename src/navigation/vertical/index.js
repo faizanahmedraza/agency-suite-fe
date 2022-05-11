@@ -22,6 +22,23 @@ export default [
     icon: <ShoppingCart size={20} />,
     navLink: '/service-requests'
   },
+  // Customer Routes
+  {
+    id: 'Customer_Requests',
+    title: 'Requests',
+    icon: <ShoppingCart size={20} />,
+    navLink: '/customer-service-requests'
+  },
+  {
+    header: 'Catalog'
+  },
+  {
+    id: 'Customer_Services',
+    title: 'Services',
+    icon: <Zap size={20} />,
+    navLink: '/customer-services'
+  },
+
   {
     header: 'Set up'
   },
@@ -42,12 +59,5 @@ export default [
     title: 'Customers',
     icon: <Users size={20} />,
     navLink: '/customers'
-  },
-   // Customer Routes
-  {
-    id: 'Customer_Requests',
-    title: 'Requests',
-    icon: <ShoppingCart size={20} />,
-    navLink: '/customer-service-requests'
   },
 ]
