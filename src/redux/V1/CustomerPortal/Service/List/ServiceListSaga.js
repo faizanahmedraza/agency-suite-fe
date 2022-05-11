@@ -1,7 +1,7 @@
 import { takeEvery, put } from "redux-saga/effects"
-import SERVICE from "@store/V1/Service/ActionTypes"
-import ServiceActions from "@store/V1/Service/List/ServiceListAction"
-import AgencyService from "@src/Services/V1/AgencyService"
+import SERVICE from "@store/V1/CustomerPortal/Service/ActionTypes"
+import ServiceActions from "@store/V1/CustomerPortal/Service/List/ServiceListAction"
+import AgencyService from "@src/Services/V1/CustomerPortal/AgencyService"
 
 function* serviceList(data) {
     const response = yield AgencyService.serviceList()
@@ -13,5 +13,5 @@ function* serviceList(data) {
 }
 
 export function* ServiceListSaga() {
-    yield takeEvery(SERVICE.SERVICE_LIST, serviceList);
+    yield takeEvery(SERVICE.CUSTOMER_SERVICE_LIST, serviceList);
 }

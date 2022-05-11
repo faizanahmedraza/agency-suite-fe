@@ -1,7 +1,7 @@
 import { takeEvery, put } from "redux-saga/effects"
-import SERVICE from "@store/V1/Service/ActionTypes"
-import ServiceActions from "@store/V1/Service/Pagination/ServicePaginationAction"
-import AgencyService from "@src/Services/V1/AgencyService"
+import SERVICE from "@store/V1/CustomerPortal/Service/ActionTypes"
+import ServiceActions from "@store/V1/CustomerPortal/Service/Pagination/ServicePaginationAction"
+import AgencyService from "@src/Services/V1/CustomerPortal/AgencyService"
 
 function* servicePagination(data) {
     const response = yield AgencyService.servicePagination(data.request)
@@ -13,5 +13,5 @@ function* servicePagination(data) {
 }
 
 export function* ServicePaginationSaga() {
-    yield takeEvery(SERVICE.SERVICE_PAGINATION, servicePagination);
+    yield takeEvery(SERVICE.CUSTOMER_SERVICE_PAGINATION, servicePagination);
 }

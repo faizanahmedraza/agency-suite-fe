@@ -1,4 +1,4 @@
-import SERVICE from "@store/V1/Service/ActionTypes"
+import SERVICE from "@store/V1/CustomerPortal/Service/ActionTypes"
 
 const ServiceListReducer = (
     state = {
@@ -9,19 +9,19 @@ const ServiceListReducer = (
     action
 ) => {
     switch (action.type) {
-        case SERVICE.SERVICE_LIST:
+        case SERVICE.CUSTOMER_SERVICE_LIST:
             return {
                 ...state,
                 loading: true,
             }
-        case SERVICE.SERVICE_LIST_SUCCESS:
+        case SERVICE.CUSTOMER_SERVICE_LIST_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 services: action.response.services,
                 pagination : action.response.pagination
             }
-        case SERVICE.SERVICE_LIST_FAILED:
+        case SERVICE.CUSTOMER_SERVICE_LIST_FAILED:
             return {
                 ...state,
                 loading: false,
