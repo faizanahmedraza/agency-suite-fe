@@ -223,9 +223,9 @@ const CreateServiceRequest = () => {
                                                         </Label>
                                                         <div className='demo-inline-spacing'>
                                                             <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' id='sr1' value="annualy" onChange={handleInputField} />
+                                                                <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleInputField} />
                                                                 <Label className='form-check-label' for='sr1'>
-                                                                    {'annualy - ' + serviceRequestDetails.selected_service.price_types.annually + '$'}
+                                                                    {'annually - ' + serviceRequestDetails.selected_service.price_types.annually + '$'}
                                                                 </Label>
                                                             </div>
                                                             <div className='form-check'>
