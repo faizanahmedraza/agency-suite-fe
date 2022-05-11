@@ -2,19 +2,14 @@
 import { Suspense } from 'react'
 import { Navigate } from 'react-router-dom'
 import config from "@configs/Config"
-// import { getUserData, getHomeRouteForLoggedInUser } from '@utils'
-import { getUserData } from '@utils'
+import { useSelector } from "@store/store"
 
 const PublicRoute = ({ children, route }) => {
   if (route) {
 
-    // if (window.location.hostname === config.public_url+"/login") {
-    //   window.location === "/launch"
-    // }
+    const { user } = useSelector(state => state.login)
 
-    const user = getUserData()
-
-    // console.log(window.location.hostname)
+    if (window.location.hostname + window.location.pathname === config.public_url + '/login') return <Navigate to="/launch" replace />
 
     const restrictedRoute = route.meta && route.meta.restricted
 

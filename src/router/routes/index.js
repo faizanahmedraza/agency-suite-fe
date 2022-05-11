@@ -232,17 +232,15 @@ const Routes = [
       customer_restricted: false,
     },
   },
-  // {
-  //   path: "/customer-services",
-  //   element: <CustomerServices />,
-  //   meta: {
-  //     layout: "vertical",
-  //     publicRoute: true,
-  //     customer_restricted: false,
-  //   },
-  // },
-
-
+  {
+    path: "/customer-services",
+    element: <CustomerServices />,
+    meta: {
+      layout: "vertical",
+      publicRoute: true,
+      customer_restricted: false,
+    },
+  },
   {
     path: "/launch",
     element: <Launch />,
