@@ -210,7 +210,7 @@ const Routes = [
     element: <ServiceRequests />,
     meta: {
       layout: "vertical",
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: false,
     },
   },
@@ -219,7 +219,7 @@ const Routes = [
     element: <CreateServiceRequest />,
     meta: {
       layout: "vertical",
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: false,
     },
   },
@@ -228,7 +228,7 @@ const Routes = [
     element: <DetailServiceRequest />,
     meta: {
       layout: "vertical",
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: false,
     },
   },
@@ -237,7 +237,7 @@ const Routes = [
     element: <CustomerServices />,
     meta: {
       layout: "vertical",
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: false,
     },
   },

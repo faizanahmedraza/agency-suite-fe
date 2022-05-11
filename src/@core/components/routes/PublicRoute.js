@@ -11,6 +11,10 @@ const PublicRoute = ({ children, route }) => {
 
     if (window.location.hostname + window.location.pathname === config.public_url + '/login') return <Navigate to="/launch" replace />
 
+    // if (window.location.hostname + window.location.pathname !== config.public_url + '/launch') return <Navigate to="/login" replace />
+
+
+
     const restrictedRoute = route.meta && route.meta.restricted
 
     if (user && restrictedRoute) {
