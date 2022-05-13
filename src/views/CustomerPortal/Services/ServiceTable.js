@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Table, UncontrolledDropdown, DropdownMenu, DropdownToggle, Modal, ModalHeader, ModalBody, ModalFooter, Button, Input, Label } from 'reactstrap'
 import { formatDate } from '@utils'
-import { MoreVertical, Edit, Trash, Save } from 'react-feather'
+import { Save } from 'react-feather'
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "@store/store"
 import ReactPaginate from 'react-paginate';
@@ -23,17 +23,6 @@ const ServiceTable = ({ services, pagination }) => {
     const [serviceId, setServiceId] = useState(null)
     const [centeredModal, setCenteredModal] = useState(false)
     const dispatch = useDispatch()
-
-    const getServiceInfo = (id) => {
-        setServiceId(id)
-        setCenteredModal(!centeredModal)
-    }
-
-    const deleteService = () => {
-        dispatch(ServiceDeleteActions.serviceDelete(serviceId))
-        setCenteredModal(!centeredModal)
-    }
-
 
     useEffect(() => {
         const endOffset = itemOffset + itemsPerPage;
@@ -81,7 +70,7 @@ const ServiceTable = ({ services, pagination }) => {
                                                 {formatDate(service.created_at)}
                                             </td>
                                             <td>
-                                                <Link to={``}>
+                                                <Link to={`/customer-service-requests/create/${service.id}`}>
                                                     <Save className='me-50' size={10} /> <span className='align-middle'>Subscribe</span>
                                                 </Link>
                                             </td>

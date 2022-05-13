@@ -19,6 +19,9 @@ import {
 import { useDispatch, useSelector } from '@store/store'
 import ServiceRequestCreateAction from "@store/V1/ServiceRequest/CREATE/ServiceRequestCreateAction";
 import ServiceActions from "@store/V1/CustomerPortal/Service/Detail/ServiceDetailAction";
+import BillingInformationDetailAction from "@store/V1/CustomerPortal/BillingInformation/DETAIL/BillingInformationDetailAction";
+import BillingInformationCreateAction from "@store/V1/CustomerPortal/BillingInformation/CREATE/BillingInformationCreateAction";
+import BillingInformationUpdateAction from "@store/V1/CustomerPortal/BillingInformation/UPDATE/BillingInformationUpdateAction";
 
 const CreateServiceRequest = () => {
 
@@ -27,8 +30,9 @@ const CreateServiceRequest = () => {
     const navigate = useNavigate();
 
     const {
-        detail: { service, loading, fetched }
-    } = useSelector(state => state.customer_services);
+        customer_services: { detail: { service, loading: serviceloading, fetched: serviceFetched } },
+        customer_billing_information: { detail: { customer_billing_information, loading: billingInfoLoading, fetched: billingInfoFetched } }
+    } = useSelector(state => state);
 
     const [serviceRequestDetails, setServiceRequestDetails] = useState({
         service_id: "",
@@ -39,24 +43,45 @@ const CreateServiceRequest = () => {
         is_recurring: false,
         selected_service: null,
     });
+
     const [serviceDetail, setServiceDetails] = useState({});
+    const [billingInfoDetail, setBillingInfoDetails] = useState({
+        invoice_to: "",
+        country: "",
+        address: "",
+        city: "",
+        state: "",
+        zip_code: "",
+        tax_code: "",
+    });
     const [centeredModal, setCenteredModal] = useState(false)
 
     useEffect(() => {
         dispatch(ServiceActions.serviceDetail(service_id));
-        if (fetched) {
+        dispatch(BillingInformationDetailAction.billingInformationDetail());
+        if (serviceFetched) {
             setServiceDetails(service)
         }
-    }, [fetched]);
+        if (billingInfoFetched) {
+            setBillingInfoDetails(customer_billing_information)
+        }
+    }, [serviceFetched]);
 
-    const handleInputField = (e) => {
+    const handleServiceRequestInputField = (e) => {
         setServiceRequestDetails({
             ...serviceRequestDetails,
             [e.target.name]: e.target.value
         })
     }
 
-    const getBillingInfo = (id) => {
+    const handleBillingInfoInputField = (e) => {
+        setBillingInfoDetails({
+            ...billingInfoDetail,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const getBillingInfo = () => {
         setCenteredModal(!centeredModal)
     }
 
@@ -67,7 +92,11 @@ const CreateServiceRequest = () => {
 
     const onSubmitBillingHandler = (e) => {
         e.preventDefault();
-        dispatch(ServiceRequestCreateAction.serviceRequestCreate(serviceRequestDetails));
+        if (Object.keys(customer_billing_information).length === 0 && customer_billing_information.constructor === Object) {
+            dispatch(BillingInformationCreateAction.billingInformationCreate(billingInfoDetail));
+        } else {
+            dispatch(BillingInformationUpdateAction.billingInformationUpdate(billingInfoDetail));
+        }
     }
 
     return (
@@ -92,13 +121,13 @@ const CreateServiceRequest = () => {
                         </CardHeader>
                         <hr />
                         <CardBody>
-                            {loading ? 'Loading...' :
+                            {serviceloading ? 'Loading...' :
                                 <Form onSubmit={onSubmitHandler}>
                                     <Row>
                                         {serviceDetail.image &&
                                             <Col md='12' sm='12'>
-                                                <div>
-                                                    <img src={serviceDetail.image} width="100%" height="200" alt="service image" />
+                                                <div className="mb-2">
+                                                    <img src={serviceDetail.image} width="100%" height="300" alt="service image" />
                                                 </div>
                                             </Col>
                                         }
@@ -132,31 +161,31 @@ const CreateServiceRequest = () => {
                                                             </Label>
                                                             <div className='demo-inline-spacing'>
                                                                 <div className='form-check'>
-                                                                    <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleInputField} />
+                                                                    <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleServiceRequestInputField} />
                                                                     <Label className='form-check-label' for='sr1'>
                                                                         {'annually - ' + serviceDetail.price_types.annually + '$'}
                                                                     </Label>
                                                                 </div>
                                                                 <div className='form-check'>
-                                                                    <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleInputField} />
+                                                                    <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleServiceRequestInputField} />
                                                                     <Label className='form-check-label' for='sr2'>
                                                                         {'biannually - ' + serviceDetail.price_types.biannually + '$'}
                                                                     </Label>
                                                                 </div>
                                                                 <div className='form-check'>
-                                                                    <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleInputField} />
+                                                                    <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleServiceRequestInputField} />
                                                                     <Label className='form-check-label' for='sr3'>
                                                                         {'quarterly - ' + serviceDetail.price_types.quarterly + '$'}
                                                                     </Label>
                                                                 </div>
                                                                 <div className='form-check'>
-                                                                    <Input type='radio' name='recurring_type' value="weekly" onChange={handleInputField} />
+                                                                    <Input type='radio' name='recurring_type' value="weekly" onChange={handleServiceRequestInputField} />
                                                                     <Label className='form-check-label' for='sr4'>
                                                                         {'weekly - ' + serviceDetail.price_types.weekly + '$'}
                                                                     </Label>
                                                                 </div>
                                                                 <div className='form-check'>
-                                                                    <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleInputField} defaultChecked />
+                                                                    <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleServiceRequestInputField} defaultChecked />
                                                                     <Label className='form-check-label' for='sr5'>
                                                                         {'monthly - ' + serviceDetail.price_types.monthly + '$'}
                                                                     </Label>
@@ -171,7 +200,7 @@ const CreateServiceRequest = () => {
                                                 <Label className='form-label' for='nameMulti'>
                                                     Title
                                                 </Label>
-                                                <Input type='text' value={serviceRequestDetails.title} onChange={handleInputField} name='title' id='title' placeholder='Enter Title' />
+                                                <Input type='text' value={serviceRequestDetails.title} onChange={handleServiceRequestInputField} name='title' id='title' placeholder='Enter Title' />
                                             </div>
                                         </Col>
                                         <Col md='12' sm='12'>
@@ -179,7 +208,7 @@ const CreateServiceRequest = () => {
                                                 <Label className='form-label' for='nameMulti'>
                                                     Description
                                                 </Label>
-                                                <Input type='textarea' value={serviceRequestDetails.description} onChange={handleInputField} name='description' id='description' placeholder='Enter Description' />
+                                                <Input type='textarea' value={serviceRequestDetails.description} onChange={handleServiceRequestInputField} name='description' id='description' placeholder='Enter Description' />
                                             </div>
                                         </Col>
                                         <Col md='12' sm='12'>
@@ -187,9 +216,9 @@ const CreateServiceRequest = () => {
                                                 <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
                                                     Cancel
                                                 </Button>
-                                                <Button color='primary' type='submit' disabled={loading}>
+                                                <Button color='primary' type='submit' disabled={serviceloading}>
                                                     {
-                                                        loading ?
+                                                        serviceloading ?
                                                             <>
                                                                 <Spinner color='white' size='sm' type='grow' />
                                                                 <span className='ms-50'>Loading...</span>
@@ -214,76 +243,78 @@ const CreateServiceRequest = () => {
             <div className='vertically-centered-modal'>
                 <Modal isOpen={centeredModal} toggle={() => setCenteredModal(!centeredModal)} className='modal-dialog-centered'>
                     <ModalHeader toggle={() => setCenteredModal(!centeredModal)}>Your Billing Information</ModalHeader>
-                    <Form onSubmit={onSubmitBillingHandler}>
-                        <ModalBody>
-                            <Row>
-                                <Col md='6' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='nameMulti'>
-                                            Invoice To
+                    {billingInfoLoading ? 'Loading...' :
+                        <Form onSubmit={onSubmitBillingHandler}>
+                            <ModalBody>
+                                <Row>
+                                    <Col md='6' sm='12'>
+                                        <div className='mb-1'>
+                                            <Label className='form-label' for='nameMulti'>
+                                                Invoice To
                                         </Label>
-                                        <Input type='text' value={serviceRequestDetails.title} onChange={handleInputField} name='invoice_to' id='invoice_to' placeholder='Enter Invoice to' />
-                                    </div>
-                                </Col>
-                                <Col md='6' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='nameMulti'>
-                                            Country
+                                            <Input type='text' value={serviceRequestDetails.title} onChange={handleServiceRequestInputField} name='invoice_to' id='invoice_to' placeholder='Enter Invoice to' />
+                                        </div>
+                                    </Col>
+                                    <Col md='6' sm='12'>
+                                        <div className='mb-1'>
+                                            <Label className='form-label' for='nameMulti'>
+                                                Country
                                         </Label>
-                                        <Input type='text' value={serviceRequestDetails.title} onChange={handleInputField} name='country' id='country' placeholder='Enter Country' />
-                                    </div>
-                                </Col>
-                                <Col md='6' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='nameMulti'>
-                                            City
+                                            <Input type='text' value={serviceRequestDetails.title} onChange={handleServiceRequestInputField} name='country' id='country' placeholder='Enter Country' />
+                                        </div>
+                                    </Col>
+                                    <Col md='6' sm='12'>
+                                        <div className='mb-1'>
+                                            <Label className='form-label' for='nameMulti'>
+                                                City
                                         </Label>
-                                        <Input type='text' value={serviceRequestDetails.title} onChange={handleInputField} name='city' id='city' placeholder='Enter City' />
-                                    </div>
-                                </Col>
-                                <Col md='6' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='nameMulti'>
-                                            State
+                                            <Input type='text' value={serviceRequestDetails.title} onChange={handleServiceRequestInputField} name='city' id='city' placeholder='Enter City' />
+                                        </div>
+                                    </Col>
+                                    <Col md='6' sm='12'>
+                                        <div className='mb-1'>
+                                            <Label className='form-label' for='nameMulti'>
+                                                State
                                         </Label>
-                                        <Input type='text' value={serviceRequestDetails.title} onChange={handleInputField} name='state' id='state' placeholder='Enter State' />
-                                    </div>
-                                </Col>
-                                <Col md='6' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='nameMulti'>
-                                            Zip Code
+                                            <Input type='text' value={serviceRequestDetails.title} onChange={handleServiceRequestInputField} name='state' id='state' placeholder='Enter State' />
+                                        </div>
+                                    </Col>
+                                    <Col md='6' sm='12'>
+                                        <div className='mb-1'>
+                                            <Label className='form-label' for='nameMulti'>
+                                                Zip Code
                                         </Label>
-                                        <Input type='text' value={serviceRequestDetails.title} onChange={handleInputField} name='zip_code' id='zip_code' placeholder='Enter Zip Code' />
-                                    </div>
-                                </Col>
-                                <Col md='6' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='nameMulti'>
-                                            Tax Code
+                                            <Input type='text' value={serviceRequestDetails.title} onChange={handleServiceRequestInputField} name='zip_code' id='zip_code' placeholder='Enter Zip Code' />
+                                        </div>
+                                    </Col>
+                                    <Col md='6' sm='12'>
+                                        <div className='mb-1'>
+                                            <Label className='form-label' for='nameMulti'>
+                                                Tax Code
                                         </Label>
-                                        <Input type='text' value={serviceRequestDetails.title} onChange={handleInputField} name='tax_code' id='tax_code' placeholder='Enter Tax Code' />
-                                    </div>
-                                </Col>
-                                <Col md='12' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='nameMulti'>
-                                            Address
+                                            <Input type='text' value={serviceRequestDetails.title} onChange={handleServiceRequestInputField} name='tax_code' id='tax_code' placeholder='Enter Tax Code' />
+                                        </div>
+                                    </Col>
+                                    <Col md='12' sm='12'>
+                                        <div className='mb-1'>
+                                            <Label className='form-label' for='nameMulti'>
+                                                Address
                                         </Label>
-                                        <Input type='textarea' value={serviceRequestDetails.title} onChange={handleInputField} name='address' id='address' placeholder='Enter Address' />
-                                    </div>
-                                </Col>
-                            </Row>
-                        </ModalBody>
-                        <ModalFooter>
-                            <Button color='primary' onClick={() => setCenteredModal(!centeredModal)}>
-                                Cancel
+                                            <Input type='textarea' value={serviceRequestDetails.title} onChange={handleServiceRequestInputField} name='address' id='address' placeholder='Enter Address' />
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color='primary' onClick={() => setCenteredModal(!centeredModal)}>
+                                    Cancel
                             </Button>
-                            <Button color='success'>
-                                Update
+                                <Button color='success'>
+                                    Update
                             </Button>
-                        </ModalFooter>
-                    </Form>
+                            </ModalFooter>
+                        </Form>
+                    }
                 </Modal>
             </div>
         </div >
