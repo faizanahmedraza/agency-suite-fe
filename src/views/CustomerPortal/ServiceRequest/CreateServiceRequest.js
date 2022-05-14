@@ -31,9 +31,11 @@ const CreateServiceRequest = () => {
 
     const {
         customer_services: { detail: { service, loading: serviceloading, fetched: serviceFetched } },
-        customer_billing_information: { detail: { customer_billing_information, loading: billingInfoLoading, fetched: billingInfoFetched } }
+        customer_service_requests: { create: { loading: createServiceRequestLoading } },
+        customer_billing_information: { detail: { customer_billing_information, loading: billingInfoLoading, fetched: billingInfoFetched }, create: { loading: createBillingInfoLoading } }
     } = useSelector(state => state);
 
+    const [serviceDetail, setServiceDetails] = useState({});
     const [serviceRequestDetails, setServiceRequestDetails] = useState({
         service_id: "",
         recurring_type: "",
@@ -41,8 +43,6 @@ const CreateServiceRequest = () => {
         description: "",
         reference_no: "",
     });
-
-    const [serviceDetail, setServiceDetails] = useState({});
     const [billingInfoDetail, setBillingInfoDetails] = useState({
         invoice_to: "",
         country: "",
@@ -67,7 +67,7 @@ const CreateServiceRequest = () => {
         if (billingInfoFetched) {
             setBillingInfoDetails(customer_billing_information)
         }
-    }, [serviceFetched]);
+    }, []);
 
     const handleServiceRequestInputField = (e) => {
         setServiceRequestDetails({
@@ -236,9 +236,9 @@ const CreateServiceRequest = () => {
                                                 <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
                                                     Cancel
                                                 </Button>
-                                                <Button color='primary' type='submit' disabled={serviceloading}>
+                                                <Button color='primary' type='submit' disabled={createServiceRequestLoading}>
                                                     {
-                                                        serviceloading ?
+                                                        createServiceRequestLoading ?
                                                             <>
                                                                 <Spinner color='white' size='sm' type='grow' />
                                                                 <span className='ms-50'>Loading...</span>
@@ -263,76 +263,86 @@ const CreateServiceRequest = () => {
             <div className='vertically-centered-modal'>
                 <Modal isOpen={centeredModal} toggle={() => setCenteredModal(!centeredModal)} className='modal-dialog-centered'>
                     <ModalHeader toggle={() => setCenteredModal(!centeredModal)}>Your Billing Information</ModalHeader>
-                        <Form onSubmit={onSubmitBillingHandler}>
-                            <ModalBody>
-                                <Row>
-                                    <Col md='6' sm='12'>
-                                        <div className='mb-1'>
-                                            <Label className='form-label' for='invoice_to'>
-                                                Invoice To
+                    <Form onSubmit={onSubmitBillingHandler}>
+                        <ModalBody>
+                            <Row>
+                                <Col md='6' sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label' for='invoice_to'>
+                                            Invoice To
                                         </Label>
-                                            <Input type='text' value={!billingInfoLoading && billingInfoDetail.invoice_to} onChange={handleBillingInfoInputField} name='invoice_to' id='invoice_to' placeholder='Enter Invoice to' />
-                                        </div>
-                                    </Col>
-                                    <Col md='6' sm='12'>
-                                        <div className='mb-1'>
-                                            <Label className='form-label' for='country'>
-                                                Country
+                                        <Input type='text' value={!billingInfoLoading && billingInfoDetail.invoice_to} onChange={handleBillingInfoInputField} name='invoice_to' id='invoice_to' placeholder='Enter Invoice to' />
+                                    </div>
+                                </Col>
+                                <Col md='6' sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label' for='country'>
+                                            Country
                                         </Label>
-                                            <Input type='text' value={!billingInfoLoading && billingInfoDetail.country} onChange={handleBillingInfoInputField} name='country' id='country' placeholder='Enter Country' />
-                                        </div>
-                                    </Col>
-                                    <Col md='6' sm='12'>
-                                        <div className='mb-1'>
-                                            <Label className='form-label' for='city'>
-                                                City
+                                        <Input type='text' value={!billingInfoLoading && billingInfoDetail.country} onChange={handleBillingInfoInputField} name='country' id='country' placeholder='Enter Country' />
+                                    </div>
+                                </Col>
+                                <Col md='6' sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label' for='city'>
+                                            City
                                         </Label>
-                                            <Input type='text' value={!billingInfoLoading && billingInfoDetail.city} onChange={handleBillingInfoInputField} name='city' id='city' placeholder='Enter City' />
-                                        </div>
-                                    </Col>
-                                    <Col md='6' sm='12'>
-                                        <div className='mb-1'>
-                                            <Label className='form-label' for='state'>
-                                                State
+                                        <Input type='text' value={!billingInfoLoading && billingInfoDetail.city} onChange={handleBillingInfoInputField} name='city' id='city' placeholder='Enter City' />
+                                    </div>
+                                </Col>
+                                <Col md='6' sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label' for='state'>
+                                            State
                                         </Label>
-                                            <Input type='text' value={!billingInfoLoading && billingInfoDetail.state} onChange={handleBillingInfoInputField} name='state' id='state' placeholder='Enter State' />
-                                        </div>
-                                    </Col>
-                                    <Col md='6' sm='12'>
-                                        <div className='mb-1'>
-                                            <Label className='form-label' for='zip_code'>
-                                                Zip Code
+                                        <Input type='text' value={!billingInfoLoading && billingInfoDetail.state} onChange={handleBillingInfoInputField} name='state' id='state' placeholder='Enter State' />
+                                    </div>
+                                </Col>
+                                <Col md='6' sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label' for='zip_code'>
+                                            Zip Code
                                         </Label>
-                                            <Input type='text' value={!billingInfoLoading && billingInfoDetail.zip_code} onChange={handleBillingInfoInputField} name='zip_code' id='zip_code' placeholder='Enter Zip Code' />
-                                        </div>
-                                    </Col>
-                                    <Col md='6' sm='12'>
-                                        <div className='mb-1'>
-                                            <Label className='form-label' for='tax_code'>
-                                                Tax Code
+                                        <Input type='text' value={!billingInfoLoading && billingInfoDetail.zip_code} onChange={handleBillingInfoInputField} name='zip_code' id='zip_code' placeholder='Enter Zip Code' />
+                                    </div>
+                                </Col>
+                                <Col md='6' sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label' for='tax_code'>
+                                            Tax Code
                                         </Label>
-                                            <Input type='text' value={!billingInfoLoading && billingInfoDetail.tax_code} onChange={handleBillingInfoInputField} name='tax_code' id='tax_code' placeholder='Enter Tax Code' />
-                                        </div>
-                                    </Col>
-                                    <Col md='12' sm='12'>
-                                        <div className='mb-1'>
-                                            <Label className='form-label' for='address'>
-                                                Address
+                                        <Input type='text' value={!billingInfoLoading && billingInfoDetail.tax_code} onChange={handleBillingInfoInputField} name='tax_code' id='tax_code' placeholder='Enter Tax Code' />
+                                    </div>
+                                </Col>
+                                <Col md='12' sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label' for='address'>
+                                            Address
                                         </Label>
-                                            <Input type='textarea' value={!billingInfoLoading && billingInfoDetail.address} onChange={handleBillingInfoInputField} name='address' id='address' placeholder='Enter Address' />
-                                        </div>
-                                    </Col>
-                                </Row>
-                            </ModalBody>
-                            <ModalFooter>
-                                <Button color='primary' onClick={() => setCenteredModal(!centeredModal)}>
-                                    Cancel
+                                        <Input type='textarea' value={!billingInfoLoading && billingInfoDetail.address} onChange={handleBillingInfoInputField} name='address' id='address' placeholder='Enter Address' />
+                                    </div>
+                                </Col>
+                            </Row>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color='primary' onClick={() => setCenteredModal(!centeredModal)}>
+                                Cancel
                             </Button>
-                                <Button color='success'>
-                                   { checkBillingInfoEmpty() ? 'Create' : 'Update'}
+                            <Button color='success' type='submit' disabled={createBillingInfoLoading}>
+                                {
+                                    createBillingInfoLoading ?
+                                        <>
+                                            <Spinner color='white' size='sm' type='grow' />
+                                            <span className='ms-50'>Loading...</span>
+                                        </>
+                                        :
+                                        <span>
+                                            {checkBillingInfoEmpty() ? 'Create' : 'Update'}
+                                        </span>
+                                }
                             </Button>
-                            </ModalFooter>
-                        </Form>
+                        </ModalFooter>
+                    </Form>
                 </Modal>
             </div>
         </div >
