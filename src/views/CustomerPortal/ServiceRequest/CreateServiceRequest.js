@@ -23,6 +23,14 @@ import BillingInformationDetailAction from "@store/V1/CustomerPortal/BillingInfo
 import BillingInformationCreateAction from "@store/V1/CustomerPortal/BillingInformation/CREATE/BillingInformationCreateAction";
 import BillingInformationUpdateAction from "@store/V1/CustomerPortal/BillingInformation/UPDATE/BillingInformationUpdateAction";
 
+const Loader = () => {
+    return (
+        <div className="text-center">
+            <strong>Loading...</strong>
+        </div>
+    );
+};
+
 const CreateServiceRequest = () => {
 
     const dispatch = useDispatch();
@@ -133,7 +141,7 @@ const CreateServiceRequest = () => {
                         </CardHeader>
                         <hr />
                         <CardBody>
-                            {serviceloading ? 'Loading...' :
+                            {serviceloading ? <Loader/> :
                                 <Form onSubmit={onSubmitHandler}>
                                     <Row>
                                         {serviceDetail.image &&
