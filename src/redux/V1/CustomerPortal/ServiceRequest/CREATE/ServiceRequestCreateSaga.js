@@ -1,11 +1,11 @@
 import { takeEvery, put } from "redux-saga/effects"
-import SERVICE_REQUEST from "@store/V1/ServiceRequest/ActionTypes"
-import ServiceRequestCreateAction from "@store/V1/ServiceRequest/CREATE/ServiceRequestCreateAction"
-import AgencyServiceRequestService from "@src/Services/V1/AgencyServiceRequestService"
+import SERVICE_REQUEST from "@store/V1/CustomerPortal/ServiceRequest/ActionTypes"
+import ServiceRequestCreateAction from "@store/V1/CustomerPortal/ServiceRequest/CREATE/ServiceRequestCreateAction"
+import ServiceRequestService from "@src/Services/V1/CustomerPortal/ServiceRequestService"
 import toast from "react-hot-toast"
 
 function* serviceRequestCreate(data) {
-    const response = yield AgencyServiceRequestService.serviceRequestPost(data.request)
+    const response = yield ServiceRequestService.serviceRequestPost(data.request)
     if (response.success) {
         toast.success(response.message)
         yield put(ServiceRequestCreateAction.serviceRequestCreateSuccess(response))
@@ -16,13 +16,13 @@ function* serviceRequestCreate(data) {
 }
 
 function serviceRequestCreateSuccess() {
-    window.location.href = "/service-requests";
+    window.location.href = "/customer-service-requests";
 }
 
 export function* ServiceRequestCreateSuccessSaga() {
-    yield takeEvery(SERVICE_REQUEST.SERVICE_REQUEST_CREATE_SUCCESS, serviceRequestCreateSuccess);
+    yield takeEvery(SERVICE_REQUEST.CUSTOMER_SERVICE_REQUEST_CREATE_SUCCESS, serviceRequestCreateSuccess);
 }
 
 export function* ServiceRequestCreateSaga() {
-    yield takeEvery(SERVICE_REQUEST.SERVICE_REQUEST_CREATE, serviceRequestCreate);
+    yield takeEvery(SERVICE_REQUEST.CUSTOMER_SERVICE_REQUEST_CREATE, serviceRequestCreate);
 }

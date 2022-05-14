@@ -1,4 +1,4 @@
-import SERVICE_REQUEST from "@store/V1/ServiceRequest/ActionTypes"
+import SERVICE_REQUEST from "@store/V1/CustomerPortal/ServiceRequest/ActionTypes"
 
 const ServiceRequestCreateReducer = (
     state = {
@@ -8,17 +8,17 @@ const ServiceRequestCreateReducer = (
     action
 ) => {
     switch (action.type) {
-        case SERVICE_REQUEST.SERVICE_REQUEST_CREATE:
+        case SERVICE_REQUEST.CUSTOMER_SERVICE_REQUEST_CREATE:
             return {
                 ...state,
                 loading: true,
             }
-        case SERVICE_REQUEST.SERVICE_REQUEST_CREATE_SUCCESS:
+        case SERVICE_REQUEST.CUSTOMER_SERVICE_REQUEST_CREATE_SUCCESS:
             return {
                 ...state,
                 loading: false,
             }
-        case SERVICE_REQUEST.SERVICE_REQUEST_CREATE_FAILED:
+        case SERVICE_REQUEST.CUSTOMER_SERVICE_REQUEST_CREATE_FAILED:
             return {
                 ...state,
                 loading: false,

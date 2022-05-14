@@ -31,11 +31,8 @@ const ServiceRequests = () => {
       loading,
       service_requests,
       pagination
-    },
-    change_status: {
-      isChanged
     }
-  } = useSelector(state => state.service_requests);
+  } = useSelector(state => state.customer_service_requests);
 
   function activeRequests() {
     const activeRequests = service_requests.filter((service) => {
@@ -46,8 +43,8 @@ const ServiceRequests = () => {
   }
 
   useEffect(() => {
-    if (!service_requests.length || isChanged) return dispatch(ServiceRequestListAction.serviceRequestList());
-  }, [isChanged])
+    if (!service_requests.length) return dispatch(ServiceRequestListAction.serviceRequestList());
+  }, [])
 
   const toggle = (tab) => {
     if (active !== tab) {
@@ -64,7 +61,7 @@ const ServiceRequests = () => {
               <h1>Requests</h1>
             </div>
             <div className='col-md-3'>
-              <Link to="/service-requests/create">
+              <Link to="/customer-services">
                 <Button.Ripple color='primary' className="w-100">Create Request</Button.Ripple>
               </Link>
             </div>

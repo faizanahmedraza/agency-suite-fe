@@ -10,14 +10,13 @@ function* billingInformationDetail(data) {
     if (response.success) {
       yield put(BillingInformationDetailAction.billingInformationDetailSuccess(response.data));
     } else {
-      toast.error(response.error.message);
-      yield put(BillingInformationDetailAction.billingInformationDetailFailed(response));
+      // toast.error(response.error.message);
+      yield put(BillingInformationDetailAction.billingInformationDetailFailed(response.error));
     }
   } catch (error) {
     toast.error(
       "Something went wrong and we have been notified about the problem"
     );
-    yield put(BillingInformationDetailAction.billingInformationDetailFailed());
   }
 }
 

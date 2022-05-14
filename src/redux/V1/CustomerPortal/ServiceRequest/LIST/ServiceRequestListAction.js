@@ -1,19 +1,19 @@
-import SERVICE_REQUEST from "@store/V1/ServiceRequest/ActionTypes"
+import SERVICE_REQUEST from "@store/V1/CustomerPortal/ServiceRequest/ActionTypes"
 
 const serviceRequestList = () => {
     return {
-        type: SERVICE_REQUEST.SERVICE_REQUEST_LIST,
+        type: SERVICE_REQUEST.CUSTOMER_SERVICE_REQUEST_LIST,
     };
 };
 const serviceRequestListSuccess = (data) => {
     return {
-        type: SERVICE_REQUEST.SERVICE_REQUEST_LIST_SUCCESS,
+        type: SERVICE_REQUEST.CUSTOMER_SERVICE_REQUEST_LIST_SUCCESS,
         response: data,
     };
 };
 const serviceRequestListFailed = () => {
     return {
-        type: SERVICE_REQUEST.SERVICE_REQUEST_LIST_FAILED,
+        type: SERVICE_REQUEST.CUSTOMER_SERVICE_REQUEST_LIST_FAILED,
     };
 };
 

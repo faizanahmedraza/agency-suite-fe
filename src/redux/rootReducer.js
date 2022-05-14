@@ -11,6 +11,7 @@ import ForgotPasswordReducer from "@store/V1/Auth/Forgot Password/ForgotPassword
 import ServiceReducer from "@store/V1/Service/serviceRootReducer";
 import CustomerServiceReducer from "@store/V1/CustomerPortal/Service/serviceRootReducer";
 import BillingInformationRootReducer from "@store/V1/CustomerPortal/BillingInformation/BillingInformationRootReducer";
+import CustomerServiceRequestRootReducer from "@store/V1/CustomerPortal/ServiceRequest/CustomerServiceRequestRootReducer";
 import PortalSettingRootReducer from "@store/V1/PortalSetting/PortalSettingRootReducer";
 import ProfileSettingRootReducer from "@store/V1/ProfileSetting/ProfileSettingRootReducer";
 import ServiceRequestRootReducer from "@store/V1/ServiceRequest/ServiceRequestRootReducer";
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   service_requests: ServiceRequestRootReducer,
   customer_services: CustomerServiceReducer,
   customer_billing_information: BillingInformationRootReducer,
+  customer_service_requests: CustomerServiceRequestRootReducer,
 });
 
 export default rootReducer

@@ -34,7 +34,8 @@ const V1 = {
   },
   customer: {
     services: "v1/customers/services",
-    billing_information: "v1/customers/billing-information"
+    billing_information: "v1/customers/billing-information",
+    service_request: "v1/customers/request-services"
   },
   changePassword: "v1/admin/change-password",
   roles: "v1/admin/roles",

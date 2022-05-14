@@ -58,6 +58,7 @@ const CreatePassword = lazy(() => import("../../views/CreatePassword"));
 const CustomerRegister = lazy(() => import("../../views/CustomerRegister"));
 const ServiceRequests = lazy(() => import("../../views/ServiceRequest/ServiceRequests"));
 const CreateServiceRequest = lazy(() => import("../../views/ServiceRequest/CreateServiceRequest"));
+const CustomerServiceRequests = lazy(() => import("../../views/CustomerPortal/ServiceRequest/ServiceRequests"));
 const CreateCustomerServiceRequest = lazy(() => import("../../views/CustomerPortal/ServiceRequest/CreateServiceRequest"));
 const DetailServiceRequest = lazy(() => import("../../views/ServiceRequest/DetailServiceRequest"));
 const Error = lazy(() => import("../../views/Error"));
@@ -210,7 +211,7 @@ const Routes = [
   // Customer Request
   {
     path: "/customer-service-requests",
-    element: <ServiceRequests />,
+    element: <CustomerServiceRequests />,
     meta: {
       layout: "vertical",
       publicRoute: true,

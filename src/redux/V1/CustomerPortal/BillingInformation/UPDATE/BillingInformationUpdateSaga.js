@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 function* billingInformationUpdate(data) {
     try {
-        const response = yield BillingInformationService.billingInformationPut(data.request.form)
+        const response = yield BillingInformationService.billingInformationPut(data.request)
         if (response.success) {
             toast.success(response.message)
             yield put(BillingInformationUpdateAction.billingInformationUpdateSuccess(response.data))
@@ -18,7 +18,6 @@ function* billingInformationUpdate(data) {
         toast.error(
             "Something went wrong and we have been notified about the problem"
         );
-        yield put(BillingInformationUpdateAction.billingInformationUpdateFailed());
     }
 }
 

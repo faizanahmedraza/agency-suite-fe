@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "@store/store";
 import { Link } from "react-router-dom";
 import {
   UncontrolledDropdown,
-  Input,
   DropdownMenu,
   DropdownToggle,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Button,
   Table,
 } from "reactstrap";
 import ReactPaginate from "react-paginate";
@@ -19,18 +12,10 @@ import moment from "moment";
 
 const ServiceRequestList = (props) => {
   const _data = props.data;
-  const dispatch = useDispatch();
-  const [formModal, setFormModal] = useState(false);
-  const [deleteCustomerId, setCustomerId] = useState();
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(props?.pagination?.per_page);
-
-  const serviceRequestDelete = (id) => {
-    //action
-    setFormModal(!formModal);
-  };
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -62,7 +47,7 @@ const ServiceRequestList = (props) => {
                   <td>
                     <Link to={``}>
                       <span className="align-middle fw-bold">
-                        {request?.service?.name}
+                        {request?.service_name}
                       </span>
                     </Link>
                   </td>
@@ -118,32 +103,6 @@ const ServiceRequestList = (props) => {
           nextLinkClassName={"page-link"}
           activeClassName={"active"}
         />
-      </div>
-      <div className="vertically-centered-modal">
-        <Modal
-          isOpen={formModal}
-          toggle={() => setCenteredModal(!formModal)}
-          className="modal-dialog-centered"
-        >
-          <ModalHeader toggle={() => setCenteredModal(!formModal)}>
-            Confirmation
-          </ModalHeader>
-          <ModalBody>Are you sure you want to delete this service request ?</ModalBody>
-          <ModalFooter>
-            <Button
-              color="primary"
-              onClick={() => setCenteredModal(!formModal)}
-            >
-              Cancel
-            </Button>
-            <Button
-              color="danger"
-              onClick={() => serviceRequestDelete(deleteCustomerId)}
-            >
-              Delete
-            </Button>
-          </ModalFooter>
-        </Modal>
       </div>
     </React.Fragment>
   );
