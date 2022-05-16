@@ -35,7 +35,7 @@ const ServiceRequestList = (props) => {
           <tr>
             <th>SERVICE NAME</th>
             <th>STATUS</th>
-            <th>CREATED AT</th>
+            <th>IS RECURRING</th>
             <th>ACTIONS</th>
           </tr>
         </thead>
@@ -56,7 +56,7 @@ const ServiceRequestList = (props) => {
                         {request.status}
                       </span>
                   </td>
-                  <td>{moment(request.created_at).format('YYYY-MM-DD')}</td>
+                  <td>{request.status ? 'Yes' : 'No'}</td>
                   <td>
                     <UncontrolledDropdown>
                       <DropdownToggle

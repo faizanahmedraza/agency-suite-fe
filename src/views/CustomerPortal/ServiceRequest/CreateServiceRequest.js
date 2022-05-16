@@ -75,7 +75,7 @@ const CreateServiceRequest = () => {
         if (billingInfoFetched) {
             setBillingInfoDetails(customer_billing_information)
         }
-    }, []);
+    }, [billingInfoFetched]);
 
     const handleServiceRequestInputField = (e) => {
         setServiceRequestDetails({
