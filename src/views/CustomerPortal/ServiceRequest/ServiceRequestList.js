@@ -45,7 +45,7 @@ const ServiceRequestList = (props) => {
               return (
                 <tr key={request.id}>
                   <td>
-                    <Link to={``}>
+                    <Link to={`/customer-service-requests/detail/${request.id}`}>
                       <span className="align-middle fw-bold">
                         {request?.service_name}
                       </span>
