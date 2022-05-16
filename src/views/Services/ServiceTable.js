@@ -63,8 +63,8 @@ const ServiceTable = ({ services, pagination }) => {
         dispatch(ServiceCatalogActions.serviceCatalog(id))
     }
 
-    const handleChangeStatus = () => {
-
+    const handleShowServiceStatus = (e, id) => {
+        dispatch(ServiceStatusAction.serviceStatus(id))
     }
 
     return (
@@ -107,7 +107,7 @@ const ServiceTable = ({ services, pagination }) => {
                                             <td>{service.subscription_type}</td>
                                             <td className='text-center'>
                                                 <div className='form-switch form-check-primary'>
-                                                    <Input type='switch' defaultChecked={service.catalog_status === "active"} id='icon-primary' name='icon-primary' />
+                                                    <Input type='switch' className='' onChange={(e) => handleShowServiceStatus(e, service.id)} defaultChecked={service.status === "active"} id='icon-secondnary' name='icon-status' />
                                                 </div>
                                             </td>
                                             <td>
