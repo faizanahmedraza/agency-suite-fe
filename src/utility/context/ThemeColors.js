@@ -48,6 +48,7 @@ const ThemeContext = ({ children }) => {
       setColors({ ...obj })
     }
   }, [])
+  console.log(colors)
 
   return <ThemeColors.Provider value={{ colors }}>{children}</ThemeColors.Provider>
 }

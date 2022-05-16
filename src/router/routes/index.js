@@ -27,6 +27,13 @@ const TemplateTitle = "%s - Vuexy React Admin Template";
 // ** Default Route
 const DefaultRoute = "/dashboard";
 
+<<<<<<< HEAD
+const Dashboard = lazy(() => import("../../views/Dashboard/dashboard"));
+const Profile = lazy(() => import("../../views/Profile/Profile"));
+const Services = lazy(() => import("../../views/Services/services"));
+const Customers = lazy(() => import("../../views/Customers/Customers"));
+const CustomerServices = lazy(() =>import("../../views/CustomerPortal/Services/services"));
+=======
 const Dashboard = lazy(() => import("@src/views/Dashboard/dashboard"));
 const Profile = lazy(() => import("@src/views/Profile/Profile"));
 const Services = lazy(() => import("@src/views/Services/services"));
@@ -34,6 +41,7 @@ const Customers = lazy(() => import("@src/views/Customers/Customers"));
 const CustomerServices = lazy(() =>
   import("@src/views/CustomerPortal/Services/Services")
 );
+>>>>>>> 8f3ac7db625e324f8679f2be2de8f14748940104
 const CreateCustomer = lazy(() =>
   import("@src/views/Customers/CreateCustomer")
 );
@@ -215,7 +223,7 @@ const Routes = [
     element: <CustomerServiceRequests />,
     meta: {
       layout: "vertical",
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: false,
     },
   },
@@ -224,7 +232,7 @@ const Routes = [
     element: <CreateCustomerServiceRequest />,
     meta: {
       layout: "vertical",
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: false,
     },
   },
@@ -233,7 +241,7 @@ const Routes = [
     element: <DetailCustomerServiceRequest />,
     meta: {
       layout: "vertical",
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: false,
     },
   },
@@ -242,12 +250,10 @@ const Routes = [
     element: <CustomerServices />,
     meta: {
       layout: "vertical",
-      publicRoute: true,
+      publicRoute: false,
       customer_restricted: false,
     },
   },
-
-
   {
     path: "/launch",
     element: <Launch />,
