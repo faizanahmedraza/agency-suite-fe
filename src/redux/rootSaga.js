@@ -6,12 +6,13 @@ import CustomerRegisterRootSaga from "@store/V1/Auth/CustomerRegister/CustomerRe
 import VerificationRootSaga from "@store/V1/Auth/Verification/VerificationRootSaga";
 import ServiceRootSaga from "@store/V1/Service/serviceRootSaga";
 import CustomerServiceRootSaga from "@store/V1/CustomerPortal/Service/serviceRootSaga";
+import BillingInformationRootSaga from "@store/V1/CustomerPortal/BillingInformation/BillingInformationRootSaga";
+import CustomerServiceRequestRootSaga from "@store/V1/CustomerPortal/ServiceRequest/CustomerServiceRequestRootSaga";
 import CustomerRootSaga from "@store/V1/Customer/CustomerRootSaga";
 import ForgotPasswordSaga from "@store/V1/Auth/Forgot Password/ForgotPasswordRootSaga";
 import PortalSettingRootSaga from "@store/V1/PortalSetting/PortalSettingRootSaga";
 import ProfileSettingRootSaga from "@store/V1/ProfileSetting/ProfileSettingRootSaga";
 import ServiceRequestRootSaga from "@store/V1/ServiceRequest/ServiceRequestRootSaga";
-
 
 export default function* rootSaga() {
   yield all([
@@ -27,5 +28,7 @@ export default function* rootSaga() {
     ProfileSettingRootSaga(),
     ServiceRequestRootSaga(),
     CustomerServiceRootSaga(),
+    BillingInformationRootSaga(),
+    CustomerServiceRequestRootSaga(),
   ]);
 }

@@ -1,24 +1,26 @@
-import SERVICE_REQUEST from "@store/V1/CustomerPortal/ServiceRequest/ActionTypes"
+import BILLING_INFORMATION from "@store/V1/CustomerPortal/BillingInformation/ActionType";
 
-const ServiceRequestCreateReducer = (
+const BillingInformationCreateReducer = (
     state = {
         loading: false,
+        success: false,
         error: null
     },
     action
 ) => {
     switch (action.type) {
-        case SERVICE_REQUEST.CUSTOMER_SERVICE_REQUEST_CREATE:
+        case BILLING_INFORMATION.BILLING_INFORMATION_CREATE:
             return {
                 ...state,
                 loading: true,
             }
-        case SERVICE_REQUEST.CUSTOMER_SERVICE_REQUEST_CREATE_SUCCESS:
+        case BILLING_INFORMATION.BILLING_INFORMATION_CREATE_SUCCESS:
             return {
                 ...state,
                 loading: false,
+                success: true
             }
-        case SERVICE_REQUEST.CUSTOMER_SERVICE_REQUEST_CREATE_FAILED:
+        case BILLING_INFORMATION.BILLING_INFORMATION_CREATE_FAILED:
             return {
                 ...state,
                 loading: false,
@@ -29,4 +31,4 @@ const ServiceRequestCreateReducer = (
     }
 }
 
-export default ServiceRequestCreateReducer;
+export default BillingInformationCreateReducer;

@@ -1,4 +1,4 @@
-import SERVICE_REQUEST from "@store/V1/ServiceRequest/ActionTypes"
+import SERVICE_REQUEST from "@store/V1/CustomerPortal/ServiceRequest/ActionTypes"
 
 const ServiceRequestDetailReducer = (
   state = {
@@ -34,19 +34,19 @@ const ServiceRequestDetailReducer = (
   action
 ) => {
   switch (action.type) {
-    case SERVICE_REQUEST.SERVICE_REQUEST_DETAIL:
+    case SERVICE_REQUEST.CUSTOMER_SERVICE_REQUEST_DETAIL:
       return {
         ...state,
         loading: true,
       };
-    case SERVICE_REQUEST.SERVICE_REQUEST_DETAIL_SUCCESS:
+    case SERVICE_REQUEST.CUSTOMER_SERVICE_REQUEST_DETAIL_SUCCESS:
       return {
         ...state,
         loading: false,
         serivice_request: action.response.customer_service_request,
         fetched: true,
       };
-    case SERVICE_REQUEST.SERVICE_REQUEST_DETAIL_FAILED:
+    case SERVICE_REQUEST.CUSTOMER_SERVICE_REQUEST_DETAIL_FAILED:
       return {
         ...state,
         loading: false,

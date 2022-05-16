@@ -1,13 +1,13 @@
 import { takeEvery, put } from "redux-saga/effects";
-import SERVICE_REQUEST from "@store/V1/ServiceRequest/ActionTypes"
-import ServiceRequestDetailAction from "@store/V1/ServiceRequest/DETAIL/ServiceRequestDetailAction"
-import AgencyServiceRequestService from "@src/Services/V1/AgencyServiceRequestService"
+import SERVICE_REQUEST from "@store/V1/CustomerPortal/ServiceRequest/ActionTypes"
+import ServiceRequestDetailAction from "@store/V1/CustomerPortal/ServiceRequest/DETAIL/ServiceRequestDetailAction"
+import ServiceRequestService from "@src/Services/V1/CustomerPortal/ServiceRequestService"
 import toast from 'react-hot-toast';
 
 function* serviceRequestDetail(data) {
   try {
     console.log(data);
-    const response = yield AgencyServiceRequestService.serviceRequestDetail(data.request);
+    const response = yield ServiceRequestService.serviceRequestDetail(data.request);
     if (response.success) {
       yield put(ServiceRequestDetailAction.serviceRequestDetailSuccess(response.data));
     } else {
@@ -23,5 +23,5 @@ function* serviceRequestDetail(data) {
 }
 
 export function* ServiceRequestDetailSaga() {
-  yield takeEvery(SERVICE_REQUEST.SERVICE_REQUEST_DETAIL, serviceRequestDetail);
+  yield takeEvery(SERVICE_REQUEST.CUSTOMER_SERVICE_REQUEST_DETAIL, serviceRequestDetail);
 }
