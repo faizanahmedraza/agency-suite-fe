@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Table,
@@ -17,6 +17,11 @@ import { MoreVertical, Edit, Trash } from 'react-feather'
 const Invoice = () => {
 
   const [formModal, setFormModal] = useState(false);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty('--bs-primary', 'black');
+  }, [])
 
   return (
     <div>
@@ -53,7 +58,7 @@ const Invoice = () => {
                 </td>
                 <td>$4263</td>
                 <td>
-                12 Jun 2019
+                  12 Jun 2019
                 </td>
                 <td>$762</td>
                 <td>
@@ -78,7 +83,7 @@ const Invoice = () => {
                 </td>
                 <td>$3171</td>
                 <td>
-                25 Sep 2019
+                  25 Sep 2019
                 </td>
                 <td>-$205</td>
                 <td>
@@ -103,11 +108,11 @@ const Invoice = () => {
                 </td>
                 <td>$4836</td>
                 <td>
-                22 Oct 2019
+                  22 Oct 2019
                 </td>
                 <td><Badge pill color='light-success' className='me-1'>
-                    Paid
-                  </Badge></td>
+                  Paid
+                </Badge></td>
                 <td>
                   <UncontrolledDropdown>
                     <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>

@@ -11,6 +11,8 @@ import { useLayout } from '@hooks/useLayout'
 
 import { setFavIcon, setTitle } from "@utils"
 
+import "./App.css"
+
 const App = () => {
   const [allRoutes, setAllRoutes] = useState([])
   // ** Hooks

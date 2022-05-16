@@ -22,6 +22,8 @@ const UserDropdown = () => {
 
   } = useSelector(state => state)
 
+  console.log(login_user)
+
   const [user, setUser] = useState(null)
 
   useEffect(() => {

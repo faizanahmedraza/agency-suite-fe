@@ -45,7 +45,7 @@ const ServiceRequestList = (props) => {
               return (
                 <tr key={request.id}>
                   <td>
-                    <Link to={``}>
+                    <Link to={`/customer-service-requests/detail/${request.id}`}>
                       <span className="align-middle fw-bold">
                         {request?.service_name}
                       </span>
@@ -70,9 +70,9 @@ const ServiceRequestList = (props) => {
                       <DropdownMenu>
                         <Link
                           className="dropdown-item"
-                          to={``}
+                          to={`/customer-service-requests/detail/${request.id}`}
                         >
-                          <Edit className="me-50" size={15} />{" "}
+                          <Edit className="me-50" size={15} />
                           <span className="align-middle">Detail</span>
                         </Link>
                       </DropdownMenu>
