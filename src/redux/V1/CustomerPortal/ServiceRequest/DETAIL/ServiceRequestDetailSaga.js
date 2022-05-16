@@ -6,7 +6,6 @@ import toast from 'react-hot-toast';
 
 function* serviceRequestDetail(data) {
   try {
-    console.log(data);
     const response = yield ServiceRequestService.serviceRequestDetail(data.request);
     if (response.success) {
       yield put(ServiceRequestDetailAction.serviceRequestDetailSuccess(response.data));
@@ -18,7 +17,6 @@ function* serviceRequestDetail(data) {
     toast.error(
       "Something went wrong and we have been notified about the problem"
     );
-    yield put(ServiceRequestDetailAction.serviceRequestDetailFailed());
   }
 }
 

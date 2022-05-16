@@ -70,9 +70,9 @@ const ServiceRequestList = (props) => {
                       <DropdownMenu>
                         <Link
                           className="dropdown-item"
-                          to={``}
+                          to={`/customer-service-requests/detail/${request.id}`}
                         >
-                          <Edit className="me-50" size={15} />{" "}
+                          <Edit className="me-50" size={15} />
                           <span className="align-middle">Detail</span>
                         </Link>
                       </DropdownMenu>

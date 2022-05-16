@@ -27,41 +27,42 @@ const TemplateTitle = "%s - Vuexy React Admin Template";
 // ** Default Route
 const DefaultRoute = "/dashboard";
 
-const Dashboard = lazy(() => import("../../views/Dashboard/dashboard"));
-const Profile = lazy(() => import("../../views/Profile/Profile"));
-const Services = lazy(() => import("../../views/Services/services"));
-const Customers = lazy(() => import("../../views/Customers/Customers"));
+const Dashboard = lazy(() => import("@src/views/Dashboard/dashboard"));
+const Profile = lazy(() => import("@src/views/Profile/Profile"));
+const Services = lazy(() => import("@src/views/Services/services"));
+const Customers = lazy(() => import("@src/views/Customers/Customers"));
 const CustomerServices = lazy(() =>
-  import("../../views/CustomerPortal/Services/Services")
+  import("@src/views/CustomerPortal/Services/Services")
 );
 const CreateCustomer = lazy(() =>
-  import("../../views/Customers/CreateCustomer")
+  import("@src/views/Customers/CreateCustomer")
 );
 const UpdateCustomer = lazy(() =>
-  import("../../views/Customers/UpdateCustomer")
+  import("@src/views/Customers/UpdateCustomer")
 );
-const Portal = lazy(() => import("../../views/Portal/portal"));
-const Invoice = lazy(() => import("../../views/Invoice/invoice"));
-const CreateInvoice = lazy(() => import("../../views/Invoice/Create Invoice"));
+const Portal = lazy(() => import("@src/views/Portal/portal"));
+const Invoice = lazy(() => import("@src/views/Invoice/invoice"));
+const CreateInvoice = lazy(() => import("@src/views/Invoice/Create Invoice"));
 const CreateServices = lazy(() =>
-  import("../../views/Services/Create Service/createService")
+  import("@src/views/Services/Create Service/createService")
 );
 const EditServices = lazy(() =>
-  import("../../views/Services/Edit Service/editService")
+  import("@src/views/Services/Edit Service/editService")
 );
-const Login = lazy(() => import("../../views/Login"));
-const Launch = lazy(() => import("../../views/Launch/launch"));
-const Register = lazy(() => import("../../views/Register"));
-const Verification = lazy(() => import("../../views/Verification"));
-const ForgotPassword = lazy(() => import("../../views/ForgotPassword"));
-const CreatePassword = lazy(() => import("../../views/CreatePassword"));
-const CustomerRegister = lazy(() => import("../../views/CustomerRegister"));
-const ServiceRequests = lazy(() => import("../../views/ServiceRequest/ServiceRequests"));
-const CreateServiceRequest = lazy(() => import("../../views/ServiceRequest/CreateServiceRequest"));
-const CustomerServiceRequests = lazy(() => import("../../views/CustomerPortal/ServiceRequest/ServiceRequests"));
-const CreateCustomerServiceRequest = lazy(() => import("../../views/CustomerPortal/ServiceRequest/CreateServiceRequest"));
-const DetailServiceRequest = lazy(() => import("../../views/ServiceRequest/DetailServiceRequest"));
-const Error = lazy(() => import("../../views/Error"));
+const Login = lazy(() => import("@src/views/Login"));
+const Launch = lazy(() => import("@src/views/Launch/launch"));
+const Register = lazy(() => import("@src/views/Register"));
+const Verification = lazy(() => import("@src/views/Verification"));
+const ForgotPassword = lazy(() => import("@src/views/ForgotPassword"));
+const CreatePassword = lazy(() => import("@src/views/CreatePassword"));
+const CustomerRegister = lazy(() => import("@src/views/CustomerRegister"));
+const ServiceRequests = lazy(() => import("@src/views/ServiceRequest/ServiceRequests"));
+const CreateServiceRequest = lazy(() => import("@src/views/ServiceRequest/CreateServiceRequest"));
+const CustomerServiceRequests = lazy(() => import("@src/views/CustomerPortal/ServiceRequest/ServiceRequests"));
+const CreateCustomerServiceRequest = lazy(() => import("@src/views/CustomerPortal/ServiceRequest/CreateServiceRequest"));
+const DetailCustomerServiceRequest = lazy(() => import("@src/views/CustomerPortal/ServiceRequest/DetailServiceRequest"));
+const DetailServiceRequest = lazy(() => import("@src/views/ServiceRequest/DetailServiceRequest"));
+const Error = lazy(() => import("@src/views/Error"));
 
 // ** Merge Routes
 const Routes = [
@@ -229,7 +230,7 @@ const Routes = [
   },
   {
     path: "/customer-service-requests/detail/:id",
-    element: <DetailServiceRequest />,
+    element: <DetailCustomerServiceRequest />,
     meta: {
       layout: "vertical",
       publicRoute: true,
