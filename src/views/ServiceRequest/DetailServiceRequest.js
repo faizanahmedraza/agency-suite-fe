@@ -47,6 +47,7 @@ const DetailServiceRequest = () => {
                 biannually: null,
                 annually: null,
                 price: null,
+                purchase_limit: null
             }
         },
         recurring_type: null,
@@ -105,13 +106,21 @@ const DetailServiceRequest = () => {
                                         <Col md="6" sm='12'>
                                             <div className='mb-1'>
                                                 <Label className='form-label' for='select-basic'>
-                                                    Service
+                                                    Service Name
                                                 </Label>
                                                 <Link
                                                     to={`/services/edit/${serviceRequestDetails?.service?.id}`}
                                                 >
                                                     <Input type='text' name='service' id='' defaultValue={serviceRequestDetails?.service?.name} readOnly style={pointerStyle} />
                                                 </Link>
+                                            </div>
+                                        </Col>
+                                        <Col md="12" sm='12'>
+                                            <div className='mb-1'>
+                                                <Label className='form-label' for='description'>
+                                                    Service Description
+                                                </Label>
+                                                <Input type='textarea' name='description' id='description' defaultValue={serviceRequestDetails?.service?.description} readOnly style={pointerStyle} />
                                             </div>
                                         </Col>
                                         {
@@ -156,12 +165,32 @@ const DetailServiceRequest = () => {
                                                             </div>
                                                         </div>
                                                     </Col>
-                                                ) : ""
+                                                ) : (
+                                                    <Col md='12' sm='12'>
+                                                        <div className='mb-1'>
+                                                        <div className='form-check pe-0'>
+                                                                <Label className='form-label' for='select-basic'>
+                                                                    Subscription Type: one-off
+                                                                </Label>
+                                                            </div>
+                                                            <div className='form-check pe-0'>
+                                                                <Label className='form-label' for='select-basic'>
+                                                                    Price: {serviceRequestDetails?.service?.price_types?.price}
+                                                                </Label>
+                                                            </div>
+                                                            <div className='form-check pe-0'>
+                                                                <Label className='form-label' for='select-basic'>
+                                                                    Purchase Limit: {serviceRequestDetails?.service?.price_types?.purchase_limit && serviceRequestDetails?.service?.price_types?.purchase_limit}
+                                                                </Label>
+                                                            </div>
+                                                        </div>
+                                                    </Col>
+                                                )
                                         }
                                         <Col md='12' sm='12'>
                                             <div className='mb-1'>
                                                 <Label className='form-label' for='nameMulti'>
-                                                    Title
+                                                    Intake Title
                                                 </Label>
                                                 <Input type='text' defaultValue={serviceRequestDetails?.intake_form[0]?.title} name='title' id='title' placeholder='Enter Title' readOnly />
                                             </div>
@@ -169,7 +198,7 @@ const DetailServiceRequest = () => {
                                         <Col md='12' sm='12'>
                                             <div className='mb-1'>
                                                 <Label className='form-label' for='nameMulti'>
-                                                    Description
+                                                    Intake Description
                                                 </Label>
                                                 <Input type='textarea' defaultValue={serviceRequestDetails?.intake_form[0]?.description} name='description' id='description' placeholder='Enter Description' readOnly />
                                             </div>

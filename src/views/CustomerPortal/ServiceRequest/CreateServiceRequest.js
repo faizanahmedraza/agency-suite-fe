@@ -134,7 +134,7 @@ const CreateServiceRequest = () => {
                             <h4>Service Request Details</h4>
                             {!serviceloading && checkBillingInfoEmpty() ? 
                                 <div className='col-md-3'>
-                                    <Button.Ripple color='primary' className="w-100" onClick={() => getBillingInfo(serviceDetail.id)}> Create Card Information</Button.Ripple>
+                                    <Button.Ripple color='primary' className="w-100" onClick={() => getBillingInfo(serviceDetail.id)}> Create Card +</Button.Ripple>
                                 </div> : ''
                             }
                         </CardHeader>

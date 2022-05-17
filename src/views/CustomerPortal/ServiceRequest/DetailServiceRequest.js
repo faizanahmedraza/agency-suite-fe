@@ -38,28 +38,29 @@ const DetailServiceRequest = () => {
     } = useSelector(state => state);
 
     const [serviceRequestDetails, setServiceRequestDetails] = useState({
-          service: {
+        service: {
             id: "",
             name: "",
             description: "",
             image: "",
             price_types: {
-              weekly: "",
-              monthly: "",
-              quarterly: "",
-              biannually: "",
-              annually: "",
-              price: "",
+                weekly: "",
+                monthly: "",
+                quarterly: "",
+                biannually: "",
+                annually: "",
+                price: "",
+                purchase_limit: ""
             }
-          },
-          intake_form: {
-            title: null,
-            description: null
-          },
-          is_recurring: false,
-          recurring_type: "",
-          status: "",
-          invoices: []
+        },
+        intake_form: {
+            title: "",
+            description: ""
+        },
+        is_recurring: false,
+        recurring_type: "",
+        status: "",
+        invoices: []
     });
 
     useEffect(() => {
@@ -88,96 +89,114 @@ const DetailServiceRequest = () => {
                         </CardHeader>
                         <hr />
                         <CardBody>
-                            {loading ? <Loader/> :
-                                    <Row>
-                                        {serviceRequestDetails?.service?.image &&
-                                            <Col md='12' sm='12'>
-                                                <div className="mb-2">
-                                                    <img src={serviceRequestDetails?.service?.image} max-width="100%" height="300" alt="service image" />
-                                                </div>
-                                            </Col>
-                                        }
-                                        <Col md="12" sm='12'>
-                                            <div className='mb-1'>
-                                                <Label className='form-label fs-4' for='select-basic'>
-                                                    Service Name
-                                                </Label>
-                                                <p>
-                                                    {serviceRequestDetails && serviceRequestDetails?.service?.name}
-                                                </p>
+                            {loading ? <Loader /> :
+                                <Row>
+                                    {serviceRequestDetails?.service?.image &&
+                                        <Col md='12' sm='12'>
+                                            <div className="mb-2">
+                                                <img src={serviceRequestDetails?.service?.image} max-width="100%" height="300" alt="service image" />
                                             </div>
                                         </Col>
-                                        <Col md="12" sm='12'>
-                                            <div className='mb-1'>
-                                                <Label className='form-label fs-4' for='select-basic'>
-                                                    Service Description
-                                                </Label>
-                                                <p className='text-wrap'>
-                                                    {serviceRequestDetails && serviceRequestDetails?.service?.description}
-                                                </p>
-                                            </div>
-                                        </Col>
-                                        {
-                                            serviceRequestDetails?.service?.subscription_type == "recurring" ?
-                                                (
-                                                    <Col md='12' sm='12'>
-                                                        <div className='mb-1'>
-                                                            <Label className='form-label pb-0 mb-0' for='select-basic'>
-                                                                Service Subscription
-                                                            </Label>
-                                                            <div className='demo-inline-spacing'>
-                                                                <div className='form-check'>
-                                                                    <Input type='radio' name='recurring_type' id='sr1' value="annually" defaultChecked={serviceRequestDetails?.recurring_type === "annually"} disabled />
-                                                                    <Label className='form-check-label' for='sr1'>
-                                                                        {'annually - ' + serviceRequestDetails?.service?.price_types.annually + '$'}
-                                                                    </Label>
-                                                                </div>
-                                                                <div className='form-check'>
-                                                                    <Input type='radio' name='recurring_type' id='sr2' value="biannually" defaultChecked={serviceRequestDetails?.recurring_type === "biannually"} disabled />
-                                                                    <Label className='form-check-label' for='sr2'>
-                                                                        {'biannually - ' + serviceRequestDetails?.service?.price_types.biannually + '$'}
-                                                                    </Label>
-                                                                </div>
-                                                                <div className='form-check'>
-                                                                    <Input type='radio' name='recurring_type' id='sr3' value="quarterly" defaultChecked={serviceRequestDetails?.recurring_type === "quarterly"} disabled />
-                                                                    <Label className='form-check-label' for='sr3'>
-                                                                        {'quarterly - ' + serviceRequestDetails?.service?.price_types.quarterly + '$'}
-                                                                    </Label>
-                                                                </div>
-                                                                <div className='form-check'>
-                                                                    <Input type='radio' name='recurring_type' value="weekly" defaultChecked={serviceRequestDetails?.recurring_type === "weekly"} disabled />
-                                                                    <Label className='form-check-label' for='sr4'>
-                                                                        {'weekly - ' + serviceRequestDetails?.service?.price_types.weekly + '$'}
-                                                                    </Label>
-                                                                </div>
-                                                                <div className='form-check'>
-                                                                    <Input type='radio' name='recurring_type' id='sr5' value="monthly" defaultChecked={serviceRequestDetails?.recurring_type === "monthly"} disabled />
-                                                                    <Label className='form-check-label' for='sr5'>
-                                                                        {'monthly - ' + serviceRequestDetails?.service?.price_types.monthly + '$'}
-                                                                    </Label>
-                                                                </div>
+                                    }
+                                    <Col md="12" sm='12'>
+                                        <div className='mb-1'>
+                                            <Label className='form-label fs-4' for='select-basic'>
+                                                Service Name
+                                            </Label>
+                                            <p>
+                                                {serviceRequestDetails && serviceRequestDetails?.service?.name}
+                                            </p>
+                                        </div>
+                                    </Col>
+                                    <Col md="12" sm='12'>
+                                        <div className='mb-1'>
+                                            <Label className='form-label fs-4' for='select-basic'>
+                                                Service Description
+                                            </Label>
+                                            <p className='text-wrap'>
+                                                {serviceRequestDetails && serviceRequestDetails?.service?.description}
+                                            </p>
+                                        </div>
+                                    </Col>
+                                    {
+                                        serviceRequestDetails?.service?.subscription_type == "recurring" ?
+                                            (
+                                                <Col md='12' sm='12'>
+                                                    <div className='mb-1'>
+                                                        <Label className='form-label pb-0 mb-0' for='select-basic'>
+                                                            Service Subscription
+                                                        </Label>
+                                                        <div className='demo-inline-spacing'>
+                                                            <div className='form-check'>
+                                                                <Input type='radio' name='recurring_type' id='sr1' value="annually" defaultChecked={serviceRequestDetails?.recurring_type === "annually"} disabled />
+                                                                <Label className='form-check-label' for='sr1'>
+                                                                    {'annually - ' + serviceRequestDetails?.service?.price_types.annually + '$'}
+                                                                </Label>
+                                                            </div>
+                                                            <div className='form-check'>
+                                                                <Input type='radio' name='recurring_type' id='sr2' value="biannually" defaultChecked={serviceRequestDetails?.recurring_type === "biannually"} disabled />
+                                                                <Label className='form-check-label' for='sr2'>
+                                                                    {'biannually - ' + serviceRequestDetails?.service?.price_types.biannually + '$'}
+                                                                </Label>
+                                                            </div>
+                                                            <div className='form-check'>
+                                                                <Input type='radio' name='recurring_type' id='sr3' value="quarterly" defaultChecked={serviceRequestDetails?.recurring_type === "quarterly"} disabled />
+                                                                <Label className='form-check-label' for='sr3'>
+                                                                    {'quarterly - ' + serviceRequestDetails?.service?.price_types.quarterly + '$'}
+                                                                </Label>
+                                                            </div>
+                                                            <div className='form-check'>
+                                                                <Input type='radio' name='recurring_type' value="weekly" defaultChecked={serviceRequestDetails?.recurring_type === "weekly"} disabled />
+                                                                <Label className='form-check-label' for='sr4'>
+                                                                    {'weekly - ' + serviceRequestDetails?.service?.price_types.weekly + '$'}
+                                                                </Label>
+                                                            </div>
+                                                            <div className='form-check'>
+                                                                <Input type='radio' name='recurring_type' id='sr5' value="monthly" defaultChecked={serviceRequestDetails?.recurring_type === "monthly"} disabled />
+                                                                <Label className='form-check-label' for='sr5'>
+                                                                    {'monthly - ' + serviceRequestDetails?.service?.price_types.monthly + '$'}
+                                                                </Label>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                </Col>
+                                            ) : (
+                                                    <Col md='12' sm='12'>
+                                                        <div className='mb-1'>
+                                                                <Label className='form-label' for='select-basic'>
+                                                                    Subscription Type: one-off
+                                                                </Label>
+                                                            </div>
+                                                            <div className='mb-1'>
+                                                                <Label className='form-label' for='select-basic'>
+                                                                    Price: {serviceRequestDetails?.service?.price_types?.price}
+                                                                </Label>
+                                                            </div>
+                                                            <div className='mb-1'>
+                                                                <Label className='form-label' for='select-basic'>
+                                                                    Purchase Limit: {serviceRequestDetails?.service?.price_types?.purchase_limit && serviceRequestDetails?.service?.price_types?.purchase_limit}
+                                                                </Label>
+                                                            </div>
                                                     </Col>
-                                                ) : ""
-                                        }
-                                        <Col md='12' sm='12'>
-                                            <div className='mb-1'>
-                                                <Label className='form-label' for='title'>
-                                                    Title
-                                                </Label>
-                                                <Input type='text' value={serviceRequestDetails?.intake_form[0]?.title} name='title' id='title' placeholder='Enter Title' readOnly/>
-                                            </div>
-                                        </Col>
-                                        <Col md='12' sm='12'>
-                                            <div className='mb-1'>
-                                                <Label className='form-label' for='description'>
-                                                    Description
-                                                </Label>
-                                                <Input type='textarea' value={serviceRequestDetails?.intake_form[0]?.description} name='description' id='description' placeholder='Enter Description' readOnly/>
-                                            </div>
-                                        </Col>
-                                        {/* <Col md='12' sm='12'>
+                                                )
+                                    }
+                                    <Col md='12' sm='12'>
+                                        <div className='mb-1'>
+                                            <Label className='form-label' for='title'>
+                                                Intake Title
+                                            </Label>
+                                            <Input type='text' value={serviceRequestDetails?.intake_form[0]?.title} name='title' id='title' placeholder='Enter Title' readOnly />
+                                        </div>
+                                    </Col>
+                                    <Col md='12' sm='12'>
+                                        <div className='mb-1'>
+                                            <Label className='form-label' for='description'>
+                                                Intake Description
+                                            </Label>
+                                            <Input type='textarea' value={serviceRequestDetails?.intake_form[0]?.description} name='description' id='description' placeholder='Enter Description' readOnly />
+                                        </div>
+                                    </Col>
+                                    {/* <Col md='12' sm='12'>
                                             <div className='mb-1'>
                                                 <Label className='form-label' for='reference_no'>
                                                     Reference Number
@@ -185,14 +204,14 @@ const DetailServiceRequest = () => {
                                                 <Input type='number' value={serviceRequestDetails.reference_no} name='reference_no' id='reference_no' placeholder='Enter Reference Number' />
                                             </div>
                                         </Col> */}
-                                        <Col md='12' sm='12'>
-                                            <div className='d-flex justify-content-between'>
-                                                <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
-                                                    Cancel
-                                                </Button>
-                                            </div>
-                                        </Col>
-                                    </Row>
+                                    <Col md='12' sm='12'>
+                                        <div className='d-flex justify-content-between'>
+                                            <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
+                                                Cancel
+                                            </Button>
+                                        </div>
+                                    </Col>
+                                </Row>
                             }
                         </CardBody>
                     </Card>
