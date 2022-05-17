@@ -91,6 +91,7 @@ const ServiceRequestList = (props) => {
                       <option value="pending">Pending</option>
                       <option value="active">Active</option>
                       <option value="hold">Hold</option>
+                      <option value="completed">Completed</option>
                     </Input>
                   </td>
                   <td>{moment(request.created_at).format('YYYY-MM-DD')}</td>
