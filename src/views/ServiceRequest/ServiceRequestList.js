@@ -21,17 +21,14 @@ import ServiceRequestStatusAction from "@store/V1/ServiceRequest/STATUS/ServiceR
 const ServiceRequestList = (props) => {
   const _data = props.data;
   const dispatch = useDispatch();
-  const [formModal, setFormModal] = useState(false);
+  const [centeredModal, setCenteredModal] = useState(false)
+  const [serviceRequestId, setServiceRequestId] = useState()
+  const [serviceRequestStatus, setServiceRequestStatus] = useState();
   const [deleteCustomerId, setCustomerId] = useState();
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(props?.pagination?.per_page);
-
-  const serviceRequestDelete = (id) => {
-    //action
-    setFormModal(!formModal);
-  };
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -44,11 +41,18 @@ const ServiceRequestList = (props) => {
     setItemOffset(newOffset);
   };
 
-  const handleServiceRequestStatus = (e, id) => {
+  const changeRequestServiceStatus = () => {
     dispatch(ServiceRequestStatusAction.serviceRequestStatus({
-      id: id,
-      status: e.target.value
+      id: serviceRequestId,
+      status: serviceRequestStatus
     }));
+    setCenteredModal(!centeredModal);
+  }
+
+  const handleServiceRequestStatus = (e, id) => {
+    setCenteredModal(!centeredModal);
+    setServiceRequestId(id);
+    setServiceRequestStatus(e.target.value);
   }
 
   return (
@@ -71,7 +75,7 @@ const ServiceRequestList = (props) => {
                   <td>
                     <Link to={`/customers/edit/${request?.customer?.id}`}>
                       <span className="align-middle fw-bold">
-                        {request?.customer?.first_name+ " "+request?.customer?.last_name}
+                        {request?.customer?.first_name + " " + request?.customer?.last_name}
                       </span>
                     </Link>
                   </td>
@@ -139,26 +143,26 @@ const ServiceRequestList = (props) => {
       </div>
       <div className="vertically-centered-modal">
         <Modal
-          isOpen={formModal}
-          toggle={() => setCenteredModal(!formModal)}
+          isOpen={centeredModal}
+          toggle={() => setCenteredModal(!centeredModal)}
           className="modal-dialog-centered"
         >
-          <ModalHeader toggle={() => setCenteredModal(!formModal)}>
+          <ModalHeader toggle={() => setCenteredModal(!centeredModal)}>
             Confirmation
           </ModalHeader>
-          <ModalBody>Are you sure you want to delete this service request ?</ModalBody>
+          <ModalBody>Are you sure you want to change the status of this service request ?</ModalBody>
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => setCenteredModal(!formModal)}
+              onClick={() => setCenteredModal(!centeredModal)}
             >
               Cancel
             </Button>
             <Button
               color="danger"
-              onClick={() => serviceRequestDelete(deleteCustomerId)}
+              onClick={() => changeRequestServiceStatus()}
             >
-              Delete
+              Yes
             </Button>
           </ModalFooter>
         </Modal>

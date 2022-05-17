@@ -19,9 +19,8 @@ import {
 import { useDispatch, useSelector } from '@store/store'
 import ServiceRequestCreateAction from "@store/V1/CustomerPortal/ServiceRequest/CREATE/ServiceRequestCreateAction";
 import ServiceActions from "@store/V1/CustomerPortal/Service/Detail/ServiceDetailAction";
-import BillingInformationDetailAction from "@store/V1/CustomerPortal/BillingInformation/DETAIL/BillingInformationDetailAction";
+import BillingInformationListAction from "@store/V1/CustomerPortal/BillingInformation/LIST/BillingInformationListAction";
 import BillingInformationCreateAction from "@store/V1/CustomerPortal/BillingInformation/CREATE/BillingInformationCreateAction";
-import BillingInformationUpdateAction from "@store/V1/CustomerPortal/BillingInformation/UPDATE/BillingInformationUpdateAction";
 
 const Loader = () => {
     return (
@@ -40,7 +39,7 @@ const CreateServiceRequest = () => {
     const {
         customer_services: { detail: { service, loading: serviceloading, fetched: serviceFetched } },
         customer_service_requests: { create: { loading: createServiceRequestLoading } },
-        customer_billing_information: { detail: { customer_billing_information, loading: billingInfoLoading, fetched: billingInfoFetched }, create: { loading: createBillingInfoLoading } }
+        customer_billing_information: { list: { customer_billing_information, loading: billingInfoLoading, fetched: billingInfoFetched }, create: { loading: createBillingInfoLoading } }
     } = useSelector(state => state);
 
     const [serviceDetail, setServiceDetails] = useState({});
@@ -52,19 +51,23 @@ const CreateServiceRequest = () => {
         reference_no: "",
     });
     const [billingInfoDetail, setBillingInfoDetails] = useState({
-        invoice_to: "",
-        country: "",
+        holder_name: "",
+        card_no: "",
+        cvc: "",
+        expiry_month: "",
+        expiry_year: "",
         address: "",
+        country: "",
         city: "",
         state: "",
         zip_code: "",
-        tax_code: "",
+        street: "",
     });
     const [centeredModal, setCenteredModal] = useState(false)
 
     useEffect(() => {
         dispatch(ServiceActions.serviceDetail(service_id));
-        dispatch(BillingInformationDetailAction.billingInformationDetail());
+        dispatch(BillingInformationListAction.billingInformationList());
         if (serviceFetched) {
             setServiceDetails(service)
             setServiceRequestDetails({
@@ -75,7 +78,7 @@ const CreateServiceRequest = () => {
         if (billingInfoFetched) {
             setBillingInfoDetails(customer_billing_information)
         }
-    }, [billingInfoFetched]);
+    }, [billingInfoFetched,serviceFetched]);
 
     const handleServiceRequestInputField = (e) => {
         setServiceRequestDetails({
@@ -101,20 +104,16 @@ const CreateServiceRequest = () => {
     }
 
     const checkBillingInfoEmpty = () => {
-        if (Object.keys(customer_billing_information).length === 0 && customer_billing_information.constructor === Object) {
+        if (customer_billing_information.length === 0) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     const onSubmitBillingHandler = (e) => {
         e.preventDefault();
-        if (checkBillingInfoEmpty()) {
-            dispatch(BillingInformationCreateAction.billingInformationCreate(billingInfoDetail));
-        } else {
-            dispatch(BillingInformationUpdateAction.billingInformationUpdate(billingInfoDetail));
-        }
+        dispatch(BillingInformationCreateAction.billingInformationCreate(billingInfoDetail));
+        setCenteredModal(!centeredModal)
     }
 
     return (
@@ -133,21 +132,21 @@ const CreateServiceRequest = () => {
                     <Card>
                         <CardHeader>
                             <h4>Service Request Details</h4>
-                            {!serviceloading &&
+                            {!serviceloading && checkBillingInfoEmpty() ? 
                                 <div className='col-md-3'>
-                                    <Button.Ripple color='primary' className="w-100" onClick={() => getBillingInfo(serviceDetail.id)}>{checkBillingInfoEmpty() ? 'Create' : 'Update'} Billing Information</Button.Ripple>
-                                </div>
+                                    <Button.Ripple color='primary' className="w-100" onClick={() => getBillingInfo(serviceDetail.id)}> Create Card Information</Button.Ripple>
+                                </div> : ''
                             }
                         </CardHeader>
                         <hr />
                         <CardBody>
-                            {serviceloading ? <Loader/> :
+                            {serviceloading ? <Loader /> :
                                 <Form onSubmit={onSubmitHandler}>
                                     <Row>
                                         {serviceDetail.image &&
                                             <Col md='12' sm='12'>
                                                 <div className="mb-2">
-                                                    <img src={serviceDetail.image} width="100%" height="300" alt="service image" />
+                                                    <img src={serviceDetail.image} max-width="100%" height="300" alt="service image" />
                                                 </div>
                                             </Col>
                                         }
@@ -276,10 +275,42 @@ const CreateServiceRequest = () => {
                             <Row>
                                 <Col md='6' sm='12'>
                                     <div className='mb-1'>
-                                        <Label className='form-label' for='invoice_to'>
-                                            Invoice To
+                                        <Label className='form-label' for='holder_name'>
+                                            Holder Name
                                         </Label>
-                                        <Input type='text' value={!billingInfoLoading && billingInfoDetail.invoice_to} onChange={handleBillingInfoInputField} name='invoice_to' id='invoice_to' placeholder='Enter Invoice to' />
+                                        <Input type='text' value={billingInfoDetail.holder_name} onChange={handleBillingInfoInputField} name='holder_name' id='holder_name' placeholder='Enter Holder Name' />
+                                    </div>
+                                </Col>
+                                <Col md='6' sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label' for='card_no'>
+                                            Card Number
+                                        </Label>
+                                        <Input type='number' value={billingInfoDetail.card_no} onChange={handleBillingInfoInputField} name='card_no' id='card_no' placeholder='Enter Card Number' />
+                                    </div>
+                                </Col>
+                                <Col md='6' sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label' for='cvc'>
+                                            CVC
+                                        </Label>
+                                        <Input type='number' value={billingInfoDetail.cvc} onChange={handleBillingInfoInputField} name='cvc' id='cvc' placeholder='Enter CVC' />
+                                    </div>
+                                </Col>
+                                <Col md='6' sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label' for='expiry_month'>
+                                            Expiry Month
+                                        </Label>
+                                        <Input type='number' value={billingInfoDetail.expiry_month} onChange={handleBillingInfoInputField} name='expiry_month' id='expiry_month' placeholder='Enter Expiry Month For e.g: 12' />
+                                    </div>
+                                </Col>
+                                <Col md='6' sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label' for='expiry_year'>
+                                            Expiry Year
+                                        </Label>
+                                        <Input type='number' value={billingInfoDetail.expiry_year} onChange={handleBillingInfoInputField} name='expiry_year' id='expiry_year' placeholder='Enter Expiry Year For e.g: 22' />
                                     </div>
                                 </Col>
                                 <Col md='6' sm='12'>
@@ -287,7 +318,7 @@ const CreateServiceRequest = () => {
                                         <Label className='form-label' for='country'>
                                             Country
                                         </Label>
-                                        <Input type='text' value={!billingInfoLoading && billingInfoDetail.country} onChange={handleBillingInfoInputField} name='country' id='country' placeholder='Enter Country' />
+                                        <Input type='text' value={billingInfoDetail.country} onChange={handleBillingInfoInputField} name='country' id='country' placeholder='Enter Country' />
                                     </div>
                                 </Col>
                                 <Col md='6' sm='12'>
@@ -295,7 +326,7 @@ const CreateServiceRequest = () => {
                                         <Label className='form-label' for='city'>
                                             City
                                         </Label>
-                                        <Input type='text' value={!billingInfoLoading && billingInfoDetail.city} onChange={handleBillingInfoInputField} name='city' id='city' placeholder='Enter City' />
+                                        <Input type='text' value={billingInfoDetail.city} onChange={handleBillingInfoInputField} name='city' id='city' placeholder='Enter City' />
                                     </div>
                                 </Col>
                                 <Col md='6' sm='12'>
@@ -303,7 +334,7 @@ const CreateServiceRequest = () => {
                                         <Label className='form-label' for='state'>
                                             State
                                         </Label>
-                                        <Input type='text' value={!billingInfoLoading && billingInfoDetail.state} onChange={handleBillingInfoInputField} name='state' id='state' placeholder='Enter State' />
+                                        <Input type='text' value={billingInfoDetail.state} onChange={handleBillingInfoInputField} name='state' id='state' placeholder='Enter State' />
                                     </div>
                                 </Col>
                                 <Col md='6' sm='12'>
@@ -311,15 +342,15 @@ const CreateServiceRequest = () => {
                                         <Label className='form-label' for='zip_code'>
                                             Zip Code
                                         </Label>
-                                        <Input type='text' value={!billingInfoLoading && billingInfoDetail.zip_code} onChange={handleBillingInfoInputField} name='zip_code' id='zip_code' placeholder='Enter Zip Code' />
+                                        <Input type='text' value={billingInfoDetail.zip_code} onChange={handleBillingInfoInputField} name='zip_code' id='zip_code' placeholder='Enter Zip Code' />
                                     </div>
                                 </Col>
                                 <Col md='6' sm='12'>
                                     <div className='mb-1'>
-                                        <Label className='form-label' for='tax_code'>
-                                            Tax Code
+                                        <Label className='form-label' for='street'>
+                                            Street Address
                                         </Label>
-                                        <Input type='text' value={!billingInfoLoading && billingInfoDetail.tax_code} onChange={handleBillingInfoInputField} name='tax_code' id='tax_code' placeholder='Enter Tax Code' />
+                                        <Input type='text' value={billingInfoDetail.street} onChange={handleBillingInfoInputField} name='street' id='street' placeholder='Enter Street Address' />
                                     </div>
                                 </Col>
                                 <Col md='12' sm='12'>
@@ -327,7 +358,7 @@ const CreateServiceRequest = () => {
                                         <Label className='form-label' for='address'>
                                             Address
                                         </Label>
-                                        <Input type='textarea' value={!billingInfoLoading && billingInfoDetail.address} onChange={handleBillingInfoInputField} name='address' id='address' placeholder='Enter Address' />
+                                        <Input type='textarea' value={billingInfoDetail.address} onChange={handleBillingInfoInputField} name='address' id='address' placeholder='Enter Address' />
                                     </div>
                                 </Col>
                             </Row>
@@ -345,7 +376,7 @@ const CreateServiceRequest = () => {
                                         </>
                                         :
                                         <span>
-                                            {checkBillingInfoEmpty() ? 'Create' : 'Update'}
+                                            Create
                                         </span>
                                 }
                             </Button>

@@ -93,7 +93,7 @@ const DetailServiceRequest = () => {
                                         {serviceRequestDetails?.service?.image &&
                                             <Col md='12' sm='12'>
                                                 <div className="mb-2">
-                                                    <img src={serviceRequestDetails?.service?.image} width="100%" height="300" alt="service image" />
+                                                    <img src={serviceRequestDetails?.service?.image} max-width="100%" height="300" alt="service image" />
                                                 </div>
                                             </Col>
                                         }
