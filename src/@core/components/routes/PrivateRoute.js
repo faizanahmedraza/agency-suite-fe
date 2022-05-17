@@ -3,12 +3,8 @@ import { Navigate } from 'react-router-dom'
 import { Suspense } from 'react'
 import { useSelector } from "@store/store"
 
-// ** Context Imports
-import { AbilityContext } from '@src/utility/context/Can'
-
 const PrivateRoute = ({ children, route }) => {
-  // ** Hooks & Vars
-  // const ability = useContext(AbilityContext)
+
   const { user } = useSelector(state => state.login)
 
   if (route) {
@@ -22,18 +18,11 @@ const PrivateRoute = ({ children, route }) => {
       resource = route.meta.resource
       restrictedRoute = route.meta.restricted
     }
-    if (!user) {
-      return <Navigate to='/login' />
-    }
-    if (user && restrictedRoute) {
-      return <Navigate to='/dashboard' />
-    }
-    // if (user && restrictedRoute && user.role === 'client') {
-    //   return <Navigate to='/access-control' />
-    // }
-    // if (user && !ability.can(action || 'read', resource)) {
-    //   return <Navigate to='/misc/not-authorized' replace />
-    // }
+    
+    if (!user) return <Navigate to='/login' replace />
+    
+    if (user && restrictedRoute) return <Navigate to='/dashboard' replace />
+    
   }
 
   return <Suspense fallback={null}>{children}</Suspense>

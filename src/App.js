@@ -22,6 +22,12 @@ const App = () => {
     setFavIcon()
     setTitle()
     setAllRoutes(getRoutes(layout))
+
+    if (window !== 'undefined') {
+      const root = document.documentElement
+      root.style.setProperty("--bs-primary", "#262833")
+    }
+
   }, [layout])
 
   return (
