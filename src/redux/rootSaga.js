@@ -13,6 +13,7 @@ import ForgotPasswordSaga from "@store/V1/Auth/Forgot Password/ForgotPasswordRoo
 import PortalSettingRootSaga from "@store/V1/PortalSetting/PortalSettingRootSaga";
 import ProfileSettingRootSaga from "@store/V1/ProfileSetting/ProfileSettingRootSaga";
 import ServiceRequestRootSaga from "@store/V1/ServiceRequest/ServiceRequestRootSaga";
+import PasswordUpdateRootSaga from "@store/V1/UpdatePassword/PasswordUpdateRootSaga";
 
 export default function* rootSaga() {
   yield all([
@@ -30,5 +31,6 @@ export default function* rootSaga() {
     CustomerServiceRootSaga(),
     BillingInformationRootSaga(),
     CustomerServiceRequestRootSaga(),
+    PasswordUpdateRootSaga(),
   ]);
 }

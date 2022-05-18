@@ -55,6 +55,7 @@ const Register = lazy(() => import("@src/views/Register"));
 const Verification = lazy(() => import("@src/views/Verification"));
 const ForgotPassword = lazy(() => import("@src/views/ForgotPassword"));
 const CreatePassword = lazy(() => import("@src/views/CreatePassword"));
+const UpdatePassword = lazy(() => import("@src/views/UpdatePassword"));
 const CustomerRegister = lazy(() => import("@src/views/CustomerRegister"));
 const ServiceRequests = lazy(() => import("@src/views/ServiceRequest/ServiceRequests"));
 const CreateServiceRequest = lazy(() => import("@src/views/ServiceRequest/CreateServiceRequest"));
@@ -86,6 +87,14 @@ const Routes = [
   {
     path: "/profile",
     element: <Profile />,
+    meta: {
+      publicRoute: false,
+      customer_restricted: false
+    }
+  },
+  {
+    path: "/change-password",
+    element: <UpdatePassword />,
     meta: {
       publicRoute: false,
       customer_restricted: false

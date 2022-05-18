@@ -15,6 +15,7 @@ import CustomerServiceRequestRootReducer from "@store/V1/CustomerPortal/ServiceR
 import PortalSettingRootReducer from "@store/V1/PortalSetting/PortalSettingRootReducer";
 import ProfileSettingRootReducer from "@store/V1/ProfileSetting/ProfileSettingRootReducer";
 import ServiceRequestRootReducer from "@store/V1/ServiceRequest/ServiceRequestRootReducer";
+import PasswordUpdateRootReducer from "@store/V1/UpdatePassword/PasswordUpdateRootReducer";
 import navbar from './navbar'
 import layout from './layout'
 import dataTables from '@src/views/tables/data-tables/store'
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   customer_services: CustomerServiceReducer,
   customer_billing_information: BillingInformationRootReducer,
   customer_service_requests: CustomerServiceRequestRootReducer,
+  change_password: PasswordUpdateRootReducer,
 });
 
 export default rootReducer

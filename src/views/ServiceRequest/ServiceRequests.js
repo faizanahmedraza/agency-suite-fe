@@ -13,6 +13,7 @@ import {
   Button,
 } from "reactstrap";
 import ServiceRequestList from "./ServiceRequestList";
+import GeneralHelper from "@src/Helpers/GeneralHelper";
 
 const Loader = () => {
   return (
@@ -51,6 +52,13 @@ const ServiceRequests = () => {
 
   const toggle = (tab) => {
     if (active !== tab) {
+      if (tab == 1) {
+        dispatch(ServiceRequestListAction.serviceRequestList());
+      } else if (tab == 2) {
+        dispatch(ServiceRequestListAction.serviceRequestList(GeneralHelper.Serialize({
+          status: "active"
+        })));
+      }
       setActive(tab);
     }
   };

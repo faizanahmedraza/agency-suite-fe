@@ -3,8 +3,8 @@ import SERVICE_REQUEST from "@store/V1/CustomerPortal/ServiceRequest/ActionTypes
 import ServiceRequestListAction from "@store/V1/CustomerPortal/ServiceRequest/LIST/ServiceRequestListAction"
 import ServiceRequestService from "@src/Services/V1/CustomerPortal/ServiceRequestService"
 
-function* serviceRequestList() {
-    const response = yield ServiceRequestService.serviceRequestList()
+function* serviceRequestList(data) {
+    const response = yield ServiceRequestService.serviceRequestList(data.request)
     if (response.success) {
         yield put(ServiceRequestListAction.serviceRequestListSuccess(response.data))
     } else {

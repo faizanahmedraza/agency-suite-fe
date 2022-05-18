@@ -37,12 +37,7 @@ const V1 = {
     billing_information: "v1/customers/billing-information",
     service_request: "v1/customers/request-services"
   },
-  changePassword: "v1/admin/change-password",
-  roles: "v1/admin/roles",
-  guest: {
-    posts: "v1/guest/blog/posts",
-    tags: "v1/guest/blog/tags",
-  },
+  change_auth_password: "v1/change-password",
   // DOMAIN: window.location.hostname
   DOMAIN: 'irfanagency1.allthingswordpress.io',
 };

@@ -13,6 +13,7 @@ import {
   Button,
 } from "reactstrap";
 import CustomerList from "./CustomerList";
+import GeneralHelper from "@src/Helpers/GeneralHelper";
 
 const Loader = () => {
   return (
@@ -58,6 +59,17 @@ const Customers = () => {
 
   const toggle = (tab) => {
     if (active !== tab) {
+      if (tab == 1) {
+        dispatch(CustomerListAction.customerList());
+      } else if (tab == 2) {
+        dispatch(CustomerListAction.customerList(GeneralHelper.Serialize({
+          status: "active"
+        })));
+      } else if (tab == 3) {
+        dispatch(CustomerListAction.customerList(GeneralHelper.Serialize({
+          status: "pending"
+        })));
+      }
       setActive(tab);
     }
   };
@@ -118,18 +130,18 @@ const Customers = () => {
             {loading ? (
               <Loader />
             ) : (
-                <>
-                  <TabPane tabId="1">
-                    <CustomerList data={customers} pagination={pagination} />
-                  </TabPane>
-                  <TabPane tabId="2">
-                    {customers && activeCustomers(customers)}
-                  </TabPane>
-                  <TabPane tabId="3">
-                    {customers && pendingCustomers(customers)}
-                  </TabPane>
-                </>
-              )}
+              <>
+                <TabPane tabId="1">
+                  <CustomerList data={customers} pagination={pagination} />
+                </TabPane>
+                <TabPane tabId="2">
+                  {customers && activeCustomers(customers)}
+                </TabPane>
+                <TabPane tabId="3">
+                  {customers && pendingCustomers(customers)}
+                </TabPane>
+              </>
+            )}
           </TabContent>
         </CardBody>
       </Card>

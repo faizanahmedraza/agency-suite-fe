@@ -65,7 +65,7 @@ const Profile = () => {
           <h4>Update Password</h4>
           <div className='d-flex justify-content-between'>
             <p>Follow the recovery process to change your password.</p>
-            <Link to='/dashboard'><h5 className='font-weight-bold text-danger'>Update Password &rarr;</h5></Link>
+            <Link to='/change-password'><h5 className='font-weight-bold text-danger'>Update Password &rarr;</h5></Link>
           </div>
         </CardBody>
       </Card>

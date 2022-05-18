@@ -7,8 +7,9 @@ async function servicePost(data) {
     return response;
 }
 
-async function serviceList() {
-    const response = await Gateway.authGateway("GET", V1.DOMAIN, V1.service.read);
+async function serviceList(params) {
+    const _params = params ? '?' + params : "";
+    const response = await Gateway.authGateway("GET", V1.DOMAIN, V1.service.read+_params);
     return response;
 }
 

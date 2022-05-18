@@ -14,6 +14,7 @@ import {
 import { useDispatch, useSelector } from "@store/store"
 import ServiceActions from '@store/V1/Service/List/ServiceListAction'
 import ServiceTable from './ServiceTable'
+import GeneralHelper from "@src/Helpers/GeneralHelper";
 
 const Services = () => {
 
@@ -43,13 +44,28 @@ const Services = () => {
 
     const toggle = tab => {
         if (active !== tab) {
+            if (tab == 1) {
+                dispatch(ServiceActions.serviceList());
+            } else if (tab == 2) {
+                dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
+                    catalog_status: "active"
+                })));
+            } else if (tab == 3) {
+                dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
+                    service_type: "one-off"
+                })));
+            } else if (tab == 4) {
+                dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
+                    service_type: "recurring"
+                })));
+            }
             setActive(tab)
         }
     }
 
     useEffect(() => {
         if (!services.length || isDeleted || isChanged || isChangedService) return dispatch(ServiceActions.serviceList())
-    }, [isDeleted , isChanged, isChangedService])
+    }, [isDeleted, isChanged, isChangedService])
 
     return (
         <div>
