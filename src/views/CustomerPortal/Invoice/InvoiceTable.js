@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Table, UncontrolledDropdown, DropdownMenu, DropdownToggle, Modal, ModalHeader, ModalBody, ModalFooter, Button, Input, Label } from 'reactstrap'
+import { Table } from 'reactstrap'
 import { Save } from 'react-feather'
 import { Link } from "react-router-dom"
-import { useDispatch, useSelector } from "@store/store"
+import { useSelector } from "@store/store"
 import ReactPaginate from 'react-paginate';
 import GeneralHelper from "@src/Helpers/GeneralHelper";
 
@@ -42,36 +42,45 @@ const ServiceTable = ({ services, pagination }) => {
                         <Table bordered responsive>
                             <thead>
                                 <tr>
-                                    <th>NAME</th>
-                                    <th>SERVICE TYPE</th>
-                                    <th>PRICE</th>
-                                    <th>PURCHASE LIMIT</th>
-                                    <th>MAXIMUM CONCURRENT REQUESTS</th>
+                                    <th>AGENCY</th>
+                                    <th>SERVICE REQUEST</th>
+                                    <th>AMOUNT</th>
+                                    <th>IS PAID</th>
+                                    <th>CREATED AT</th>
                                     <th>ACTIONS</th>
                                 </tr>
                             </thead>
-
                             <tbody>
                                 {currentItems && currentItems.map((service) => {
                                     return (
-                                        <tr key={service.id}>
+                                        <tr>
                                             <td>
-                                                <Link to={`/customer-service-requests/create/${service.id}`}>
-                                                    <span className='align-middle fw-bold'>{GeneralHelper.PascalCase(service.name)}</span>
-                                                </Link>
+                                                <span className='align-middle fw-bold'>FAIZAN AHMED RAZA</span>
                                             </td>
-                                            <td>{GeneralHelper.PascalCase(service.subscription_type)}</td>
-                                            <td>{service.subscription_type !== "recurring" ? `$${service?.price_types?.price}` : "-"}</td>
-                                            <td>{(service.subscription_type !== "recurring" && service?.price_types?.purchase_limit !== null) ? `${service?.price_types?.purchase_limit}` : "-"}</td>
-                                            <td>{service.subscription_type === "recurring" ? `${service?.price_types?.max_concurrent_requests}` : "-"}</td>
+                                            <td>$4263</td>
                                             <td>
-                                                <Link to={`/customer-service-requests/create/${service.id}`}>
-                                                    <Save className='me-50' size={10} /> <span className='align-middle'>Subscribe</span>
-                                                </Link>
+                                                12 Jun 2019
+                                            </td>
+                                            <td>$762</td>
+                                            <td>
+                                                <UncontrolledDropdown>
+                                                    <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
+                                                        <MoreVertical size={15} />
+                                                    </DropdownToggle>
+                                                    <DropdownMenu>
+                                                        <Link className='dropdown-item' to='/invoice/edit/1'>
+                                                            <Edit className='me-50' size={15} /> <span className='align-middle'>Edit</span>
+                                                        </Link>
+                                                        <div className='dropdown-item' onClick={() => setFormModal(!formModal)}>
+                                                            <Trash className='me-50' size={15} /> <span className='align-middle'>Delete</span>
+                                                        </div>
+                                                    </DropdownMenu>
+                                                </UncontrolledDropdown>
                                             </td>
                                         </tr>
                                     )
-                                })}
+                                })
+                                }
                             </tbody>
                         </Table>
                     )

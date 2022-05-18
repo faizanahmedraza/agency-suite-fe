@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "@store/store";
 import { useNavigate } from 'react-router-dom';
+import InputPasswordToggle from "@components/input-password-toggle";
 import {
   Card,
   CardBody,
@@ -61,19 +62,37 @@ const UpdatePassword = () => {
                   <Label className='form-label'>
                     Old Password
                   </Label>
-                  <Input type='password' onChange={handleInputField} name='old_password' value={passwordUpdate?.old_password} />
+                  <InputPasswordToggle
+                    className="input-group-merge"
+                    value={passwordUpdate?.old_password}
+                    name="old_password"
+                    onChange={handleInputField}
+                    id="old_password"
+                  />
                 </div>
                 <div className='mb-1'>
                   <Label className='form-label'>
                     Password
                   </Label>
-                  <Input type='password' onChange={handleInputField} name='password' value={passwordUpdate?.password} />
+                  <InputPasswordToggle
+                    className="input-group-merge"
+                    value={passwordUpdate?.password}
+                    name="password"
+                    onChange={handleInputField}
+                    id="password"
+                  />
                 </div>
                 <div className='mb-1'>
                   <Label className='form-label'>
                     Password Confirmation
                   </Label>
-                  <Input type='password' onChange={handleInputField} name='password_confirmation' value={passwordUpdate?.password_confirmation} />
+                  <InputPasswordToggle
+                    className="input-group-merge"
+                    value={passwordUpdate?.password_confirmation}
+                    name="password_confirmation"
+                    onChange={handleInputField}
+                    id="password_confirmation"
+                  />
                 </div>
               </Col>
               <Col sm="12">

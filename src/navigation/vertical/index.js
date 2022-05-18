@@ -17,6 +17,12 @@ export default [
     navLink: '/invoice'
   },
   {
+    id: 'Customer_Invoices',
+    title: 'Invoices',
+    icon: <File size={20} />,
+    navLink: '/customer-invoices'
+  },
+  {
     id: 'Requests',
     title: 'Requests',
     icon: <ShoppingCart size={20} />,
