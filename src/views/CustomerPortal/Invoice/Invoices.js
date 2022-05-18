@@ -36,7 +36,7 @@ const Invoice = () => {
       </Card >
       <Card>
         <CardBody>
-         
+          
         </CardBody>
       </Card>
     </div >
