@@ -36,10 +36,12 @@ const serviceRequestBody = (data) => {
     _data.service_id = data.service_id;
     _data.customer_id = data.customer_id;
     _data.recurring_type = data.recurring_type ;
-    _data.intake_form = {
-        title: data.title,
-        description: data.description
-    }
+    _data.intake_form =  [
+        {
+            title: data.title,
+            description: data.description
+        }
+    ];
 
     return JSON.stringify(_data);
 
