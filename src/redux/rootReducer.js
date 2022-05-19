@@ -12,10 +12,11 @@ import ServiceReducer from "@store/V1/Service/serviceRootReducer";
 import CustomerServiceReducer from "@store/V1/CustomerPortal/Service/serviceRootReducer";
 import BillingInformationRootReducer from "@store/V1/CustomerPortal/BillingInformation/BillingInformationRootReducer";
 import CustomerServiceRequestRootReducer from "@store/V1/CustomerPortal/ServiceRequest/CustomerServiceRequestRootReducer";
-import InvoiceRootReducer from "@store/V1/CustomerPortal/Invoice/InvoiceRootReducer";
+import CustomerInvoiceRootReducer from "@store/V1/CustomerPortal/Invoice/InvoiceRootReducer";
 import PortalSettingRootReducer from "@store/V1/PortalSetting/PortalSettingRootReducer";
 import ProfileSettingRootReducer from "@store/V1/ProfileSetting/ProfileSettingRootReducer";
 import ServiceRequestRootReducer from "@store/V1/ServiceRequest/ServiceRequestRootReducer";
+import InvoiceRootReducer from "@store/V1/Invoice/InvoiceRootReducer";
 import PasswordUpdateRootReducer from "@store/V1/UpdatePassword/PasswordUpdateRootReducer";
 import navbar from './navbar'
 import layout from './layout'
@@ -37,10 +38,11 @@ const rootReducer = combineReducers({
   profile_settings: ProfileSettingRootReducer,
   change_password: PasswordUpdateRootReducer,
   service_requests: ServiceRequestRootReducer,
+  invoices: InvoiceRootReducer,
   customer_services: CustomerServiceReducer,
   customer_billing_information: BillingInformationRootReducer,
   customer_service_requests: CustomerServiceRequestRootReducer,
-  customer_invoices: InvoiceRootReducer,
+  customer_invoices: CustomerInvoiceRootReducer,
 });
 
 export default rootReducer

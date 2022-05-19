@@ -3,22 +3,22 @@ import V1 from "@src/Constants/V1ApiConstant";
 
 async function invoiceList(params) {
     const _params = params ? '?' + params : "";
-    const response = await Gateway.authGateway("GET", V1.DOMAIN, V1.customer.invoices+_params);
+    const response = await Gateway.authGateway("GET", V1.DOMAIN, V1.agency.invoices+_params);
     return response;
 }
 
-async function invoiceDetail(id) {
+async function invoiceDelete(id) {
     const response = await Gateway.authGateway(
-        "GET",
+        "DELETE",
         V1.DOMAIN,
-        `${V1.customer.invoices}/${id}`
+        `${V1.agency.invoices}/${id}`
     );
     return response;
 }
 
 const InvoiceService = {
     invoiceList,
-    invoiceDetail,
+    invoiceDelete,
 }
 
 export default InvoiceService;

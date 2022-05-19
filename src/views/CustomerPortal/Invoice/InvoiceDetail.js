@@ -10,14 +10,9 @@ import {
     Form,
     Button,
     CardHeader,
-    Spinner,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
 } from 'reactstrap'
 import { useDispatch, useSelector } from '@store/store'
-import ServiceRequestDetailAction from "@store/V1/CustomerPortal/ServiceRequest/DETAIL/ServiceRequestDetailAction";
+import InvoiceDetailAction from "@store/V1/CustomerPortal/Invoice/Detail/InvoiceDetailAction"
 
 const Loader = () => {
     return (
@@ -34,8 +29,12 @@ const InvoiceDetail = () => {
     const navigate = useNavigate();
 
     const {
-        customer_service_requests: { detail: { serivice_request, loading, fetched } },
-    } = useSelector(state => state);
+        detail: {
+            loading,
+            customer_invoice,
+            fetched
+        }
+    } = useSelector(state => state.customer_invoices);
 
     const [invoiceDetails, setInvoiceDetails] = useState({
         invoice_number: "",
@@ -44,6 +43,7 @@ const InvoiceDetail = () => {
                 id: "",
                 name: "",
                 description: "",
+                subscription_type: "",
                 price_types: {
                     weekly: "",
                     monthly: "",
@@ -56,10 +56,7 @@ const InvoiceDetail = () => {
             },
             is_recurring: false,
             recurring_type: "",
-            intake_form: {
-                title: "",
-                description: ""
-            },
+            intake_form: [],
             status: "",
         },
         is_paid: "",
@@ -67,9 +64,9 @@ const InvoiceDetail = () => {
     });
 
     useEffect(() => {
-        dispatch(ServiceRequestDetailAction.serviceRequestDetail(id));
+        dispatch(InvoiceDetailAction.invoiceDetail(id));
         if (fetched) {
-            setInvoiceDetails(serivice_request)
+            setInvoiceDetails(customer_invoice)
         }
     }, [fetched]);
 
@@ -97,7 +94,7 @@ const InvoiceDetail = () => {
                                     {invoiceDetails?.service?.image &&
                                         <Col md='12' sm='12'>
                                             <div className="mb-2">
-                                                <img src={invoiceDetails?.service?.image} max-width="100%" height="300" alt="service image" />
+                                                <img src={invoiceDetails?.customer_service_request?.service?.image} max-width="100%" height="300" alt="service image" />
                                             </div>
                                         </Col>
                                     }
@@ -107,7 +104,7 @@ const InvoiceDetail = () => {
                                                 Service Name
                                             </Label>
                                             <p>
-                                                {invoiceDetails && invoiceDetails?.service?.name}
+                                                {invoiceDetails && invoiceDetails?.customer_service_request?.service?.name}
                                             </p>
                                         </div>
                                     </Col>
@@ -117,12 +114,12 @@ const InvoiceDetail = () => {
                                                 Service Description
                                             </Label>
                                             <p className='text-wrap'>
-                                                {invoiceDetails && invoiceDetails?.service?.description}
+                                                {invoiceDetails && invoiceDetails?.customer_service_request?.service?.description}
                                             </p>
                                         </div>
                                     </Col>
                                     {
-                                        invoiceDetails?.service?.subscription_type == "recurring" ?
+                                        invoiceDetails?.customer_service_request?.service?.subscription_type == "recurring" ?
                                             (
                                                 <Col md='12' sm='12'>
                                                     <div className='mb-1'>
@@ -131,33 +128,33 @@ const InvoiceDetail = () => {
                                                         </Label>
                                                         <div className='demo-inline-spacing'>
                                                             <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' id='sr1' value="annually" defaultChecked={invoiceDetails?.recurring_type === "annually"} disabled />
+                                                                <Input type='radio' name='recurring_type' id='sr1' value="annually" defaultChecked={invoiceDetails?.customer_service_request?.recurring_type === "annually"} disabled />
                                                                 <Label className='form-check-label' for='sr1'>
-                                                                    {'annually - ' + invoiceDetails?.service?.price_types.annually + '$'}
+                                                                    {'annually - ' + invoiceDetails?.customer_service_request?.service?.price_types.annually + '$'}
                                                                 </Label>
                                                             </div>
                                                             <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' id='sr2' value="biannually" defaultChecked={invoiceDetails?.recurring_type === "biannually"} disabled />
+                                                                <Input type='radio' name='recurring_type' id='sr2' value="biannually" defaultChecked={invoiceDetails?.customer_service_request?.recurring_type === "biannually"} disabled />
                                                                 <Label className='form-check-label' for='sr2'>
-                                                                    {'biannually - ' + invoiceDetails?.service?.price_types.biannually + '$'}
+                                                                    {'biannually - ' + invoiceDetails?.customer_service_request?.service?.price_types.biannually + '$'}
                                                                 </Label>
                                                             </div>
                                                             <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' id='sr3' value="quarterly" defaultChecked={invoiceDetails?.recurring_type === "quarterly"} disabled />
+                                                                <Input type='radio' name='recurring_type' id='sr3' value="quarterly" defaultChecked={invoiceDetails?.customer_service_request?.recurring_type === "quarterly"} disabled />
                                                                 <Label className='form-check-label' for='sr3'>
-                                                                    {'quarterly - ' + invoiceDetails?.service?.price_types.quarterly + '$'}
+                                                                    {'quarterly - ' + invoiceDetails?.customer_service_request?.service?.price_types.quarterly + '$'}
                                                                 </Label>
                                                             </div>
                                                             <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' value="weekly" defaultChecked={invoiceDetails?.recurring_type === "weekly"} disabled />
+                                                                <Input type='radio' name='recurring_type' value="weekly" defaultChecked={invoiceDetails?.customer_service_request?.recurring_type === "weekly"} disabled />
                                                                 <Label className='form-check-label' for='sr4'>
-                                                                    {'weekly - ' + invoiceDetails?.service?.price_types.weekly + '$'}
+                                                                    {'weekly - ' + invoiceDetails?.customer_service_request?.service?.price_types.weekly + '$'}
                                                                 </Label>
                                                             </div>
                                                             <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' id='sr5' value="monthly" defaultChecked={invoiceDetails?.recurring_type === "monthly"} disabled />
+                                                                <Input type='radio' name='recurring_type' id='sr5' value="monthly" defaultChecked={invoiceDetails?.customer_service_request?.recurring_type === "monthly"} disabled />
                                                                 <Label className='form-check-label' for='sr5'>
-                                                                    {'monthly - ' + invoiceDetails?.service?.price_types.monthly + '$'}
+                                                                    {'monthly - ' + invoiceDetails?.customer_service_request?.service?.price_types.monthly + '$'}
                                                                 </Label>
                                                             </div>
                                                         </div>
@@ -172,12 +169,12 @@ const InvoiceDetail = () => {
                                                     </div>
                                                     <div className='mb-1'>
                                                         <Label className='form-label' for='select-basic'>
-                                                            Price: {invoiceDetails?.service?.price_types?.price}
+                                                            Price: {invoiceDetails?.customer_service_request?.service?.price_types?.price}
                                                         </Label>
                                                     </div>
                                                     <div className='mb-1'>
                                                         <Label className='form-label' for='select-basic'>
-                                                            Purchase Limit: {invoiceDetails?.service?.price_types?.purchase_limit && invoiceDetails?.service?.price_types?.purchase_limit}
+                                                            Purchase Limit: {invoiceDetails?.customer_service_request?.service?.price_types?.purchase_limit && invoiceDetails?.customer_service_request?.service?.price_types?.purchase_limit}
                                                         </Label>
                                                     </div>
                                                 </Col>
@@ -188,7 +185,7 @@ const InvoiceDetail = () => {
                                             <Label className='form-label' for='title'>
                                                 Intake Title
                                             </Label>
-                                            <Input type='text' value={invoiceDetails?.intake_form[0]?.title} name='title' id='title' placeholder='Enter Title' readOnly />
+                                            <Input type='text' value={invoiceDetails?.customer_service_request?.intake_form[0]?.title} name='title' id='title' placeholder='Enter Title' readOnly />
                                         </div>
                                     </Col>
                                     <Col md='12' sm='12'>
@@ -196,17 +193,9 @@ const InvoiceDetail = () => {
                                             <Label className='form-label' for='description'>
                                                 Intake Description
                                             </Label>
-                                            <Input type='textarea' value={invoiceDetails?.intake_form[0]?.description} name='description' id='description' placeholder='Enter Description' readOnly />
+                                            <Input type='textarea' value={invoiceDetails?.customer_service_request?.intake_form[0]?.description} name='description' id='description' placeholder='Enter Description' readOnly />
                                         </div>
                                     </Col>
-                                    {/* <Col md='12' sm='12'>
-                                            <div className='mb-1'>
-                                                <Label className='form-label' for='reference_no'>
-                                                    Reference Number
-                                                </Label>
-                                                <Input type='number' value={invoiceDetails.reference_no} name='reference_no' id='reference_no' placeholder='Enter Reference Number' />
-                                            </div>
-                                        </Col> */}
                                     <Col md='12' sm='12'>
                                         <div className='d-flex justify-content-between'>
                                             <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>

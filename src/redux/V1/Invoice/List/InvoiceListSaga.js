@@ -1,7 +1,7 @@
 import { takeEvery, put } from "redux-saga/effects"
-import INVOICE from "@store/V1/CustomerPortal/Invoice/ActionTypes"
-import InvoiceListAction from "@store/V1/CustomerPortal/Invoice/List/InvoiceListAction"
-import InvoiceService from "@src/Services/V1/CustomerPortal/InvoiceService"
+import INVOICE from "@store/V1/Invoice/ActionTypes"
+import InvoiceListAction from "@store/V1/Invoice/List/InvoiceListAction"
+import InvoiceService from "@src/Services/V1/InvoiceService"
 
 function* invoiceList(data) {
     const response = yield InvoiceService.invoiceList(data.request)
@@ -13,5 +13,5 @@ function* invoiceList(data) {
 }
 
 export function* InvoiceListSaga() {
-    yield takeEvery(INVOICE.CUSTOMER_INVOICE_LIST, invoiceList);
+    yield takeEvery(INVOICE.INVOICE_LIST, invoiceList);
 }

@@ -1,37 +1,33 @@
-import SERVICE from "@store/V1/CustomerPortal/Service/ActionTypes"
+import INVOICE from "@store/V1/CustomerPortal/Invoice/ActionTypes"
 
 const InvoiceDetailReducer = (
   state = {
     loading: false,
-    service: {
-      id: null,
-      name: null,
-      description: null,
-      image: null,
-      subscription_type: null,
-      price_types: {
-        price: null,
-        purchase_limit: null,
-        weekly: null,
-        monthly: null,
-        quarterly: null,
-        biannually: null,
-        annually: null,
-        max_concurrent_requests: null,
-        max_requests_per_month: null,
-      },
-      intakes: {
-        intake: [
-          {
-            field: null,
-            name: null
-          },
-          {
-            field: null,
-            name: null
+    customer_invoice: {
+      invoice_number: "",
+      customer_service_request: {
+        service: {
+          id: "",
+          name: "",
+          description: "",
+          subscription_type: "",
+          price_types: {
+            weekly: "",
+            monthly: "",
+            quarterly: "",
+            biannually: "",
+            annually: "",
+            price: "",
+            purchase_limit: ""
           }
-        ],
+        },
+        is_recurring: false,
+        recurring_type: "",
+        intake_form: [],
+        status: "",
       },
+      is_paid: "",
+      amount: "",
     },
     error: null,
     fetched: false,
@@ -39,19 +35,19 @@ const InvoiceDetailReducer = (
   action
 ) => {
   switch (action.type) {
-    case SERVICE.CUSTOMER_SERVICE_DETAIL:
+    case INVOICE.CUSTOMER_INVOICE_DETAIL:
       return {
         ...state,
         loading: true,
       };
-    case SERVICE.CUSTOMER_SERVICE_DETAIL_SUCCESS:
+    case INVOICE.CUSTOMER_INVOICE_DETAIL_SUCCESS:
       return {
         ...state,
         loading: false,
-        service: action.response.service,
+        customer_invoice: action.response.customer_invoice,
         fetched: true,
       };
-    case SERVICE.CUSTOMER_SERVICE_DETAIL_FAILED:
+    case INVOICE.CUSTOMER_INVOICE_DETAIL_FAILED:
       return {
         ...state,
         loading: false,

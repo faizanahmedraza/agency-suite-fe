@@ -30,7 +30,8 @@ const V1 = {
       put: "v1/agencies/portal-settings",
     },
     profile_settings: "v1/profile",
-    service_request: "v1/agencies/request-services"
+    service_request: "v1/agencies/request-services",
+    invoices: "v1/agencies/invoices"
   },
   customer: {
     services: "v1/customers/services",

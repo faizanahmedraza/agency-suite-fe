@@ -168,17 +168,17 @@ const DetailServiceRequest = () => {
                                                 ) : (
                                                     <Col md='12' sm='12'>
                                                         <div className='mb-1'>
-                                                        <div className='form-check pe-0'>
+                                                        <div className='form-check ps-0'>
                                                                 <Label className='form-label' for='select-basic'>
                                                                     Subscription Type: one-off
                                                                 </Label>
                                                             </div>
-                                                            <div className='form-check pe-0'>
+                                                            <div className='form-check ps-0'>
                                                                 <Label className='form-label' for='select-basic'>
                                                                     Price: {serviceRequestDetails?.service?.price_types?.price}
                                                                 </Label>
                                                             </div>
-                                                            <div className='form-check pe-0'>
+                                                            <div className='form-check ps-0'>
                                                                 <Label className='form-label' for='select-basic'>
                                                                     Purchase Limit: {serviceRequestDetails?.service?.price_types?.purchase_limit && serviceRequestDetails?.service?.price_types?.purchase_limit}
                                                                 </Label>

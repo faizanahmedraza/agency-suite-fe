@@ -1,30 +1,30 @@
-import SERVICE from "@store/V1/CustomerPortal/Service/ActionTypes"
+import INVOICE from "@store/V1/CustomerPortal/Invoice/ActionTypes"
 
-const serviceDetail = (id) => {
+const invoiceDetail = (id) => {
   return {
-    type: SERVICE.CUSTOMER_SERVICE_DETAIL,
+    type: INVOICE.CUSTOMER_INVOICE_DETAIL,
     request: id,
   };
 };
 
-const serviceDetailSuccess = (data) => {
+const invoiceDetailSuccess = (data) => {
   return {
-    type: SERVICE.CUSTOMER_SERVICE_DETAIL_SUCCESS,
+    type: INVOICE.CUSTOMER_INVOICE_DETAIL_SUCCESS,
     response: data,
   };
 };
 
-const serviceDetailFailed = (data) => {
+const invoiceDetailFailed = (data) => {
   return {
-    type: SERVICE.CUSTOMER_SERVICE_DETAIL_FAILED,
+    type: INVOICE.CUSTOMER_INVOICE_DETAIL_FAILED,
     response: data,
   };
 };
 
 const InvoiceDetailAction = {
-  serviceDetail,
-  serviceDetailSuccess,
-  serviceDetailFailed,
+  invoiceDetail,
+  invoiceDetailSuccess,
+  invoiceDetailFailed,
 };
 
 export default InvoiceDetailAction;
