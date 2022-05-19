@@ -21,6 +21,6 @@ function* serviceDetail(data) {
   }
 }
 
-export function* ServiceDetailSaga() {
+export function* InvoiceDetailSaga() {
   yield takeEvery(SERVICE.CUSTOMER_SERVICE_DETAIL, serviceDetail);
 }

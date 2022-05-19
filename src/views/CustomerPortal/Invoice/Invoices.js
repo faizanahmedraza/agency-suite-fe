@@ -1,26 +1,33 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from "@store/store";
 import {
-  Table,
   Card,
   CardBody,
-  UncontrolledDropdown,
-  DropdownMenu,
-  DropdownToggle,
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
 } from 'reactstrap'
-import { MoreVertical, Edit, Trash } from 'react-feather'
+import InvoiceListAction from "@store/V1/CustomerPortal/Invoice/List/InvoiceListAction"
+import InvoiceTable from '@src/views/CustomerPortal/Invoice/InvoiceTable'
+
+const Loader = () => {
+  return (
+    <div className="text-center">
+      <strong>Loading...</strong>
+    </div>
+  );
+};
 
 const Invoice = () => {
 
-  const [formModal, setFormModal] = useState(false);
+  const dispatch = useDispatch();
+  const {
+    list: {
+      loading,
+      invoices,
+      pagination
+    }
+  } = useSelector(state => state.customer_invoices);
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.style.setProperty('--bs-primary', 'black');
+    if (!invoices.length) return dispatch(InvoiceListAction.invoiceList());
   }, [])
 
   return (
@@ -36,7 +43,11 @@ const Invoice = () => {
       </Card >
       <Card>
         <CardBody>
-          
+          {loading ? (
+            <Loader />
+          ) :
+            <InvoiceTable data={invoices} pagination={pagination} />
+          }
         </CardBody>
       </Card>
     </div >

@@ -21,10 +21,10 @@ const serviceDetailFailed = (data) => {
   };
 };
 
-const ServiceDetailAction = {
+const InvoiceDetailAction = {
   serviceDetail,
   serviceDetailSuccess,
   serviceDetailFailed,
 };
 
-export default ServiceDetailAction;
+export default InvoiceDetailAction;

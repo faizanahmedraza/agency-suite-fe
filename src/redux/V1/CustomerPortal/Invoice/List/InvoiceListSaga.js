@@ -12,6 +12,6 @@ function* serviceList(data) {
     }
 }
 
-export function* ServiceListSaga() {
+export function* InvoiceListSaga() {
     yield takeEvery(INVOICE.CUSTOMER_INVOICE_LIST, serviceList);
 }

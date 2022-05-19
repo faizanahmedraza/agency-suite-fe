@@ -1,6 +1,6 @@
 import SERVICE from "@store/V1/CustomerPortal/Service/ActionTypes"
 
-const ServiceDetailReducer = (
+const InvoiceDetailReducer = (
   state = {
     loading: false,
     service: {
@@ -62,4 +62,4 @@ const ServiceDetailReducer = (
   }
 };
 
-export default ServiceDetailReducer;
+export default InvoiceDetailReducer;
