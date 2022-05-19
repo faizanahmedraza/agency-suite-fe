@@ -8,14 +8,16 @@ import {
     ModalHeader,
     ModalBody,
     ModalFooter,
-    Button
+    Button,
+    Input
 } from "reactstrap";
-import { useDispatch } from "@store/store"     
+import { useDispatch } from "@store/store"
 import ReactPaginate from 'react-paginate';
 import { formatDate } from '@utils'
 import GeneralHelper from "@src/Helpers/GeneralHelper";
-import { MoreVertical,Trash } from "react-feather";
+import { MoreVertical, Trash } from "react-feather";
 import InvoiceDeleteAction from "@store/V1/Invoice/Delete/InvoiceDeleteAction"
+import InvoiceStatusAction from "@store/V1/Invoice/Status/InvoiceStatusAction"
 
 const InvoiceTable = (props) => {
     const _data = props.data;
@@ -48,6 +50,10 @@ const InvoiceTable = (props) => {
         setItemOffset(newOffset);
     };
 
+    const handleShowInvoiceStatus = (e, id) => {
+        dispatch(InvoiceStatusAction.invoiceStatus(id))
+    }
+
     return (
         <div>
             <Table bordered responsive>
@@ -72,7 +78,11 @@ const InvoiceTable = (props) => {
                                     <span className='align-middle fw-bold'>{GeneralHelper.PascalCase(invoice?.customer_service_request?.service?.name)}</span>
                                 </td>
                                 <td>{invoice?.amount}</td>
-                                <td>{invoice?.is_paid ? 'Yes' : 'No'}</td>
+                                <td className='text-center'>
+                                    <div className='form-switch form-check-primary'>
+                                        <Input type='switch' className='' onChange={(e) => handleShowInvoiceStatus(e, invoice.id)} defaultChecked={invoice.is_paid} id='icon-secondnary' name='icon-status' />
+                                    </div>
+                                </td>
                                 <td>{formatDate(invoice?.created_at)}</td>
                                 <td>
                                     <UncontrolledDropdown>

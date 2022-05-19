@@ -26,11 +26,14 @@ const Invoice = () => {
     delete: {
       isDeleted
     },
+    status: {
+      isChanged
+    },
   } = useSelector(state => state.invoices);
 
   useEffect(() => {
-    if (!invoices.length) return dispatch(InvoiceListAction.invoiceList());
-  }, [isDeleted])
+    if (!invoices.length || isDeleted || isChanged) return dispatch(InvoiceListAction.invoiceList());
+  }, [isDeleted,isChanged])
 
   return (
     <div>

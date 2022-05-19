@@ -7,6 +7,11 @@ async function invoiceList(params) {
     return response;
 }
 
+async function invoiceStatus(data) {
+    const response = await Gateway.authGateway("PUT", V1.DOMAIN, V1.agency.invoices + "/change-status/" + data);
+    return response;
+}
+
 async function invoiceDelete(id) {
     const response = await Gateway.authGateway(
         "DELETE",
@@ -18,6 +23,7 @@ async function invoiceDelete(id) {
 
 const InvoiceService = {
     invoiceList,
+    invoiceStatus,
     invoiceDelete,
 }
 
