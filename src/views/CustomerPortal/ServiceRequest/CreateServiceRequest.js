@@ -11,16 +11,12 @@ import {
     Button,
     CardHeader,
     Spinner,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
 } from 'reactstrap'
 import { useDispatch, useSelector } from '@store/store'
 import ServiceRequestCreateAction from "@store/V1/CustomerPortal/ServiceRequest/CREATE/ServiceRequestCreateAction";
 import ServiceActions from "@store/V1/CustomerPortal/Service/Detail/ServiceDetailAction";
 import BillingInformationListAction from "@store/V1/CustomerPortal/BillingInformation/LIST/BillingInformationListAction";
-import BillingInformationCreateAction from "@store/V1/CustomerPortal/BillingInformation/CREATE/BillingInformationCreateAction";
+import CardInfoModal from '../CardInfoModal';
 
 const Loader = () => {
     return (
@@ -39,7 +35,7 @@ const CreateServiceRequest = () => {
     const {
         customer_services: { detail: { service, loading: serviceloading, fetched: serviceFetched } },
         customer_service_requests: { create: { loading: createServiceRequestLoading } },
-        customer_billing_information: { list: { customer_billing_information, loading: billingInfoLoading, fetched: billingInfoFetched }, create: { loading: createBillingInfoLoading } }
+        customer_billing_information: { list: { customer_billing_information }}
     } = useSelector(state => state);
 
     const [serviceDetail, setServiceDetails] = useState({});
@@ -50,19 +46,7 @@ const CreateServiceRequest = () => {
         description: "",
         reference_no: "",
     });
-    const [billingInfoDetail, setBillingInfoDetails] = useState({
-        holder_name: "",
-        card_no: "",
-        cvc: "",
-        expiry_month: "",
-        expiry_year: "",
-        address: "",
-        country: "",
-        city: "",
-        state: "",
-        zip_code: "",
-        street: "",
-    });
+
     const [centeredModal, setCenteredModal] = useState(false)
 
     useEffect(() => {
@@ -75,27 +59,13 @@ const CreateServiceRequest = () => {
                 service_id: service.id
             })
         }
-        if (billingInfoFetched) {
-            setBillingInfoDetails(customer_billing_information)
-        }
-    }, [billingInfoFetched,serviceFetched]);
+    }, [serviceFetched]);
 
     const handleServiceRequestInputField = (e) => {
         setServiceRequestDetails({
             ...serviceRequestDetails,
             [e.target.name]: e.target.value
         })
-    }
-
-    const handleBillingInfoInputField = (e) => {
-        setBillingInfoDetails({
-            ...billingInfoDetail,
-            [e.target.name]: e.target.value
-        })
-    }
-
-    const getBillingInfo = () => {
-        setCenteredModal(!centeredModal)
     }
 
     const onSubmitHandler = (e) => {
@@ -110,10 +80,8 @@ const CreateServiceRequest = () => {
         return false;
     }
 
-    const onSubmitBillingHandler = (e) => {
-        e.preventDefault();
-        dispatch(BillingInformationCreateAction.billingInformationCreate(billingInfoDetail));
-        setCenteredModal(!centeredModal)
+    const cardToggleModal = () => {
+        setCenteredModal(!centeredModal);
     }
 
     return (
@@ -134,7 +102,7 @@ const CreateServiceRequest = () => {
                             <h4>Service Request Details</h4>
                             {!serviceloading && checkBillingInfoEmpty() ? 
                                 <div className='col-md-3'>
-                                    <Button.Ripple color='primary' className="w-100" onClick={() => getBillingInfo(serviceDetail.id)}> Create Card +</Button.Ripple>
+                                    <Button.Ripple color='primary' className="w-100" onClick={cardToggleModal}> Create Card +</Button.Ripple>
                                 </div> : ''
                             }
                         </CardHeader>
@@ -267,123 +235,7 @@ const CreateServiceRequest = () => {
                 </CardBody>
             </Card >
             {/* Billing Information modal */}
-            <div className='vertically-centered-modal'>
-                <Modal isOpen={centeredModal} toggle={() => setCenteredModal(!centeredModal)} className='modal-dialog-centered'>
-                    <ModalHeader toggle={() => setCenteredModal(!centeredModal)}>Your Billing Information</ModalHeader>
-                    <Form onSubmit={onSubmitBillingHandler}>
-                        <ModalBody>
-                            <Row>
-                                <Col md='6' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='holder_name'>
-                                            Holder Name
-                                        </Label>
-                                        <Input type='text' value={billingInfoDetail.holder_name} onChange={handleBillingInfoInputField} name='holder_name' id='holder_name' placeholder='Enter Holder Name' />
-                                    </div>
-                                </Col>
-                                <Col md='6' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='card_no'>
-                                            Card Number
-                                        </Label>
-                                        <Input type='number' value={billingInfoDetail.card_no} onChange={handleBillingInfoInputField} name='card_no' id='card_no' placeholder='Enter Card Number' />
-                                    </div>
-                                </Col>
-                                <Col md='6' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='cvc'>
-                                            CVC
-                                        </Label>
-                                        <Input type='number' value={billingInfoDetail.cvc} onChange={handleBillingInfoInputField} name='cvc' id='cvc' placeholder='Enter CVC' />
-                                    </div>
-                                </Col>
-                                <Col md='6' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='expiry_month'>
-                                            Expiry Month
-                                        </Label>
-                                        <Input type='number' value={billingInfoDetail.expiry_month} onChange={handleBillingInfoInputField} name='expiry_month' id='expiry_month' placeholder='Enter Expiry Month For e.g: 12' />
-                                    </div>
-                                </Col>
-                                <Col md='6' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='expiry_year'>
-                                            Expiry Year
-                                        </Label>
-                                        <Input type='number' value={billingInfoDetail.expiry_year} onChange={handleBillingInfoInputField} name='expiry_year' id='expiry_year' placeholder='Enter Expiry Year For e.g: 22' />
-                                    </div>
-                                </Col>
-                                <Col md='6' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='country'>
-                                            Country
-                                        </Label>
-                                        <Input type='text' value={billingInfoDetail.country} onChange={handleBillingInfoInputField} name='country' id='country' placeholder='Enter Country' />
-                                    </div>
-                                </Col>
-                                <Col md='6' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='city'>
-                                            City
-                                        </Label>
-                                        <Input type='text' value={billingInfoDetail.city} onChange={handleBillingInfoInputField} name='city' id='city' placeholder='Enter City' />
-                                    </div>
-                                </Col>
-                                <Col md='6' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='state'>
-                                            State
-                                        </Label>
-                                        <Input type='text' value={billingInfoDetail.state} onChange={handleBillingInfoInputField} name='state' id='state' placeholder='Enter State' />
-                                    </div>
-                                </Col>
-                                <Col md='6' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='zip_code'>
-                                            Zip Code
-                                        </Label>
-                                        <Input type='text' value={billingInfoDetail.zip_code} onChange={handleBillingInfoInputField} name='zip_code' id='zip_code' placeholder='Enter Zip Code' />
-                                    </div>
-                                </Col>
-                                <Col md='6' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='street'>
-                                            Street Address
-                                        </Label>
-                                        <Input type='text' value={billingInfoDetail.street} onChange={handleBillingInfoInputField} name='street' id='street' placeholder='Enter Street Address' />
-                                    </div>
-                                </Col>
-                                <Col md='12' sm='12'>
-                                    <div className='mb-1'>
-                                        <Label className='form-label' for='address'>
-                                            Address
-                                        </Label>
-                                        <Input type='textarea' value={billingInfoDetail.address} onChange={handleBillingInfoInputField} name='address' id='address' placeholder='Enter Address' />
-                                    </div>
-                                </Col>
-                            </Row>
-                        </ModalBody>
-                        <ModalFooter>
-                            <Button color='primary' onClick={() => setCenteredModal(!centeredModal)}>
-                                Cancel
-                            </Button>
-                            <Button color='success' type='submit' disabled={createBillingInfoLoading}>
-                                {
-                                    createBillingInfoLoading ?
-                                        <>
-                                            <Spinner color='white' size='sm' type='grow' />
-                                            <span className='ms-50'>Loading...</span>
-                                        </>
-                                        :
-                                        <span>
-                                            Create
-                                        </span>
-                                }
-                            </Button>
-                        </ModalFooter>
-                    </Form>
-                </Modal>
-            </div>
+            <CardInfoModal onShow={centeredModal} onHide={cardToggleModal}/>
         </div >
     )
 }
