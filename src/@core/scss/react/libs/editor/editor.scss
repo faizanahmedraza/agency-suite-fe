@@ -16,7 +16,7 @@
       padding: 13px 5px;
       &.rdw-option-active {
         box-shadow: none;
-        background-color: rgba($color: $primary, $alpha: 0.2);
+        background-color: rgba(var(--custom-color-primary), $alpha: 0.2);
       }
       &:hover {
         box-shadow: none;
@@ -32,12 +32,12 @@
       &:hover {
         box-shadow: none;
         .rdw-dropdown-selectedtext {
-          color: $primary;
+          color: var(--custom-color-primary);
         }
       }
       .rdw-dropdownoption-default {
         &.rdw-dropdownoption-highlighted {
-          color: $primary;
+          color: var(--custom-color-primary);
           background: transparent;
         }
       }
@@ -91,7 +91,7 @@
           filter: invert(100%);
         }
         &.rdw-option-active {
-          background-color: rgba($color: $primary, $alpha: 0.2) !important;
+          background-color: rgba(var(--custom-color-primary), $alpha: 0.2) !important;
         }
       }
       .rdw-dropdown-wrapper {

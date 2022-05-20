@@ -13,10 +13,18 @@ import { setFavIcon, setTitle } from "@utils"
 
 import "./App.css"
 
+import { useSelector } from 'react-redux'
+
 const App = () => {
   const [allRoutes, setAllRoutes] = useState([])
   // ** Hooks
   const { layout } = useLayout()
+
+  const { portal_settings } = useSelector(state => state)
+
+  const { secondary_color , primary_color} = portal_settings.detail.portal_settings
+
+  console.log(primary_color)
 
   useEffect(() => {
     setFavIcon()
@@ -25,7 +33,8 @@ const App = () => {
 
     if (window !== 'undefined') {
       const root = document.documentElement
-      root.style.setProperty("--bs-primary", "#262833")
+      root.style.setProperty("--custom-color", `${secondary_color}`)
+      root.style.setProperty("--custom-color-primary", `${primary_color}`)
     }
 
   }, [layout])

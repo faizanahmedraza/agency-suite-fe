@@ -4,7 +4,7 @@
   .shepherd-content {
     .shepherd-button {
       background: inherit;
-      color: $primary;
+      color: var(--custom-color-primary);
       border-radius: $btn-border-radius;
     }
   }

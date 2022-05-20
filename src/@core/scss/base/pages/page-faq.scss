@@ -13,7 +13,7 @@
 // faq search section
 .faq-search {
   background-size: cover;
-  background-color: rgba($primary, 0.12) !important;
+  background-color: rgba(var(--custom-color-primary), 0.12) !important;
   .faq-search-input {
     .input-group {
       // remove input group box shadow on inside focus

@@ -181,7 +181,7 @@
       border: 1px solid rgba($black, 0.2);
 
       &:focus {
-        border: 1px solid $primary;
+        border: 1px solid var(--custom-color-primary);
       }
     }
 

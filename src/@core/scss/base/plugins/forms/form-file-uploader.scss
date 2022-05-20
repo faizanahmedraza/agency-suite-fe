@@ -3,7 +3,7 @@
 
 .dropzone {
   min-height: 350px;
-  border: 2px dashed $primary;
+  border: 2px dashed $var(--custom-color-primary);
   background: $body-bg;
   position: relative;
   // dropzone message customization
@@ -24,7 +24,7 @@
   // dropzone message icon
   .dz-message:before {
     content: '';
-    background-image: url(str-replace(str-replace($download, 'currentColor', $primary), '#', '%23'));
+    background-image: url(str-replace(str-replace($download, 'currentColor', $var(--custom-color-primary)), '#', '%23'));
     font-size: 80px;
     position: absolute;
     top: 14rem;
@@ -33,7 +33,7 @@
     display: inline-block;
     line-height: 1;
     z-index: 2;
-    color: $primary;
+    color: $var(--custom-color-primary);
     text-indent: 0px;
     font-weight: normal;
     -webkit-font-smoothing: antialiased;

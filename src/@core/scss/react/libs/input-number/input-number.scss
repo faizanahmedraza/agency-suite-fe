@@ -21,7 +21,7 @@
       height: 20px;
       color: $white;
       text-align: center;
-      background-color: $primary;
+      background-color: var(--custom-color-primary);
       border-radius: $border-radius;
       svg {
         top: -2px;

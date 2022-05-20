@@ -30,11 +30,11 @@
 
   &:checked {
     + .custom-option-item {
-      color: $primary;
-      background-color: rgba($primary, 0.12);
-      border-color: $primary;
+      color: var(--custom-color-primary);
+      background-color: rgba(var(--custom-color-primary), 0.12);
+      border-color:var(--custom-color-primary);
       .custom-option-item-title {
-        color: $primary;
+        color:var(--custom-color-primary);
       }
     }
   }

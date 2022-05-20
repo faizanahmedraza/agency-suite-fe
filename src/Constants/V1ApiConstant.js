@@ -40,8 +40,19 @@ const V1 = {
     invoices: "v1/customers/invoices"
   },
   change_auth_password: "v1/change-password",
-  DOMAIN: window.location.hostname
+  DOMAIN: window.location.hostname,
   // DOMAIN: 'irfanagency1.allthingswordpress.io',
+  changePassword: "v1/admin/change-password",
+  roles: "v1/admin/roles",
+  guest: {
+    posts: "v1/guest/blog/posts",
+    tags: "v1/guest/blog/tags",
+  },
+  // DOMAIN: window.location.hostname
+  // DOMAIN: 'fahadagency.allthingswordpress.io',
+  // DOMAIN: 'irfanagency1.allthingswordpress.io',
+  // DOMAIN: 'irfanagency2.allthingswordpress.io',
+  // DOMAIN: 'faixantestagency.allthingswordpress.io',
 };
 
 export default V1;

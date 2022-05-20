@@ -8,7 +8,7 @@
 // Updated picker  color as per theme color
 .picker__day--today:before,
 .picker__button--today:before {
-  border-top: 6px solid $primary;
+  border-top: 6px solid var(--custom-color-primary);
 }
 .picker__button--clear:before {
   border-top: 2px solid $danger;
@@ -19,7 +19,7 @@
 .picker__list-item--selected,
 .picker__list-item--selected:hover,
 .picker--focused .picker__list-item--selected {
-  background-color: $primary;
+  background-color: var(--custom-color-primary);
 }
 // Updated picker svg icons
 .picker__nav--prev:before,
