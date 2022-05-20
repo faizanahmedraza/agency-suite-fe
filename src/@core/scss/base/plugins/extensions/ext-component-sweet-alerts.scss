@@ -39,7 +39,7 @@
       border-radius: $border-radius;
       line-height: $line-height-base;
       &:focus {
-        border-color: $primary !important;
+        border-color: var(--custom-color-primary) !important;
         box-shadow: $input-focus-box-shadow;
       }
     }
@@ -47,16 +47,16 @@
     // steps
     .swal2-progress-steps {
       .swal2-progress-step {
-        background-color: $primary;
+        background-color: var(--custom-color-primary);
         &.swal2-active-progress-step {
           ~ .swal2-progress-step-line,
           ~ .swal2-progress-step {
-            background-color: tint-color($primary, 15%);
+            background-color: tint-color(var(--custom-color-primary), 15%);
           }
         }
       }
       .swal2-progress-step-line {
-        background-color: $primary;
+        background-color: var(--custom-color-primary);
       }
     }
 

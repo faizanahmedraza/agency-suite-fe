@@ -26,7 +26,7 @@ $font-size-xs: 0.75rem;
     // Border color on focus
     &:focus {
       outline: 0;
-      border-color: $primary !important;
+      border-color: var(--custom-color-primary) !important;
       box-shadow: $input-focus-box-shadow !important;
     }
 
@@ -59,7 +59,7 @@ $font-size-xs: 0.75rem;
   &.select2-container--open {
     box-shadow: $dropdown-box-shadow;
     .select2-selection--single {
-      border-color: $primary !important;
+      border-color: var(--custom-color-primary) !important;
       outline: 0;
     }
   }
@@ -68,7 +68,7 @@ $font-size-xs: 0.75rem;
   &.select2-container--focus {
     outline: 0;
     .select2-selection--multiple {
-      border-color: $primary !important;
+      border-color: var(--custom-color-primary) !important;
       outline: 0;
     }
   }
@@ -94,13 +94,13 @@ $font-size-xs: 0.75rem;
     border: 1px solid $input-border-color;
     &:focus {
       outline: 0;
-      border-color: $primary !important;
+      border-color: var(--custom-color-primary) !important;
       box-shadow: $input-focus-box-shadow !important;
     }
     // selected items bg color for multiple selection
     .select2-selection__choice {
-      background-color: $primary !important;
-      border-color: $primary !important;
+      background-color: var(--custom-color-primary) !important;
+      border-color: var(--custom-color-primary) !important;
       color: $white;
       padding: 2px 5px;
     }
@@ -159,7 +159,7 @@ $font-size-xs: 0.75rem;
       padding: 0;
     }
     &[aria-selected='true'] {
-      background-color: $primary !important;
+      background-color: var(--custom-color-primary) !important;
       color: $white !important;
     }
     i,
@@ -172,8 +172,8 @@ $font-size-xs: 0.75rem;
   }
 
   .select2-results__option--highlighted {
-    background-color: rgba($primary, 0.12) !important;
-    color: $primary !important;
+    background-color: rgba(var(--custom-color-primary), 0.12) !important;
+    color: var(--custom-color-primary) !important;
   }
 
   //Loading Remote Data Image Size
@@ -288,15 +288,15 @@ $font-size-xs: 0.75rem;
 
     .select2-selection--multiple {
       .select2-selection__choice {
-        background: rgba($primary, 0.12) !important;
-        color: $primary !important;
+        background: rgba(var(--custom-color-primary), 0.12) !important;
+        color: var(--custom-color-primary) !important;
         border: none;
         .select2-selection__choice__remove {
-          color: $primary !important;
+          color: var(--custom-color-primary) !important;
         }
       }
       .select2-selection__choice__remove:before {
-        background-image: url(str-replace(str-replace($remove, 'currentColor', $primary), '#', '%23'));
+        background-image: url(str-replace(str-replace($remove, 'currentColor', var(--custom-color-primary)), '#', '%23'));
       }
     }
 

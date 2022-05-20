@@ -45,7 +45,8 @@ const V1 = {
   },
   // DOMAIN: window.location.hostname
   // DOMAIN: 'fahadagency.allthingswordpress.io',
-  DOMAIN: 'irfanagency1.allthingswordpress.io',
+  // DOMAIN: 'irfanagency1.allthingswordpress.io',
+  DOMAIN: 'irfanagency2.allthingswordpress.io',
   // DOMAIN: 'faixantestagency.allthingswordpress.io',
 };
 

@@ -55,7 +55,7 @@ $email_details_header_height: 5rem;
         &:focus,
         &.active {
           background: transparent;
-          color: $primary;
+          color: var(--custom-color-primary);
         }
         &.active {
           border-color: #7367f0;

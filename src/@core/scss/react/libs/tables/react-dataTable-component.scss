@@ -49,7 +49,7 @@
 
           .dropdown-item:hover {
             svg {
-              stroke: $primary;
+              stroke: var(--custom-color-primary);
             }
           }
 

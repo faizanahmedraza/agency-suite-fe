@@ -373,7 +373,7 @@ html {
 
   .pace {
     .pace-progress {
-      background: $primary;
+      background: var(--custom-color-primary);
     }
   }
 }

@@ -61,7 +61,7 @@
       }
       &:active,
       &:hover {
-        background-color: $primary !important;
+        background-color: var(--custom-color-primary) !important;
         &:before {
           background-image: url(str-replace(str-replace($chevron-left, 'currentColor', $white), '#', '%23')) !important;
         }
@@ -120,7 +120,7 @@
       }
       &:active,
       &:hover {
-        background-color: $primary !important;
+        background-color: var(--custom-color-primary) !important;
         &:after {
           background-image: url(str-replace(
             str-replace($chevron-right, 'currentColor', $white),
@@ -196,7 +196,7 @@
       &:hover {
         &:after {
           background-image: url(str-replace(
-            str-replace($chevron-right, 'currentColor', $primary),
+            str-replace($chevron-right, 'currentColor', var(--custom-color-primary)),
             '#',
             '%23'
           )) !important;
@@ -234,7 +234,7 @@
     }
 
     &:hover {
-      color: $primary;
+      color: var(--custom-color-primary);
     }
   }
 
@@ -246,7 +246,7 @@
     .page-link {
       z-index: 3;
       border-radius: 5rem;
-      background-color: $primary;
+      background-color: var(--custom-color-primary);
       color: $white !important;
       font-weight: 600;
     }

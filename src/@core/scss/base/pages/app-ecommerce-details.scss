@@ -37,7 +37,7 @@
 
     // Item Price
     .item-price {
-      color: $primary;
+      color: var(--custom-color-primary);
     }
     // Common for list-view, checkout and wishlist
     .item-company {
@@ -98,7 +98,7 @@
         font-size: 2.5rem;
         height: 2.5rem;
         width: 2.5rem;
-        color: $primary;
+        color: var(--custom-color-primary);
       }
     }
   }
@@ -139,7 +139,7 @@
     left: 0;
 
     &:after {
-      background-image: url(str-replace(str-replace($chevron-left, 'currentColor', $primary), '#', '%23'));
+      background-image: url(str-replace(str-replace($chevron-left, 'currentColor', var(--custom-color-primary)), '#', '%23'));
       background-repeat: no-repeat;
       background-position: center;
       background-size: 44px;
@@ -154,7 +154,7 @@
     right: 0;
 
     &:after {
-      background-image: url(str-replace(str-replace($chevron-right, 'currentColor', $primary), '#', '%23'));
+      background-image: url(str-replace(str-replace($chevron-right, 'currentColor', var(--custom-color-primary)), '#', '%23'));
       background-repeat: no-repeat;
       background-position: center;
       background-size: 44px;
@@ -168,7 +168,7 @@
   .swiper-container-rtl {
     .swiper-button-prev {
       &:after {
-        background-image: url(str-replace(str-replace($chevron-right, 'currentColor', $primary), '#', '%23'));
+        background-image: url(str-replace(str-replace($chevron-right, 'currentColor', var(--custom-color-primary)), '#', '%23'));
         background-repeat: no-repeat;
         background-position: center;
         background-size: 44px;
@@ -181,7 +181,7 @@
 
     .swiper-button-next {
       &:after {
-        background-image: url(str-replace(str-replace($chevron-left, 'currentColor', $primary), '#', '%23'));
+        background-image: url(str-replace(str-replace($chevron-left, 'currentColor', var(--custom-color-primary)), '#', '%23'));
         background-repeat: no-repeat;
         background-position: center;
         background-size: 44px;
@@ -214,9 +214,9 @@
     .selected {
       // these use for border color only page specific
       .b-primary {
-        border-color: $primary;
+        border-color: var(--custom-color-primary);
         .filloption {
-          box-shadow: 0 2px 4px 0 rgba($primary, 0.4);
+          box-shadow: 0 2px 4px 0 rgba(var(--custom-color-primary), 0.4);
         }
       }
 
@@ -249,7 +249,7 @@
       }
     }
     .b-primary .filloption {
-      box-shadow: 0 2px 4px 0 rgba($primary, 0.4);
+      box-shadow: 0 2px 4px 0 rgba(var(--custom-color-primary), 0.4);
     }
     .b-success .filloption {
       box-shadow: 0 2px 4px 0 rgba($success, 0.4);

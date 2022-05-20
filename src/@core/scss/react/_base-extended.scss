@@ -6,6 +6,8 @@ body,
   height: 100%;
 }
 
+$custom:var(--custom-color-primary);
+
 // Vertical Menu
 // ========================================================================
 .vertical-layout .main-menu {
@@ -28,8 +30,8 @@ body,
     }
     a.active {
       z-index: 1;
-      background: linear-gradient(118deg, rgba($primary, 1), rgba($primary, 0.7));
-      box-shadow: 0 0 10px 1px rgba($primary, 0.7);
+      // background: linear-gradient(118deg, rgba($primary , 1), rgba($primary, 0.7));
+      box-shadow: 0 0 10px 1px rgba(var(--custom-color-primary), 0.7);
       color: $white;
       font-weight: 400;
       border-radius: 4px;
@@ -101,14 +103,14 @@ body #root .wrapper .ps__rail-y {
         }
 
         .dropdown-item.active {
-          color: $primary !important;
+          color: var(--custom-color-primary) !important;
           background-color: $body-bg !important;
         }
       }
       .nav-item:not(.dropdown):not(.dropdown-submenu) {
         a.nav-link.active {
-          background: linear-gradient(118deg, rgba($primary, 1), rgba($primary, 0.7));
-          box-shadow:0 0 6px 1px  rgba($primary, 0.6);
+          background: linear-gradient(118deg, rgba($primary , 1), rgba($primary, 0.7));
+          box-shadow:0 0 6px 1px  rgba(var(--custom-color-primary), 0.6);
           color: $white;
           border-radius: 4px;
         }

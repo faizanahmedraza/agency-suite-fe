@@ -5,7 +5,7 @@
   .flatpickr-day {
     color: $body-color;
     &.today {
-      border-color: $primary;
+      border-color: var(--custom-color-primary);
       &:hover {
         background: transparent;
         color: $body-color;
@@ -14,9 +14,9 @@
 
     &.selected,
     &.selected:hover {
-      background: $primary;
+      background: var(--custom-color-primary);
       color: $white;
-      border-color: $primary;
+      border-color: var(--custom-color-primary);
     }
 
     &.inRange,
@@ -29,15 +29,15 @@
     &.endRange,
     &.startRange:hover,
     &.endRange:hover {
-      background: $primary;
+      background: var(--custom-color-primary);
       color: $white;
-      border-color: $primary;
+      border-color: var(--custom-color-primary);
     }
 
     &.selected.startRange + .endRange:not(:nth-child(7n + 1)),
     &.startRange.startRange + .endRange:not(:nth-child(7n + 1)),
     &.endRange.startRange + .endRange:not(:nth-child(7n + 1)) {
-      box-shadow: -10px 0 0 $primary;
+      box-shadow: -10px 0 0 var(--custom-color-primary);
     }
 
     &.flatpickr-disabled,

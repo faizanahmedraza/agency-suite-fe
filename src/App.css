@@ -1,0 +1,53 @@
+:root {
+    --custom-color: #fff;
+    --custom-color-primary: red;
+}
+
+/* form input select and text areas ( also applying to table input which is wrong i think ) START*/
+
+form input:focus , textarea:focus , .form-select , .dropdown-item:focus{
+    border-color: var(--custom-color-primary) !important;
+}
+
+.form-check-input:checked {
+    background-color: var(--custom-color-primary) !important;
+    border-color: var(--custom-color-primary) !important
+}
+
+/* form input select and text areas ( also applying to table input which is wrong i think ) END*/
+
+/* table links  and auth pages ( login , register , launch ) plus sidebar toggler */
+
+table a , .auth-wrapper a , .auth-wrapper h2 , .toggle-icon{
+    color: var(--custom-color-primary) !important;
+}
+
+.page-item.active .page-link{
+    color: var(--custom-color) !important   ;
+} /* Table Pagination Css */
+
+/* buttons used throughout our entire application START*/
+
+.btn-primary {
+    color: var(--custom-color) !important;
+    background-color: var(--custom-color-primary) !important;
+    border-color: var(--custom-color-primary) !important;
+}
+
+.btn-primary:focus {
+    color: #fff !important;
+    background-color: var(--custom-color-primary) !important;
+    border-color: var(--custom-color-primary) !important;
+}
+
+/* buttons used throughout our entire application END*/
+
+.dropdown-item:active , .dropdown-item:hover{
+    color:var(--custom-color) !important;
+    background-color: var(--custom-color-primary) !important;
+}
+
+/* Sidebar link active css */
+.vertical-layout .main-menu .navigation a.active{
+     background: linear-gradient(45deg, var(--custom-color), var(--custom-color-primary)) !important;
+}
