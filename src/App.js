@@ -20,11 +20,9 @@ const App = () => {
   // ** Hooks
   const { layout } = useLayout()
 
-  const { portal_settings } = useSelector(state => state)
+  const { portal_settings, portal_settings: { update: { isChanged, portal_settings: updatePortalSettings } } } = useSelector(state => state)
 
-  const { secondary_color , primary_color} = portal_settings.detail.portal_settings
-
-  console.log(primary_color)
+  const { secondary_color, primary_color } = portal_settings.detail.portal_settings
 
   useEffect(() => {
     setFavIcon()
@@ -33,11 +31,11 @@ const App = () => {
 
     if (window !== 'undefined') {
       const root = document.documentElement
-      root.style.setProperty("--custom-color", `${secondary_color}`)
-      root.style.setProperty("--custom-color-primary", `${primary_color}`)
+      root.style.setProperty("--custom-color", `${isChanged ? updatePortalSettings.secondary_color : secondary_color}`)
+      root.style.setProperty("--custom-color-primary", `${isChanged ? updatePortalSettings.primary_color : primary_color}`)
     }
 
-  }, [layout])
+  }, [layout, isChanged])
 
   return (
     <Suspense fallback={null}>
