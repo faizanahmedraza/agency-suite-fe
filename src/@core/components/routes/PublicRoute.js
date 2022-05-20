@@ -15,9 +15,8 @@ const PublicRoute = ({ children, route }) => {
 
     const restrictedRoute = route.meta && route.meta.restricted
 
-    if (user && restrictedRoute) {
-      return <Navigate replace to="/dashboard" />
-    }
+    if (user && restrictedRoute) return <Navigate replace to="/dashboard" />
+
   }
 
   return <Suspense fallback={null}>{children}</Suspense>

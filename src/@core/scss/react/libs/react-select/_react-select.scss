@@ -24,7 +24,7 @@
   &.select__control--is-focused,
   &.react-select__control--is-focused {
     box-shadow: none;
-    border-color: $primary;
+    border-color: var(--custom-color-primary);
   }
 
   .select__indicator svg {
@@ -54,12 +54,12 @@
       cursor: pointer;
 
       &.select__option--is-focused {
-        background-color: rgba($color: $primary, $alpha: 0.12);
-        color: $primary;
+        background-color: rgba($color: var(--custom-color-primary), $alpha: 0.12);
+        color: var(--custom-color-primary);
       }
 
       &.select__option--is-selected {
-        background-color: $primary;
+        background-color: var(--custom-color-primary);
         color: $white;
       }
     }
@@ -141,14 +141,14 @@
     }
 
     .select__multi-value {
-      background-color: rgba($color: $primary, $alpha: 0.12);
+      background-color: rgba($color: var(--custom-color-primary), $alpha: 0.12);
       .select__multi-value__label {
-        color: $primary;
+        color: var(--custom-color-primary);
       }
     }
     .select__multi-value__remove {
       svg {
-        fill: $primary;
+        fill: var(--custom-color-primary);
       }
       &:hover {
         background-color: transparent !important;

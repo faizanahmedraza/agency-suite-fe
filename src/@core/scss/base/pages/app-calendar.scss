@@ -60,13 +60,13 @@ $fc-day-toggle-btn-padding: 0.55rem 1.5rem;
         &:not(.fc-prev-button):not(.fc-next-button) {
           // background-color: rgba($primary, 0.1);
           background-color: transparent;
-          border-color: $primary;
-          color: $primary;
+          border-color: var(--custom-color-primary);
+          color: var(--custom-color-primary);
           &.fc-button-active,
           &:hover {
-            background-color: rgba($color: $primary, $alpha: 0.2) !important;
-            border-color: $primary !important;
-            color: $primary;
+            background-color: rgba($color: var(--custom-color-primary), $alpha: 0.2) !important;
+            border-color: var(--custom-color-primary) !important;
+            color: var(--custom-color-primary);
           }
         }
         &.fc-sidebarToggle-button {

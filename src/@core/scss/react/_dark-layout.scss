@@ -74,7 +74,7 @@
 
   // Pricing
   .pricing-card .card.popular {
-    border-color: $primary !important;
+    border-color: var(--custom-color-primary) !important;
   }
 
   // Form Control

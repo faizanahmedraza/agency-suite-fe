@@ -52,7 +52,7 @@
 
   // customizer toggle icon
   .customizer-toggle {
-    background: $primary;
+    background: var(--custom-color-primary);
     color: $white !important;
     display: block;
     box-shadow: -3px 0px 8px rgba($black, 0.1);
@@ -79,7 +79,7 @@
     &.selected {
       &:after {
         content: '';
-        border: 1px solid $primary;
+        border: 1px solid var(--custom-color-primary);
         height: 30px;
         width: 30px;
         top: -3px;

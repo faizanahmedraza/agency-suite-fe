@@ -9,7 +9,7 @@
     border-radius: $input-border-radius;
     .form-control,
     .input-group-text {
-      border-color: $primary;
+      border-color: var(--custom-color-primary);
       box-shadow: none;
 
       &.is-valid {

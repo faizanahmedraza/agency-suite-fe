@@ -16,7 +16,7 @@
     &:hover:not(.react-contexify__item--disabled) {
       > .react-contexify__item__content {
         background-color: $dropdown-link-hover-bg !important;
-        color: $primary;
+        color: var(--custom-color-primary);
       }
     }
   }
