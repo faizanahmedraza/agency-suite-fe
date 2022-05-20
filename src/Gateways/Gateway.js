@@ -8,7 +8,7 @@ async function authGateway(METHOD, DOMAIN, API, BODY = null) {
     const OPTIONS = {
         method: METHOD,
         headers: {
-            'access-control-allow-origin': '*',
+            // 'access-control-allow-origin': '*',
             'Content-Type': 'application/json',
             "Domain": DOMAIN,
             "Authorization": `Bearer ${TOKEN}`
@@ -38,7 +38,7 @@ async function guestGateway(METHOD, DOMAIN = null, API, BODY = null) {
         method: METHOD,
         headers: {
             'Content-Type': 'application/json',
-            'access-control-allow-origin': '*',
+            // 'access-control-allow-origin': '*',
             "Domain": DOMAIN ? DOMAIN : "",
             'Client-ID': config.client_id,
             'Client-Secret': config.client_secret,

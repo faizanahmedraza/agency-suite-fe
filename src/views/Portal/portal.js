@@ -33,8 +33,12 @@ const Portal = () => {
     const dispatch = useDispatch();
     const {
         detail: { portal_settings, fetched, loading },
-        update: { loading: updateLoading },
+        update: { loading: updateLoading, isChanged , portal_settings : updatedPortalSettings },
     } = useSelector((state) => state.portal_settings);
+
+    console.log(portal_settings , 'portal')
+    console.log(isChanged , 'changed')
+    console.log(fetched , 'fecth')
 
     const handleInputField = async (e) => {
         const file = e.target.files ? e.target.files[0] : null;
@@ -56,10 +60,9 @@ const Portal = () => {
 
     useEffect(() => {
         dispatch(PortalSettingDetailAction.portalSettingDetail());
-        if (fetched) {
-            setPortalSetting(portal_settings);
-        }
-    }, [fetched]);
+        if (fetched && !isChanged) return setPortalSetting(portal_settings);
+        setPortalSetting(updatedPortalSettings)
+    }, [fetched,isChanged]);
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
@@ -97,7 +100,7 @@ const Portal = () => {
                                                         onChange={handleNestedObject}
                                                         name="name"
                                                         id="name"
-                                                        value={!loading ? portalSetting.agency.name : ''}
+                                                        value={portalSetting.agency.name}
                                                     />
                                                 </div>
                                                 <div className="mb-1">

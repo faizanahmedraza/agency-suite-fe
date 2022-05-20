@@ -12,9 +12,15 @@ export default [
   },
   {
     id: 'Invoice',
-    title: 'Invoice',
+    title: 'Invoices',
     icon: <File size={20} />,
     navLink: '/invoice'
+  },
+  {
+    id: 'Customer_Invoices',
+    title: 'Invoices',
+    icon: <File size={20} />,
+    navLink: '/customer-invoices'
   },
   {
     id: 'Requests',

@@ -22,14 +22,12 @@ const UserDropdown = () => {
 
   } = useSelector(state => state)
 
-  console.log(login_user)
-
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState()
 
   useEffect(() => {
     if (!isFetched) return setUser(login_user)
     setUser(profile_user)
-  }, [profile_user])
+  }, [profile_user, login_user])
 
   const role = user?.roles[0].name;
   const logo = user?.image;

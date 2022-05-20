@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 // import AvatarGroup from '@components/avatar-group'
-import { Link } from 'react-router-dom'
 import {
     Card,
     CardBody,
@@ -12,8 +11,8 @@ import {
 } from 'reactstrap'
 import { useDispatch, useSelector } from "@store/store"
 import ServiceActions from '@store/V1/CustomerPortal/Service/List/ServiceListAction'
-import ServicesGrid from './servicesGrid'
 import ServiceTable from './ServiceTable'
+import GeneralHelper from "@src/Helpers/GeneralHelper";
 
 const Services = () => {
 
@@ -33,6 +32,17 @@ const Services = () => {
 
     const toggle = tab => {
         if (active !== tab) {
+            if (tab == 1) {
+                dispatch(ServiceActions.serviceList());
+            } else if (tab == 2) {
+                dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
+                    service_type: "one-off"
+                })));
+            } else if (tab == 3) {
+                dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
+                    service_type: "recurring"
+                })));
+            }
             setActive(tab)
         }
     }

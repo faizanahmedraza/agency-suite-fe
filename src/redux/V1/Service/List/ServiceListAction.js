@@ -1,8 +1,9 @@
 import SERVICE from "@store/V1/Service/ActionTypes"
 
-const serviceList = () => {
+const serviceList = (data) => {
     return {
         type: SERVICE.SERVICE_LIST,
+        request: data
     };
 };
 const serviceListSuccess = (data) => {

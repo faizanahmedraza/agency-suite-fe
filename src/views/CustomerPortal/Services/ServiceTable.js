@@ -10,7 +10,7 @@ const ServiceTable = ({ services, pagination }) => {
 
     const [currentItems, setCurrentItems] = useState(null);
     const [itemOffset, setItemOffset] = useState(0);
-    const [itemsPerPage, setItemsPerPage] = useState(6);
+    const [itemsPerPage, setItemsPerPage] = useState(pagination?.per_page);
     const [pageCount, setPageCount] = useState(0);
 
     const {

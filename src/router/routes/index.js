@@ -55,10 +55,13 @@ const Register = lazy(() => import("@src/views/Register"));
 const Verification = lazy(() => import("@src/views/Verification"));
 const ForgotPassword = lazy(() => import("@src/views/ForgotPassword"));
 const CreatePassword = lazy(() => import("@src/views/CreatePassword"));
+const UpdatePassword = lazy(() => import("@src/views/UpdatePassword"));
 const CustomerRegister = lazy(() => import("@src/views/CustomerRegister"));
 const ServiceRequests = lazy(() => import("@src/views/ServiceRequest/ServiceRequests"));
 const CreateServiceRequest = lazy(() => import("@src/views/ServiceRequest/CreateServiceRequest"));
 const CustomerServiceRequests = lazy(() => import("@src/views/CustomerPortal/ServiceRequest/ServiceRequests"));
+const CustomerInvoices = lazy(() => import("@src/views/CustomerPortal/Invoice/Invoices"));
+const CustomerInvoiceDetail = lazy(() => import("@src/views/CustomerPortal/Invoice/InvoiceDetail"));
 const CreateCustomerServiceRequest = lazy(() => import("@src/views/CustomerPortal/ServiceRequest/CreateServiceRequest"));
 const DetailCustomerServiceRequest = lazy(() => import("@src/views/CustomerPortal/ServiceRequest/DetailServiceRequest"));
 const DetailServiceRequest = lazy(() => import("@src/views/ServiceRequest/DetailServiceRequest"));
@@ -86,6 +89,14 @@ const Routes = [
   {
     path: "/profile",
     element: <Profile />,
+    meta: {
+      publicRoute: false,
+      customer_restricted: false
+    }
+  },
+  {
+    path: "/change-password",
+    element: <UpdatePassword />,
     meta: {
       publicRoute: false,
       customer_restricted: false
@@ -161,7 +172,7 @@ const Routes = [
     meta: {
       layout: "vertical",
       publicRoute: false,
-      customer_restricted: false
+      customer_restricted: true
     },
   },
   {
@@ -210,6 +221,24 @@ const Routes = [
     },
   },
   // Customer Request
+  {
+    path: "/customer-invoices",
+    element: <CustomerInvoices />,
+    meta: {
+      layout: "vertical",
+      publicRoute: false,
+      customer_restricted: false
+    },
+  },
+  {
+    path: "/customer-invoices/detail/:id",
+    element: <CustomerInvoiceDetail />,
+    meta: {
+      layout: "vertical",
+      publicRoute: false,
+      customer_restricted: false
+    },
+  },
   {
     path: "/customer-service-requests",
     element: <CustomerServiceRequests />,

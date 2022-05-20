@@ -30,23 +30,18 @@ const V1 = {
       put: "v1/agencies/portal-settings",
     },
     profile_settings: "v1/profile",
-    service_request: "v1/agencies/request-services"
+    service_request: "v1/agencies/request-services",
+    invoices: "v1/agencies/invoices"
   },
   customer: {
     services: "v1/customers/services",
     billing_information: "v1/customers/billing-information",
-    service_request: "v1/customers/request-services"
+    service_request: "v1/customers/request-services",
+    invoices: "v1/customers/invoices"
   },
-  changePassword: "v1/admin/change-password",
-  roles: "v1/admin/roles",
-  guest: {
-    posts: "v1/guest/blog/posts",
-    tags: "v1/guest/blog/tags",
-  },
-  // DOMAIN: window.location.hostname
-  // DOMAIN: 'fahadagency.allthingswordpress.io',
-  DOMAIN: 'irfanagency1.allthingswordpress.io',
-  // DOMAIN: 'faixantestagency.allthingswordpress.io',
+  change_auth_password: "v1/change-password",
+  DOMAIN: window.location.hostname
+  // DOMAIN: 'irfanagency1.allthingswordpress.io',
 };
 
 export default V1;

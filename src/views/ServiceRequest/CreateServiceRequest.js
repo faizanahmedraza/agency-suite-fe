@@ -19,6 +19,7 @@ import CustomerListAction from "@store/V1/Customer/LIST/CustomerListAction";
 import AsyncSelect from 'react-select/async';
 import CustomerService from '@src/Services/V1/CustomerService';
 import AgencyService from '@src/Services/V1/AgencyService';
+import GeneralHelper from "@src/Helpers/GeneralHelper";
 
 const CreateServiceRequest = () => {
 
@@ -46,8 +47,13 @@ const CreateServiceRequest = () => {
     const [defaultServiceOptions, setDefaultServiceOptions] = useState([]);
 
     useEffect(() => {
-        dispatch(ServiceActions.serviceList());
-        dispatch(CustomerListAction.customerList());
+        dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
+            catalog_status: "active",
+            status: "active"
+          })));
+        dispatch(CustomerListAction.customerList(GeneralHelper.Serialize({
+            status: "active"
+          })));
         loadDefaultOptions();
     }, []);
 

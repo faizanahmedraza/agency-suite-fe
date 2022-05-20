@@ -28,8 +28,8 @@ function profileSettingDetailSuccess(data) {
   if (_data !== null) {
     let profile = data.response.profile;
     let user = SettingHelper.localData(_data);
-    user.first_name = profile.name;
-    user.last_name = profile.name;
+    user.first_name = profile.first_name;
+    user.last_name = profile.last_name;
     user.image = profile.image;
     localStorage.setItem("user", JSON.stringify(user));
   }

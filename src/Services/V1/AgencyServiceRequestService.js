@@ -12,8 +12,9 @@ async function serviceRequestDetail(data) {
     return response;
 }
 
-async function serviceRequestList() {
-    const response = await Gateway.authGateway("GET", V1.DOMAIN, V1.agency.service_request);
+async function serviceRequestList(params) {
+    const _params = params ? '?' + params : "";
+    const response = await Gateway.authGateway("GET", V1.DOMAIN, V1.agency.service_request+_params);
     return response;
 }
 
@@ -35,10 +36,12 @@ const serviceRequestBody = (data) => {
     _data.service_id = data.service_id;
     _data.customer_id = data.customer_id;
     _data.recurring_type = data.recurring_type ;
-    _data.intake_form = {
-        title: data.title,
-        description: data.description
-    }
+    _data.intake_form =  [
+        {
+            title: data.title,
+            description: data.description
+        }
+    ];
 
     return JSON.stringify(_data);
 
