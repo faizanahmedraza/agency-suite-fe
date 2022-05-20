@@ -9,9 +9,9 @@ const PublicRoute = ({ children, route }) => {
 
     const { user } = useSelector(state => state.login)
 
-    if (window.location.hostname + window.location.pathname === config.public_url + '/login') return <Navigate to="/launch" replace />
+    // if (window.location.hostname + window.location.pathname === config.public_url + '/login') return <Navigate to="/launch" replace />
 
-    if (window.location.hostname + window.location.pathname !== config.public_url + '/launch' && window.location.pathname === "/launch") return <Navigate to="/login" replace />
+    // if (window.location.hostname + window.location.pathname !== config.public_url + '/launch' && window.location.pathname === "/launch") return <Navigate to="/login" replace />
 
     const restrictedRoute = route.meta && route.meta.restricted
 
