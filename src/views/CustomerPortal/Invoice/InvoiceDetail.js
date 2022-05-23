@@ -7,12 +7,12 @@ import {
     Label,
     Input,
     CardBody,
-    Form,
     Button,
     CardHeader,
 } from 'reactstrap'
 import { useDispatch, useSelector } from '@store/store'
 import InvoiceDetailAction from "@store/V1/CustomerPortal/Invoice/Detail/InvoiceDetailAction"
+import BillingInformationListAction from "@store/V1/CustomerPortal/BillingInformation/LIST/BillingInformationListAction";
 
 const Loader = () => {
     return (
@@ -29,12 +29,16 @@ const InvoiceDetail = () => {
     const navigate = useNavigate();
 
     const {
-        detail: {
+        customer_invoices: { detail: {
             loading,
             customer_invoice,
             fetched
         }
-    } = useSelector(state => state.customer_invoices);
+        },
+        customer_billing_information: { list: { customer_billing_information } }
+    } = useSelector(state => state);
+
+    console.log(customer_billing_information)
 
     const [invoiceDetails, setInvoiceDetails] = useState({
         invoice_number: "",
@@ -65,6 +69,7 @@ const InvoiceDetail = () => {
 
     useEffect(() => {
         dispatch(InvoiceDetailAction.invoiceDetail(id));
+        dispatch(BillingInformationListAction.billingInformationList());
         if (fetched) {
             setInvoiceDetails(customer_invoice)
         }
@@ -100,7 +105,7 @@ const InvoiceDetail = () => {
                                     }
                                     <Col md="12" sm='12'>
                                         <div className='mb-1'>
-                                            <Label className='form-label fs-4' for='select-basic'>
+                                            <Label className='form-label fs-5' for='select-basic'>
                                                 Service Name
                                             </Label>
                                             <p>
@@ -110,7 +115,7 @@ const InvoiceDetail = () => {
                                     </Col>
                                     <Col md="12" sm='12'>
                                         <div className='mb-1'>
-                                            <Label className='form-label fs-4' for='select-basic'>
+                                            <Label className='form-label fs-5' for='select-basic'>
                                                 Service Description
                                             </Label>
                                             <p className='text-wrap'>
@@ -119,11 +124,11 @@ const InvoiceDetail = () => {
                                         </div>
                                     </Col>
                                     {
-                                        invoiceDetails?.customer_service_request?.service?.subscription_type == "recurring" ?
+                                        invoiceDetails?.customer_service_request?.service?.subscription_type === "recurring" ?
                                             (
                                                 <Col md='12' sm='12'>
                                                     <div className='mb-1'>
-                                                        <Label className='form-label pb-0 mb-0' for='select-basic'>
+                                                        <Label className='form-label fs-5 pb-0 mb-0' for='select-basic'>
                                                             Service Subscription
                                                         </Label>
                                                         <div className='demo-inline-spacing'>
@@ -163,17 +168,17 @@ const InvoiceDetail = () => {
                                             ) : (
                                                 <Col md='12' sm='12'>
                                                     <div className='mb-1'>
-                                                        <Label className='form-label' for='select-basic'>
+                                                        <Label className='form-label fs-5' for='select-basic'>
                                                             Subscription Type: one-off
                                                         </Label>
                                                     </div>
                                                     <div className='mb-1'>
-                                                        <Label className='form-label' for='select-basic'>
+                                                        <Label className='form-label fs-5' for='select-basic'>
                                                             Price: {invoiceDetails?.customer_service_request?.service?.price_types?.price}
                                                         </Label>
                                                     </div>
                                                     <div className='mb-1'>
-                                                        <Label className='form-label' for='select-basic'>
+                                                        <Label className='form-label fs-5' for='select-basic'>
                                                             Purchase Limit: {invoiceDetails?.customer_service_request?.service?.price_types?.purchase_limit && invoiceDetails?.customer_service_request?.service?.price_types?.purchase_limit}
                                                         </Label>
                                                     </div>
@@ -182,7 +187,7 @@ const InvoiceDetail = () => {
                                     }
                                     <Col md='12' sm='12'>
                                         <div className='mb-1'>
-                                            <Label className='form-label' for='title'>
+                                            <Label className='form-label fs-5' for='title'>
                                                 Intake Title
                                             </Label>
                                             <Input type='text' value={invoiceDetails?.customer_service_request?.intake_form[0]?.title} name='title' id='title' placeholder='Enter Title' readOnly />
@@ -190,11 +195,27 @@ const InvoiceDetail = () => {
                                     </Col>
                                     <Col md='12' sm='12'>
                                         <div className='mb-1'>
-                                            <Label className='form-label' for='description'>
+                                            <Label className='form-label fs-5' for='description'>
                                                 Intake Description
                                             </Label>
                                             <Input type='textarea' value={invoiceDetails?.customer_service_request?.intake_form[0]?.description} name='description' id='description' placeholder='Enter Description' readOnly />
                                         </div>
+                                    </Col>
+                                    <Col md='12' sm='12'>
+                                        <Row>
+                                            <Col md='8' sm='12'>
+                                                <div className='d-flex'>
+                                                    <Input type='select' name='dasd' id='select-custom' value="dasd">
+                                                        {
+                                                            customer_billing_information && customer_billing_information.map((d) => {
+                                                               return <option>{d.last_digits}</option>
+                                                            })
+                                                        }
+                                                    </Input>
+                                                </div>
+                                            </Col>
+                                            <Col md='4' sm='12'>sdas</Col>
+                                        </Row>
                                     </Col>
                                     <Col md='12' sm='12'>
                                         <div className='d-flex justify-content-between'>

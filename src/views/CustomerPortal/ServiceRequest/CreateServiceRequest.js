@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from '@store/store'
 import ServiceRequestCreateAction from "@store/V1/CustomerPortal/ServiceRequest/CREATE/ServiceRequestCreateAction";
 import ServiceActions from "@store/V1/CustomerPortal/Service/Detail/ServiceDetailAction";
 import BillingInformationListAction from "@store/V1/CustomerPortal/BillingInformation/LIST/BillingInformationListAction";
-import CardInfoModal from '../CardInfoModal';
+import CardInfoModal from '@src/views/CustomerPortal/Billing/CardInfoModal';
 
 const Loader = () => {
     return (
@@ -120,7 +120,7 @@ const CreateServiceRequest = () => {
                                         }
                                         <Col md="12" sm='12'>
                                             <div className='mb-1'>
-                                                <Label className='form-label fs-4' for='select-basic'>
+                                                <Label className='form-label fs-5' for='select-basic'>
                                                     Service Name
                                                 </Label>
                                                 <p>
@@ -130,7 +130,7 @@ const CreateServiceRequest = () => {
                                         </Col>
                                         <Col md="12" sm='12'>
                                             <div className='mb-1'>
-                                                <Label className='form-label fs-4' for='select-basic'>
+                                                <Label className='form-label fs-5' for='select-basic'>
                                                     Service Description
                                                 </Label>
                                                 <p className='text-wrap'>
@@ -143,7 +143,7 @@ const CreateServiceRequest = () => {
                                                 (
                                                     <Col md='12' sm='12'>
                                                         <div className='mb-1'>
-                                                            <Label className='form-label pb-0 mb-0' for='select-basic'>
+                                                            <Label className='form-label fs-5 pb-0 mb-0' for='select-basic'>
                                                                 Service Subscription
                                                             </Label>
                                                             <div className='demo-inline-spacing'>
@@ -184,7 +184,7 @@ const CreateServiceRequest = () => {
                                         }
                                         <Col md='12' sm='12'>
                                             <div className='mb-1'>
-                                                <Label className='form-label' for='title'>
+                                                <Label className='form-label fs-5' for='title'>
                                                     Title
                                                 </Label>
                                                 <Input type='text' value={serviceRequestDetails.title} onChange={handleServiceRequestInputField} name='title' id='title' placeholder='Enter Title' />
@@ -192,7 +192,7 @@ const CreateServiceRequest = () => {
                                         </Col>
                                         <Col md='12' sm='12'>
                                             <div className='mb-1'>
-                                                <Label className='form-label' for='description'>
+                                                <Label className='form-label fs-5' for='description'>
                                                     Description
                                                 </Label>
                                                 <Input type='textarea' value={serviceRequestDetails.description} onChange={handleServiceRequestInputField} name='description' id='description' placeholder='Enter Description' />
