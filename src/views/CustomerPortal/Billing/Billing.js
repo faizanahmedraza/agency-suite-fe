@@ -14,7 +14,6 @@ import {
 import { useDispatch, useSelector } from '@store/store'
 import InvoiceDetailAction from "@store/V1/CustomerPortal/Invoice/Detail/InvoiceDetailAction"
 import BillingCardInfo from '@src/views/CustomerPortal/Billing/BillingCardInfo';
-import PaymentMethodAction from "@store/V1/CustomerPortal/BillingInformation/PAYMENT_METHOD/PaymentMethodAction";
 
 const Loader = () => {
     return (
@@ -29,6 +28,7 @@ const InvoiceDetail = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const navigate = useNavigate();
+    const [centeredModal, setCenteredModal] = useState(false)
 
     const {
         customer_invoices: { detail: {
@@ -37,9 +37,7 @@ const InvoiceDetail = () => {
             fetched
         }
         },
-        customer_billing_information: {
-            payment_method: { loading: createLoading, isPaid }
-        }
+        customer_billing_information: { list: { customer_billing_information } }
     } = useSelector(state => state);
 
     const [invoiceDetails, setInvoiceDetails] = useState({
@@ -65,33 +63,16 @@ const InvoiceDetail = () => {
             intake_form: [],
             status: "",
         },
-        is_paid: false,
+        is_paid: "",
         amount: "",
     });
 
-    const [invoicePaid, setInvoicePaid] = useState({
-        card_id: "",
-        invoice_id: id
-    });
-
-    const handleInvoicePaidField = (e) => {
-        setInvoicePaid({
-            ...invoicePaid,
-            [e.target.name]: e.target.value
-        })
-    }
-
-    const onSubmitHandler = (e) => {
-        e.preventDefault();
-        dispatch(PaymentMethodAction.paymentMethod(invoicePaid));
-    }
-
     useEffect(() => {
-        if(fetched || isPaid) dispatch(InvoiceDetailAction.invoiceDetail(id));
+        dispatch(InvoiceDetailAction.invoiceDetail(id));
         if (fetched) {
             setInvoiceDetails(customer_invoice)
         }
-    }, [fetched,isPaid]);
+    }, [fetched]);
 
     return (
         <div>
@@ -220,23 +201,7 @@ const InvoiceDetail = () => {
                                         </div>
                                     </Col>
                                     <Col md='12' sm='12' className='my-2'>
-                                        <Form onSubmit={onSubmitHandler}>
-                                            <div className='d-flex justify-content-between align-items-center'>
-                                                <BillingCardInfo cardId={invoicePaid.card_id} onChangeField={handleInvoicePaidField} />
-                                                {!invoiceDetails.is_paid ?
-                                                    <Button color='primary' className='btn-sm py-1 px-3 mt-2' type='submit' disabled={createLoading}>
-                                                        {
-                                                            createLoading ?
-                                                                <Loader />
-                                                                :
-                                                                <span>
-                                                                    Paid
-                                                                </span>
-                                                        }
-                                                    </Button>
-                                                    : ""}
-                                            </div>
-                                        </Form>
+                                       <BillingCardInfo invoiceId={id}/>
                                     </Col>
                                     <Col md='12' sm='12'>
                                         <div className='d-flex justify-content-between'>
