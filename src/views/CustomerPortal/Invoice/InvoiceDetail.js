@@ -9,10 +9,11 @@ import {
     CardBody,
     Button,
     CardHeader,
+    Form
 } from 'reactstrap'
 import { useDispatch, useSelector } from '@store/store'
 import InvoiceDetailAction from "@store/V1/CustomerPortal/Invoice/Detail/InvoiceDetailAction"
-import BillingInformationListAction from "@store/V1/CustomerPortal/BillingInformation/LIST/BillingInformationListAction";
+import BillingCardInfo from '@src/views/CustomerPortal/Billing/BillingCardInfo';
 
 const Loader = () => {
     return (
@@ -27,6 +28,7 @@ const InvoiceDetail = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const navigate = useNavigate();
+    const [centeredModal, setCenteredModal] = useState(false)
 
     const {
         customer_invoices: { detail: {
@@ -37,8 +39,6 @@ const InvoiceDetail = () => {
         },
         customer_billing_information: { list: { customer_billing_information } }
     } = useSelector(state => state);
-
-    console.log(customer_billing_information)
 
     const [invoiceDetails, setInvoiceDetails] = useState({
         invoice_number: "",
@@ -69,7 +69,6 @@ const InvoiceDetail = () => {
 
     useEffect(() => {
         dispatch(InvoiceDetailAction.invoiceDetail(id));
-        dispatch(BillingInformationListAction.billingInformationList());
         if (fetched) {
             setInvoiceDetails(customer_invoice)
         }
@@ -201,21 +200,8 @@ const InvoiceDetail = () => {
                                             <Input type='textarea' value={invoiceDetails?.customer_service_request?.intake_form[0]?.description} name='description' id='description' placeholder='Enter Description' readOnly />
                                         </div>
                                     </Col>
-                                    <Col md='12' sm='12'>
-                                        <Row>
-                                            <Col md='8' sm='12'>
-                                                <div className='d-flex'>
-                                                    <Input type='select' name='dasd' id='select-custom' value="dasd">
-                                                        {
-                                                            customer_billing_information && customer_billing_information.map((d) => {
-                                                               return <option>{d.last_digits}</option>
-                                                            })
-                                                        }
-                                                    </Input>
-                                                </div>
-                                            </Col>
-                                            <Col md='4' sm='12'>sdas</Col>
-                                        </Row>
+                                    <Col md='12' sm='12' className='my-2'>
+                                       <BillingCardInfo invoiceId={id}/>
                                     </Col>
                                     <Col md='12' sm='12'>
                                         <div className='d-flex justify-content-between'>
