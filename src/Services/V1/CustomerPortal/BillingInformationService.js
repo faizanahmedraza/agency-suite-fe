@@ -39,13 +39,17 @@ async function billingInformationPut(data) {
     return response;
 }
 
-async function paymentMethodPut(data) {
+async function billingInformationDelete(data) {
     const response = await Gateway.authGateway(
-        "PUT",
+        "DELETE",
         V1.DOMAIN,
-        `${V1.customer.invoice_paid}`,
-        paymentMethodBodyData(data)
+        `${V1.customer.billing_information}/${data}`
     );
+    return response;
+}
+
+async function markPrimaryPut(data) {
+    const response = await Gateway.authGateway("PUT", V1.DOMAIN, V1.customer.billing_information + "/make-primary/" + data);
     return response;
 }
 
@@ -65,19 +69,13 @@ const billingInformationBodyData = (data) => {
     return JSON.stringify(_data);
 }
 
-const paymentMethodBodyData = (data) => {
-    let _data = {};
-    _data.card_id = data.card_id;
-    _data.invoice_id = data.invoice_id;
-    return JSON.stringify(_data);
-}
-
 const BillingInformationService = {
     billingInformationList,
     billingInformationDetail,
     billingInformationPost,
     billingInformationPut,
-    paymentMethodPut
+    billingInformationDelete,
+    markPrimaryPut
 }
 
 export default BillingInformationService;

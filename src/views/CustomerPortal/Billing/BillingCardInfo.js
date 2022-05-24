@@ -34,7 +34,7 @@ const BillingCardInfo = (props) => {
                 Payment Method
             </Label>
             <div className='d-flex justify-content-between'>
-                <Input type='select' className="flex-grow-1" name='card_id' id='select-custom' value={props.cardId} onChange={props.onChangeField}>
+                <Input type='select' className="flex-grow-1" name='card_id' id='select-custom' value={props?.cardId} onChange={props?.onChangeField}>
                     <option value="">Select Card</option>
                     {
                         customer_billing_information && customer_billing_information.map((option) => {
