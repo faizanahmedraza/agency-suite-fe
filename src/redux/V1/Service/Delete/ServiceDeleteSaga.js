@@ -6,7 +6,6 @@ import toast from "react-hot-toast"
 
 function* serviceDelete(data) {
     const response = yield AgencyService.serviceDelete(data.request)
-    console.log(response)
     if (response.success) {
         toast.success(response.message)
         yield put(ServiceActions.serviceDeleteSuccess(response))

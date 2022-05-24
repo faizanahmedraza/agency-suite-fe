@@ -36,10 +36,6 @@ const Portal = () => {
         update: { loading: updateLoading, isChanged , portal_settings : updatedPortalSettings },
     } = useSelector((state) => state.portal_settings);
 
-    console.log(portal_settings , 'portal')
-    console.log(isChanged , 'changed')
-    console.log(fetched , 'fecth')
-
     const handleInputField = async (e) => {
         const file = e.target.files ? e.target.files[0] : null;
 

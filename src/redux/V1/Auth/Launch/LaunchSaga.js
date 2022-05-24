@@ -8,7 +8,6 @@ import { Navigate } from "react-router-dom"
 function* postLaunch(data) {
     try {
         const response = yield AuthService.launchPost(data.request);
-        console.log(response)
         if (response.success) {
             toast.success(response.message)
             yield put(LaunchAction.postLaunchSuccess(response.data));
@@ -28,7 +27,6 @@ function postLaunchSuccess(data) {
 }
 
 function postLaunchFailed(data) {
-    console.log(data)
     toast.error(data.response)
 }
 

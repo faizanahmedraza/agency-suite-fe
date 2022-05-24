@@ -24,8 +24,6 @@ const App = () => {
 
   const { secondary_color , primary_color} = portal_settings.detail.portal_settings
 
-  console.log(primary_color)
-
   useEffect(() => {
     setFavIcon()
     setTitle()
