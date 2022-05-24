@@ -49,5 +49,5 @@ table a , .auth-wrapper a , .auth-wrapper h2 , .toggle-icon{
 
 /* Sidebar link active css */
 .vertical-layout .main-menu .navigation a.active{
-     background: linear-gradient(45deg, var(--custom-color), var(--custom-color-primary)) !important;
+     background-color: var(--custom-color-primary);
 }

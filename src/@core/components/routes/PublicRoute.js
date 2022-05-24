@@ -5,6 +5,7 @@ import config from "@configs/Config"
 import { useSelector } from "@store/store"
 
 const PublicRoute = ({ children, route }) => {
+
   if (route) {
 
     const { user } = useSelector(state => state.login)
@@ -20,6 +21,7 @@ const PublicRoute = ({ children, route }) => {
   }
 
   return <Suspense fallback={null}>{children}</Suspense>
+
 }
 
 export default PublicRoute

@@ -7,6 +7,8 @@ const PrivateRoute = ({ children, route }) => {
 
   const { user } = useSelector(state => state.login)
 
+  console.log(user)
+
   if (route) {
     let action = null
     let resource = null
