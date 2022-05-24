@@ -6,6 +6,7 @@ const CustomerListReducer = (
     error: null,
     customers: [],
     pagination: null,
+    isFetched: false,
   },
   action
 ) => {
@@ -14,6 +15,7 @@ const CustomerListReducer = (
       return {
         ...state,
         loading: true,
+        isFetched : false
       };
     case CUSTOMER.CUSTOMER_LIST_SUCCESS:
       return {
@@ -21,6 +23,7 @@ const CustomerListReducer = (
         loading: false,
         customers: action.response.customers,
         pagination: action.response.pagination,
+        isFetched: true,
       };
     case CUSTOMER.CUSTOMER_LIST_FAILED:
       return {
@@ -29,6 +32,7 @@ const CustomerListReducer = (
         error: action.response.message,
         customers: [],
         pagination: null,
+        isFetched : false
       };
     default:
       return state;

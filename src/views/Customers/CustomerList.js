@@ -16,37 +16,68 @@ import {
 import ReactPaginate from "react-paginate";
 import CustomerDeleteAction from "@store/V1/Customer/DELETE/CustomerDeleteAction";
 import CustomerStatusAction from "@store/V1/Customer/STATUS/CustomerStatusAction";
+import CustomerListAction from "@store/V1/Customer/LIST/CustomerListAction";
+import GeneralHelper from "@src/Helpers/GeneralHelper";
 import { MoreVertical, Edit, Trash } from "react-feather";
+import { useSelector } from "react-redux";
 
 const CustomerList = (props) => {
   const _data = props.data;
   const dispatch = useDispatch();
   const [formModal, setFormModal] = useState(false);
   const [deleteCustomerId, setCustomerId] = useState();
-  const [currentItems, setCurrentItems] = useState(null);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(props?.pagination?.per_page);
+  const [Offset, setOffset] = useState(0);
+  const [currentItems, setCurrentItems] = useState([]);
+  const [pageCount, setPageCount] = useState(props?.pagination?.total_pages);
 
   const customerDelete = (id) => {
     dispatch(CustomerDeleteAction.customerDelete(id));
     setFormModal(!formModal);
   };
 
+  const {
+    list: { customers, pagination, isFetched },
+  } = useSelector((state) => state.customers);
+
   useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(_data.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(_data.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
+    if (!isFetched) return setCurrentItems(_data);
+    setCurrentItems(customers);
+  }, [Offset]);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % _data.length;
-    setItemOffset(newOffset);
+    const selectedPage = event.selected + 1;
+    if (props?.tabIndex == 1) {
+      dispatch(
+        CustomerListAction.customerList(
+          GeneralHelper.Serialize({
+            page: selectedPage,
+          })
+        )
+      );
+    } else if (props?.tabIndex == 2) {
+      dispatch(
+        CustomerListAction.customerList(
+          GeneralHelper.Serialize({
+            page: selectedPage,
+            status: "active",
+          })
+          )
+          );
+        } else if (props?.tabIndex == 3) {
+          dispatch(
+            CustomerListAction.customerList(
+              GeneralHelper.Serialize({
+            page: selectedPage,
+            status: "pending",
+          })
+        )
+      );
+    }
   };
 
   const handleCustomerStatus = (e, id) => {
-    dispatch(CustomerStatusAction.customerStatus(id))
-  }
+    dispatch(CustomerStatusAction.customerStatus(id));
+  };
 
   return (
     <React.Fragment>
@@ -62,20 +93,28 @@ const CustomerList = (props) => {
         </thead>
         <tbody>
           {currentItems &&
-            currentItems.map((customer) => {
+            currentItems.map((customer, key) => {
               return (
                 <tr key={customer.id}>
                   <td>
                     <Link to={`/customers/edit/${customer.id}`}>
                       <span className="align-middle fw-bold">
-                        {customer.first_name + " " + customer.last_name}
+                        {customer.first_name + " " + customer.last_name}{" "}
+                        {(key = key)}
                       </span>
                     </Link>
                   </td>
                   <td>{customer.email}</td>
-                  <td className='text-center'>
-                    <div className='form-switch form-check-primary'>
-                      <Input type='switch' className='w-full' onChange={(e) => handleCustomerStatus(e, customer.id)} defaultChecked={customer.status === "active"} id='icon-primary' name='icon-primary' />
+                  <td className="text-center">
+                    <div className="form-switch form-check-primary">
+                      <Input
+                        type="switch"
+                        className="w-full"
+                        onChange={(e) => handleCustomerStatus(e, customer.id)}
+                        defaultChecked={customer.status === "active"}
+                        id="icon-primary"
+                        name="icon-primary"
+                      />
                     </div>
                   </td>
                   <td>{customer.last_logged_in}</td>

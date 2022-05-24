@@ -43,14 +43,14 @@ const Customers = () => {
       return customer.status === "active";
     });
 
-    return <CustomerList data={activeCustomers} pagination={pagination} />;
+    return <CustomerList data={activeCustomers} pagination={pagination} tabIndex={active}/>;
   }
   function pendingCustomers() {
     const pendingCustomers = customers.filter((customer) => {
       return customer.status === "pending";
     });
 
-    return <CustomerList data={pendingCustomers} pagination={pagination} />;
+    return <CustomerList data={pendingCustomers} pagination={pagination} tabIndex={active}/>;
   }
 
   useEffect(() => {
@@ -132,7 +132,7 @@ const Customers = () => {
             ) : (
               <>
                 <TabPane tabId="1">
-                  <CustomerList data={customers} pagination={pagination} />
+                  <CustomerList data={customers} pagination={pagination} tabIndex={active}/>
                 </TabPane>
                 <TabPane tabId="2">
                   {customers && activeCustomers(customers)}
