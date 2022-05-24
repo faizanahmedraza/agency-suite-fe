@@ -39,6 +39,16 @@ async function billingInformationPut(data) {
     return response;
 }
 
+async function paymentMethodPut(data) {
+    const response = await Gateway.authGateway(
+        "PUT",
+        V1.DOMAIN,
+        `${V1.customer.invoice_paid}`,
+        paymentMethodBodyData(data)
+    );
+    return response;
+}
+
 const billingInformationBodyData = (data) => {
     let _data = {};
     _data.holder_name = data.holder_name;
@@ -55,11 +65,19 @@ const billingInformationBodyData = (data) => {
     return JSON.stringify(_data);
 }
 
+const paymentMethodBodyData = (data) => {
+    let _data = {};
+    _data.card_id = data.card_id;
+    _data.invoice_id = data.invoice_id;
+    return JSON.stringify(_data);
+}
+
 const BillingInformationService = {
     billingInformationList,
     billingInformationDetail,
     billingInformationPost,
     billingInformationPut,
+    paymentMethodPut
 }
 
 export default BillingInformationService;

@@ -105,20 +105,21 @@ const CreateServiceRequest = () => {
 
     const smartCustomerSearchFilter = async (inputValue) => {
         if (inputValue.length > 2 && inputValue.trim()) {
-            const response = await CustomerService.customerSearch({
-                field: "first_name",
-                value: inputValue,
-            });
+            const response = await CustomerService.customerList(GeneralHelper.Serialize({
+                full_name: inputValue,
+                status: "active"
+            }));
             return response.data.customers;
         }
     }
 
     const smartServiceSearchFilter = async (inputValue) => {
         if (inputValue.length > 2 && inputValue.trim()) {
-            const response = await AgencyService.serviceSearch({
-                field: "name",
-                value: inputValue,
-            });
+            const response = await AgencyService.serviceList(GeneralHelper.Serialize({
+                name: inputValue,
+                catalog_status: "active",
+                status: "active"
+            }));
             return response.data.services;
         }
     }

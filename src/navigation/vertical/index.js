@@ -1,4 +1,4 @@
-import { Zap, Home, Users, ShoppingCart, File, Settings } from 'react-feather'
+import { Zap, Home, Users, ShoppingCart, File, Settings, DollarSign } from 'react-feather'
 
 export default [
   {
@@ -34,6 +34,12 @@ export default [
     title: 'Requests',
     icon: <ShoppingCart size={20} />,
     navLink: '/customer-service-requests'
+  },
+  {
+    id: 'Customer_Billing',
+    title: 'Billing',
+    icon: <DollarSign size={20} />,
+    navLink: '/billing'
   },
   {
     header: 'Catalog'

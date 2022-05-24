@@ -37,22 +37,13 @@ const V1 = {
     services: "v1/customers/services",
     billing_information: "v1/customers/billing-information",
     service_request: "v1/customers/request-services",
-    invoices: "v1/customers/invoices"
+    invoices: "v1/customers/invoices",
+    invoice_paid: "v1/customers/invoices/invoice-paid",
+    payments: {} 
   },
   change_auth_password: "v1/change-password",
-  DOMAIN: window.location.hostname,
-  // DOMAIN: 'irfanagency1.allthingswordpress.io',
-  changePassword: "v1/admin/change-password",
-  roles: "v1/admin/roles",
-  guest: {
-    posts: "v1/guest/blog/posts",
-    tags: "v1/guest/blog/tags",
-  },
   // DOMAIN: window.location.hostname
-  // DOMAIN: 'fahadagency.allthingswordpress.io',
-  // DOMAIN: 'irfanagency1.allthingswordpress.io',
-  // DOMAIN: 'irfanagency2.allthingswordpress.io',
-  // DOMAIN: 'faixantestagency.allthingswordpress.io',
+  DOMAIN: 'irfanagency1.allthingswordpress.io',
 };
 
 export default V1;
