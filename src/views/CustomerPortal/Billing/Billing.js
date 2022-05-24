@@ -81,24 +81,28 @@ const Billing = () => {
                         </CardBody>
                     </Card>
                 </Col>
-                <Col md='6' lg='4'>
-                    <Card className='mb-3'>
-                        <CardBody>
-                            <CardTitle tag='h4'>
-                                <div className='d-flex justify-content-between align-items-center'>
-                                    <div className='fs-5'>Master Card</div>
-                                    <Button className='btn-sm'>Primary</Button>
-                                </div>
-                            </CardTitle>
-                            <CardText>
-                                <div className='d-flex flex-column'>
-                                    <div className='fs-5'>.... .... .... 4444</div>
-                                    <div className='fs-5 pb-1'>12 / 2025</div>
-                                </div>
-                            </CardText>
-                        </CardBody>
-                    </Card>
-                </Col>
+                {customer_billing_information && customer_billing_information.map((data) => {
+                    return (
+                        <Col md='6' lg='4' key={data.id}>
+                            <Card className='mb-3'>
+                                <CardBody>
+                                    <CardTitle tag='h4'>
+                                        <div className='d-flex justify-content-between align-items-center'>
+                                            <div className='fs-5'>{data.holder_name}</div>
+                                            <Button className='btn-sm'>Primary</Button>
+                                        </div>
+                                    </CardTitle>
+                                    <CardText>
+                                        <div className='d-flex flex-column'>
+                                            <div className='fs-5'>.... .... .... {data.last_digits}</div>
+                                            <div className='fs-5 pb-1'>{data.exp_month} / 20{data.exp_year}</div>
+                                        </div>
+                                    </CardText>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    );
+                })}
                 <div className='d-flex justify-content-end'>
                     <Button.Ripple color='primary' className="w-25 ms-2" onClick={cardToggleModal}>Add Payment Method</Button.Ripple>
                 </div>
