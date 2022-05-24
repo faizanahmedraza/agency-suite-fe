@@ -224,7 +224,6 @@ const CreateServiceRequest = () => {
                                                             </span>
                                                     }
                                                 </Button>
-
                                             </div>
                                         </Col>
                                     </Row>

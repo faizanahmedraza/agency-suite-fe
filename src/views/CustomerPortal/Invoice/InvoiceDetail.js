@@ -9,10 +9,12 @@ import {
     CardBody,
     Button,
     CardHeader,
+    Form
 } from 'reactstrap'
 import { useDispatch, useSelector } from '@store/store'
 import InvoiceDetailAction from "@store/V1/CustomerPortal/Invoice/Detail/InvoiceDetailAction"
-import BillingInformationListAction from "@store/V1/CustomerPortal/BillingInformation/LIST/BillingInformationListAction";
+import BillingCardInfo from '@src/views/CustomerPortal/Billing/BillingCardInfo';
+import PaymentMethodAction from "@store/V1/CustomerPortal/BillingInformation/PAYMENT_METHOD/PaymentMethodAction";
 
 const Loader = () => {
     return (
@@ -35,10 +37,10 @@ const InvoiceDetail = () => {
             fetched
         }
         },
-        customer_billing_information: { list: { customer_billing_information } }
+        customer_billing_information: {
+            payment_method: { loading: createLoading, isPaid }
+        }
     } = useSelector(state => state);
-
-    console.log(customer_billing_information)
 
     const [invoiceDetails, setInvoiceDetails] = useState({
         invoice_number: "",
@@ -63,17 +65,33 @@ const InvoiceDetail = () => {
             intake_form: [],
             status: "",
         },
-        is_paid: "",
+        is_paid: false,
         amount: "",
     });
 
+    const [invoicePaid, setInvoicePaid] = useState({
+        card_id: "",
+        invoice_id: id
+    });
+
+    const handleInvoicePaidField = (e) => {
+        setInvoicePaid({
+            ...invoicePaid,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const onSubmitHandler = (e) => {
+        e.preventDefault();
+        dispatch(PaymentMethodAction.paymentMethod(invoicePaid));
+    }
+
     useEffect(() => {
-        dispatch(InvoiceDetailAction.invoiceDetail(id));
-        dispatch(BillingInformationListAction.billingInformationList());
+        if(fetched || isPaid) dispatch(InvoiceDetailAction.invoiceDetail(id));
         if (fetched) {
             setInvoiceDetails(customer_invoice)
         }
-    }, [fetched]);
+    }, [fetched,isPaid]);
 
     return (
         <div>
@@ -201,21 +219,24 @@ const InvoiceDetail = () => {
                                             <Input type='textarea' value={invoiceDetails?.customer_service_request?.intake_form[0]?.description} name='description' id='description' placeholder='Enter Description' readOnly />
                                         </div>
                                     </Col>
-                                    <Col md='12' sm='12'>
-                                        <Row>
-                                            <Col md='8' sm='12'>
-                                                <div className='d-flex'>
-                                                    <Input type='select' name='dasd' id='select-custom' value="dasd">
+                                    <Col md='12' sm='12' className='my-2'>
+                                        <Form onSubmit={onSubmitHandler}>
+                                            <div className='d-flex justify-content-between align-items-center'>
+                                                <BillingCardInfo cardId={invoicePaid.card_id} onChangeField={handleInvoicePaidField} />
+                                                {!invoiceDetails.is_paid ?
+                                                    <Button color='primary' className='btn-sm py-1 px-3 mt-2' type='submit' disabled={createLoading}>
                                                         {
-                                                            customer_billing_information && customer_billing_information.map((d) => {
-                                                               return <option>{d.last_digits}</option>
-                                                            })
+                                                            createLoading ?
+                                                                <Loader />
+                                                                :
+                                                                <span>
+                                                                    Paid
+                                                                </span>
                                                         }
-                                                    </Input>
-                                                </div>
-                                            </Col>
-                                            <Col md='4' sm='12'>sdas</Col>
-                                        </Row>
+                                                    </Button>
+                                                    : ""}
+                                            </div>
+                                        </Form>
                                     </Col>
                                     <Col md='12' sm='12'>
                                         <div className='d-flex justify-content-between'>

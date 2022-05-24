@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {
     Card,
     CardTitle,
@@ -20,7 +20,7 @@ import {
 } from 'reactstrap'
 import { useDispatch, useSelector } from '@store/store'
 import BillingInformationListAction from "@store/V1/CustomerPortal/BillingInformation/LIST/BillingInformationListAction";
-
+import CardInfoModal from '@src/views/CustomerPortal/Billing/CardInfoModal';
 
 const Loader = () => {
     return (
@@ -33,7 +33,7 @@ const Loader = () => {
 const Billing = () => {
 
     const dispatch = useDispatch();
-    const { id } = useParams();
+    const [centeredModal, setCenteredModal] = useState(false)
     const navigate = useNavigate();
 
     const {
@@ -43,6 +43,10 @@ const Billing = () => {
     useEffect(() => {
         dispatch(BillingInformationListAction.billingInformationList());
     }, []);
+
+    const cardToggleModal = () => {
+        setCenteredModal(!centeredModal);
+    }
 
     return (
         <div>
@@ -96,9 +100,11 @@ const Billing = () => {
                     </Card>
                 </Col>
                 <div className='d-flex justify-content-end'>
-                    Button
+                    <Button.Ripple color='primary' className="w-25 ms-2" onClick={cardToggleModal}>Add Payment Method</Button.Ripple>
                 </div>
             </Row>
+            {/* Billing Information modal */}
+            <CardInfoModal onShow={centeredModal} onHide={cardToggleModal} />
         </div >
     )
 }

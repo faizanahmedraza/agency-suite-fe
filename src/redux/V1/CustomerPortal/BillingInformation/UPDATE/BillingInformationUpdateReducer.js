@@ -20,7 +20,6 @@ const BillingInformationUpdateReducer = (
                 ...state,
                 loading: false,
                 success: true,
-                customer_billing_information: action.response.customer_billing_information,
             }
         case BILLING_INFORMATION.BILLING_INFORMATION_UPDATE_FAILED:
             return {
