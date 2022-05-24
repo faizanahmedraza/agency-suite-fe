@@ -63,6 +63,7 @@ const CustomerServiceRequests = lazy(() => import("@src/views/CustomerPortal/Ser
 const CustomerInvoices = lazy(() => import("@src/views/CustomerPortal/Invoice/Invoices"));
 const CustomerInvoiceDetail = lazy(() => import("@src/views/CustomerPortal/Invoice/InvoiceDetail"));
 const CreateCustomerServiceRequest = lazy(() => import("@src/views/CustomerPortal/ServiceRequest/CreateServiceRequest"));
+const CustomerBilling = lazy(() => import("@src/views/CustomerPortal/Billing/Billing"));
 const DetailCustomerServiceRequest = lazy(() => import("@src/views/CustomerPortal/ServiceRequest/DetailServiceRequest"));
 const DetailServiceRequest = lazy(() => import("@src/views/ServiceRequest/DetailServiceRequest"));
 const Error = lazy(() => import("@src/views/Error"));
@@ -220,7 +221,7 @@ const Routes = [
       customer_restricted: true
     },
   },
-  // Customer Request
+  // Customer Routes
   {
     path: "/customer-invoices",
     element: <CustomerInvoices />,
@@ -264,6 +265,15 @@ const Routes = [
       layout: "vertical",
       publicRoute: false,
       customer_restricted: false,
+    },
+  },
+  {
+    path: "/billing",
+    element: <CustomerBilling />,
+    meta: {
+      layout: "vertical",
+      publicRoute: false,
+      customer_restricted: false
     },
   },
   {
