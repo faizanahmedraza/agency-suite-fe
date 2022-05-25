@@ -14,7 +14,7 @@ import {
 import { useDispatch, useSelector } from '@store/store'
 import InvoiceDetailAction from "@store/V1/CustomerPortal/Invoice/Detail/InvoiceDetailAction"
 import BillingCardInfo from '@src/views/CustomerPortal/Billing/BillingCardInfo';
-import PaymentMethodAction from "@store/V1/CustomerPortal/BillingInformation/PAYMENT_METHOD/PaymentMethodAction";
+import InvoicePaidAction from "@store/V1/CustomerPortal/Invoice/InvoicePaid/InvoicePaidAction";
 
 const Loader = () => {
     return (
@@ -31,15 +31,16 @@ const InvoiceDetail = () => {
     const navigate = useNavigate();
 
     const {
-        customer_invoices: { detail: {
-            loading,
-            customer_invoice,
-            fetched
-        }
+        customer_invoices: {
+            detail: {
+                loading,
+                customer_invoice,
+                fetched
+            },
+            invoice_paid: {
+                loading: createLoading, isPaid
+            }
         },
-        customer_billing_information: {
-            payment_method: { loading: createLoading, isPaid }
-        }
     } = useSelector(state => state);
 
     const [invoiceDetails, setInvoiceDetails] = useState({
@@ -83,15 +84,15 @@ const InvoiceDetail = () => {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        dispatch(PaymentMethodAction.paymentMethod(invoicePaid));
+        dispatch(InvoicePaidAction.invoicePaid(invoicePaid));
     }
 
     useEffect(() => {
-        if(fetched || isPaid) dispatch(InvoiceDetailAction.invoiceDetail(id));
+        if (fetched || isPaid) dispatch(InvoiceDetailAction.invoiceDetail(id));
         if (fetched) {
             setInvoiceDetails(customer_invoice)
         }
-    }, [fetched,isPaid]);
+    }, [fetched, isPaid]);
 
     return (
         <div>
@@ -208,7 +209,7 @@ const InvoiceDetail = () => {
                                             <Label className='form-label fs-5' for='title'>
                                                 Intake Title
                                             </Label>
-                                            <Input type='text' value={invoiceDetails?.customer_service_request?.intake_form[0]?.title} name='title' id='title' placeholder='Enter Title' readOnly />
+                                            <Input type='text' value={invoiceDetails?.customer_service_request?.intake_form[0]?.title ? invoiceDetails?.customer_service_request?.intake_form[0]?.title : ""} name='title' id='title' placeholder='Enter Title' readOnly />
                                         </div>
                                     </Col>
                                     <Col md='12' sm='12'>
@@ -216,7 +217,7 @@ const InvoiceDetail = () => {
                                             <Label className='form-label fs-5' for='description'>
                                                 Intake Description
                                             </Label>
-                                            <Input type='textarea' value={invoiceDetails?.customer_service_request?.intake_form[0]?.description} name='description' id='description' placeholder='Enter Description' readOnly />
+                                            <Input type='textarea' value={invoiceDetails?.customer_service_request?.intake_form[0]?.description ? invoiceDetails?.customer_service_request?.intake_form[0]?.description : ""} name='description' id='description' placeholder='Enter Description' readOnly />
                                         </div>
                                     </Col>
                                     <Col md='12' sm='12' className='my-2'>

@@ -105,13 +105,13 @@ const Services = () => {
                                 : (
                                     <>
                                         <TabPane tabId='1'>
-                                            <ServiceTable services={services} pagination={pagination} />
+                                            <ServiceTable services={services} pagination={pagination} tabIndex={active}/>
                                         </TabPane>
                                         <TabPane tabId='2'>
-                                            <ServiceTable services={one_off_services} pagination={pagination} />
+                                            <ServiceTable services={one_off_services} pagination={pagination} tabIndex={active}/>
                                         </TabPane>
                                         <TabPane tabId='3'>
-                                            <ServiceTable services={subscription} pagination={pagination} />
+                                            <ServiceTable services={subscription} pagination={pagination} tabIndex={active}/>
                                         </TabPane>
                                     </>
                                 )

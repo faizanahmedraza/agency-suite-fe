@@ -4,28 +4,21 @@ import { formatDate } from '@utils'
 import { MoreVertical, Edit, Trash, Check, X } from 'react-feather'
 import { Link } from "react-router-dom"
 import ServiceDeleteActions from '@store/V1/Service/Delete/ServiceDeleteAction'
-import { useDispatch, useSelector } from "@store/store"     
+import { useDispatch, useSelector } from "@store/store"
 import ReactPaginate from 'react-paginate';
-import ServicePaginationAction from '@store/V1/Service/Pagination/ServicePaginationAction'
 import ServiceActions from '@store/V1/Service/List/ServiceListAction'
 import ServiceCatalogActions from '@store/V1/Service/Catalog Status/CatalogStatusAction'
 import ServiceStatusAction from '@store/V1/Service/ServiceStatus/ServiceStatusAction'
+import GeneralHelper from "@src/Helpers/GeneralHelper";
 
+const ServiceTable = ({ services, pagination, tabIndex }) => {
 
-const ServiceTable = ({ services, pagination }) => {
-
-    const [currentItems, setCurrentItems] = useState(null);
-    const [itemOffset, setItemOffset] = useState(0);
-    const [itemsPerPage, setItemsPerPage] = useState(pagination?.per_page);
-    const [pageCount, setPageCount] = useState(0);
-    // const [current_id, setCurrent_id] = useState(null);
+    const [currentItems, setCurrentItems] = useState([]);
+    const [offset, setOffset] = useState(pagination?.current_page === undefined ? 0 : pagination?.current_page - 1);
+    const [pageCount, setPageCount] = useState(pagination?.total_pages === undefined ? 0 : pagination?.total_pages);
 
     const {
-        pagination: {
-            services: newService,
-            loading,
-            isFetched
-        }
+        list: { services: newServices, pagination: newPagination, isFetched, loading },
     } = useSelector(state => state.service)
 
     const [serviceId, setServiceId] = useState(null)
@@ -42,21 +35,36 @@ const ServiceTable = ({ services, pagination }) => {
         setCenteredModal(!centeredModal)
     }
 
-    // useEffect(() => {
-    //     if (newService.length) return setCurrentItems(newService);
-    // }, [newService]);
-
     useEffect(() => {
-        const endOffset = itemOffset + itemsPerPage;
-        setCurrentItems(services.slice(itemOffset, endOffset));
-        setPageCount(Math.ceil(services.length / itemsPerPage));
-    }, [itemOffset, itemsPerPage]);
+        if (!isFetched) return setCurrentItems(services);
+        setCurrentItems(newServices);
+        setPageCount(newPagination.total_pages)
+        setOffset(newPagination.current_page - 1)
+    }, [offset]);
 
     const handlePageClick = (event) => {
-        const newOffset = (event.selected * itemsPerPage) % services.length;
-        setItemOffset(newOffset);
-        // const selected = event.selected + 1
-        // dispatch(ServicePaginationAction.servicePagination(selected))
+        const selectedPage = event.selected + 1;
+        if (tabIndex == 1) {
+            dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
+                page: selectedPage
+            })));
+        } else if (tabIndex == 2) {
+            dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
+                page: selectedPage,
+                catalog_status: "active"
+            })));
+        } else if (tabIndex == 3) {
+            dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
+                page: selectedPage,
+                service_type: "one-off"
+            })));
+        } else if (tabIndex == 4) {
+            dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
+                page: selectedPage,
+                service_type: "recurring"
+            })));
+        }
+        setOffset(event.selected)
     };
 
     const handleShowCatalogStatus = (e, id) => {
@@ -101,7 +109,7 @@ const ServiceTable = ({ services, pagination }) => {
                                             <td>{service.subscription_type !== "recurring" ? `$${service.price_types.price}` : "-"}</td>
                                             <td className='text-center'>
                                                 <div className='form-switch form-check-primary'>
-                                                    <Input type='switch'  onChange={(e) => handleShowCatalogStatus(e, service.id)} defaultChecked={service.catalog_status === "active"} id='icon-primary' name='icon-primary' />
+                                                    <Input type='switch' onChange={(e) => handleShowCatalogStatus(e, service.id)} defaultChecked={service.catalog_status === "active"} id='icon-primary' name='icon-primary' />
                                                 </div>
                                             </td>
                                             <td>{service.subscription_type}</td>
@@ -156,6 +164,7 @@ const ServiceTable = ({ services, pagination }) => {
                             nextClassName={'page-item'}
                             nextLinkClassName={'page-link'}
                             activeClassName={'active'}
+                            forcePage={offset}
                         />
                     </div>
                     : null

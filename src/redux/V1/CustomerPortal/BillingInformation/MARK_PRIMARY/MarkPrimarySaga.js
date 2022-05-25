@@ -1,17 +1,17 @@
 import { takeEvery, put } from "redux-saga/effects";
 import BILLING_INFORMATION from "@store/V1/CustomerPortal/BillingInformation/ActionType";
-import PaymentMethodAction from "@store/V1/CustomerPortal/BillingInformation/PAYMENT_METHOD/PaymentMethodAction";
+import MarkPrimaryAction from "@store/V1/CustomerPortal/BillingInformation/MARK_PRIMARY/MarkPrimaryAction";
 import BillingInformationService from "@src/Services/V1/CustomerPortal/BillingInformationService";
 import toast from 'react-hot-toast';
 
-function* paymentMethod(data) {
+function* markPrimary(data) {
   try {
-    const response = yield BillingInformationService.paymentMethodPut(data.request);
+    const response = yield BillingInformationService.markPrimaryPut(data.request);
     if (response.success) {
-      yield put(PaymentMethodAction.paymentMethodSuccess(response.data));
+      yield put(MarkPrimaryAction.markPrimarySuccess(response.data));
     } else {
       toast.error(response.error.message);
-      yield put(PaymentMethodAction.paymentMethodFailed(response.error));
+      yield put(MarkPrimaryAction.markPrimaryFailed(response.error));
     }
   } catch (error) {
     toast.error(
@@ -20,6 +20,6 @@ function* paymentMethod(data) {
   }
 }
 
-export function* PaymentMethodSaga() {
-  yield takeEvery(BILLING_INFORMATION.PAYMENT_METHOD, paymentMethod);
+export function* MarkPrimarySaga() {
+  yield takeEvery(BILLING_INFORMATION.MARK_PRIMARY, markPrimary);
 }

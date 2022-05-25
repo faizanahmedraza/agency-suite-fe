@@ -1,37 +1,37 @@
 import BILLING_INFORMATION from "@store/V1/CustomerPortal/BillingInformation/ActionType";
 
-const PaymentMethodReducer = (
+const MarkPrimaryReducer = (
   state = {
     loading: false,
     success: false,
     error: null,
-    isPaid: false
+    isPrimary: false
   },
   action
 ) => {
   switch (action.type) {
-    case BILLING_INFORMATION.PAYMENT_METHOD:
+    case BILLING_INFORMATION.MARK_PRIMARY:
       return {
         ...state,
         loading: true,
-        isPaid: false
+        isPrimary: false
       };
-    case BILLING_INFORMATION.PAYMENT_METHOD_SUCCESS:
+    case BILLING_INFORMATION.MARK_PRIMARY_SUCCESS:
       return {
         ...state,
         loading: false,
-        isPaid: true
+        isPrimary: true
       };
-    case BILLING_INFORMATION.PAYMENT_METHOD_FAILED:
+    case BILLING_INFORMATION.MARK_PRIMARY_FAILED:
       return {
          ...state,
           loading: false,
           error: action.response.message,
-          isPaid: false
+          isPrimary: false
       };
     default:
       return state;
   }
 };
 
-export default PaymentMethodReducer;
+export default MarkPrimaryReducer;

@@ -26,9 +26,9 @@ const CustomerList = (props) => {
   const dispatch = useDispatch();
   const [formModal, setFormModal] = useState(false);
   const [deleteCustomerId, setCustomerId] = useState();
-  const [Offset, setOffset] = useState(0);
   const [currentItems, setCurrentItems] = useState([]);
-  const [pageCount, setPageCount] = useState(props?.pagination?.total_pages);
+  const [offset, setOffset] = useState(props?.pagination?.current_page === undefined ? 0 : props?.pagination?.current_page - 1);
+  const [pageCount, setPageCount] = useState(props?.pagination?.total_pages === undefined ? 0 : props?.pagination?.total_pages);
 
   const customerDelete = (id) => {
     dispatch(CustomerDeleteAction.customerDelete(id));
@@ -42,7 +42,9 @@ const CustomerList = (props) => {
   useEffect(() => {
     if (!isFetched) return setCurrentItems(_data);
     setCurrentItems(customers);
-  }, [Offset]);
+    setPageCount(pagination.total_pages)
+    setOffset(pagination.current_page - 1)
+  }, [offset]);
 
   const handlePageClick = (event) => {
     const selectedPage = event.selected + 1;
@@ -73,6 +75,7 @@ const CustomerList = (props) => {
         )
       );
     }
+    setOffset(event.selected)
   };
 
   const handleCustomerStatus = (e, id) => {
@@ -99,8 +102,7 @@ const CustomerList = (props) => {
                   <td>
                     <Link to={`/customers/edit/${customer.id}`}>
                       <span className="align-middle fw-bold">
-                        {customer.first_name + " " + customer.last_name}{" "}
-                        {(key = key)}
+                        {customer.first_name + " " + customer.last_name}
                       </span>
                     </Link>
                   </td>
@@ -173,6 +175,7 @@ const CustomerList = (props) => {
           nextClassName={"page-item"}
           nextLinkClassName={"page-link"}
           activeClassName={"active"}
+          forcePage={offset}
         />
       </div>
       <div className="vertically-centered-modal">
