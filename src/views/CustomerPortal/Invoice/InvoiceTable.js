@@ -4,30 +4,46 @@ import {
     DropdownMenu,
     DropdownToggle,
     Table,
-  } from "reactstrap";
+} from "reactstrap";
 import { Link } from "react-router-dom"
 import ReactPaginate from 'react-paginate';
 import { formatDate } from '@utils'
+import { useDispatch, useSelector } from "@store/store"
+import InvoiceListAction from "@store/V1/CustomerPortal/Invoice/List/InvoiceListAction"
 import GeneralHelper from "@src/Helpers/GeneralHelper";
 import { MoreVertical, Edit, Trash } from "react-feather";
 
 const InvoiceTable = (props) => {
     const _data = props.data;
-    const [formModal, setFormModal] = useState(false);
-    const [currentItems, setCurrentItems] = useState(null);
-    const [pageCount, setPageCount] = useState(0);
-    const [itemOffset, setItemOffset] = useState(0);
-    const [itemsPerPage, setItemsPerPage] = useState(props?.pagination?.per_page);
+    const dispatch = useDispatch();
+    const [currentItems, setCurrentItems] = useState([]);
+    const [offset, setOffset] = useState(props?.pagination?.current_page === undefined ? 0 : props?.pagination?.current_page - 1);
+    const [pageCount, setPageCount] = useState(props?.pagination?.total_pages === undefined ? 0 : props?.pagination?.total_pages);
+
+    const {
+        list: {
+            loading,
+            invoices,
+            pagination,
+            isFetched
+        }
+    } = useSelector(state => state.customer_invoices);
 
     useEffect(() => {
-        const endOffset = itemOffset + itemsPerPage;
-        setCurrentItems(_data.slice(itemOffset, endOffset));
-        setPageCount(Math.ceil(_data.length / itemsPerPage));
-    }, [itemOffset, itemsPerPage]);
+        if (!isFetched) return setCurrentItems(_data);
+        setCurrentItems(invoices);
+        setPageCount(pagination.total_pages)
+        setOffset(pagination.current_page - 1)
+    }, [offset]);
 
     const handlePageClick = (event) => {
-        const newOffset = (event.selected * itemsPerPage) % _data.length;
-        setItemOffset(newOffset);
+        const selectedPage = event.selected + 1;
+        dispatch(InvoiceListAction.invoiceList(
+            GeneralHelper.Serialize({
+                page: selectedPage,
+            })
+        ))
+        setOffset(event.selected)
     };
 
     return (
@@ -93,6 +109,7 @@ const InvoiceTable = (props) => {
                             nextClassName={'page-item'}
                             nextLinkClassName={'page-link'}
                             activeClassName={'active'}
+                            forcePage={offset}
                         />
                     </div>
                     : null

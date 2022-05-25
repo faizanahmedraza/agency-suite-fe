@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "@store/store";
+import { useDispatch, useSelector } from "@store/store";
 import { Link } from "react-router-dom";
 import {
   UncontrolledDropdown,
@@ -17,6 +17,8 @@ import ReactPaginate from "react-paginate";
 import { MoreVertical, Edit } from "react-feather";
 import moment from "moment";
 import ServiceRequestStatusAction from "@store/V1/ServiceRequest/STATUS/ServiceRequestStatusAction";
+import ServiceRequestListAction from "@store/V1/ServiceRequest/LIST/ServiceRequestListAction";
+import GeneralHelper from "@src/Helpers/GeneralHelper";
 
 const ServiceRequestList = (props) => {
   const _data = props.data;
@@ -24,21 +26,39 @@ const ServiceRequestList = (props) => {
   const [centeredModal, setCenteredModal] = useState(false)
   const [serviceRequestId, setServiceRequestId] = useState()
   const [serviceRequestStatus, setServiceRequestStatus] = useState();
-  const [deleteCustomerId, setCustomerId] = useState();
-  const [currentItems, setCurrentItems] = useState(null);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(props?.pagination?.per_page);
+  const [currentItems, setCurrentItems] = useState([]);
+  const [offset, setOffset] = useState(props?.pagination?.current_page === undefined ? 0 : props?.pagination?.current_page - 1);
+  const [pageCount, setPageCount] = useState(props?.pagination?.total_pages === undefined ? 0 : props?.pagination?.total_pages);
+
+  const {
+    list: {
+      loading,
+      service_requests,
+      pagination,
+      isFetched
+    }
+  } = useSelector((state) => state.service_requests);
 
   useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(_data.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(_data.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
+    if (!isFetched) return setCurrentItems(_data);
+    setCurrentItems(service_requests);
+    setPageCount(pagination.total_pages)
+    setOffset(pagination.current_page - 1)
+  }, [offset]);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % _data.length;
-    setItemOffset(newOffset);
+    const selectedPage = event.selected + 1;
+    if (props?.tabIndex == 1) {
+      dispatch(ServiceRequestListAction.serviceRequestList(GeneralHelper.Serialize({
+        page: selectedPage,
+      })));
+    } else if (props?.tabIndex == 2) {
+      dispatch(ServiceRequestListAction.serviceRequestList(GeneralHelper.Serialize({
+        page: selectedPage,
+        status: "active"
+      })));
+    }
+    setOffset(event.selected)
   };
 
   const changeRequestServiceStatus = () => {
@@ -140,6 +160,7 @@ const ServiceRequestList = (props) => {
           nextClassName={"page-item"}
           nextLinkClassName={"page-link"}
           activeClassName={"active"}
+          forcePage={offset}
         />
       </div>
       <div className="vertically-centered-modal">

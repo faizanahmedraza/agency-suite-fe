@@ -5,29 +5,51 @@ import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "@store/store"
 import ReactPaginate from 'react-paginate';
 import GeneralHelper from "@src/Helpers/GeneralHelper";
+import ServiceActions from '@store/V1/CustomerPortal/Service/List/ServiceListAction'
 
-const ServiceTable = ({ services, pagination }) => {
+const ServiceTable = (props) => {
 
-    const [currentItems, setCurrentItems] = useState(null);
-    const [itemOffset, setItemOffset] = useState(0);
-    const [itemsPerPage, setItemsPerPage] = useState(pagination?.per_page);
-    const [pageCount, setPageCount] = useState(0);
+    const dispatch = useDispatch();
+    const [currentItems, setCurrentItems] = useState([]);
+    const [offset, setOffset] = useState(props?.pagination?.current_page === undefined ? 0 : props?.pagination?.current_page - 1);
+    const [pageCount, setPageCount] = useState(props?.pagination?.total_pages === undefined ? 0 : props?.pagination?.total_pages);
 
     const {
-        pagination: {
+        list: {
             loading,
-        }
+            services,
+            pagination,
+            isFetched
+        },
     } = useSelector(state => state.customer_services)
 
     useEffect(() => {
-        const endOffset = itemOffset + itemsPerPage;
-        setCurrentItems(services.slice(itemOffset, endOffset));
-        setPageCount(Math.ceil(services.length / itemsPerPage));
-    }, [itemOffset, itemsPerPage]);
+        if (!isFetched) return setCurrentItems(props.services);
+        setCurrentItems(services);
+        setPageCount(pagination.total_pages)
+        setOffset(pagination.current_page - 1)
+    }, [offset]);
 
     const handlePageClick = (event) => {
-        const newOffset = (event.selected * itemsPerPage) % services.length;
-        setItemOffset(newOffset);
+        const selectedPage = event.selected + 1;
+        if (props?.tabIndex == 1) {
+            dispatch(ServiceActions.serviceList(
+                GeneralHelper.Serialize({
+                    page: selectedPage,
+                })
+            ));
+        } else if (props?.tabIndex == 2) {
+            dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
+                page: selectedPage,
+                service_type: "one-off"
+            })));
+        } else if (props?.tabIndex == 3) {
+            dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
+                page: selectedPage,
+                service_type: "recurring"
+            })));
+        }
+        setOffset(event.selected)
     };
 
     return (
@@ -97,6 +119,7 @@ const ServiceTable = ({ services, pagination }) => {
                             nextClassName={'page-item'}
                             nextLinkClassName={'page-link'}
                             activeClassName={'active'}
+                            forcePage={offset}
                         />
                     </div>
                     : null

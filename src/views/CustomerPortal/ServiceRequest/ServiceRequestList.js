@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "@store/store";
 import { Link } from "react-router-dom";
 import {
   UncontrolledDropdown,
@@ -8,24 +9,45 @@ import {
 } from "reactstrap";
 import ReactPaginate from "react-paginate";
 import { MoreVertical, Edit } from "react-feather";
-import moment from "moment";
 
 const ServiceRequestList = (props) => {
   const _data = props.data;
-  const [currentItems, setCurrentItems] = useState(null);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(props?.pagination?.per_page);
+  const dispatch = useDispatch();
+  const [currentItems, setCurrentItems] = useState([]);
+  const [offset, setOffset] = useState(props?.pagination?.current_page === undefined ? 0 : props?.pagination?.current_page - 1);
+  const [pageCount, setPageCount] = useState(props?.pagination?.total_pages === undefined ? 0 : props?.pagination?.total_pages);
+
+  const {
+    list: {
+      loading,
+      service_requests,
+      pagination,
+      isFetched
+    }
+  } = useSelector(state => state.customer_service_requests);
 
   useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(_data.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(_data.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
+    if (!isFetched) return setCurrentItems(_data);
+    setCurrentItems(service_requests);
+    setPageCount(pagination.total_pages)
+    setOffset(pagination.current_page - 1)
+  }, [offset]);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % _data.length;
-    setItemOffset(newOffset);
+    const selectedPage = event.selected + 1;
+    if (props?.tabIndex == 1) {
+      dispatch(ServiceRequestListAction.serviceRequestList(
+        GeneralHelper.Serialize({
+          page: selectedPage,
+        })
+      ));
+    } else if (props?.tabIndex == 2) {
+      dispatch(ServiceRequestListAction.serviceRequestList(GeneralHelper.Serialize({
+        page: selectedPage,
+        status: "active"
+      })));
+    }
+    setOffset(event.selected)
   };
 
   return (
@@ -52,9 +74,9 @@ const ServiceRequestList = (props) => {
                     </Link>
                   </td>
                   <td className='text-left'>
-                  <span className="align-middle fw-bold">
-                        {request.status}
-                      </span>
+                    <span className="align-middle fw-bold">
+                      {request.status}
+                    </span>
                   </td>
                   <td>{request.status ? 'Yes' : 'No'}</td>
                   <td>
@@ -102,6 +124,7 @@ const ServiceRequestList = (props) => {
           nextClassName={"page-item"}
           nextLinkClassName={"page-link"}
           activeClassName={"active"}
+          forcePage={offset}
         />
       </div>
     </React.Fragment>

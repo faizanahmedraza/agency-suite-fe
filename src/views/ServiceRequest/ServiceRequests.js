@@ -43,7 +43,7 @@ const ServiceRequests = () => {
       return service.status == "active";
     });
 
-    return <ServiceRequestList data={activeRequests} pagination={pagination} />;
+    return <ServiceRequestList data={activeRequests} pagination={pagination} tabIndex={active}/>;
   }
 
   useEffect(() => {
@@ -109,7 +109,7 @@ const ServiceRequests = () => {
             ) : (
                 <>
                   <TabPane tabId="1">
-                  <ServiceRequestList data={service_requests} pagination={pagination} />
+                  <ServiceRequestList data={service_requests} pagination={pagination} tabIndex={active}/>
                   </TabPane>
                   <TabPane tabId="2">
                     {service_requests && activeRequests(service_requests)}
