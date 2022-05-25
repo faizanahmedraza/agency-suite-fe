@@ -34,7 +34,7 @@ const Services = () => {
             isChanged
         },
         service_status: {
-            isChanged: isChangedService
+            isChanged: isServiceStatusChanged
         }
     } = useSelector(state => state.service)
 
@@ -64,8 +64,8 @@ const Services = () => {
     }
 
     useEffect(() => {
-        if (!services.length || isDeleted || isChanged || isChangedService) return dispatch(ServiceActions.serviceList())
-    }, [isDeleted, isChanged, isChangedService])
+        dispatch(ServiceActions.serviceList())
+    }, [isDeleted, isChanged, isServiceStatusChanged])
 
     return (
         <div>

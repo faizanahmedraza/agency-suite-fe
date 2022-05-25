@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from '@store/store'
 import {
     Row,
@@ -15,9 +15,9 @@ import {
 } from 'reactstrap'
 import BillingInformationCreateAction from "@store/V1/CustomerPortal/BillingInformation/CREATE/BillingInformationCreateAction";
 
-const CardInfoModal = (props) => {   
+const CardInfoModal = (props) => {
     const dispatch = useDispatch();
-    const [billingInfoDetail, setBillingInfoDetails] = useState({
+    const billingInformation = {
         holder_name: "",
         card_no: "",
         cvc: "",
@@ -29,10 +29,11 @@ const CardInfoModal = (props) => {
         state: "",
         zip_code: "",
         street: "",
-    });
+    }
+    const [billingInfoDetail, setBillingInfoDetails] = useState(billingInformation);
 
     const {
-        customer_billing_information: { create: { loading: createBillingInfoLoading } }
+        customer_billing_information: { create: { loading: createBillingInfoLoading, success } }
     } = useSelector(state => state);
 
     const handleBillingInfoInputField = (e) => {
@@ -42,6 +43,13 @@ const CardInfoModal = (props) => {
         })
     }
 
+    useEffect(() => {
+        if (success) {
+            props.onHide();
+            setBillingInfoDetails(billingInformation);
+        }
+    }, [success])
+
     const onSubmitBillingHandler = (e) => {
         e.preventDefault();
         dispatch(BillingInformationCreateAction.billingInformationCreate(billingInfoDetail));
@@ -50,7 +58,7 @@ const CardInfoModal = (props) => {
     return (
         <div className='vertically-centered-modal'>
             <Modal isOpen={props.onShow} toggle={props.onHide} className='modal-dialog-centered'>
-                <ModalHeader toggle={ props.onHide}>Your Billing Information</ModalHeader>
+                <ModalHeader toggle={props.onHide}>Your Billing Information</ModalHeader>
                 <Form onSubmit={onSubmitBillingHandler}>
                     <ModalBody>
                         <Row>

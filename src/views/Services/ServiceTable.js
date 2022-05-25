@@ -13,7 +13,7 @@ import GeneralHelper from "@src/Helpers/GeneralHelper";
 
 const ServiceTable = ({ services, pagination, tabIndex }) => {
 
-    const [currentItems, setCurrentItems] = useState([]);
+    const [currentItems, setCurrentItems] = useState(services.length > 0 ? services : []);
     const [offset, setOffset] = useState(pagination?.current_page === undefined ? 0 : pagination?.current_page - 1);
     const [pageCount, setPageCount] = useState(pagination?.total_pages === undefined ? 0 : pagination?.total_pages);
 
@@ -109,13 +109,13 @@ const ServiceTable = ({ services, pagination, tabIndex }) => {
                                             <td>{service.subscription_type !== "recurring" ? `$${service.price_types.price}` : "-"}</td>
                                             <td className='text-center'>
                                                 <div className='form-switch form-check-primary'>
-                                                    <Input type='switch' onChange={(e) => handleShowCatalogStatus(e, service.id)} defaultChecked={service.catalog_status === "active"} id='icon-primary' name='icon-primary' />
+                                                    <Input type='switch' onChange={e => handleShowCatalogStatus(e, service.id)} defaultChecked={service.catalog_status === "active"} id='icon-primary' name='icon-primary' />
                                                 </div>
                                             </td>
                                             <td>{service.subscription_type}</td>
                                             <td className='text-center'>
                                                 <div className='form-switch form-check-primary'>
-                                                    <Input type='switch' className='' onChange={(e) => handleShowServiceStatus(e, service.id)} defaultChecked={service.status === "active"} id='icon-secondnary' name='icon-status' />
+                                                    <Input type='switch' onChange={e => handleShowServiceStatus(e, service.id)} defaultChecked={service.status === "active"} id='icon-secondnary' name='icon-status' />
                                                 </div>
                                             </td>
                                             <td>
