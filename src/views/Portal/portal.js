@@ -96,7 +96,7 @@ const Portal = () => {
                                                         onChange={handleNestedObject}
                                                         name="name"
                                                         id="name"
-                                                        value={portalSetting.agency.name}
+                                                        value={portalSetting?.agency?.name}
                                                     />
                                                 </div>
                                                 <div className="mb-1">
