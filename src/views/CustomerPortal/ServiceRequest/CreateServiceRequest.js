@@ -17,14 +17,7 @@ import ServiceRequestCreateAction from "@store/V1/CustomerPortal/ServiceRequest/
 import ServiceActions from "@store/V1/CustomerPortal/Service/Detail/ServiceDetailAction";
 import BillingInformationListAction from "@store/V1/CustomerPortal/BillingInformation/LIST/BillingInformationListAction";
 import CardInfoModal from '@src/views/CustomerPortal/Billing/CardInfoModal';
-
-const Loader = () => {
-    return (
-        <div className="text-center">
-            <strong>Loading...</strong>
-        </div>
-    );
-};
+import Loader from '@src/views/GrowLoader';
 
 const CreateServiceRequest = () => {
 
@@ -197,15 +190,7 @@ const CreateServiceRequest = () => {
                                                 </Label>
                                                 <Input type='textarea' value={serviceRequestDetails.description} onChange={handleServiceRequestInputField} name='description' id='description' placeholder='Enter Description' />
                                             </div>
-                                        </Col>
-                                        <Col md='12' sm='12'>
-                                            <div className='mb-1'>
-                                                <Label className='form-label' for='reference_no'>
-                                                    Reference Number
-                                                </Label>
-                                                <Input type='number' value={serviceRequestDetails.reference_no} onChange={handleServiceRequestInputField} name='reference_no' id='reference_no' placeholder='Enter Reference Number' />
-                                            </div>
-                                        </Col>
+                                        </Col>                                    
                                         <Col md='12' sm='12'>
                                             <div className='d-flex justify-content-between'>
                                                 <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
