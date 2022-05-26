@@ -54,7 +54,7 @@ const Customers = () => {
   }
 
   useEffect(() => {
-    if (!customers.length || isChanged) return dispatch(CustomerListAction.customerList());
+    dispatch(CustomerListAction.customerList());
   }, [isChanged])
 
   const toggle = (tab) => {

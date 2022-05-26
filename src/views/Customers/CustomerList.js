@@ -112,7 +112,7 @@ const CustomerList = (props) => {
                       <Input
                         type="switch"
                         className="w-full"
-                        onChange={(e) => handleCustomerStatus(e, customer.id)}
+                        onChange={e => handleCustomerStatus(e, customer.id)}
                         defaultChecked={customer.status === "active"}
                         id="icon-primary"
                         name="icon-primary"

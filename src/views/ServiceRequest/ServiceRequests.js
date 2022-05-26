@@ -43,11 +43,11 @@ const ServiceRequests = () => {
       return service.status == "active";
     });
 
-    return <ServiceRequestList data={activeRequests} pagination={pagination} tabIndex={active}/>;
+    return <ServiceRequestList data={activeRequests} pagination={pagination} tabIndex={active} />;
   }
 
   useEffect(() => {
-    if (!service_requests.length || isChanged) return dispatch(ServiceRequestListAction.serviceRequestList());
+    dispatch(ServiceRequestListAction.serviceRequestList());
   }, [isChanged])
 
   const toggle = (tab) => {
@@ -90,7 +90,7 @@ const ServiceRequests = () => {
                 }}
               >
                 All
-                    </NavLink>
+              </NavLink>
             </NavItem>
             <NavItem>
               <NavLink
@@ -100,22 +100,22 @@ const ServiceRequests = () => {
                 }}
               >
                 Active
-                    </NavLink>
+              </NavLink>
             </NavItem>
           </Nav>
           <TabContent className='py-50' activeTab={active}>
-          {loading ? (
+            {loading ? (
               <Loader />
             ) : (
-                <>
-                  <TabPane tabId="1">
-                  <ServiceRequestList data={service_requests} pagination={pagination} tabIndex={active}/>
-                  </TabPane>
-                  <TabPane tabId="2">
-                    {service_requests && activeRequests(service_requests)}
-                  </TabPane>
-                </>
-              )}
+              <>
+                <TabPane tabId="1">
+                  <ServiceRequestList data={service_requests} pagination={pagination} tabIndex={active} />
+                </TabPane>
+                <TabPane tabId="2">
+                  {service_requests && activeRequests(service_requests)}
+                </TabPane>
+              </>
+            )}
           </TabContent>
         </CardBody>
       </Card>
