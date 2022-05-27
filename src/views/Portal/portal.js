@@ -33,7 +33,7 @@ const Portal = () => {
     const dispatch = useDispatch();
     const {
         detail: { portal_settings, fetched, loading },
-        update: { loading: updateLoading, isChanged , portal_settings : updatedPortalSettings },
+        update: { loading: updateLoading, isChanged, portal_settings: updatedPortalSettings },
     } = useSelector((state) => state.portal_settings);
 
     const handleInputField = async (e) => {
@@ -58,7 +58,7 @@ const Portal = () => {
         dispatch(PortalSettingDetailAction.portalSettingDetail());
         if (fetched && !isChanged) return setPortalSetting(portal_settings);
         setPortalSetting(updatedPortalSettings)
-    }, [fetched,isChanged]);
+    }, [fetched, isChanged]);
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
@@ -139,14 +139,13 @@ const Portal = () => {
                                                     </Label>
                                                     <Row>
                                                         <Col md="6">
-                                                            <div>
+                                                            <div >
                                                                 <img
                                                                     src={
                                                                         portalSetting.logo ||
                                                                         "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
                                                                     }
-                                                                    width="100%"
-                                                                    height="70"
+                                                                    className="image-box"
                                                                     alt="service image"
                                                                 />
                                                             </div>
@@ -168,14 +167,13 @@ const Portal = () => {
                                                     </Label>
                                                     <Row>
                                                         <Col md="6">
-                                                            <div>
+                                                            <div >
                                                                 <img
                                                                     src={
                                                                         portalSetting.favicon ||
                                                                         "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
                                                                     }
-                                                                    width="100%"
-                                                                    height="70"
+                                                                    className="image-box"
                                                                     alt="service image"
                                                                 />
                                                             </div>

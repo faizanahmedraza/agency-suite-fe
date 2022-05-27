@@ -99,17 +99,8 @@ const InvoiceTable = (props) => {
                                     </div>
                                 </td>
                                 <td>{formatDate(invoice?.created_at)}</td>
-                                <td>
-                                    <UncontrolledDropdown>
-                                        <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                            <MoreVertical size={15} />
-                                        </DropdownToggle>
-                                        <DropdownMenu>
-                                            <div className='dropdown-item' onClick={() => getInvoiceInfo(invoice.id)} >
-                                                <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
-                                            </div>
-                                        </DropdownMenu>
-                                    </UncontrolledDropdown>
+                                <td className='text-center'>
+                                    <Trash className='me-50' size={20} />
                                 </td>
                             </tr>
                         )

@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "@store/store";
 import { Link } from "react-router-dom";
-import {
-  UncontrolledDropdown,
-  DropdownMenu,
-  DropdownToggle,
-  Table,
-} from "reactstrap";
+import { Table } from "reactstrap";
 import ReactPaginate from "react-paginate";
-import { MoreVertical, Edit } from "react-feather";
+import { Edit } from "react-feather";
 
 const ServiceRequestList = (props) => {
   const _data = props.data;
@@ -19,7 +14,6 @@ const ServiceRequestList = (props) => {
 
   const {
     list: {
-      loading,
       service_requests,
       pagination,
       isFetched
@@ -52,59 +46,53 @@ const ServiceRequestList = (props) => {
 
   return (
     <React.Fragment>
-      <Table bordered responsive>
-        <thead>
-          <tr>
-            <th>SERVICE NAME</th>
-            <th>STATUS</th>
-            <th>IS RECURRING</th>
-            <th>ACTIONS</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentItems &&
-            currentItems.map((request) => {
-              return (
-                <tr key={request.id}>
-                  <td>
-                    <Link to={`/customer-service-requests/detail/${request.id}`}>
-                      <span className="align-middle fw-bold">
-                        {request?.service_name}
-                      </span>
-                    </Link>
-                  </td>
-                  <td className='text-left'>
-                    <span className="align-middle fw-bold">
-                      {request.status}
-                    </span>
-                  </td>
-                  <td>{request.status ? 'Yes' : 'No'}</td>
-                  <td>
-                    <UncontrolledDropdown>
-                      <DropdownToggle
-                        className="icon-btn hide-arrow"
-                        color="transparent"
-                        size="sm"
-                        caret
-                      >
-                        <MoreVertical size={15} />
-                      </DropdownToggle>
-                      <DropdownMenu>
+      {
+        currentItems.length ?
+
+          <Table bordered responsive>
+            <thead>
+              <tr>
+                <th>SERVICE NAME</th>
+                <th>STATUS</th>
+                <th>IS RECURRING</th>
+                <th>ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentItems &&
+                currentItems.map((request) => {
+                  return (
+                    <tr key={request.id}>
+                      <td>
+                        <Link to={`/customer-service-requests/detail/${request.id}`}>
+                          <span className="align-middle fw-bold">
+                            {request?.service_name}
+                          </span>
+                        </Link>
+                      </td>
+                      <td className='text-left'>
+                        <span className="align-middle fw-bold">
+                          {request.status}
+                        </span>
+                      </td>
+                      <td>{request.status ? 'Yes' : 'No'}</td>
+                      <td>
                         <Link
-                          className="dropdown-item"
                           to={`/customer-service-requests/detail/${request.id}`}
                         >
-                          <Edit className="me-50" size={15} />
-                          <span className="align-middle">Detail</span>
+                          <Edit className="me-50" size={20} />
                         </Link>
-                      </DropdownMenu>
-                    </UncontrolledDropdown>
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </Table>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </Table>
+          :
+          <div className="text-center">
+            <strong >No Items Found !</strong>
+          </div>
+      }
       <div className="d-flex justify-content-end pt-1">
         <ReactPaginate
           breakLabel="..."

@@ -18,7 +18,7 @@ import themeConfig from './configs/themeConfig'
 import { Toaster } from 'react-hot-toast'
 
 // ** Spinner (Splash Screen)
-import Spinner from './@core/components/spinner/Fallback-spinner'
+import Loader from "@src/Components/LoaderComponent"
 
 // ** Ripple Button
 import './@core/components/ripple-button'
@@ -47,7 +47,7 @@ const LazyApp = lazy(() => import('./App'))
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<Loader />}>
         <ThemeContext>
           <LazyApp />
           <Toaster position={themeConfig.layout.toastPosition} toastOptions={{ className: 'react-hot-toast' }} />

@@ -16,6 +16,7 @@ import {
 import { convertBase64 } from "@utils";
 import ProfileSettingDetailAction from "@store/V1/ProfileSetting/DETAIL/ProfileSettingDetailAction";
 import ProfileSettingUpdateAction from "@store/V1/ProfileSetting/UPDATE/ProfileSettingUpdateAction";
+import defaultAvatar from '@src/assets/images/portrait/small/avatar-s-27.png'
 
 const Profile = () => {
 
@@ -42,6 +43,8 @@ const Profile = () => {
     })
 
   }
+
+  console.log(profileSetting.image)
 
   useEffect(() => {
     dispatch(ProfileSettingDetailAction.profileSettingDetail());
@@ -107,12 +110,12 @@ const Profile = () => {
                         <Col md="2">
                           <div className='mt-0'>
                             <img className='rounded-circle' src={
-                              profileSetting?.image || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
+                              profileSetting?.image || defaultAvatar
                             } width="60px" alt="service image" />
                           </div>
                         </Col>
                         <Col md="8" className='pt-1' >
-                          <Input type='file' onChange={handleInputField} accept="image/*" name='image' id='nameMulti' />
+                          <Input type='file' onChange={handleInputField} accept=".png, .jpg, .jpeg" name='image' id='nameMulti' />
                         </Col>
                       </Row>
                     </div>

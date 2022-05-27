@@ -115,26 +115,12 @@ const ServiceRequestList = (props) => {
                     </Input>
                   </td>
                   <td>{moment(request.created_at).format('YYYY-MM-DD')}</td>
-                  <td>
-                    <UncontrolledDropdown>
-                      <DropdownToggle
-                        className="icon-btn hide-arrow"
-                        color="transparent"
-                        size="sm"
-                        caret
-                      >
-                        <MoreVertical size={15} />
-                      </DropdownToggle>
-                      <DropdownMenu>
-                        <Link
-                          className="dropdown-item"
-                          to={`/service-requests/detail/${request.id}`}
-                        >
-                          <Edit className="me-50" size={15} />{" "}
-                          <span className="align-middle">Detail</span>
-                        </Link>
-                      </DropdownMenu>
-                    </UncontrolledDropdown>
+                  <td className="text-center">
+                    <Link
+                      to={`/service-requests/detail/${request.id}`}
+                    >
+                      <Edit className="me-50" size={20} />
+                    </Link>
                   </td>
                 </tr>
               );

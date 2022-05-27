@@ -48,46 +48,47 @@ const InvoiceTable = (props) => {
 
     return (
         <div>
-            <Table bordered responsive>
-                <thead>
-                    <tr>
-                        <th>INVOICE NUMBER</th>
-                        <th>SERVICE</th>
-                        <th>AMOUNT</th>
-                        <th>IS PAID</th>
-                        <th>CREATED AT</th>
-                        <th>ACTIONS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {currentItems && currentItems.map((invoice) => {
-                        return (
-                            <tr key={invoice.id}>
-                                <td>{invoice?.invoice_number}</td>
-                                <td>
-                                    <span className='align-middle fw-bold'>{GeneralHelper.PascalCase(invoice?.customer_service_request?.service?.name)}</span>
-                                </td>
-                                <td>{invoice?.amount}</td>
-                                <td>{invoice?.is_paid ? 'Yes' : 'No'}</td>
-                                <td>{formatDate(invoice?.created_at)}</td>
-                                <td>
-                                    <UncontrolledDropdown>
-                                        <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                            <MoreVertical size={15} />
-                                        </DropdownToggle>
-                                        <DropdownMenu>
-                                            <Link className='dropdown-item' to={`/customer-invoices/detail/${invoice.id}`}>
-                                                <Edit className='me-50' size={15} /> <span className='align-middle'>Detail</span>
-                                            </Link>
-                                        </DropdownMenu>
-                                    </UncontrolledDropdown>
-                                </td>
+            {
+                currentItems.length ?
+
+                    <Table bordered responsive>
+                        <thead>
+                            <tr>
+                                <th>INVOICE NUMBER</th>
+                                <th>SERVICE</th>
+                                <th>AMOUNT</th>
+                                <th>IS PAID</th>
+                                <th>CREATED AT</th>
+                                <th>ACTIONS</th>
                             </tr>
-                        )
-                    })
-                    }
-                </tbody>
-            </Table>
+                        </thead>
+                        <tbody>
+                            {currentItems && currentItems.map((invoice) => {
+                                return (
+                                    <tr key={invoice.id}>
+                                        <td>{invoice?.invoice_number}</td>
+                                        <td>
+                                            <span className='align-middle fw-bold'>{GeneralHelper.PascalCase(invoice?.customer_service_request?.service?.name)}</span>
+                                        </td>
+                                        <td>{invoice?.amount}</td>
+                                        <td>{invoice?.is_paid ? 'Yes' : 'No'}</td>
+                                        <td>{formatDate(invoice?.created_at)}</td>
+                                        <td className='text-center'>
+                                            <Link to={`/customer-invoices/detail/${invoice.id}`}>
+                                                <Edit className='me-50' size={20} />
+                                            </Link>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                            }
+                        </tbody>
+                    </Table>
+                    :
+                    <div className="text-center">
+                        <strong >No Items Found !</strong>
+                    </div>
+            }
             {
                 props.pagination ?
                     <div className='d-flex justify-content-end pt-1'>
