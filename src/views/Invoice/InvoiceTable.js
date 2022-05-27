@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import {
-    UncontrolledDropdown,
-    DropdownMenu,
-    DropdownToggle,
     Table,
     Modal,
     ModalHeader,
@@ -11,11 +8,12 @@ import {
     Button,
     Input
 } from "reactstrap";
+import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "@store/store"
 import ReactPaginate from 'react-paginate';
 import { formatDate } from '@utils'
 import GeneralHelper from "@src/Helpers/GeneralHelper";
-import { MoreVertical, Trash } from "react-feather";
+import { Trash, Eye } from "react-feather";
 import InvoiceDeleteAction from "@store/V1/Invoice/Delete/InvoiceDeleteAction"
 import InvoiceStatusAction from "@store/V1/Invoice/Status/InvoiceStatusAction"
 import InvoiceListAction from "@store/V1/Invoice/List/InvoiceListAction"
@@ -100,6 +98,9 @@ const InvoiceTable = (props) => {
                                 </td>
                                 <td>{formatDate(invoice?.created_at)}</td>
                                 <td className='text-center'>
+                                    <Link to={`/invoice/detail/${invoice.id}`}>
+                                        <Eye className='me-50' size={20} />
+                                    </Link>
                                     <Trash className='me-50' size={20} />
                                 </td>
                             </tr>

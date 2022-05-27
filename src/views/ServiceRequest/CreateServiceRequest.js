@@ -49,10 +49,10 @@ const CreateServiceRequest = () => {
     useEffect(() => {
         dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
             catalog_status: "active",
-            status: "active"
+            status: "active,pending"
           })));
         dispatch(CustomerListAction.customerList(GeneralHelper.Serialize({
-            status: "active"
+            status: "active,pending"
           })));
         loadDefaultOptions();
     }, []);
@@ -107,7 +107,7 @@ const CreateServiceRequest = () => {
         if (inputValue.length > 2 && inputValue.trim()) {
             const response = await CustomerService.customerList(GeneralHelper.Serialize({
                 full_name: inputValue,
-                status: "active"
+                status: "active,pending"
             }));
             return response.data.customers;
         }
@@ -118,7 +118,7 @@ const CreateServiceRequest = () => {
             const response = await AgencyService.serviceList(GeneralHelper.Serialize({
                 name: inputValue,
                 catalog_status: "active",
-                status: "active"
+                status: "active,pending"
             }));
             return response.data.services;
         }

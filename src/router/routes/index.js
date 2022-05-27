@@ -42,6 +42,7 @@ const UpdateCustomer = lazy(() =>
 );
 const Portal = lazy(() => import("@src/views/Portal/portal"));
 const Invoice = lazy(() => import("@src/views/Invoice/invoice"));
+const InvoiceDetail = lazy(() => import("@src/views/Invoice/InvoiceDetail"));
 const CreateInvoice = lazy(() => import("@src/views/Invoice/Create Invoice"));
 const CreateServices = lazy(() =>
   import("@src/views/Services/Create Service/createService")
@@ -187,12 +188,12 @@ const Routes = [
     },
   },
   {
-    path: "/invoice/edit/:id",
-    element: <CreateInvoice />,
+    path: "/invoice/detail/:id",
+    element: <InvoiceDetail />,
     meta: {
       layout: "vertical",
       publicRoute: false,
-      customer_restricted: false
+      customer_restricted: true
     },
   },
   {
@@ -362,6 +363,8 @@ const Routes = [
     element: <Catalog />,
     meta: {
       layout: "blank",
+      publicRoute: true,
+      restricted: false
     },
   }
 ];

@@ -7,8 +7,9 @@ const catalog = () => {
 
     const dispatch = useDispatch()
 
-    const { public : {
-        services
+    const { public: {
+        services,
+        loading
     } } = useSelector(state => state.service)
 
     useEffect(() => {
@@ -17,7 +18,14 @@ const catalog = () => {
 
     return (
         <div>
-            <CardComponent services={services} />
+            {
+                loading ?
+                    <div className='text-center mt-5'>
+                        <strong>Loading...</strong>
+                    </div>
+                    :
+                    <CardComponent services={services} />
+            }
         </div>
     )
 }

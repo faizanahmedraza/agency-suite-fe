@@ -8,9 +8,8 @@ import {
     CardTitle,
     Button
 } from 'reactstrap'
-// ** Images
-// import img1 from ''
-// import img2 from '@src/assets/images/slider/02.jpg'
+import { Link } from "react-router-dom"
+
 const CardContentTypes = ({ services }) => {
     return (
         <Fragment>
@@ -24,10 +23,11 @@ const CardContentTypes = ({ services }) => {
                     {
                         services && services.map((service) => {
                             console.log(service)
+                            const image = service.image ? service.image : "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
                             return (
                                 <div className="col-4" key={service.id}>
                                     <Card>
-                                        <img top src={service.image} alt={service.name} />
+                                        <img top src={image} alt={service.name} />
                                         <CardBody>
                                             <CardTitle tag='h4'>{service.name}</CardTitle>
                                             <CardText>
@@ -36,9 +36,11 @@ const CardContentTypes = ({ services }) => {
                                             <CardText>
                                                 {service.description}
                                             </CardText>
-                                            <Button color='primary' outline>
-                                                Go Somewhere
-                                            </Button>
+                                            <Link to="/login">
+                                                <Button color='primary' outline>
+                                                    Purchase
+                                                </Button>
+                                            </Link>
                                         </CardBody>
                                     </Card>
                                 </div>
