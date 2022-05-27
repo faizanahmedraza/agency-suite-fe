@@ -11,7 +11,7 @@ import { formatDate } from '@utils'
 import { useDispatch, useSelector } from "@store/store"
 import InvoiceListAction from "@store/V1/CustomerPortal/Invoice/List/InvoiceListAction"
 import GeneralHelper from "@src/Helpers/GeneralHelper";
-import { MoreVertical, Edit, Trash } from "react-feather";
+import { Eye } from "react-feather";
 
 const InvoiceTable = (props) => {
     const _data = props.data;
@@ -75,7 +75,7 @@ const InvoiceTable = (props) => {
                                         <td>{formatDate(invoice?.created_at)}</td>
                                         <td className='text-center'>
                                             <Link to={`/customer-invoices/detail/${invoice.id}`}>
-                                                <Edit className='me-50' size={20} />
+                                                <Eye className='me-50' size={20} />
                                             </Link>
                                         </td>
                                     </tr>

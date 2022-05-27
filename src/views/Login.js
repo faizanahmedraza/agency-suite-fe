@@ -173,6 +173,7 @@ const LoginCover = () => {
                       onChange={handleInputChange}
                       placeholder="Enter Your Email"
                       autoFocus
+                      tabIndex="1"
                     />
                   </div>
                   <div className="mb-1">
@@ -190,9 +191,10 @@ const LoginCover = () => {
                       name="password"
                       onChange={handleInputChange}
                       id="login-password"
+                      tabIndex="2"
                     />
                   </div>
-                  <Button color="primary" block disabled={loading}>
+                  <Button color="primary" block disabled={loading} tabIndex="3">
                     {loading ? (
                       <>
                         <Spinner color="white" size="sm" type="grow" />
@@ -205,12 +207,12 @@ const LoginCover = () => {
                 </Form>
                 <p className="text-center mt-2">
                   <span className="me-25">New on our platform?</span>
-                  <Link to="/register">
+                  <Link to="/customers/register" tabIndex="4">
                     <span>Create an account</span>
                   </Link>
                 </p>
                 <p className='text-center mt-2'>
-                <Link to='/catalog'>
+                <Link to='/catalog' tabIndex="5">
                   <span className='align-middle'>Go to Catalogue</span>
                   <ChevronRight className='rotate-rtl me-25' size={14} />
                 </Link>

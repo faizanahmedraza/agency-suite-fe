@@ -15,14 +15,8 @@ import { useDispatch, useSelector } from '@store/store'
 import InvoiceDetailAction from "@store/V1/CustomerPortal/Invoice/Detail/InvoiceDetailAction"
 import BillingCardInfo from '@src/views/CustomerPortal/Billing/BillingCardInfo';
 import InvoicePaidAction from "@store/V1/CustomerPortal/Invoice/InvoicePaid/InvoicePaidAction";
-
-const Loader = () => {
-    return (
-        <div className="text-center">
-            <strong>Loading...</strong>
-        </div>
-    );
-};
+import BillingInformationListAction from "@store/V1/CustomerPortal/BillingInformation/LIST/BillingInformationListAction";
+import Loader from '@src/views/GrowLoader';
 
 const InvoiceDetail = () => {
 
@@ -41,6 +35,9 @@ const InvoiceDetail = () => {
                 loading: createLoading, isPaid
             }
         },
+        customer_billing_information: {
+            list: { customer_billing_information }
+        }
     } = useSelector(state => state);
 
     const [invoiceDetails, setInvoiceDetails] = useState({
@@ -70,6 +67,8 @@ const InvoiceDetail = () => {
         amount: "",
     });
 
+    console.log(invoiceDetails)
+
     const [invoicePaid, setInvoicePaid] = useState({
         card_id: "",
         invoice_id: id
@@ -82,18 +81,20 @@ const InvoiceDetail = () => {
         })
     }
 
+    
     const onSubmitHandler = (e) => {
         e.preventDefault();
         dispatch(InvoicePaidAction.invoicePaid(invoicePaid));
     }
 
     useEffect(() => {
-        if (fetched || isPaid) dispatch(InvoiceDetailAction.invoiceDetail(id));
-        if (fetched) {
+        dispatch(InvoiceDetailAction.invoiceDetail(id));
+        if (fetched || isPaid) {
+            console.log("chala")
             setInvoiceDetails(customer_invoice)
         }
     }, [fetched, isPaid]);
-
+    
     return (
         <div>
             <Card>
@@ -223,7 +224,7 @@ const InvoiceDetail = () => {
                                     <Col md='12' sm='12' className='my-2'>
                                         <Form onSubmit={onSubmitHandler}>
                                             <div className='d-flex justify-content-between align-items-center'>
-                                                <BillingCardInfo cardId={invoicePaid.card_id} onChangeField={handleInvoicePaidField} />
+                                                <BillingCardInfo cardId={invoicePaid.card_id} invoicePaid={invoicePaid} setInvoicePaid={setInvoicePaid}  onChangeField={handleInvoicePaidField} />
                                                 {!invoiceDetails.is_paid ?
                                                     <Button color='primary' className='btn-sm py-1 px-3 mt-2' type='submit' disabled={createLoading}>
                                                         {

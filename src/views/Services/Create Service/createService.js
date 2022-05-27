@@ -298,7 +298,6 @@ const CreateService = () => {
                                                                     <small>( Leave empty if you allow unlimited concurrent requests for this subscription. )</small>
                                                                 </Label>
                                                                 <InputGroup className='input-group-merge mb-2'>
-                                                                    <InputGroupText>$</InputGroupText>
                                                                     <Input value={serviceDetails.max_concurrent_requests} placeholder='0.00' name="max_concurrent_requests" onChange={handleInputField} />
                                                                 </InputGroup>
                                                             </div>
@@ -314,7 +313,6 @@ const CreateService = () => {
                                                                     <small>( Leave empty if you allow unlimited requests per month for this subscription. )</small>
                                                                 </Label>
                                                                 <InputGroup className='input-group-merge mb-2'>
-                                                                    <InputGroupText>$</InputGroupText>
                                                                     <Input value={serviceDetails.max_requests_per_month} placeholder='0.00' name="max_requests_per_month" onChange={handleInputField} />
                                                                 </InputGroup>
                                                             </div>
