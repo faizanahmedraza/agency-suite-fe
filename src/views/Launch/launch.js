@@ -5,6 +5,7 @@ import { useSkin } from '@hooks/useSkin'
 import LaunchAction from "@store/V1/Auth/Launch/LaunchAction";
 import { useSelector, useDispatch } from "@store/store"
 import { Row, Col, CardTitle, CardText, Button, Form, Label, Input, Spinner } from 'reactstrap'
+import { ChevronLeft } from 'react-feather'
 import '@styles/base/pages/authentication.scss'
 
 const VerifyEmailCover = () => {
@@ -115,6 +116,12 @@ const VerifyEmailCover = () => {
                 )}
               </Button>
             </Form>
+            <p className='text-center mt-2'>
+                <Link to='/register'>
+                  <ChevronLeft className='rotate-rtl me-25' size={14} />
+                  <span className='align-middle'>Go to register</span>
+                </Link>
+              </p>
           </Col>
         </Col>
       </Row>

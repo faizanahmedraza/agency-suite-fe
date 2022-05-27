@@ -39,7 +39,7 @@ const V1 = {
     service_request: "v1/customers/request-services",
     invoices: "v1/customers/invoices",
     invoice_paid: "v1/customers/invoices/invoice-paid",
-    payments: {} 
+    payments: {}
   },
   change_auth_password: "v1/change-password",
   // DOMAIN: window.location.hostname

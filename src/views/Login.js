@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "@store/store";
 import LoginAction from "@store/V1/Auth/Login/LoginAction";
 import PortalSettingDetailAction from "@store/V1/PortalSetting/DETAIL/PortalSettingDetailAction";
 import UiLoader from '@components/ui-loader'
+import Loader from "@src/Components/LoaderComponent"
 
 const LoginCover = () => {
   const { skin } = useSkin();
@@ -65,9 +66,7 @@ const LoginCover = () => {
 
       {
         portalDetailLoading ?
-          <div className="w-100" style={{marginTop : "20%"}}>
-            <h3 className="text-center">Loading...</h3>
-          </div>
+        <Loader/>
           :
           <Row className="auth-inner m-0">
             <Link className="brand-logo" to="/" onClick={(e) => e.preventDefault()}>

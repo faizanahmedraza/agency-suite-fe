@@ -7,9 +7,8 @@ import toast from 'react-hot-toast'
 function* verification(data) {
     try {
         const response = yield AuthService.verificationPost(data.request);
-
-
         if (response.success) {
+            toast.success(response.data.message)
             yield put(verificationAction.verificationSuccess(response.data));
         } else {
             yield put(
@@ -22,23 +21,7 @@ function* verification(data) {
 }
 
 function verificationSuccess(data) {
-    localStorage.setItem(
-        "access_token",
-        data.response.authentication.access_token
-    );
-    localStorage.setItem(
-        "user",
-        JSON.stringify(data.response.authentication.user)
-    );
-    localStorage.setItem(
-        "agency",
-        JSON.stringify(data.response.authentication.agency)
-    );
-    localStorage.setItem(
-        "permissions",
-        JSON.stringify(data.response.authentication.user.roles[0].permissions)
-    );
-    window.location.href = "/dashboard";
+    window.location.href = "/login";
 }
 
 function verificationFailed(data) {

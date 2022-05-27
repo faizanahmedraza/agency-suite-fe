@@ -20,12 +20,10 @@ import InvoiceRootReducer from "@store/V1/Invoice/InvoiceRootReducer";
 import PasswordUpdateRootReducer from "@store/V1/UpdatePassword/PasswordUpdateRootReducer";
 import navbar from './navbar'
 import layout from './layout'
-import dataTables from '@src/views/tables/data-tables/store'
 
 const rootReducer = combineReducers({
   navbar,
   layout,
-  dataTables,
   login: LoginReducer,
   launch: LaunchReducer,
   register: RegisterReducer,

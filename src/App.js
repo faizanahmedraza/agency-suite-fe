@@ -15,6 +15,8 @@ import "./App.css"
 
 import { useSelector } from 'react-redux'
 
+import "@src/Styles/index.css"
+
 const App = () => {
   const [allRoutes, setAllRoutes] = useState([])
   // ** Hooks

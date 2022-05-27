@@ -21,6 +21,9 @@ function* registration(data) {
 
 function registrationSuccess(data) {
     toast.success("Successfully Registered Please Verify To Continue")
+    setTimeout(() => {
+        window.location.href = "/launch"
+    }, 1000)
 }
 
 function registrationFailed(data) {

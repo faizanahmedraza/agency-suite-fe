@@ -122,19 +122,10 @@ const ServiceTable = ({ services, pagination, tabIndex }) => {
                                                 {formatDate(service.created_at)}
                                             </td>
                                             <td>
-                                                <UncontrolledDropdown>
-                                                    <DropdownToggle className='icon-btn hide-arrow' color='transparent' size='sm' caret>
-                                                        <MoreVertical size={15} />
-                                                    </DropdownToggle>
-                                                    <DropdownMenu>
-                                                        <Link className='dropdown-item' to={`/services/edit/${service.id}`}>
-                                                            <Edit className='me-50' size={10} /> <span className='align-middle'>Edit</span>
-                                                        </Link>
-                                                        <div className='dropdown-item' onClick={() => getServiceInfo(service.id)} >
-                                                            <Trash className='me-50' size={10} /> <span className='align-middle'>Delete</span>
-                                                        </div>
-                                                    </DropdownMenu>
-                                                </UncontrolledDropdown>
+                                                <Link to={`/services/edit/${service.id}`}>
+                                                    <Edit className='me-50' size={20} />
+                                                </Link>
+                                                <Trash role="button" onClick={() => getServiceInfo(service.id)} size={20} />
                                             </td>
                                         </tr>
                                     )
