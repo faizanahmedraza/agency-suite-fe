@@ -88,7 +88,7 @@ const InvoiceTable = (props) => {
                                 <td>{invoice?.invoice_number}</td>
                                 <td>{invoice?.customer?.first_name + ' ' + invoice?.customer?.last_name}</td>
                                 <td>
-                                    <span className='align-middle fw-bold'>{GeneralHelper.PascalCase(invoice?.customer_service_request?.service?.name)}</span>
+                                    <span className='align-middle fw-bold'>{invoice?.customer_service_request?.service?.name}</span>
                                 </td>
                                 <td>{invoice?.amount}</td>
                                 <td className='text-center'>
