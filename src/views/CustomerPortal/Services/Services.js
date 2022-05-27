@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "@store/store"
 import ServiceActions from '@store/V1/CustomerPortal/Service/List/ServiceListAction'
 import ServiceTable from './ServiceTable'
 import GeneralHelper from "@src/Helpers/GeneralHelper";
+import Loader from '@src/views/GrowLoader';
 
 const Services = () => {
 
@@ -99,19 +100,17 @@ const Services = () => {
                     <TabContent className='py-50' activeTab={active}>
                         {
                             loading ?
-                                <div className='text-center'>
-                                    <strong>Loading....</strong>
-                                </div>
+                                <Loader />
                                 : (
                                     <>
                                         <TabPane tabId='1'>
-                                            <ServiceTable services={services} pagination={pagination} tabIndex={active}/>
+                                            <ServiceTable services={services} pagination={pagination} tabIndex={active} />
                                         </TabPane>
                                         <TabPane tabId='2'>
-                                            <ServiceTable services={one_off_services} pagination={pagination} tabIndex={active}/>
+                                            <ServiceTable services={one_off_services} pagination={pagination} tabIndex={active} />
                                         </TabPane>
                                         <TabPane tabId='3'>
-                                            <ServiceTable services={subscription} pagination={pagination} tabIndex={active}/>
+                                            <ServiceTable services={subscription} pagination={pagination} tabIndex={active} />
                                         </TabPane>
                                     </>
                                 )
