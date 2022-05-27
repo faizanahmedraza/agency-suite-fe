@@ -126,7 +126,7 @@ const CustomerList = (props) => {
                     >
                       <Edit className="me-50" size={20} />
                     </Link>
-                    <Trash onClick={() => {
+                    <Trash role="button" onClick={() => {
                       setFormModal(!formModal);
                       setCustomerId(customer.id);
                     }} className="me-50" size={20} />

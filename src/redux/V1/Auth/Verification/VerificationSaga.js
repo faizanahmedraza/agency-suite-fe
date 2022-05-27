@@ -8,7 +8,7 @@ function* verification(data) {
     try {
         const response = yield AuthService.verificationPost(data.request);
         if (response.success) {
-            toast.success(response.data.message)
+            toast.success("Verified ! Please login to continue")
             yield put(verificationAction.verificationSuccess(response.data));
         } else {
             yield put(

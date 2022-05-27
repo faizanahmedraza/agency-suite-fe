@@ -101,7 +101,7 @@ const InvoiceTable = (props) => {
                                     <Link to={`/invoice/detail/${invoice.id}`}>
                                         <Eye className='me-50' size={20} />
                                     </Link>
-                                    <Trash className='me-50' size={20} />
+                                    <Trash role="button" onClick={() => getInvoiceInfo(invoice.id)} className='me-50' size={20} />
                                 </td>
                             </tr>
                         )
