@@ -1,6 +1,6 @@
 :root {
     --custom-color: #fff;
-    --custom-color-primary: red;
+    --custom-color-primary: black;
 }
 
 /* form input select and text areas ( also applying to table input which is wrong i think ) START*/

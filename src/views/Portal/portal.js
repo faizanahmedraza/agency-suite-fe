@@ -82,8 +82,8 @@ const Portal = () => {
                                 {
                                     loading ?
                                         <Row>
-                                            <div className="text-center fw-bold">
-                                                <p>Loading...</p>
+                                            <div className="text-center">
+                                                <strong>Loading...</strong>
                                             </div>
                                         </Row>
                                         :

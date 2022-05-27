@@ -1,9 +1,6 @@
 import React from "react";
-import {
-    Spinner
-} from 'reactstrap'
 
-const GrowLoader = (props) => {
+const GrowLoader = () => {
     return (
         <div className="text-center">
             <strong>Loading...</strong>

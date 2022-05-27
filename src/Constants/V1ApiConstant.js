@@ -14,6 +14,9 @@ const V1 = {
     delete: "v1/agencies/services",
     change_status: "v1/agencies/services/change-status",
     change_catalog_status: "v1/agencies/services/change-catalog-status",
+    public:{
+      get : "v1/public/catalog/services"
+    }
   },
   dashboard: {
     dashboards: "v1/admin/dashboard",

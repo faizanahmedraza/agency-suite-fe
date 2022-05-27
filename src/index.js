@@ -44,6 +44,7 @@ import * as serviceWorker from './serviceWorker'
 
 // ** Lazy load app
 const LazyApp = lazy(() => import('./App'))
+
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
