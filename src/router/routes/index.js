@@ -68,6 +68,7 @@ const CustomerBilling = lazy(() => import("@src/views/CustomerPortal/Billing/Bil
 const DetailCustomerServiceRequest = lazy(() => import("@src/views/CustomerPortal/ServiceRequest/DetailServiceRequest"));
 const DetailServiceRequest = lazy(() => import("@src/views/ServiceRequest/DetailServiceRequest"));
 const Error = lazy(() => import("@src/views/Error"));
+const Catalog = lazy(() => import("@src/views/Catalouge/catalouge"));
 
 // ** Merge Routes
 const Routes = [
@@ -356,6 +357,16 @@ const Routes = [
       layout: "blank",
     },
   },
+  // Public Route
+  {
+    path: "/catalog",
+    element: <Catalog />,
+    meta: {
+      layout: "blank",
+      publicRoute: true,
+      restricted: false
+    },
+  }
 ];
 
 const getRouteMeta = (route) => {

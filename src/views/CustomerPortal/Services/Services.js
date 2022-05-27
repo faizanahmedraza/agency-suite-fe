@@ -49,7 +49,7 @@ const Services = () => {
     }
 
     useEffect(() => {
-        if (!services.length) return dispatch(ServiceActions.serviceList())
+        dispatch(ServiceActions.serviceList())
     }, [])
 
     return (

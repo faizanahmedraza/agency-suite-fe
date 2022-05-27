@@ -44,7 +44,7 @@ const ServiceRequests = () => {
   }
 
   useEffect(() => {
-    if (!service_requests.length) return dispatch(ServiceRequestListAction.serviceRequestList());
+    dispatch(ServiceRequestListAction.serviceRequestList());
   }, [])
 
   const toggle = (tab) => {

@@ -17,8 +17,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "@store/store";
 import LoginAction from "@store/V1/Auth/Login/LoginAction";
 import PortalSettingDetailAction from "@store/V1/PortalSetting/DETAIL/PortalSettingDetailAction";
-import UiLoader from '@components/ui-loader'
 import Loader from "@src/Components/LoaderComponent"
+import { ChevronRight} from 'react-feather'
 
 const LoginCover = () => {
   const { skin } = useSkin();
@@ -141,7 +141,6 @@ const LoginCover = () => {
                 </svg>
               }
 
-
               <h2 className="brand-text text-primary ms-1">{portal_settings ? portal_settings?.agency?.name : 'Agency Tool'}</h2>
             </Link>
             <Col className="d-none d-lg-flex align-items-center p-5" lg="8" sm="12">
@@ -210,6 +209,12 @@ const LoginCover = () => {
                     <span>Create an account</span>
                   </Link>
                 </p>
+                <p className='text-center mt-2'>
+                <Link to='/catalog'>
+                  <span className='align-middle'>Go to Catalogue</span>
+                  <ChevronRight className='rotate-rtl me-25' size={14} />
+                </Link>
+              </p>
               </Col>
             </Col>
           </Row>
