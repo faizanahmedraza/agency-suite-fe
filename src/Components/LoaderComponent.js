@@ -9,7 +9,7 @@ const LoaderComponent = () => {
 
     return (
         <div className='loader-container'>
-            <div class="lds-circle"><div style={{ backgroundColor: portal_settings ?  portal_settings.primary_color : "#7367f0" }}></div></div>
+            <div className="lds-circle"><div style={{ backgroundColor: portal_settings ?  portal_settings.primary_color : "#7367f0" }}></div></div>
             <h4>Loading...</h4>
         </div>
 
