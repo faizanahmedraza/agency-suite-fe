@@ -210,7 +210,7 @@ const LoginCover = () => {
                   </Link>
                 </p>
                 <p className='text-center mt-2'>
-                <Link to='/register'>
+                <Link to='/catalog'>
                   <span className='align-middle'>Go to Catalogue</span>
                   <ChevronRight className='rotate-rtl me-25' size={14} />
                 </Link>
