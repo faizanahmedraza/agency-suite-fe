@@ -11,7 +11,7 @@ import { formatDate } from '@utils'
 import { useDispatch, useSelector } from "@store/store"
 import InvoiceListAction from "@store/V1/CustomerPortal/Invoice/List/InvoiceListAction"
 import GeneralHelper from "@src/Helpers/GeneralHelper";
-import { MoreVertical, Edit, Trash } from "react-feather";
+import { Eye } from "react-feather";
 
 const InvoiceTable = (props) => {
     const _data = props.data;
@@ -70,12 +70,12 @@ const InvoiceTable = (props) => {
                                         <td>
                                             <span className='align-middle fw-bold'>{GeneralHelper.PascalCase(invoice?.customer_service_request?.service?.name)}</span>
                                         </td>
-                                        <td>{invoice?.amount}</td>
+                                        <td>{'$'+ Number.parseFloat(invoice?.amount).toFixed(2)}</td>
                                         <td>{invoice?.is_paid ? 'Yes' : 'No'}</td>
                                         <td>{formatDate(invoice?.created_at)}</td>
                                         <td className='text-center'>
                                             <Link to={`/customer-invoices/detail/${invoice.id}`}>
-                                                <Edit className='me-50' size={20} />
+                                                <Eye className='me-50' size={20} />
                                             </Link>
                                         </td>
                                     </tr>

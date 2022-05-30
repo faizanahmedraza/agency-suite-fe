@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "@store/store";
 import { Link } from "react-router-dom";
 import { Table } from "reactstrap";
 import ReactPaginate from "react-paginate";
-import { Edit } from "react-feather";
+import { Eye } from "react-feather";
 
 const ServiceRequestList = (props) => {
   const _data = props.data;
@@ -80,7 +80,7 @@ const ServiceRequestList = (props) => {
                         <Link
                           to={`/customer-service-requests/detail/${request.id}`}
                         >
-                          <Edit className="me-50" size={20} />
+                          <Eye className="me-50" size={20} />
                         </Link>
                       </td>
                     </tr>

@@ -20,6 +20,8 @@ const BillingCardInfo = (props) => {
         }
     } = useSelector(state => state);
 
+    const primaryCard = customer_billing_information.filter(billingInfo => billingInfo.is_primary == true)
+
     useEffect(() => {
         dispatch(BillingInformationListAction.billingInformationList());
     }, []);
@@ -34,7 +36,7 @@ const BillingCardInfo = (props) => {
                 Payment Method
             </Label>
             <div className='d-flex justify-content-between'>
-                <Input type='select' className="flex-grow-1" name='card_id' id='select-custom' value={props?.cardId} onChange={props?.onChangeField}>
+                <Input type='select' className="flex-grow-1" name='card_id' id='select-custom' defaultValue={primaryCard[0]?.id ?? props?.cardId} onChange={props?.onChangeField}>
                     <option value="">Select Card</option>
                     {
                         customer_billing_information && customer_billing_information.map((option) => {

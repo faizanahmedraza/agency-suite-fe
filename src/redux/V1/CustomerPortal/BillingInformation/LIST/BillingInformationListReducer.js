@@ -4,7 +4,8 @@ const BillingInformationListReducer = (
   state = {
     loading: false,
     customer_billing_information: [],
-    pagination : null
+    pagination : null,
+    fetched: false,
   },
   action
 ) => {
