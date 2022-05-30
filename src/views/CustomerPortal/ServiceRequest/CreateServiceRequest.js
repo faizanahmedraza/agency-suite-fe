@@ -28,7 +28,7 @@ const CreateServiceRequest = () => {
     const {
         customer_services: { detail: { service, loading: serviceloading, fetched: serviceFetched } },
         customer_service_requests: { create: { loading: createServiceRequestLoading } },
-        customer_billing_information: { list: { customer_billing_information }}
+        customer_billing_information: { list: { customer_billing_information } }
     } = useSelector(state => state);
 
     const [serviceDetail, setServiceDetails] = useState({});
@@ -93,7 +93,7 @@ const CreateServiceRequest = () => {
                     <Card>
                         <CardHeader>
                             <h4>Service Request Details</h4>
-                            {!serviceloading && checkBillingInfoEmpty() ? 
+                            {!serviceloading && checkBillingInfoEmpty() ?
                                 <div className='col-md-3'>
                                     <Button.Ripple color='primary' className="w-100" onClick={cardToggleModal}> Create Card +</Button.Ripple>
                                 </div> : ''
@@ -143,37 +143,55 @@ const CreateServiceRequest = () => {
                                                                 <div className='form-check'>
                                                                     <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleServiceRequestInputField} />
                                                                     <Label className='form-check-label' for='sr1'>
-                                                                        {'annually - ' + serviceDetail.price_types.annually + '$'}
+                                                                        {'annually - $' + Number.parseFloat(serviceDetail.price_types.annually).toFixed(2)}
                                                                     </Label>
                                                                 </div>
                                                                 <div className='form-check'>
                                                                     <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleServiceRequestInputField} />
                                                                     <Label className='form-check-label' for='sr2'>
-                                                                        {'biannually - ' + serviceDetail.price_types.biannually + '$'}
+                                                                        {'biannually - $' + Number.parseFloat(serviceDetail.price_types.biannually).toFixed(2)}
                                                                     </Label>
                                                                 </div>
                                                                 <div className='form-check'>
                                                                     <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleServiceRequestInputField} />
                                                                     <Label className='form-check-label' for='sr3'>
-                                                                        {'quarterly - ' + serviceDetail.price_types.quarterly + '$'}
+                                                                        {'quarterly - $' + Number.parseFloat(serviceDetail.price_types.quarterly).toFixed(2)}
                                                                     </Label>
                                                                 </div>
                                                                 <div className='form-check'>
                                                                     <Input type='radio' name='recurring_type' value="weekly" onChange={handleServiceRequestInputField} />
                                                                     <Label className='form-check-label' for='sr4'>
-                                                                        {'weekly - ' + serviceDetail.price_types.weekly + '$'}
+                                                                        {'weekly - $' + Number.parseFloat(serviceDetail.price_types.weekly).toFixed(2)}
                                                                     </Label>
                                                                 </div>
                                                                 <div className='form-check'>
                                                                     <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleServiceRequestInputField} defaultChecked />
                                                                     <Label className='form-check-label' for='sr5'>
-                                                                        {'monthly - ' + serviceDetail.price_types.monthly + '$'}
+                                                                        {'monthly - $' + Number.parseFloat(serviceDetail.price_types.monthly).toFixed(2)}
                                                                     </Label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </Col>
-                                                ) : ""
+                                                ) : (
+                                                    <Col md='12' sm='12'>
+                                                        <div className='mb-1'>
+                                                            <Label className='form-label' for='select-basic'>
+                                                                Subscription Type: one-off
+                                                            </Label>
+                                                        </div>
+                                                        <div className='mb-1'>
+                                                            <Label className='form-label' for='select-basic'>
+                                                                Price: ${Number.parseFloat(serviceDetail?.price_types?.price).toFixed(2)}
+                                                            </Label>
+                                                        </div>
+                                                        <div className='mb-1'>
+                                                            <Label className='form-label' for='select-basic'>
+                                                                Purchase Limit: {serviceDetail?.price_types?.purchase_limit && serviceDetail?.price_types?.purchase_limit}
+                                                            </Label>
+                                                        </div>
+                                                    </Col>
+                                                )
                                         }
                                         <Col md='12' sm='12'>
                                             <div className='mb-1'>
@@ -190,7 +208,7 @@ const CreateServiceRequest = () => {
                                                 </Label>
                                                 <Input type='textarea' value={serviceRequestDetails.description} onChange={handleServiceRequestInputField} name='description' id='description' placeholder='Enter Description' />
                                             </div>
-                                        </Col>                                    
+                                        </Col>
                                         <Col md='12' sm='12'>
                                             <div className='d-flex justify-content-between'>
                                                 <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
@@ -219,7 +237,7 @@ const CreateServiceRequest = () => {
                 </CardBody>
             </Card >
             {/* Billing Information modal */}
-            <CardInfoModal onShow={centeredModal} onHide={cardToggleModal}/>
+            <CardInfoModal onShow={centeredModal} onHide={cardToggleModal} />
         </div >
     )
 }

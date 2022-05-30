@@ -70,7 +70,7 @@ const InvoiceTable = (props) => {
                                         <td>
                                             <span className='align-middle fw-bold'>{GeneralHelper.PascalCase(invoice?.customer_service_request?.service?.name)}</span>
                                         </td>
-                                        <td>{invoice?.amount}</td>
+                                        <td>{'$'+ Number.parseFloat(invoice?.amount).toFixed(2)}</td>
                                         <td>{invoice?.is_paid ? 'Yes' : 'No'}</td>
                                         <td>{formatDate(invoice?.created_at)}</td>
                                         <td className='text-center'>

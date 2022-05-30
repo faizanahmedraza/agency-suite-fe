@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, UncontrolledDropdown, DropdownMenu, DropdownToggle, Modal, ModalHeader, ModalBody, ModalFooter, Button, Input, Label } from 'reactstrap'
+import { Table, Tooltip } from 'reactstrap'
 import { Save } from 'react-feather'
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "@store/store"
@@ -13,6 +13,7 @@ const ServiceTable = (props) => {
     const [currentItems, setCurrentItems] = useState([]);
     const [offset, setOffset] = useState(props?.pagination?.current_page === undefined ? 0 : props?.pagination?.current_page - 1);
     const [pageCount, setPageCount] = useState(props?.pagination?.total_pages === undefined ? 0 : props?.pagination?.total_pages);
+    const [tooltipOpen, setTooltipOpen] = useState(false)
 
     const {
         list: {
@@ -83,13 +84,24 @@ const ServiceTable = (props) => {
                                                 </Link>
                                             </td>
                                             <td>{GeneralHelper.PascalCase(service.subscription_type)}</td>
-                                            <td>{service.subscription_type !== "recurring" ? `$${service?.price_types?.price}` : "-"}</td>
+                                            <td>{service.subscription_type !== "recurring" ? `$${Number.parseFloat(service?.price_types?.price).toFixed(2)}` : "-"}</td>
                                             <td>{(service.subscription_type !== "recurring" && service?.price_types?.purchase_limit !== null) ? `${service?.price_types?.purchase_limit}` : "-"}</td>
                                             <td>{service.subscription_type === "recurring" ? `${service?.price_types?.max_concurrent_requests}` : "-"}</td>
                                             <td>
-                                                <Link to={`/customer-service-requests/create/${service.id}`}>
-                                                    <Save className='me-50' size={10} /> <span className='align-middle'>Subscribe</span>
+                                                <Link className='primary'
+                                                    to={`/customer-service-requests/create/${service.id}`}
+                                                    id="subscribeLink"
+                                                >
+                                                    <Save className="me-50" size={20} />
                                                 </Link>
+                                                <Tooltip
+                                                    placement='top'
+                                                    isOpen={tooltipOpen}
+                                                    target='subscribeLink'
+                                                    toggle={() => setTooltipOpen(!tooltipOpen)}
+                                                >
+                                                    Subscribe
+                                                </Tooltip>
                                             </td>
                                         </tr>
                                     )

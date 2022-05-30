@@ -74,17 +74,17 @@ const Billing = () => {
                         <h3>Payment Methods</h3>
                     </div>
                     <Col md='6' lg='4'>
-                        <Card className='mb-3'>
+                        <Card className='mb-3' style={{backgroundColor: "#cccccc"}}>
                             <CardBody>
                                 <CardTitle tag='h4'>
                                     <div className='d-flex justify-content-between align-items-center'>
                                         <strong className='fs-5'>Wallet</strong>
-                                        <Button className='btn-primary btn-sm'>Top Up</Button>
+                                        <Button className='btn-primary btn-sm' disabled>Top Up</Button>
                                     </div>
                                 </CardTitle>
                                 <div className='d-flex flex-column pt-2'>
                                     <div className='fs-5'>$ 3737.02</div>
-                                    <Link className='fs-4' to={``}><span>View Transactions</span></Link>
+                                    <Link className='fs-4 pe-none' to=""><span>View Transactions</span></Link>
                                 </div>
                             </CardBody>
                         </Card>

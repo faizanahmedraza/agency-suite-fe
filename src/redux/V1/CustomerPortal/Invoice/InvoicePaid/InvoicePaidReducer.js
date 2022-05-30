@@ -14,7 +14,6 @@ const InvoicePaidReducer = (
       return {
         ...state,
         loading: true,
-        isPaid: false
       };
     case INVOICE.CUSTOMER_INVOICE_PAID_SUCCESS:
       return {
@@ -27,7 +26,6 @@ const InvoicePaidReducer = (
          ...state,
           loading: false,
           error: action.response.message,
-          isPaid: false
       };
     default:
       return state;
