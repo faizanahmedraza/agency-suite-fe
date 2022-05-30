@@ -58,9 +58,7 @@ const customerBodyData = (data) => {
     let _data = {};
     _data.first_name = data.first_name;
     _data.last_name = data.last_name;
-    if (data.email !== undefined) {
-        _data.email = data.email;
-    }
+    _data.email = data.email;
     return JSON.stringify(_data);
 }
 

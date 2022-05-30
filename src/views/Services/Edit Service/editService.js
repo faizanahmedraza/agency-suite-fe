@@ -195,7 +195,7 @@ const EditService = () => {
                                                                 <Col md='6' sm='12'>
                                                                     <div>
                                                                         {serviceDetails.image ?
-                                                                            <img src={serviceDetails.image} width="100%" height="200" alt="service image" />
+                                                                            <img src={serviceDetails.image} width="200" height="200" alt="service image" />
                                                                             :
                                                                             <div className='text-center'>
                                                                             <span>No Image Selected</span>
@@ -342,8 +342,7 @@ const EditService = () => {
                                                                                 <small>( Leave empty if you allow unlimited concurrent requests for this subscription. )</small>
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
-                                                                                <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.max_concurrent_requests} placeholder='0.00' name="max_concurrent_requests" onChange={handleNestedObject} />
+                                                                                <Input value={serviceDetails.price_types.max_concurrent_requests} placeholder='0' name="max_concurrent_requests" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -358,8 +357,7 @@ const EditService = () => {
                                                                                 <small>( Leave empty if you allow unlimited requests per month for this subscription. )</small>
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
-                                                                                <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.max_requests_per_month} placeholder='0.00' name="max_requests_per_month" onChange={handleNestedObject} />
+                                                                                <Input value={serviceDetails.price_types.max_requests_per_month} placeholder='0' name="max_requests_per_month" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>

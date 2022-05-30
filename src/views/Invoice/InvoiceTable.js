@@ -90,7 +90,7 @@ const InvoiceTable = (props) => {
                                 <td>
                                     <span className='align-middle fw-bold'>{invoice?.customer_service_request?.service?.name}</span>
                                 </td>
-                                <td>{invoice?.amount}</td>
+                                <td>${Number.parseFloat(invoice?.amount).toFixed(2)}</td>
                                 <td className='text-center'>
                                     {invoice.is_paid ? 'Yes' :
                                         <div className='form-switch form-check-primary'>

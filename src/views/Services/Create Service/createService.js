@@ -156,7 +156,7 @@ const CreateService = () => {
                                                 <Row>
                                                     <Col md='6' sm='12'>
                                                         <div>
-                                                            <img src={serviceDetails.image || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} width="100%" height="200" alt="service image" />
+                                                            <img src={serviceDetails.image || "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} width="200" height="200" alt="service image" />
                                                         </div>
                                                     </Col>
                                                     <Col md='6' sm='12' className='d-flex flex-column'>
@@ -298,7 +298,7 @@ const CreateService = () => {
                                                                     <small>( Leave empty if you allow unlimited concurrent requests for this subscription. )</small>
                                                                 </Label>
                                                                 <InputGroup className='input-group-merge mb-2'>
-                                                                    <Input value={serviceDetails.max_concurrent_requests} placeholder='0.00' name="max_concurrent_requests" onChange={handleInputField} />
+                                                                    <Input value={serviceDetails.max_concurrent_requests} placeholder='0' name="max_concurrent_requests" onChange={handleInputField} />
                                                                 </InputGroup>
                                                             </div>
                                                         </Col>
@@ -313,7 +313,7 @@ const CreateService = () => {
                                                                     <small>( Leave empty if you allow unlimited requests per month for this subscription. )</small>
                                                                 </Label>
                                                                 <InputGroup className='input-group-merge mb-2'>
-                                                                    <Input value={serviceDetails.max_requests_per_month} placeholder='0.00' name="max_requests_per_month" onChange={handleInputField} />
+                                                                    <Input value={serviceDetails.max_requests_per_month} placeholder='0' name="max_requests_per_month" onChange={handleInputField} />
                                                                 </InputGroup>
                                                             </div>
                                                         </Col>

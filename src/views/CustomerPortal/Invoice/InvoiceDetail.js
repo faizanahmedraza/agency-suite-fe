@@ -144,7 +144,7 @@ const InvoiceDetail = () => {
                                         </div>
                                     </Col>
                                     {
-                                        invoiceDetails?.customer_service_request?.service?.subscription_type === "recurring" ?
+                                        customer_invoice?.customer_service_request?.is_recurring ?
                                             (
                                                 <Col md='12' sm='12'>
                                                     <div className='mb-1'>
