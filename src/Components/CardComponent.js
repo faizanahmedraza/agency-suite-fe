@@ -6,11 +6,17 @@ import {
     CardBody,
     CardText,
     CardTitle,
-    Button
+    Button,
+    Input
 } from 'reactstrap'
 import { Link } from "react-router-dom"
 
 const CardContentTypes = ({ services }) => {
+
+    const handleOnChange = () => {
+        //
+    }
+
     return (
         <Fragment>
             <div className="container">
@@ -22,21 +28,32 @@ const CardContentTypes = ({ services }) => {
                 <div className="row">
                     {
                         services && services.map((service) => {
-                            console.log(service)
                             const image = service.image ? service.image : "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
                             return (
                                 <div className="col-4" key={service.id}>
                                     <Card>
-                                        <img top src={image} alt={service.name} />
+                                        <img src={image} alt={service.name} />
                                         <CardBody>
                                             <CardTitle tag='h4'>{service.name}</CardTitle>
                                             <CardText>
-                                                ${service.price_types.price}
+                                                {service.subscription_type === "recurring" ?
+                                                    <Input type='select' value="weekly" name='subscription_type' id='select-basic' onChange={handleOnChange}>
+                                                        <option value="annualy">Annualy - ${Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}</option>
+                                                        <option value="biannually">Biannually - ${Number.parseFloat(service.price_types.biannually ?? 0).toFixed(2)}</option>
+                                                        <option value="quarterly">Quarterly - ${Number.parseFloat(service.price_types.quarterly ?? 0).toFixed(2)}</option>
+                                                        <option value="weekly">Weekly - ${Number.parseFloat(service.price_types.weekly ?? 0).toFixed(2)}</option>
+                                                        <option value="monthly">Monthly - ${Number.parseFloat(service.price_types.monthly ?? 0).toFixed(2)}</option>
+                                                    </Input>
+                                                    :
+                                                    <>
+                                                        $ {Number.parseFloat(service.price_types.price).toFixed(2)}
+                                                    </>
+                                                }
                                             </CardText>
                                             <CardText>
                                                 {service.description}
                                             </CardText>
-                                            <Link to="/login">
+                                            <Link to="/register">
                                                 <Button color='primary' outline>
                                                     Purchase
                                                 </Button>

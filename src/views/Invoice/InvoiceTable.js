@@ -90,7 +90,7 @@ const InvoiceTable = (props) => {
                                 <td>
                                     <span className='align-middle fw-bold'>{invoice?.customer_service_request?.service?.name}</span>
                                 </td>
-                                <td>{invoice?.amount}</td>
+                                <td>${Number.parseFloat(invoice?.amount).toFixed(2)}</td>
                                 <td className='text-center'>
                                     {invoice.is_paid ? 'Yes' :
                                         <div className='form-switch form-check-primary'>
@@ -103,7 +103,7 @@ const InvoiceTable = (props) => {
                                     <Link to={`/invoice/detail/${invoice.id}`}>
                                         <Eye className='me-50' size={20} />
                                     </Link>
-                                    <Trash className='me-50' size={20} />
+                                    <Trash role="button" onClick={() => getInvoiceInfo(invoice.id)} className='me-50' size={20} />
                                 </td>
                             </tr>
                         )

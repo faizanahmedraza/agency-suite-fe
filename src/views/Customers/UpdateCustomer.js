@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams , Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from '@store/store';
 import CustomerDetailAction from "@store/V1/Customer/DETAIL/CustomerDetailAction";
 import CustomerUpdateAction from "@store/V1/Customer/UPDATE/CustomerUpdateAction";
@@ -29,11 +29,13 @@ const UpdateCustomer = () => {
     const initialState = {
         first_name: "",
         last_name: "",
+        email: "",
     }
 
     const [customerDetails, setCustomerDetails] = useState(initialState);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { id } = useParams();
 
     const handleInputField = (e) => {
@@ -99,10 +101,18 @@ const UpdateCustomer = () => {
                                             <Input type='text' onChange={handleInputField} name='last_name' id='last_name' placeholder='Enter Customer Last Name' value={!loading ? customerDetails.last_name : ""} />
                                         </div>
                                     </Col>
+                                    <Col md='6' sm='12'>
+                                        <div className='mb-1'>
+                                            <Label className='form-label' for='nameMulti'>
+                                                Email
+                                            </Label>
+                                            <Input type='email' tabIndex="3" onChange={handleInputField} name='email' id='email' placeholder='Enter Customer Email' value={!loading ? customerDetails.email : ""} />
+                                        </div>
+                                    </Col>
                                     <Col md='12' sm='12'>
                                         <div className='d-flex justify-content-between'>
                                             <Link to="/customers">
-                                                <Button outline className='me-1' color='secondary' type='reset'>
+                                                <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
                                                     Cancel
                                                 </Button>
                                             </Link>

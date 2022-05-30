@@ -14,7 +14,7 @@ import {
   Table,
 } from "reactstrap";
 import ReactPaginate from "react-paginate";
-import { MoreVertical, Edit } from "react-feather";
+import { Eye } from "react-feather";
 import moment from "moment";
 import ServiceRequestStatusAction from "@store/V1/ServiceRequest/STATUS/ServiceRequestStatusAction";
 import ServiceRequestListAction from "@store/V1/ServiceRequest/LIST/ServiceRequestListAction";
@@ -119,7 +119,7 @@ const ServiceRequestList = (props) => {
                     <Link
                       to={`/service-requests/detail/${request.id}`}
                     >
-                      <Edit className="me-50" size={20} />
+                      <Eye className="me-50" size={20} />
                     </Link>
                   </td>
                 </tr>
