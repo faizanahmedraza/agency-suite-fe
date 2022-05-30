@@ -12,7 +12,11 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  FormFeedback
 } from "reactstrap";
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import FormValidation from '@src/validations/BillingInfoCard';
 import BillingInformationCreateAction from "@store/V1/CustomerPortal/BillingInformation/CREATE/BillingInformationCreateAction";
 
 const CardInfoModal = (props) => {
@@ -46,17 +50,25 @@ const CardInfoModal = (props) => {
     });
   };
 
+  const {
+    reset,
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({ mode: 'onChange', resolver: yupResolver(FormValidation) })
+
   useEffect(() => {
     if (success) {
       props.onHide();
+      reset(billingInformation)
       setBillingInfoDetails(billingInformation);
     }
   }, [success]);
 
-  const onSubmitBillingHandler = (e) => {
-    e.preventDefault();
+  const onSubmitBillingHandler = (data) => {
+    setBillingInfoDetails(data);
     dispatch(
-      BillingInformationCreateAction.billingInformationCreate(billingInfoDetail)
+      BillingInformationCreateAction.billingInformationCreate(data)
     );
   };
 
@@ -70,7 +82,7 @@ const CardInfoModal = (props) => {
         <ModalHeader toggle={props.onHide}>
           Your Billing Information
         </ModalHeader>
-        <Form onSubmit={onSubmitBillingHandler}>
+        <Form onSubmit={handleSubmit(onSubmitBillingHandler)}>
           <ModalBody>
             <Row>
               <Col md="6" sm="12">
@@ -78,14 +90,15 @@ const CardInfoModal = (props) => {
                   <Label className="form-label" for="holder_name">
                     Holder Name
                   </Label>
-                  <Input
-                    type="text"
-                    value={billingInfoDetail.holder_name}
-                    onChange={handleBillingInfoInputField}
+                  <Controller
                     name="holder_name"
                     id="holder_name"
-                    placeholder="Enter Holder Name"
+                    defaultValue={billingInfoDetail.holder_name}
+                    onChange={handleBillingInfoInputField}
+                    control={control}
+                    render={({ field }) => <Input {...field} type="text" placeholder='Enter Holder Name' invalid={errors.holder_name && true} />}
                   />
+                  {errors.holder_name && <FormFeedback>{errors.holder_name.message}</FormFeedback>}
                 </div>
               </Col>
               <Col md="6" sm="12">
@@ -93,14 +106,15 @@ const CardInfoModal = (props) => {
                   <Label className="form-label" for="card_no">
                     Card Number
                   </Label>
-                  <Input
-                    type="number"
-                    value={billingInfoDetail.card_no}
-                    onChange={handleBillingInfoInputField}
+                  <Controller
                     name="card_no"
                     id="card_no"
-                    placeholder="Enter Card Number"
+                    defaultValue={billingInfoDetail.card_no}
+                    onChange={handleBillingInfoInputField}
+                    control={control}
+                    render={({ field }) => <Input {...field} type="number" placeholder='Enter Card Number' invalid={errors.card_no && true} />}
                   />
+                  {errors.card_no && <FormFeedback>{errors.card_no.message}</FormFeedback>}
                 </div>
               </Col>
               <Col md="6" sm="12">
@@ -108,14 +122,15 @@ const CardInfoModal = (props) => {
                   <Label className="form-label" for="cvc">
                     CVC
                   </Label>
-                  <Input
-                    type="number"
-                    value={billingInfoDetail.cvc}
-                    onChange={handleBillingInfoInputField}
+                  <Controller
                     name="cvc"
                     id="cvc"
-                    placeholder="Enter CVC"
+                    defaultValue={billingInfoDetail.cvc}
+                    onChange={handleBillingInfoInputField}
+                    control={control}
+                    render={({ field }) => <Input {...field} type="number" placeholder='Enter CVC' invalid={errors.cvc && true} />}
                   />
+                  {errors.cvc && <FormFeedback>{errors.cvc.message}</FormFeedback>}
                 </div>
               </Col>
               <Col md="6" sm="12">
@@ -123,14 +138,15 @@ const CardInfoModal = (props) => {
                   <Label className="form-label" for="expiry_month">
                     Expiry Month
                   </Label>
-                  <Input
-                    type="number"
-                    value={billingInfoDetail.expiry_month}
-                    onChange={handleBillingInfoInputField}
+                  <Controller
                     name="expiry_month"
                     id="expiry_month"
-                    placeholder="Enter Expiry Month For e.g: 12"
+                    defaultValue={billingInfoDetail.expiry_month}
+                    onChange={handleBillingInfoInputField}
+                    control={control}
+                    render={({ field }) => <Input {...field} type="number" placeholder='Enter Expiry Month For e.g: 12' invalid={errors.expiry_month && true} />}
                   />
+                  {errors.expiry_month && <FormFeedback>{errors.expiry_month.message}</FormFeedback>}
                 </div>
               </Col>
               <Col md="6" sm="12">
@@ -138,14 +154,15 @@ const CardInfoModal = (props) => {
                   <Label className="form-label" for="expiry_year">
                     Expiry Year
                   </Label>
-                  <Input
-                    type="number"
-                    value={billingInfoDetail.expiry_year}
-                    onChange={handleBillingInfoInputField}
+                  <Controller
                     name="expiry_year"
                     id="expiry_year"
-                    placeholder="Enter Expiry Year For e.g: 22"
+                    defaultValue={billingInfoDetail.expiry_year}
+                    onChange={handleBillingInfoInputField}
+                    control={control}
+                    render={({ field }) => <Input {...field} type="number" placeholder='Enter Expiry Year For e.g: 22' invalid={errors.expiry_year && true} />}
                   />
+                  {errors.expiry_year && <FormFeedback>{errors.expiry_year.message}</FormFeedback>}
                 </div>
               </Col>
               <Col md="6" sm="12">
@@ -153,14 +170,15 @@ const CardInfoModal = (props) => {
                   <Label className="form-label" for="country">
                     Country
                   </Label>
-                  <Input
-                    type="text"
-                    value={billingInfoDetail.country}
-                    onChange={handleBillingInfoInputField}
+                  <Controller
                     name="country"
                     id="country"
-                    placeholder="Enter Country"
+                    defaultValue={billingInfoDetail.country}
+                    onChange={handleBillingInfoInputField}
+                    control={control}
+                    render={({ field }) => <Input {...field} type="text" placeholder='Enter Country' invalid={errors.country && true} />}
                   />
+                  {errors.country && <FormFeedback>{errors.country.message}</FormFeedback>}
                 </div>
               </Col>
               <Col md="6" sm="12">
@@ -168,14 +186,15 @@ const CardInfoModal = (props) => {
                   <Label className="form-label" for="city">
                     City
                   </Label>
-                  <Input
-                    type="text"
-                    value={billingInfoDetail.city}
-                    onChange={handleBillingInfoInputField}
+                  <Controller
                     name="city"
                     id="city"
-                    placeholder="Enter City"
+                    defaultValue={billingInfoDetail.city}
+                    onChange={handleBillingInfoInputField}
+                    control={control}
+                    render={({ field }) => <Input {...field} type="text" placeholder='Enter City' invalid={errors.city && true} />}
                   />
+                  {errors.city && <FormFeedback>{errors.city.message}</FormFeedback>}
                 </div>
               </Col>
               <Col md="6" sm="12">
@@ -183,14 +202,15 @@ const CardInfoModal = (props) => {
                   <Label className="form-label" for="state">
                     State
                   </Label>
-                  <Input
-                    type="text"
-                    value={billingInfoDetail.state}
-                    onChange={handleBillingInfoInputField}
+                  <Controller
                     name="state"
                     id="state"
-                    placeholder="Enter State"
+                    defaultValue={billingInfoDetail.state}
+                    onChange={handleBillingInfoInputField}
+                    control={control}
+                    render={({ field }) => <Input {...field} type="text" placeholder='Enter State' invalid={errors.state && true} />}
                   />
+                  {errors.state && <FormFeedback>{errors.state.message}</FormFeedback>}
                 </div>
               </Col>
               <Col md="6" sm="12">
@@ -198,14 +218,15 @@ const CardInfoModal = (props) => {
                   <Label className="form-label" for="zip_code">
                     Zip Code
                   </Label>
-                  <Input
-                    type="text"
-                    value={billingInfoDetail.zip_code}
-                    onChange={handleBillingInfoInputField}
+                  <Controller
                     name="zip_code"
                     id="zip_code"
-                    placeholder="Enter Zip Code"
+                    defaultValue={billingInfoDetail.zip_code}
+                    onChange={handleBillingInfoInputField}
+                    control={control}
+                    render={({ field }) => <Input {...field} type="text" placeholder='Enter Zip Code' invalid={errors.zip_code && true} />}
                   />
+                  {errors.zip_code && <FormFeedback>{errors.zip_code.message}</FormFeedback>}
                 </div>
               </Col>
               <Col md="6" sm="12">
@@ -213,14 +234,15 @@ const CardInfoModal = (props) => {
                   <Label className="form-label" for="street">
                     Street Address
                   </Label>
-                  <Input
-                    type="text"
-                    value={billingInfoDetail.street}
-                    onChange={handleBillingInfoInputField}
+                  <Controller
                     name="street"
                     id="street"
-                    placeholder="Enter Street Address"
+                    defaultValue={billingInfoDetail.street}
+                    onChange={handleBillingInfoInputField}
+                    control={control}
+                    render={({ field }) => <Input {...field} type="text" placeholder='Enter Street Address' invalid={errors.street && true} />}
                   />
+                  {errors.street && <FormFeedback>{errors.street.message}</FormFeedback>}
                 </div>
               </Col>
               <Col md="12" sm="12">
@@ -228,14 +250,15 @@ const CardInfoModal = (props) => {
                   <Label className="form-label" for="address">
                     Address
                   </Label>
-                  <Input
-                    type="textarea"
-                    value={billingInfoDetail.address}
-                    onChange={handleBillingInfoInputField}
+                  <Controller
                     name="address"
                     id="address"
-                    placeholder="Enter Address"
+                    defaultValue={billingInfoDetail.address}
+                    onChange={handleBillingInfoInputField}
+                    control={control}
+                    render={({ field }) => <Input {...field} type="textarea" placeholder='Enter Full Address' invalid={errors.address && true} />}
                   />
+                  {errors.address && <FormFeedback>{errors.address.message}</FormFeedback>}
                 </div>
               </Col>
             </Row>
