@@ -86,7 +86,7 @@ const ServiceTable = (props) => {
                                             <td>{GeneralHelper.PascalCase(service.subscription_type)}</td>
                                             <td>{service.subscription_type !== "recurring" ? `$${Number.parseFloat(service?.price_types?.price).toFixed(2)}` : "-"}</td>
                                             <td>{(service.subscription_type !== "recurring" && service?.price_types?.purchase_limit !== null) ? `${service?.price_types?.purchase_limit}` : "-"}</td>
-                                            <td>{service.subscription_type === "recurring" ? `${service?.price_types?.max_concurrent_requests}` : "-"}</td>
+                                            <td>{service.subscription_type === "recurring" ? `${service?.price_types?.max_concurrent_requests ?? "-"}` : "-"}</td>
                                             <td>
                                                 <Link className='primary'
                                                     to={`/customer-service-requests/create/${service.id}`}

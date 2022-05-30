@@ -1,5 +1,5 @@
 // ** React Imports
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 // ** Reactstrap Imports
 import {
     Card,
@@ -13,8 +13,10 @@ import { Link } from "react-router-dom"
 
 const CardContentTypes = ({ services }) => {
 
-    const handleOnChange = () => {
-        //
+    const [serviceType,setServiceType] = useState("");
+
+    const handleOnChange = e => {
+        setServiceType(e.target.value);
     }
 
     return (
@@ -22,7 +24,7 @@ const CardContentTypes = ({ services }) => {
             <div className="container">
                 <div className="row">
                     <div className="col-12 text-center my-2">
-                        <h1>Agency Tool</h1>
+                        <h1>{JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? 'Agency Tool'}</h1>
                     </div>
                 </div>
                 <div className="row">
@@ -37,7 +39,7 @@ const CardContentTypes = ({ services }) => {
                                             <CardTitle tag='h4'>{service.name}</CardTitle>
                                             <CardText>
                                                 {service.subscription_type === "recurring" ?
-                                                    <Input type='select' value="weekly" name='subscription_type' id='select-basic' onChange={handleOnChange}>
+                                                    <Input type='select' value={serviceType} name='subscription_type' id='select-basic' onChange={handleOnChange}>
                                                         <option value="annualy">Annualy - ${Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}</option>
                                                         <option value="biannually">Biannually - ${Number.parseFloat(service.price_types.biannually ?? 0).toFixed(2)}</option>
                                                         <option value="quarterly">Quarterly - ${Number.parseFloat(service.price_types.quarterly ?? 0).toFixed(2)}</option>
