@@ -132,7 +132,7 @@ const CreateServiceRequest = () => {
                                             </div>
                                         </Col>
                                         {
-                                            serviceDetail.subscription_type == "recurring" ?
+                                            serviceDetail.subscription_type === "recurring" ?
                                                 (
                                                     <Col md='12' sm='12'>
                                                         <div className='mb-1'>
@@ -142,31 +142,31 @@ const CreateServiceRequest = () => {
                                                             <div className='demo-inline-spacing'>
                                                                 <div className='form-check'>
                                                                     <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleServiceRequestInputField} />
-                                                                    <Label className='form-check-label' for='sr1'>
+                                                                    <Label className='form-check-label fs-5' for='sr1'>
                                                                         {'annually - $' + Number.parseFloat(serviceDetail.price_types.annually).toFixed(2)}
                                                                     </Label>
                                                                 </div>
                                                                 <div className='form-check'>
                                                                     <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleServiceRequestInputField} />
-                                                                    <Label className='form-check-label' for='sr2'>
+                                                                    <Label className='form-check-label fs-5' for='sr2'>
                                                                         {'biannually - $' + Number.parseFloat(serviceDetail.price_types.biannually).toFixed(2)}
                                                                     </Label>
                                                                 </div>
                                                                 <div className='form-check'>
                                                                     <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleServiceRequestInputField} />
-                                                                    <Label className='form-check-label' for='sr3'>
+                                                                    <Label className='form-check-label fs-5' for='sr3'>
                                                                         {'quarterly - $' + Number.parseFloat(serviceDetail.price_types.quarterly).toFixed(2)}
                                                                     </Label>
                                                                 </div>
                                                                 <div className='form-check'>
                                                                     <Input type='radio' name='recurring_type' value="weekly" onChange={handleServiceRequestInputField} />
-                                                                    <Label className='form-check-label' for='sr4'>
+                                                                    <Label className='form-check-label fs-5' for='sr4'>
                                                                         {'weekly - $' + Number.parseFloat(serviceDetail.price_types.weekly).toFixed(2)}
                                                                     </Label>
                                                                 </div>
                                                                 <div className='form-check'>
                                                                     <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleServiceRequestInputField} defaultChecked />
-                                                                    <Label className='form-check-label' for='sr5'>
+                                                                    <Label className='form-check-label fs-5' for='sr5'>
                                                                         {'monthly - $' + Number.parseFloat(serviceDetail.price_types.monthly).toFixed(2)}
                                                                     </Label>
                                                                 </div>
@@ -176,17 +176,17 @@ const CreateServiceRequest = () => {
                                                 ) : (
                                                     <Col md='12' sm='12'>
                                                         <div className='mb-1'>
-                                                            <Label className='form-label' for='select-basic'>
+                                                            <Label className='form-label fs-5' for='select-basic'>
                                                                 Subscription Type: one-off
                                                             </Label>
                                                         </div>
                                                         <div className='mb-1'>
-                                                            <Label className='form-label' for='select-basic'>
+                                                            <Label className='form-label fs-5' for='select-basic'>
                                                                 Price: ${Number.parseFloat(serviceDetail?.price_types?.price).toFixed(2)}
                                                             </Label>
                                                         </div>
                                                         <div className='mb-1'>
-                                                            <Label className='form-label' for='select-basic'>
+                                                            <Label className='form-label fs-5' for='select-basic'>
                                                                 Purchase Limit: {serviceDetail?.price_types?.purchase_limit && serviceDetail?.price_types?.purchase_limit}
                                                             </Label>
                                                         </div>
