@@ -1,5 +1,6 @@
 // ** React Imports
 import { Fragment, useState } from 'react'
+import '@src/Styles/card.css'
 // ** Reactstrap Imports
 import {
     Card,
@@ -34,7 +35,7 @@ const CardContentTypes = ({ services }) => {
                             return (
                                 <div className="col-4" key={service.id}>
                                     <Card>
-                                        <img src={image} alt={service.name} />
+                                        <img src={image} className="crd-img" alt={service.name} />
                                         <CardBody>
                                             <CardTitle tag='h4'>{service.name}</CardTitle>
                                             <CardText>
