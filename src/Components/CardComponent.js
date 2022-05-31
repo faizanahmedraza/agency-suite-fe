@@ -35,7 +35,9 @@ const CardContentTypes = ({ services }) => {
                             return (
                                 <div className="col-4" key={service.id}>
                                     <Card>
-                                        <img src={image} className="crd-img" alt={service.name} />
+                                        <div className='crd-dv-im'>
+                                            <img src={image} className="crd-img" alt={service.name} />
+                                        </div>
                                         <CardBody>
                                             <CardTitle tag='h4'>{service.name}</CardTitle>
                                             <CardText>
