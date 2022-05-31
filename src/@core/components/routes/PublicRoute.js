@@ -12,7 +12,7 @@ const PublicRoute = ({ children, route }) => {
 
     if (window.location.hostname + window.location.pathname === config.public_url + '/login') return <Navigate to="/launch" replace />
     
-    if (window.location.hostname !== config.public_url && window.location.hostname+'/register' === window.location.hostname+'/register') return <Navigate to="/customers/register" replace />
+    if (window.location.hostname !== config.public_url && window.location.hostname + window.location.pathname === window.location.hostname+'/register') return <Navigate to="/customers/register" replace />
 
     if (window.location.hostname + window.location.pathname !== config.public_url + '/launch' && window.location.pathname === "/launch") return <Navigate to="/login" replace />
 
