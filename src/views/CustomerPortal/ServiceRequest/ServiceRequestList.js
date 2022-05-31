@@ -53,8 +53,8 @@ const ServiceRequestList = (props) => {
             <thead>
               <tr>
                 <th>SERVICE NAME</th>
-                <th>STATUS</th>
                 <th>IS RECURRING</th>
+                <th>STATUS</th>
                 <th>ACTIONS</th>
               </tr>
             </thead>
@@ -70,12 +70,12 @@ const ServiceRequestList = (props) => {
                           </span>
                         </Link>
                       </td>
+                      <td>{request.is_recurring ? 'Yes' : 'No'}</td>
                       <td className='text-left'>
                         <span className="align-middle fw-bold">
                           {request.status}
                         </span>
                       </td>
-                      <td>{request.status ? 'Yes' : 'No'}</td>
                       <td>
                         <Link
                           to={`/customer-service-requests/detail/${request.id}`}
