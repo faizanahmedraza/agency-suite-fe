@@ -48,7 +48,6 @@ const CreateServiceRequest = () => {
 
     useEffect(() => {
         dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
-            catalog_status: "active",
             status: "active,pending"
           })));
         dispatch(CustomerListAction.customerList(GeneralHelper.Serialize({
@@ -117,7 +116,6 @@ const CreateServiceRequest = () => {
         if (inputValue.length > 2 && inputValue.trim()) {
             const response = await AgencyService.serviceList(GeneralHelper.Serialize({
                 name: inputValue,
-                catalog_status: "active",
                 status: "active,pending"
             }));
             return response.data.services;
@@ -232,31 +230,31 @@ const CreateServiceRequest = () => {
                                                             <div className='form-check'>
                                                                 <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleInputField} />
                                                                 <Label className='form-check-label' for='sr1'>
-                                                                    {'annually - ' + serviceRequestDetails.selected_service.price_types.annually + '$'}
+                                                                    {'annually - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.annually).toFixed(2)}
                                                                 </Label>
                                                             </div>
                                                             <div className='form-check'>
                                                                 <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleInputField} />
                                                                 <Label className='form-check-label' for='sr2'>
-                                                                    {'biannually - ' + serviceRequestDetails.selected_service.price_types.biannually + '$'}
+                                                                    {'biannually - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.biannually).toFixed(2)}
                                                                 </Label>
                                                             </div>
                                                             <div className='form-check'>
                                                                 <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleInputField} />
                                                                 <Label className='form-check-label' for='sr3'>
-                                                                    {'quarterly - ' + serviceRequestDetails.selected_service.price_types.quarterly + '$'}
+                                                                    {'quarterly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.quarterly).toFixed(2)}
                                                                 </Label>
                                                             </div>
                                                             <div className='form-check'>
                                                                 <Input type='radio' name='recurring_type' value="weekly" onChange={handleInputField} />
                                                                 <Label className='form-check-label' for='sr4'>
-                                                                    {'weekly - ' + serviceRequestDetails.selected_service.price_types.weekly + '$'}
+                                                                    {'weekly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.weekly).toFixed(2)}
                                                                 </Label>
                                                             </div>
                                                             <div className='form-check'>
                                                                 <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleInputField} defaultChecked />
                                                                 <Label className='form-check-label' for='sr5'>
-                                                                    {'monthly - ' + serviceRequestDetails.selected_service.price_types.monthly + '$'}
+                                                                    {'monthly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.monthly).toFixed(2)}
                                                                 </Label>
                                                             </div>
                                                         </div>

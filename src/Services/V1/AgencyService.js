@@ -13,8 +13,9 @@ async function serviceList(params) {
     return response;
 }
 
-async function servicePublicList() {
-    const response = await Gateway.authGateway("GET", V1.DOMAIN, V1.service.public.get, null);
+async function servicePublicList(params) {
+    const _params = params ? '?' + params : "";
+    const response = await Gateway.guestGateway("GET", V1.DOMAIN, V1.service.public.get+_params);
     return response;
 }
 

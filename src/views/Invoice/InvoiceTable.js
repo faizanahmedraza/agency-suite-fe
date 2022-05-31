@@ -92,10 +92,10 @@ const InvoiceTable = (props) => {
                                 </td>
                                 <td>${Number.parseFloat(invoice?.amount).toFixed(2)}</td>
                                 <td className='text-center'>
-                                    {invoice?.paid_by === "agency" ?
+                                    {(invoice?.paid_by === "" || invoice?.paid_by === "agency") ?
                                         <div className='form-switch form-check-primary'>
                                             <Input type='switch' className='' onChange={(e) => handleShowInvoiceStatus(e, invoice.id)} defaultChecked={invoice.is_paid} id='icon-secondnary' name='icon-status' />
-                                        </div> : "Yes"}
+                                        </div> : invoice?.is_paid ? "Yes" : "No"}
                                 </td>
                                 <td>{formatDate(invoice?.created_at)}</td>
                                 <td className='text-center'>

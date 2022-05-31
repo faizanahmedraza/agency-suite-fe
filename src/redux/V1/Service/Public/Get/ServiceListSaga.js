@@ -4,8 +4,7 @@ import ServiceActions from "@store/V1/Service/Public/Get/ServiceListAction"
 import AgencyService from "@src/Services/V1/AgencyService"
 
 function* servicePublicList(data) {
-    const response = yield AgencyService.servicePublicList()
-    console.log(response)
+    const response = yield AgencyService.servicePublicList(data.request)
     if (response.success) {
         yield put(ServiceActions.serviceListSuccess(response.data))
     } else {
