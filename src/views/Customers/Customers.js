@@ -85,7 +85,7 @@ const Customers = () => {
             <div className="col-md-3">
               <Link to="/customers/create">
                 <Button.Ripple className="w-100" color="primary">
-                  Create Customers
+                  Create Customer
                 </Button.Ripple>
               </Link>
             </div>
