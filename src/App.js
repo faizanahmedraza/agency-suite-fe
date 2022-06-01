@@ -1,49 +1,75 @@
-import React, { useState, useEffect, Suspense } from 'react'
+import React, { useState, useEffect, Suspense } from "react";
 
 // ** Router Import
-import Router from './router/Router'
+import Router from "./router/Router";
 
 // ** Routes & Default Routes
-import { getRoutes } from './router/routes'
+import { getRoutes } from "./router/routes";
 
 // ** Hooks Imports
-import { useLayout } from '@hooks/useLayout'
+import { useLayout } from "@hooks/useLayout";
 
-import { setFavIcon, setTitle } from "@utils"
+import { setFavIcon, setTitle } from "@utils";
 
-import "./App.css"
+import "./App.css";
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
+import PortalSettingDetailAction from "@store/V1/PortalSetting/DETAIL/PortalSettingDetailAction";
 
-import "@src/Styles/index.css"
+import "@src/Styles/index.css";
 
 const App = () => {
-  const [allRoutes, setAllRoutes] = useState([])
+  const [allRoutes, setAllRoutes] = useState([]);
   // ** Hooks
-  const { layout } = useLayout()
+  const dispatch = useDispatch();
+  const { layout } = useLayout();
 
-  const { portal_settings, portal_settings: { update: { isChanged, portal_settings: updatePortalSettings } } } = useSelector(state => state)
-
-  const { secondary_color, primary_color, fetched } = portal_settings.detail.portal_settings
+  const {
+    portal_settings: {
+      update: {
+        isChanged,
+        portal_settings: updatePortalSettings
+      },
+      detail: {
+        fetched,
+        portal_settings: {
+          secondary_color,
+          primary_color
+        },
+      },
+    },
+  } = useSelector((state) => state);
 
   useEffect(() => {
-    setFavIcon()
-    setTitle()
-    setAllRoutes(getRoutes(layout))
+    if (!fetched)
+      return dispatch(PortalSettingDetailAction.portalSettingDetail());
+    setFavIcon();
+    setTitle();
+    setAllRoutes(getRoutes(layout));
 
-    if (window !== 'undefined') {
-      const root = document.documentElement
-      root.style.setProperty("--custom-color", `${isChanged ? updatePortalSettings.secondary_color : secondary_color}`)
-      root.style.setProperty("--custom-color-primary", `${isChanged ? updatePortalSettings.primary_color : primary_color}`)
+    if (window !== "undefined") {
+      const root = document.documentElement;
+      root.style.setProperty(
+        "--custom-color",
+        `${isChanged ? updatePortalSettings.secondary_color : secondary_color}`
+      );
+      root.style.setProperty(
+        "--custom-color-primary",
+        `${isChanged ? updatePortalSettings.primary_color : primary_color}`
+      );
     }
+<<<<<<< HEAD
 
   }, [layout, isChanged, fetched])
+=======
+  }, [layout, isChanged, fetched]);
+>>>>>>> imrpovement/improvement_AT-AT-80
 
   return (
     <Suspense fallback={null}>
       <Router allRoutes={allRoutes} />
     </Suspense>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -18,7 +18,7 @@ import CustomerDeleteAction from "@store/V1/Customer/DELETE/CustomerDeleteAction
 import CustomerStatusAction from "@store/V1/Customer/STATUS/CustomerStatusAction";
 import CustomerListAction from "@store/V1/Customer/LIST/CustomerListAction";
 import GeneralHelper from "@src/Helpers/GeneralHelper";
-import { MoreVertical, Edit, Trash } from "react-feather";
+import { Edit, Trash } from "react-feather";
 import { useSelector } from "react-redux";
 
 const CustomerList = (props) => {
@@ -102,7 +102,7 @@ const CustomerList = (props) => {
                   <td>
                     <Link to={`/customers/edit/${customer.id}`}>
                       <span className="align-middle fw-bold">
-                        {customer.first_name + " " + customer.last_name}
+                        {customer.first_name + " " + customer.last_name} {key + 1}
                       </span>
                     </Link>
                   </td>
