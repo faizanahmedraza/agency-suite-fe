@@ -14,6 +14,7 @@ import { setFavIcon, setTitle } from "@utils";
 import "./App.css";
 
 import { useSelector, useDispatch } from "react-redux";
+import config from "@configs/Config"
 import PortalSettingDetailAction from "@store/V1/PortalSetting/DETAIL/PortalSettingDetailAction";
 
 import "@src/Styles/index.css";
@@ -26,23 +27,18 @@ const App = () => {
 
   const {
     portal_settings: {
-      update: {
-        isChanged,
-        portal_settings: updatePortalSettings
-      },
+      update: { isChanged, portal_settings: updatePortalSettings },
       detail: {
         fetched,
-        portal_settings: {
-          secondary_color,
-          primary_color
-        },
+        portal_settings: { secondary_color, primary_color },
       },
     },
   } = useSelector((state) => state);
 
   useEffect(() => {
-    if (!fetched)
-      return dispatch(PortalSettingDetailAction.portalSettingDetail());
+    if (window.location.hostname !== config.public_url) {
+      if (!fetched) return dispatch(PortalSettingDetailAction.portalSettingDetail());
+    }
     setFavIcon();
     setTitle();
     setAllRoutes(getRoutes(layout));
