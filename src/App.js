@@ -14,6 +14,7 @@ import { setFavIcon, setTitle } from "@utils";
 import "./App.css";
 
 import { useSelector, useDispatch } from "react-redux";
+import config from "@configs/Config"
 import PortalSettingDetailAction from "@store/V1/PortalSetting/DETAIL/PortalSettingDetailAction";
 
 import "@src/Styles/index.css";
