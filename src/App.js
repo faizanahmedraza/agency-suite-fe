@@ -26,16 +26,10 @@ const App = () => {
 
   const {
     portal_settings: {
-      update: {
-        isChanged,
-        portal_settings: updatePortalSettings
-      },
+      update: { isChanged, portal_settings: updatePortalSettings },
       detail: {
         fetched,
-        portal_settings: {
-          secondary_color,
-          primary_color
-        },
+        portal_settings: { secondary_color, primary_color },
       },
     },
   } = useSelector((state) => state);
