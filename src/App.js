@@ -58,12 +58,8 @@ const App = () => {
         `${isChanged ? updatePortalSettings.primary_color : primary_color}`
       );
     }
-<<<<<<< HEAD
 
   }, [layout, isChanged, fetched])
-=======
-  }, [layout, isChanged, fetched]);
->>>>>>> imrpovement/improvement_AT-AT-80
 
   return (
     <Suspense fallback={null}>
