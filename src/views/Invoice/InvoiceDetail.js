@@ -230,6 +230,30 @@ const InvoiceDetail = () => {
                                         </div>
                                     </Col>
                                     <Col md='12' sm='12'>
+                                        <div className='mb-1'>
+                                            {/* <div className='d-flex justify-content-between'>
+                                                <Input type='select' className="flex-grow-1" name='card_id' id='select-custom' defaultValue={primaryCard[0]?.id ?? props?.cardId} onChange={props?.onChangeField}>
+                                                    <option value="">Select Card</option>
+                                                    {
+                                                        customer_billing_information && customer_billing_information.map((option) => {
+                                                            return <option value={option.id} key={option.id}>.... .... .... {option.last_digits}</option>
+                                                        })
+                                                    }
+                                                </Input>
+                                                <Button color='primary' className='btn-sm py-1 px-3 mt-2' type='submit' disabled={createLoading}>
+                                                    {
+                                                        createLoading ?
+                                                            <Loader />
+                                                            :
+                                                            <span>
+                                                                Paid
+                                                            </span>
+                                                    }
+                                                </Button>
+                                            </div> */}
+                                        </div>
+                                    </Col>
+                                    <Col md='12' sm='12'>
                                         <div className='d-flex justify-content-between'>
                                             <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
                                                 Cancel
