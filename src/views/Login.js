@@ -13,10 +13,9 @@ import {
   Spinner,
 } from "reactstrap";
 import "@styles/react/pages/page-authentication.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "@store/store";
 import LoginAction from "@store/V1/Auth/Login/LoginAction";
-import PortalSettingDetailAction from "@store/V1/PortalSetting/DETAIL/PortalSettingDetailAction";
 import Loader from "@src/Components/LoaderComponent"
 import { ChevronRight} from 'react-feather'
 
@@ -31,7 +30,6 @@ const LoginCover = () => {
     {
       detail: {
         loading: portalDetailLoading,
-        fetched,
         portal_settings
       }
     }
@@ -48,10 +46,6 @@ const LoginCover = () => {
       [e.target.name]: e.target.value,
     });
   };
-
-  useEffect(() => {
-    if (!fetched) return dispatch(PortalSettingDetailAction.portalSettingDetail());
-  }, []);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
