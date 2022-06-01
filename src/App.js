@@ -35,8 +35,9 @@ const App = () => {
   } = useSelector((state) => state);
 
   useEffect(() => {
-    if (!fetched)
-      return dispatch(PortalSettingDetailAction.portalSettingDetail());
+    if (window.location.hostname !== config.public_url) {
+      if (!fetched) return dispatch(PortalSettingDetailAction.portalSettingDetail());
+    }
     setFavIcon();
     setTitle();
     setAllRoutes(getRoutes(layout));
