@@ -9,9 +9,13 @@ import {
     CardBody,
     Button,
     CardHeader,
+    Form
 } from 'reactstrap'
 import { useDispatch, useSelector } from '@store/store'
 import InvoiceDetailAction from "@store/V1/Invoice/Detail/InvoiceDetailAction"
+import BillingInformationListAction from "@store/V1/CustomerBillingInformation/LIST/BillingInformationListAction";
+import InvoicePaidAction from "@store/V1/Invoice/InvoicePaid/InvoicePaidAction";
+import GeneralHelper from "@src/Helpers/GeneralHelper";
 
 const Loader = () => {
     return (
@@ -33,8 +37,18 @@ const InvoiceDetail = () => {
                 loading,
                 customer_invoice,
                 fetched
+            },
+            invoice_paid: {
+                loading: invoicePaidLoading, isPaid
             }
         },
+        billing_information: {
+            list: {
+                customer_billing_information,
+                fetched: billingInfofetched,
+                loading: billingInfoLoading
+            }
+        }
     } = useSelector(state => state);
 
     const [invoiceDetails, setInvoiceDetails] = useState({
@@ -64,14 +78,40 @@ const InvoiceDetail = () => {
         amount: "",
     });
 
-    console.log(invoiceDetails)
+    const [invoicePaid, setInvoicePaid] = useState({
+        card_id: "",
+        invoice_id: id
+    });
+
+    const handleInvoicePaidField = (e) => {
+        setInvoicePaid({
+            ...invoicePaid,
+            [e.target.name]: e.target.value
+        })
+    }
 
     useEffect(() => {
         dispatch(InvoiceDetailAction.invoiceDetail(id));
+
         if (fetched) {
             setInvoiceDetails(customer_invoice)
+            dispatch(BillingInformationListAction.billingInformationList(
+                GeneralHelper.Serialize({
+                    customer_id: customer_invoice?.customer?.id ?? "",
+                })
+            ));
         }
-    }, [fetched]);
+
+        if (billingInfofetched) {
+            const primaryCard = customer_billing_information.filter(billingInfo => billingInfo.is_primary === true)
+            setInvoicePaid({ ...invoicePaid, card_id: primaryCard[0]?.id })
+        }
+    }, [fetched, billingInfofetched, isPaid]);
+
+    const onSubmitHandler = (e) => {
+        e.preventDefault();
+        dispatch(InvoicePaidAction.invoicePaid(invoicePaid));
+    }
 
     return (
         <div>
@@ -229,6 +269,35 @@ const InvoiceDetail = () => {
                                             <Input type='textarea' value={invoiceDetails?.customer_service_request?.intake_form[0]?.description ? invoiceDetails?.customer_service_request?.intake_form[0]?.description : ""} name='description' id='description' placeholder='Enter Description' readOnly />
                                         </div>
                                     </Col>
+                                    {!customer_invoice.is_paid ?
+                                        (billingInfoLoading ? <Loader /> :
+                                            <Col md='12' sm='12'>
+                                                <Form onSubmit={onSubmitHandler}>
+                                                    <div className='d-flex justify-content-between align-items-center mb-2'>
+                                                        <div className='w-50'>
+                                                            <Input type='select' name='card_id' id='select-custom' defaultValue={invoicePaid.card_id} onChange={handleInvoicePaidField}>
+                                                                <option value="">Select Card</option>
+                                                                {
+                                                                    customer_billing_information && customer_billing_information.map((option) => {
+                                                                        return <option value={option.id} key={option.id}>.... .... .... {option.last_digits}</option>
+                                                                    })
+                                                                }
+                                                            </Input>
+                                                        </div>
+                                                        <Button color='primary' className='btn-sm py-1 px-3' type='submit' disabled={invoicePaidLoading}>
+                                                            {
+                                                                invoicePaidLoading ?
+                                                                    <Loader />
+                                                                    :
+                                                                    <span>
+                                                                        Paid
+                                                                    </span>
+                                                            }
+                                                        </Button>
+                                                    </div>
+                                                </Form>
+                                            </Col>
+                                        ) : ""}
                                     <Col md='12' sm='12'>
                                         <div className='d-flex justify-content-between'>
                                             <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>

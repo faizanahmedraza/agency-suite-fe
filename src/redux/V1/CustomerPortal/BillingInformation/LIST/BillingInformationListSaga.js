@@ -4,13 +4,13 @@ import BillingInformationListAction from "@store/V1/CustomerPortal/BillingInform
 import BillingInformationService from "@src/Services/V1/CustomerPortal/BillingInformationService";
 import toast from 'react-hot-toast';
 
-function* billingInformationList(data) {
+function* billingInformationList() {
   try {
-    const response = yield BillingInformationService.billingInformationList(data.request);
+    const response = yield BillingInformationService.billingInformationList();
     if (response.success) {
       yield put(BillingInformationListAction.billingInformationListSuccess(response.data));
     } else {
-      // toast.error(response.error.message);
+      toast.error(response.error.message);
       yield put(BillingInformationListAction.billingInformationListFailed(response.error));
     }
   } catch (error) {

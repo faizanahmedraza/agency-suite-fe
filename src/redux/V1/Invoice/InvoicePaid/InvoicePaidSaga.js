@@ -1,7 +1,7 @@
 import { takeEvery, put } from "redux-saga/effects";
-import INVOICE from "@store/V1/CustomerPortal/Invoice/ActionTypes"
-import InvoicePaidAction from "@store/V1/CustomerPortal/Invoice/InvoicePaid/InvoicePaidAction";
-import InvoiceService from "@src/Services/V1/CustomerPortal/InvoiceService"
+import INVOICE from "@store/V1/Invoice/ActionTypes"
+import InvoicePaidAction from "@store/V1/Invoice/InvoicePaid/InvoicePaidAction";
+import InvoiceService from "@src/Services/V1/InvoiceService"
 import toast from 'react-hot-toast';
 
 function* invoicePaid(data) {
@@ -22,5 +22,5 @@ function* invoicePaid(data) {
 }
 
 export function* InvoicePaidSaga() {
-  yield takeEvery(INVOICE.CUSTOMER_INVOICE_PAID, invoicePaid);
+  yield takeEvery(INVOICE.INVOICE_PAID, invoicePaid);
 }

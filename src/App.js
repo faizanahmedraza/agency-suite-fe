@@ -36,12 +36,12 @@ const App = () => {
   } = useSelector((state) => state);
 
   useEffect(() => {
-    if (window.location.hostname !== config.public_url) {
+    if (window.location.hostname !== config.public_url && localStorage.getItem('portal_settings') === null) {
       if (!fetched) return dispatch(PortalSettingDetailAction.portalSettingDetail());
     }
     setFavIcon();
     setTitle();
-    setAllRoutes(getRoutes(layout));
+    setAllRoutes(getRoutes(layout)); 
 
     if (window !== "undefined") {
       const root = document.documentElement;
@@ -54,7 +54,8 @@ const App = () => {
         `${isChanged ? updatePortalSettings.primary_color : primary_color}`
       );
     }
-  }, [layout, isChanged, fetched]);
+
+  }, [layout, isChanged, fetched])
 
   return (
     <Suspense fallback={null}>
