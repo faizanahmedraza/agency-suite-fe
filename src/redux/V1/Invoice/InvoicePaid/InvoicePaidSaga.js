@@ -8,6 +8,7 @@ function* invoicePaid(data) {
   try {
     const response = yield InvoiceService.invoicePaidPut(data.request);
     if (response.success) {
+      toast.success("Invoice successfully paid")
       yield put(InvoicePaidAction.invoicePaidSuccess(response.data));
     } else {
       toast.error(response.error.message);

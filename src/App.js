@@ -36,12 +36,12 @@ const App = () => {
   } = useSelector((state) => state);
 
   useEffect(() => {
-    if (window.location.hostname !== config.public_url) {
+    if (window.location.hostname !== config.public_url && localStorage.getItem('portal_settings') === null) {
       if (!fetched) return dispatch(PortalSettingDetailAction.portalSettingDetail());
     }
     setFavIcon();
     setTitle();
-    setAllRoutes(getRoutes(layout));
+    setAllRoutes(getRoutes(layout)); 
 
     if (window !== "undefined") {
       const root = document.documentElement;
