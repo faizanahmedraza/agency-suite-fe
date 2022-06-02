@@ -133,31 +133,31 @@ const CreateServiceRequest = () => {
                                                         <div className='form-check'>
                                                             <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleServiceRequestInputField} />
                                                             <Label className='form-check-label fs-5' for='sr1'>
-                                                                {'annually - $' + Number.parseFloat(service.price_types.annually).toFixed(2)}
+                                                                {'annually - $' + Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}
                                                             </Label>
                                                         </div>
                                                         <div className='form-check'>
                                                             <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleServiceRequestInputField} />
                                                             <Label className='form-check-label fs-5' for='sr2'>
-                                                                {'biannually - $' + Number.parseFloat(service.price_types.biannually).toFixed(2)}
+                                                                {'biannually - $' + Number.parseFloat(service.price_types.biannually ?? 0).toFixed(2)}
                                                             </Label>
                                                         </div>
                                                         <div className='form-check'>
                                                             <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleServiceRequestInputField} />
                                                             <Label className='form-check-label fs-5' for='sr3'>
-                                                                {'quarterly - $' + Number.parseFloat(service.price_types.quarterly).toFixed(2)}
+                                                                {'quarterly - $' + Number.parseFloat(service.price_types.quarterly ?? 0).toFixed(2)}
                                                             </Label>
                                                         </div>
                                                         <div className='form-check'>
                                                             <Input type='radio' name='recurring_type' value="weekly" onChange={handleServiceRequestInputField} />
                                                             <Label className='form-check-label fs-5' for='sr4'>
-                                                                {'weekly - $' + Number.parseFloat(service.price_types.weekly).toFixed(2)}
+                                                                {'weekly - $' + Number.parseFloat(service.price_types.weekly ?? 0).toFixed(2)}
                                                             </Label>
                                                         </div>
                                                         <div className='form-check'>
                                                             <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleServiceRequestInputField} defaultChecked />
                                                             <Label className='form-check-label fs-5' for='sr5'>
-                                                                {'monthly - $' + Number.parseFloat(service.price_types.monthly).toFixed(2)}
+                                                                {'monthly - $' + Number.parseFloat(service.price_types.monthly ?? 0).toFixed(2)}
                                                             </Label>
                                                         </div>
                                                     </div>
