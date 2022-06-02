@@ -182,7 +182,7 @@ const CreateServiceRequest = () => {
                                                         Price
                                                     </Label>
                                                     <p className='text-wrap'>
-                                                        ${Number.parseFloat(service?.price_types?.price).toFixed(2)}
+                                                        ${Number.parseFloat(service?.price_types?.price ?? 0).toFixed(2)}
                                                     </p>
                                                 </div>
                                             </Col>
