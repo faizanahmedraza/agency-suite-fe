@@ -180,7 +180,7 @@ const DetailServiceRequest = () => {
                                                     Price
                                                 </Label>
                                                 <p className='text-wrap'>
-                                                    ${Number.parseFloat(serviceRequestDetails?.service?.price_types?.price).toFixed(2)}
+                                                    ${Number.parseFloat(serviceRequestDetails?.service?.price_types?.price ?? 0).toFixed(2)}
                                                 </p>
                                             </div>
                                         </Col>

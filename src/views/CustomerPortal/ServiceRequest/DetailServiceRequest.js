@@ -97,31 +97,31 @@ const DetailServiceRequest = () => {
                                                     <div className='form-check'>
                                                         <Input type='radio' name='recurring_type' id='sr1' value="annually" defaultChecked={serivice_request?.recurring_type === "annually"} disabled />
                                                         <Label className='form-check-label fs-5' for='sr1'>
-                                                            {'annually - $' + Number.parseFloat(serivice_request?.service?.price_types.annually).toFixed(2)}
+                                                            {'annually - $' + Number.parseFloat(serivice_request?.service?.price_types.annually ?? 0).toFixed(2)}
                                                         </Label>
                                                     </div>
                                                     <div className='form-check'>
                                                         <Input type='radio' name='recurring_type' id='sr2' value="biannually" defaultChecked={serivice_request?.recurring_type === "biannually"} disabled />
                                                         <Label className='form-check-label fs-5' for='sr2'>
-                                                            {'biannually - $' + Number.parseFloat(serivice_request?.service?.price_types.biannually).toFixed(2)}
+                                                            {'biannually - $' + Number.parseFloat(serivice_request?.service?.price_types.biannually ?? 0).toFixed(2)}
                                                         </Label>
                                                     </div>
                                                     <div className='form-check'>
                                                         <Input type='radio' name='recurring_type' id='sr3' value="quarterly" defaultChecked={serivice_request?.recurring_type === "quarterly"} disabled />
                                                         <Label className='form-check-label fs-5' for='sr3'>
-                                                            {'quarterly - $' + Number.parseFloat(serivice_request?.service?.price_types.quarterly).toFixed(2)}
+                                                            {'quarterly - $' + Number.parseFloat(serivice_request?.service?.price_types.quarterly ?? 0).toFixed(2)}
                                                         </Label>
                                                     </div>
                                                     <div className='form-check'>
                                                         <Input type='radio' name='recurring_type' value="weekly" defaultChecked={serivice_request?.recurring_type === "weekly"} disabled />
                                                         <Label className='form-check-label fs-5' for='sr4'>
-                                                            {'weekly - $' + Number.parseFloat(serivice_request?.service?.price_types.weekly).toFixed(2)}
+                                                            {'weekly - $' + Number.parseFloat(serivice_request?.service?.price_types.weekly ?? 0).toFixed(2)}
                                                         </Label>
                                                     </div>
                                                     <div className='form-check'>
                                                         <Input type='radio' name='recurring_type' id='sr5' value="monthly" defaultChecked={serivice_request?.recurring_type === "monthly"} disabled />
                                                         <Label className='form-check-label fs-5' for='sr5'>
-                                                            {'monthly - $' + Number.parseFloat(serivice_request?.service?.price_types.monthly).toFixed(2)}
+                                                            {'monthly - $' + Number.parseFloat(serivice_request?.service?.price_types.monthly ?? 0).toFixed(2)}
                                                         </Label>
                                                     </div>
                                                 </div>
@@ -146,7 +146,7 @@ const DetailServiceRequest = () => {
                                                     Price
                                                 </Label>
                                                 <p className='text-wrap'>
-                                                    ${Number.parseFloat(serivice_request?.service?.price_types?.price).toFixed(2)}
+                                                    ${Number.parseFloat(serivice_request?.service?.price_types?.price ?? 0).toFixed(2)}
                                                 </p>
                                             </div>
                                         </Col>
