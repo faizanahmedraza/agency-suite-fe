@@ -1,9 +1,8 @@
 import BILLING_INFORMATION from "@store/V1/CustomerPortal/BillingInformation/ActionType";
 
-const billingInformationList = (id) => {
+const billingInformationList = () => {
   return {
     type: BILLING_INFORMATION.BILLING_INFORMATION_LIST,
-    request: id,
   };
 };
 

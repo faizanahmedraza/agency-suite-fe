@@ -34,7 +34,8 @@ const V1 = {
     },
     profile_settings: "v1/profile",
     service_request: "v1/agencies/request-services",
-    invoices: "v1/agencies/invoices"
+    invoices: "v1/agencies/invoices",
+    billing_information: "v1/agencies/billing-information",
   },
   customer: {
     services: "v1/customers/services",
@@ -45,8 +46,8 @@ const V1 = {
     payments: {}
   },
   change_auth_password: "v1/change-password",
-  // DOMAIN: window.location.hostname
-  DOMAIN: 'irfanagency1.allthingswordpress.io',
+  DOMAIN: window.location.hostname
+  // DOMAIN: 'irfanagency1.allthingswordpress.io',
 };
 
 export default V1;
