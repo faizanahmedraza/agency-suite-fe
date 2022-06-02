@@ -102,7 +102,7 @@ const CustomerList = (props) => {
                   <td>
                     <Link to={`/customers/edit/${customer.id}`}>
                       <span className="align-middle fw-bold">
-                        {customer.first_name + " " + customer.last_name} {key + 1}
+                        {customer.first_name + " " + customer.last_name}
                       </span>
                     </Link>
                   </td>

@@ -133,7 +133,7 @@ const DetailServiceRequest = () => {
                                         <Col md='4' sm='12'>
                                             <div className='mb-1'>
                                                 <Label className='form-label fs-5' for='select-basic'>
-                                                    Subscription Type: one-off
+                                                    Subscription Type
                                                 </Label>
                                                 <p className='text-wrap'>
                                                     one-off
