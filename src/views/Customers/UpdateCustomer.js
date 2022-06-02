@@ -77,68 +77,59 @@ const UpdateCustomer = () => {
             </Card>
             <Card>
                 <CardBody>
-                    <Card>
-                        <CardHeader>
-                            <h4>Customer Details</h4>
-                        </CardHeader>
-                        <hr />
-                        <CardBody>
-                            <Form onSubmit={onSubmitHandler}>
-                                <Row>
-                                    <Col md='6' sm='12'>
-                                        <div className='mb-1'>
-                                            <Label className='form-label' for='nameMulti'>
-                                                First Name
-                                            </Label>
-                                            <Input type='text' onChange={handleInputField} name='first_name' id='first_name' placeholder='Enter Customer First Name' value={!loading ? customerDetails.first_name : ""} />
-                                        </div>
-                                    </Col>
-                                    <Col md='6' sm='12'>
-                                        <div className='mb-1'>
-                                            <Label className='form-label' for='nameMulti'>
-                                                Last Name
-                                            </Label>
-                                            <Input type='text' onChange={handleInputField} name='last_name' id='last_name' placeholder='Enter Customer Last Name' value={!loading ? customerDetails.last_name : ""} />
-                                        </div>
-                                    </Col>
-                                    <Col md='6' sm='12'>
-                                        <div className='mb-1'>
-                                            <Label className='form-label' for='nameMulti'>
-                                                Email
-                                            </Label>
-                                            <Input type='email' tabIndex="3" onChange={handleInputField} name='email' id='email' placeholder='Enter Customer Email' value={!loading ? customerDetails.email : ""} />
-                                        </div>
-                                    </Col>
-                                    <Col md='12' sm='12'>
-                                        <div className='d-flex justify-content-between'>
-                                            <Link to="/customers">
-                                                <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
-                                                    Cancel
-                                                </Button>
-                                            </Link>
-                                            <Button color='primary' type='submit' disabled={updateLoading}>
-                                                {
-                                                    updateLoading ?
-                                                        <>
-                                                            <Spinner color='white' size='sm' type='grow' />
-                                                            <span className='ms-50'>Loading...</span>
-                                                        </>
-                                                        :
-                                                        <span>
-                                                            Update
-                                                        </span>
-                                                }
-                                            </Button>
+                    <Form onSubmit={onSubmitHandler}>
+                        <Row>
+                            <Col md='6' sm='12'>
+                                <div className='mb-1'>
+                                    <Label className='form-label' for='nameMulti'>
+                                        First Name
+                                    </Label>
+                                    <Input type='text' onChange={handleInputField} name='first_name' id='first_name' placeholder='Enter Customer First Name' value={!loading ? customerDetails.first_name : ""} />
+                                </div>
+                            </Col>
+                            <Col md='6' sm='12'>
+                                <div className='mb-1'>
+                                    <Label className='form-label' for='nameMulti'>
+                                        Last Name
+                                    </Label>
+                                    <Input type='text' onChange={handleInputField} name='last_name' id='last_name' placeholder='Enter Customer Last Name' value={!loading ? customerDetails.last_name : ""} />
+                                </div>
+                            </Col>
+                            <Col md='6' sm='12'>
+                                <div className='mb-1'>
+                                    <Label className='form-label' for='nameMulti'>
+                                        Email
+                                    </Label>
+                                    <Input type='email' tabIndex="3" onChange={handleInputField} name='email' id='email' placeholder='Enter Customer Email' value={!loading ? customerDetails.email : ""} />
+                                </div>
+                            </Col>
+                            <Col md='12' sm='12'>
+                                <div className='d-flex justify-content-between'>
+                                    <Link to="/customers">
+                                        <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
+                                            Cancel
+                                        </Button>
+                                    </Link>
+                                    <Button color='primary' type='submit' disabled={updateLoading}>
+                                        {
+                                            updateLoading ?
+                                                <>
+                                                    <Spinner color='white' size='sm' type='grow' />
+                                                    <span className='ms-50'>Loading...</span>
+                                                </>
+                                                :
+                                                <span>
+                                                    Update
+                                                </span>
+                                        }
+                                    </Button>
 
-                                        </div>
-                                    </Col>
-                                </Row>
-                            </Form>
-                        </CardBody>
-                    </Card>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Form>
                 </CardBody>
             </Card>
-
         </div>
     )
 }

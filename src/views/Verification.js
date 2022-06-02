@@ -51,7 +51,7 @@ const Verification = () => {
 
   useEffect(() => {
     if (!fetched) return dispatch(PortalSettingDetailAction.portalSettingDetail());
-  }, []);
+  }, [fetched]);
 
   return (
     <div className='auth-wrapper auth-basic px-2'>

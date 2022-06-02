@@ -76,9 +76,6 @@ const Portal = () => {
                 <CardBody>
                     <TabContent className="py-50" activeTab={active}>
                         <TabPane tabId="1">
-                            <div>
-                                <h3>Client portal details</h3>
-                                <hr />
                                 {
                                     loading ?
                                         <Row>
@@ -209,7 +206,6 @@ const Portal = () => {
                                             </Col>
                                         </Form>
                                 }
-                            </div>
                         </TabPane>
                     </TabContent>
                 </CardBody>

@@ -74,151 +74,160 @@ const DetailServiceRequest = () => {
             <Card>
                 <CardBody>
                     <div className='row'>
-                        <div className='col-md-4'>
-                            <h1>Service Request</h1>
+                        <div className='col-md-12'>
+                            <h1>Service Request Details</h1>
                         </div>
                     </div>
                 </CardBody>
             </Card>
             <Card>
                 <CardBody>
-                    <Card>
-                        <CardHeader>
-                            <h4>Service Request Details</h4>
-                        </CardHeader>
-                        <hr />
-                        <CardBody>
-                            {loading ? <Loader /> :
-                                <Form>
-                                    <Row>
-                                        <Col md="6" sm='12'>
-                                            <div className='mb-1'>
-                                                <Label className='form-label fs-5' for='select-basic'>
-                                                    Customer
-                                                </Label>
-                                                <Link
-                                                    to={`/customers/edit/${serviceRequestDetails?.customer?.id}`}
-                                                >
-                                                    <Input type='text' name='customer' id='' defaultValue={serviceRequestDetails?.customer?.first_name} readOnly style={pointerStyle} />
-                                                </Link>
-                                            </div>
-                                        </Col>
-                                        <Col md="6" sm='12'>
-                                            <div className='mb-1'>
-                                                <Label className='form-label fs-5' for='select-basic'>
-                                                    Service Name
-                                                </Label>
-                                                <Link
-                                                    to={`/services/edit/${serviceRequestDetails?.service?.id}`}
-                                                >
-                                                    <Input type='text' name='service' id='' defaultValue={serviceRequestDetails?.service?.name} readOnly style={pointerStyle} />
-                                                </Link>
-                                            </div>
-                                        </Col>
-                                        <Col md="12" sm='12'>
-                                            <div className='mb-1'>
-                                                <Label className='form-label fs-5' for='description'>
-                                                    Service Description
-                                                </Label>
-                                                <Input type='textarea' name='description' id='description' defaultValue={serviceRequestDetails?.service?.description} readOnly style={pointerStyle} />
-                                            </div>
-                                        </Col>
-                                        {
-                                            serviceRequestDetails?.is_recurring ?
-                                                (
-                                                    <Col md='12' sm='12'>
-                                                        <div className='mb-1'>
-                                                            <Label className='form-label fs-5 pb-0 mb-0' for='select-basic'>
-                                                                Service Subscription
+                    {loading ? <Loader /> : <>
+                        <Form>
+                            <Row>
+                                <Col md="6" sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label fs-5' for='select-basic'>
+                                            Customer
+                                        </Label>
+                                        <Link
+                                            to={`/customers/edit/${serviceRequestDetails?.customer?.id}`}
+                                        >
+                                            <Input type='text' name='customer' id='' defaultValue={serviceRequestDetails?.customer?.first_name} readOnly style={pointerStyle} />
+                                        </Link>
+                                    </div>
+                                </Col>
+                                <Col md="6" sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label fs-5' for='select-basic'>
+                                            Service Name
+                                        </Label>
+                                        <Link
+                                            to={`/services/edit/${serviceRequestDetails?.service?.id}`}
+                                        >
+                                            <Input type='text' name='service' id='' defaultValue={serviceRequestDetails?.service?.name} readOnly style={pointerStyle} />
+                                        </Link>
+                                    </div>
+                                </Col>
+                                <Col md="12" sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label fs-5' for='description'>
+                                            Service Description
+                                        </Label>
+                                        <Input type='textarea' name='description' id='description' defaultValue={serviceRequestDetails?.service?.description} readOnly style={pointerStyle} />
+                                    </div>
+                                </Col>
+                            </Row>
+                            {
+                                serviceRequestDetails?.is_recurring ?
+                                    (
+                                        <Row>
+                                            <Col md='12' sm='12'>
+                                                <div className='mb-1'>
+                                                    <Label className='form-label fs-5 pb-0 mb-0' for='select-basic'>
+                                                        Service Subscription
+                                                    </Label>
+                                                    <div className='demo-inline-spacing'>
+                                                        <div className='form-check'>
+                                                            <Input type='radio' name='recurring_type' id='sr1' defaultChecked={serviceRequestDetails?.recurring_type === "annually"} disabled />
+                                                            <Label className='form-check-label fs-5' for='sr1'>
+                                                                {'annualy - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.annually).toFixed(2)}
                                                             </Label>
-                                                            <div className='demo-inline-spacing'>
-                                                                <div className='form-check'>
-                                                                    <Input type='radio' name='recurring_type' id='sr1' defaultChecked={serviceRequestDetails?.recurring_type === "annually"} disabled />
-                                                                    <Label className='form-check-label fs-5' for='sr1'>
-                                                                        {'annualy - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.annually).toFixed(2)}
-                                                                    </Label>
-                                                                </div>
-                                                                <div className='form-check'>
-                                                                    <Input type='radio' name='recurring_type' id='sr2' defaultValue="biannually" defaultChecked={serviceRequestDetails?.recurring_type === "biannually"} disabled />
-                                                                    <Label className='form-check-label fs-5' for='sr2'>
-                                                                        {'biannually - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.biannually).toFixed(2)}
-                                                                    </Label>
-                                                                </div>
-                                                                <div className='form-check'>
-                                                                    <Input type='radio' name='recurring_type' id='sr3' defaultValue="quarterly" defaultChecked={serviceRequestDetails?.recurring_type === "quarterly"} disabled />
-                                                                    <Label className='form-check-label fs-5' for='sr3'>
-                                                                        {'quarterly - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.quarterly).toFixed(2)}
-                                                                    </Label>
-                                                                </div>
-                                                                <div className='form-check'>
-                                                                    <Input type='radio' name='recurring_type' defaultValue="weekly" defaultChecked={serviceRequestDetails?.recurring_type === "weekly"} disabled />
-                                                                    <Label className='form-check-label fs-5' for='sr4'>
-                                                                        {'weekly - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.weekly).toFixed(2)}
-                                                                    </Label>
-                                                                </div>
-                                                                <div className='form-check'>
-                                                                    <Input type='radio' name='recurring_type' id='sr5' defaultValue="monthly" defaultChecked={serviceRequestDetails?.recurring_type === "monthly"} disabled />
-                                                                    <Label className='form-check-label fs-5' for='sr5'>
-                                                                        {'monthly - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.monthly).toFixed(2)}
-                                                                    </Label>
-                                                                </div>
-                                                            </div>
                                                         </div>
-                                                    </Col>
-                                                ) : (
-                                                    <Col md='12' sm='12'>
-                                                        <div className='mb-1'>
-                                                        <div className='form-check ps-0'>
-                                                                <Label className='form-label fs-5' for='select-basic'>
-                                                                    Subscription Type: one-off
-                                                                </Label>
-                                                            </div>
-                                                            <div className='form-check ps-0'>
-                                                                <Label className='form-label fs-5' for='select-basic'>
-                                                                    Price: ${Number.parseFloat(serviceRequestDetails?.service?.price_types?.price).toFixed(2)}
-                                                                </Label>
-                                                            </div>
-                                                            <div className='form-check ps-0'>
-                                                                <Label className='form-label fs-5' for='select-basic'>
-                                                                    Purchase Limit: {serviceRequestDetails?.service?.price_types?.purchase_limit && serviceRequestDetails?.service?.price_types?.purchase_limit}
-                                                                </Label>
-                                                            </div>
+                                                        <div className='form-check'>
+                                                            <Input type='radio' name='recurring_type' id='sr2' defaultValue="biannually" defaultChecked={serviceRequestDetails?.recurring_type === "biannually"} disabled />
+                                                            <Label className='form-check-label fs-5' for='sr2'>
+                                                                {'biannually - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.biannually).toFixed(2)}
+                                                            </Label>
                                                         </div>
-                                                    </Col>
-                                                )
-                                        }
-                                        <Col md='12' sm='12'>
+                                                        <div className='form-check'>
+                                                            <Input type='radio' name='recurring_type' id='sr3' defaultValue="quarterly" defaultChecked={serviceRequestDetails?.recurring_type === "quarterly"} disabled />
+                                                            <Label className='form-check-label fs-5' for='sr3'>
+                                                                {'quarterly - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.quarterly).toFixed(2)}
+                                                            </Label>
+                                                        </div>
+                                                        <div className='form-check'>
+                                                            <Input type='radio' name='recurring_type' defaultValue="weekly" defaultChecked={serviceRequestDetails?.recurring_type === "weekly"} disabled />
+                                                            <Label className='form-check-label fs-5' for='sr4'>
+                                                                {'weekly - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.weekly).toFixed(2)}
+                                                            </Label>
+                                                        </div>
+                                                        <div className='form-check'>
+                                                            <Input type='radio' name='recurring_type' id='sr5' defaultValue="monthly" defaultChecked={serviceRequestDetails?.recurring_type === "monthly"} disabled />
+                                                            <Label className='form-check-label fs-5' for='sr5'>
+                                                                {'monthly - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.monthly).toFixed(2)}
+                                                            </Label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    ) : (
+                                        <Row>
+                                        <Col md='4' sm='12'>
                                             <div className='mb-1'>
-                                                <Label className='form-label fs-5' for='nameMulti'>
-                                                    Intake Title
+                                                <Label className='form-label fs-5' for='select-basic'>
+                                                    Subscription Type: one-off
                                                 </Label>
-                                                <Input type='text' defaultValue={serviceRequestDetails?.intake_form[0]?.title} name='title' id='title' placeholder='Enter Title' readOnly />
+                                                <p className='text-wrap'>
+                                                    one-off
+                                                </p>
                                             </div>
                                         </Col>
-                                        <Col md='12' sm='12'>
+                                        <Col md='4' sm='12'>
                                             <div className='mb-1'>
-                                                <Label className='form-label fs-5' for='nameMulti'>
-                                                    Intake Description
+                                                <Label className='form-label fs-5' for='select-basic'>
+                                                    Price
                                                 </Label>
-                                                <Input type='textarea' defaultValue={serviceRequestDetails?.intake_form[0]?.description} name='description' id='description' placeholder='Enter Description' readOnly />
+                                                <p className='text-wrap'>
+                                                    ${Number.parseFloat(serviceRequestDetails?.service?.price_types?.price).toFixed(2)}
+                                                </p>
                                             </div>
                                         </Col>
-                                        <Col md='12' sm='12'>
-                                            <div className='d-flex justify-content-between'>
-                                                <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
-                                                    Cancel
-                                                </Button>
+                                        <Col md='4' sm='12'>
+                                            <div className='mb-1'>
+                                                <Label className='form-label fs-5' for='select-basic'>
+                                                    Purchase Limit
+                                                </Label>
+                                                <p className='text-wrap'>
+                                                    {serviceRequestDetails?.service?.price_types?.purchase_limit ?? "---"}
+                                                </p>
                                             </div>
                                         </Col>
                                     </Row>
-                                </Form>
+                                    )
                             }
-                        </CardBody>
-                    </Card>
+                            <Row>
+                                <Col md='12' sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label fs-5' for='nameMulti'>
+                                            Intake Title
+                                        </Label>
+                                        <Input type='text' defaultValue={serviceRequestDetails?.intake_form[0]?.title} name='title' id='title' placeholder='Enter Title' readOnly />
+                                    </div>
+                                </Col>
+                                <Col md='12' sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label fs-5' for='nameMulti'>
+                                            Intake Description
+                                        </Label>
+                                        <Input type='textarea' defaultValue={serviceRequestDetails?.intake_form[0]?.description} name='description' id='description' placeholder='Enter Description' readOnly />
+                                    </div>
+                                </Col>
+                                <Col md='12' sm='12'>
+                                    <div className='d-flex justify-content-between'>
+                                        <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
+                                            Cancel
+                                        </Button>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Form>
+                    </>}
                 </CardBody>
             </Card>
 
-        </div>
+        </div >
     )
 }
 

@@ -162,10 +162,6 @@ const EditService = () => {
                     <TabContent className='py-50' activeTab={active}>
                         <TabPane tabId='1'>
                             <Card>
-                                <CardHeader>
-                                    <h4>Service details</h4>
-                                </CardHeader>
-                                <hr />
                                 <CardBody>
                                     {
                                         loading ?
@@ -181,13 +177,13 @@ const EditService = () => {
                                                                 <Label className='form-label' for='nameMulti'>
                                                                     Service Name
                                                                 </Label>
-                                                                <Input type='text' value={serviceDetails.name} onChange={handleInputField} name='name' id='nameMulti' placeholder='Enter Service Name' />
+                                                                <Input type='text' value={serviceDetails.name ?? ""} onChange={handleInputField} name='name' id='nameMulti' placeholder='Enter Service Name' />
                                                             </div>
                                                             <div className='mb-1'>
                                                                 <Label className='form-label' for='nameMulti'>
                                                                     Description
                                                                 </Label>
-                                                                <Input type='textarea' value={serviceDetails.description} onChange={handleInputField} name='description' id='nameMulti' placeholder='Enter Description' />
+                                                                <Input type='textarea' value={serviceDetails.description ?? ""} onChange={handleInputField} name='description' id='nameMulti' placeholder='Enter Description' />
                                                             </div>
                                                         </Col>
                                                         <Col md='6' sm='12'>
@@ -198,7 +194,7 @@ const EditService = () => {
                                                                             <img src={serviceDetails.image} width="200" height="200" alt="service image" />
                                                                             :
                                                                             <div className='text-center'>
-                                                                            <span>No Image Selected</span>
+                                                                                <span>No Image Selected</span>
                                                                             </div>
                                                                         }
                                                                     </div>
@@ -223,7 +219,7 @@ const EditService = () => {
                                                                 <Label className='form-label' for='select-basic'>
                                                                     Type
                                                                 </Label>
-                                                                <Input type='select' value={serviceDetails.subscription_type} name='subscription_type' onChange={handleInputField} id='select-basic'>
+                                                                <Input type='select' value={serviceDetails.subscription_type ?? ""} name='subscription_type' onChange={handleInputField} id='select-basic'>
                                                                     <option value="">Please , choose a type</option>
                                                                     <option value="one-off">One-off</option>
                                                                     <option value="recurring">Recurring</option>
@@ -241,7 +237,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.price} placeholder='0.00' name="price" onChange={handleNestedObject} />
+                                                                                <Input value={serviceDetails.price_types.price ?? ""} placeholder='0.00' name="price" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -250,7 +246,7 @@ const EditService = () => {
                                                                             <Label className='form-label' for='select-basic'>
                                                                                 Purchase limit
                                                                             </Label>
-                                                                            <Input type='number' value={serviceDetails.price_types.purchase_limit} onChange={handleNestedObject} name='purchase_limit' id='nameMulti' placeholder='0' />
+                                                                            <Input type='number' value={serviceDetails.price_types.purchase_limit ?? ""} onChange={handleNestedObject} name='purchase_limit' id='nameMulti' placeholder='0' />
                                                                         </div>
                                                                     </Col>
                                                                 </>
@@ -269,7 +265,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.weekly} onChange={handleNestedObject} name="weekly" placeholder='0.00' />
+                                                                                <Input value={serviceDetails.price_types.weekly ?? ""} onChange={handleNestedObject} name="weekly" placeholder='0.00' />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -283,7 +279,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.monthly} placeholder='0.00' name="monthly" onChange={handleNestedObject} />
+                                                                                <Input value={serviceDetails.price_types.monthly ?? ""} placeholder='0.00' name="monthly" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -297,7 +293,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.quarterly} placeholder='0.00' name="quarterly" onChange={handleNestedObject} />
+                                                                                <Input value={serviceDetails.price_types.quarterly ?? ""} placeholder='0.00' name="quarterly" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -310,7 +306,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.biannually} placeholder='0.00' name="biannually" onChange={handleNestedObject} />
+                                                                                <Input value={serviceDetails.price_types.biannually ?? ""} placeholder='0.00' name="biannually" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -323,7 +319,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.annually} placeholder='0.00' name="annually" onChange={handleNestedObject} />
+                                                                                <Input value={serviceDetails.price_types.annually ?? ""} placeholder='0.00' name="annually" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -342,7 +338,7 @@ const EditService = () => {
                                                                                 <small>( Leave empty if you allow unlimited concurrent requests for this subscription. )</small>
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
-                                                                                <Input value={serviceDetails.price_types.max_concurrent_requests} placeholder='0' name="max_concurrent_requests" onChange={handleNestedObject} />
+                                                                                <Input value={serviceDetails.price_types.max_concurrent_requests ?? ""} placeholder='0' name="max_concurrent_requests" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -357,7 +353,7 @@ const EditService = () => {
                                                                                 <small>( Leave empty if you allow unlimited requests per month for this subscription. )</small>
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
-                                                                                <Input value={serviceDetails.price_types.max_requests_per_month} placeholder='0' name="max_requests_per_month" onChange={handleNestedObject} />
+                                                                                <Input value={serviceDetails.price_types.max_requests_per_month ?? ""} placeholder='0' name="max_requests_per_month" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -398,18 +394,11 @@ const EditService = () => {
                         </TabPane>
                         <TabPane tabId='2'>
                             <Card>
-                                <CardHeader className='d-flex justify-content-between'>
-                                    <div>
-                                        <h4>Intake form fields</h4>
-
-                                    </div>
-                                    <div>
-                                        {/* <Button color='primary' onClick={() => setFormModal(!formModal)}>
+                                {/* <CardHeader className='d-flex justify-content-between'>
+                                  <Button color='primary' onClick={() => setFormModal(!formModal)}>
                                             Add new field
-                                        </Button> */}
-                                    </div>
-                                </CardHeader>
-                                <hr />
+                                        </Button>
+                                </CardHeader> */}
                                 <CardBody>
                                     <Form>
                                         <Col sm="12">

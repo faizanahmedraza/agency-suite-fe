@@ -77,7 +77,7 @@ const CreateService = () => {
         const base64 = await convertBase64(file)
 
         if (!base64) return
-        
+
         setServiceDetails({ ...serviceDetails, image: base64 })
 
     }
@@ -131,10 +131,6 @@ const CreateService = () => {
                     <TabContent className='py-50' activeTab={active}>
                         <TabPane tabId='1'>
                             <Card>
-                                <CardHeader>
-                                    <h4>Service details</h4>
-                                </CardHeader>
-                                <hr />
                                 <CardBody>
                                     <Form onSubmit={onSubmitHandler}>
                                         <Row>
@@ -349,18 +345,11 @@ const CreateService = () => {
                         </TabPane>
                         <TabPane tabId='2'>
                             <Card>
-                                <CardHeader className='d-flex justify-content-between'>
-                                    <div>
-                                        <h4>Intake form fields</h4>
-
-                                    </div>
-                                    <div>
-                                        {/* <Button color='primary' onClick={() => setFormModal(!formModal)}>
+                                {/* {<CardHeader className='d-flex justify-content-between'>
+                                         <Button color='primary' onClick={() => setFormModal(!formModal)}>
                                             Add new field
-                                        </Button> */}
-                                    </div>
-                                </CardHeader>
-                                <hr />
+                                        </Button>
+                                </CardHeader>} */}
                                 <CardBody>
                                     <Form>
                                         <Col sm="12">

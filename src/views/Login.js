@@ -13,11 +13,12 @@ import {
   Spinner,
 } from "reactstrap";
 import "@styles/react/pages/page-authentication.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "@store/store";
 import LoginAction from "@store/V1/Auth/Login/LoginAction";
+import PortalSettingDetailAction from "@store/V1/PortalSetting/DETAIL/PortalSettingDetailAction";
 import Loader from "@src/Components/LoaderComponent"
-import { ChevronRight} from 'react-feather'
+import { ChevronRight } from 'react-feather'
 
 const LoginCover = () => {
   const { skin } = useSkin();
@@ -30,7 +31,8 @@ const LoginCover = () => {
     {
       detail: {
         loading: portalDetailLoading,
-        portal_settings
+        portal_settings,
+        fetched
       }
     }
   } = useSelector((state) => state);
@@ -52,6 +54,11 @@ const LoginCover = () => {
     dispatch(LoginAction.postLogin(agencyInformation));
   };
 
+  useEffect(() => {
+    if (!fetched) return dispatch(PortalSettingDetailAction.portalSettingDetail());
+  }, [fetched])
+
+
   const illustration = skin === "dark" ? "login-v2-dark.svg" : "login-v2.svg",
     source = require(`@src/assets/images/pages/login-v2.svg`).default;
 
@@ -60,7 +67,7 @@ const LoginCover = () => {
 
       {
         portalDetailLoading ?
-        <Loader/>
+          <Loader />
           :
           <Row className="auth-inner m-0">
             <Link className="brand-logo" to="/" onClick={(e) => e.preventDefault()}>
@@ -206,11 +213,11 @@ const LoginCover = () => {
                   </Link>
                 </p>
                 <p className='text-center mt-2'>
-                <Link to='/catalog' tabIndex="5">
-                  <span className='align-middle'>Go to Catalogue</span>
-                  <ChevronRight className='rotate-rtl me-25' size={14} />
-                </Link>
-              </p>
+                  <Link to='/catalog' tabIndex="5">
+                    <span className='align-middle'>Go to Catalogue</span>
+                    <ChevronRight className='rotate-rtl me-25' size={14} />
+                  </Link>
+                </p>
               </Col>
             </Col>
           </Row>

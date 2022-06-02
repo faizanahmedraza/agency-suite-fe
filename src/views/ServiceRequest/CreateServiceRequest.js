@@ -49,10 +49,10 @@ const CreateServiceRequest = () => {
     useEffect(() => {
         dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
             status: "active,pending"
-          })));
+        })));
         dispatch(CustomerListAction.customerList(GeneralHelper.Serialize({
             status: "active,pending"
-          })));
+        })));
         loadDefaultOptions();
     }, []);
 
@@ -174,138 +174,162 @@ const CreateServiceRequest = () => {
             </Card>
             <Card>
                 <CardBody>
-                    <Card>
-                        <CardHeader>
-                            <h4>Service Request Details</h4>
-                        </CardHeader>
-                        <hr />
-                        <CardBody>
-                            <Form onSubmit={onSubmitHandler}>
-                                <Row>
-                                    <Col md="6" sm='12'>
-                                        <div className='mb-1'>
-                                            <Label className='form-label' for='select-basic'>
-                                                Customer
-                                            </Label>
-                                            <AsyncSelect
-                                                isClearable={false}
-                                                cacheOptions
-                                                defaultOptions={defaultCustomerOptions}
-                                                className='react-select'
-                                                classNamePrefix='select'
-                                                name="customers"
-                                                loadOptions={loadCustomerOptions}
-                                                onInputChange={handleCustomerInputChange}
-                                                onChange={(options, e) => handleOnChange(options, e)}
-                                            />
-                                        </div>
-                                    </Col>
-                                    <Col md="6" sm='12'>
-                                        <div className='mb-1'>
-                                            <Label className='form-label' for='select-basic'>
-                                                Service
-                                            </Label>
-                                            <AsyncSelect
-                                                isClearable={false}
-                                                cacheOptions
-                                                defaultOptions={defaultServiceOptions}
-                                                className='react-select'
-                                                classNamePrefix='select'
-                                                name="services"
-                                                loadOptions={loadServiceOptions}
-                                                onInputChange={handleServiceInputChange}
-                                                onChange={(options, e) => handleOnChange(options, e)}
-                                            />
-                                        </div>
-                                    </Col>
-                                    {
-                                        serviceRequestDetails.is_recurring && serviceRequestDetails.selected_service != null ?
-                                            (
-                                                <Col md='12' sm='12'>
-                                                    <div className='mb-1'>
-                                                        <Label className='form-label pb-0 mb-0' for='select-basic'>
-                                                            Service Subscription
+                    <Form onSubmit={onSubmitHandler}>
+                        <Row>
+                            <Col md="6" sm='12'>
+                                <div className='mb-1'>
+                                    <Label className='form-label' for='select-basic'>
+                                        Customer
+                                    </Label>
+                                    <AsyncSelect
+                                        isClearable={false}
+                                        cacheOptions
+                                        defaultOptions={defaultCustomerOptions}
+                                        className='react-select'
+                                        classNamePrefix='select'
+                                        name="customers"
+                                        loadOptions={loadCustomerOptions}
+                                        onInputChange={handleCustomerInputChange}
+                                        onChange={(options, e) => handleOnChange(options, e)}
+                                    />
+                                </div>
+                            </Col>
+                            <Col md="6" sm='12'>
+                                <div className='mb-1'>
+                                    <Label className='form-label' for='select-basic'>
+                                        Service
+                                    </Label>
+                                    <AsyncSelect
+                                        isClearable={false}
+                                        cacheOptions
+                                        defaultOptions={defaultServiceOptions}
+                                        className='react-select'
+                                        classNamePrefix='select'
+                                        name="services"
+                                        loadOptions={loadServiceOptions}
+                                        onInputChange={handleServiceInputChange}
+                                        onChange={(options, e) => handleOnChange(options, e)}
+                                    />
+                                </div>
+                            </Col>
+                            {
+                                serviceRequestDetails.is_recurring && serviceRequestDetails.selected_service != null ?
+                                    (
+                                        <Col md='12' sm='12'>
+                                            <div className='mb-1'>
+                                                <Label className='form-label pb-0 mb-0' for='select-basic'>
+                                                    Service Subscription
+                                                </Label>
+                                                <div className='demo-inline-spacing'>
+                                                    <div className='form-check'>
+                                                        <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleInputField} />
+                                                        <Label className='form-check-label' for='sr1'>
+                                                            {'annually - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.annually).toFixed(2)}
                                                         </Label>
-                                                        <div className='demo-inline-spacing'>
-                                                            <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleInputField} />
-                                                                <Label className='form-check-label' for='sr1'>
-                                                                    {'annually - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.annually).toFixed(2)}
-                                                                </Label>
-                                                            </div>
-                                                            <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleInputField} />
-                                                                <Label className='form-check-label' for='sr2'>
-                                                                    {'biannually - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.biannually).toFixed(2)}
-                                                                </Label>
-                                                            </div>
-                                                            <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleInputField} />
-                                                                <Label className='form-check-label' for='sr3'>
-                                                                    {'quarterly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.quarterly).toFixed(2)}
-                                                                </Label>
-                                                            </div>
-                                                            <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' value="weekly" onChange={handleInputField} />
-                                                                <Label className='form-check-label' for='sr4'>
-                                                                    {'weekly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.weekly).toFixed(2)}
-                                                                </Label>
-                                                            </div>
-                                                            <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleInputField} defaultChecked />
-                                                                <Label className='form-check-label' for='sr5'>
-                                                                    {'monthly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.monthly).toFixed(2)}
-                                                                </Label>
-                                                            </div>
-                                                        </div>
                                                     </div>
-                                                </Col>
-                                            ) : ""
-                                    }
-                                    <Col md='12' sm='12'>
-                                        <div className='mb-1'>
-                                            <Label className='form-label' for='nameMulti'>
-                                                Title
-                                            </Label>
-                                            <Input type='text' value={serviceRequestDetails.title} onChange={handleInputField} name='title' id='title' placeholder='Enter Title' />
-                                        </div>
-                                    </Col>
-                                    <Col md='12' sm='12'>
-                                        <div className='mb-1'>
-                                            <Label className='form-label' for='nameMulti'>
-                                                Description
-                                            </Label>
-                                            <Input type='textarea' value={serviceRequestDetails.description} onChange={handleInputField} name='description' id='description' placeholder='Enter Description' />
-                                        </div>
-                                    </Col>
-                                    <Col md='12' sm='12'>
-                                        <div className='d-flex justify-content-between'>
-                                            <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
-                                                Cancel
-                                            </Button>
-                                            <Button color='primary' type='submit' disabled={loading}>
-                                                {
-                                                    loading ?
-                                                        <>
-                                                            <Spinner color='white' size='sm' type='grow' />
-                                                            <span className='ms-50'>Loading...</span>
-                                                        </>
-                                                        :
-                                                        <span>
-                                                            Create
-                                                        </span>
-                                                }
-                                            </Button>
+                                                    <div className='form-check'>
+                                                        <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleInputField} />
+                                                        <Label className='form-check-label' for='sr2'>
+                                                            {'biannually - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.biannually).toFixed(2)}
+                                                        </Label>
+                                                    </div>
+                                                    <div className='form-check'>
+                                                        <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleInputField} />
+                                                        <Label className='form-check-label' for='sr3'>
+                                                            {'quarterly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.quarterly).toFixed(2)}
+                                                        </Label>
+                                                    </div>
+                                                    <div className='form-check'>
+                                                        <Input type='radio' name='recurring_type' value="weekly" onChange={handleInputField} />
+                                                        <Label className='form-check-label' for='sr4'>
+                                                            {'weekly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.weekly).toFixed(2)}
+                                                        </Label>
+                                                    </div>
+                                                    <div className='form-check'>
+                                                        <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleInputField} defaultChecked />
+                                                        <Label className='form-check-label' for='sr5'>
+                                                            {'monthly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.monthly).toFixed(2)}
+                                                        </Label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Col>
+                                    ) : (
+                                        <Row>
+                                            <Col md='4' sm='12'>
+                                                <div className='mb-1'>
+                                                    <Label className='form-label fs-5' for='select-basic'>
+                                                        Subscription Type: one-off
+                                                    </Label>
+                                                    <p className='text-wrap'>
+                                                        one-off
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                            <Col md='4' sm='12'>
+                                                <div className='mb-1'>
+                                                    <Label className='form-label fs-5' for='select-basic'>
+                                                        Price
+                                                    </Label>
+                                                    <p className='text-wrap'>
+                                                        ${Number.parseFloat(serviceRequestDetails?.selected_service?.price_types?.price).toFixed(2)}
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                            <Col md='4' sm='12'>
+                                                <div className='mb-1'>
+                                                    <Label className='form-label fs-5' for='select-basic'>
+                                                        Purchase Limit
+                                                    </Label>
+                                                    <p className='text-wrap'>
+                                                        {serviceRequestDetails?.selected_service?.price_types?.purchase_limit ?? "---"}
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    )
+                            }
+                            <Col md='12' sm='12'>
+                                <div className='mb-1'>
+                                    <Label className='form-label' for='nameMulti'>
+                                        Title
+                                    </Label>
+                                    <Input type='text' value={serviceRequestDetails.title} onChange={handleInputField} name='title' id='title' placeholder='Enter Title' />
+                                </div>
+                            </Col>
+                            <Col md='12' sm='12'>
+                                <div className='mb-1'>
+                                    <Label className='form-label' for='nameMulti'>
+                                        Description
+                                    </Label>
+                                    <Input type='textarea' value={serviceRequestDetails.description} onChange={handleInputField} name='description' id='description' placeholder='Enter Description' />
+                                </div>
+                            </Col>
+                            <Col md='12' sm='12'>
+                                <div className='d-flex justify-content-between'>
+                                    <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
+                                        Cancel
+                                    </Button>
+                                    <Button color='primary' type='submit' disabled={loading}>
+                                        {
+                                            loading ?
+                                                <>
+                                                    <Spinner color='white' size='sm' type='grow' />
+                                                    <span className='ms-50'>Loading...</span>
+                                                </>
+                                                :
+                                                <span>
+                                                    Create
+                                                </span>
+                                        }
+                                    </Button>
 
-                                        </div>
-                                    </Col>
-                                </Row>
-                            </Form>
-                        </CardBody>
-                    </Card>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Form>
                 </CardBody>
-            </Card >
-
+            </Card>
         </div >
     )
 }

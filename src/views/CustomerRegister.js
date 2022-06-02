@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 
 // ** React Imports
 import { Link } from 'react-router-dom'
@@ -15,6 +15,7 @@ import '@styles/react/pages/page-authentication.scss'
 import { useDispatch, useSelector } from '@store/store';
 
 import CustomerRegisterAction from "@store/V1/Auth/CustomerRegister/CustomerRegisterActions";
+import PortalSettingDetailAction from "@store/V1/PortalSetting/DETAIL/PortalSettingDetailAction";
 
 const CustomerRegisterCover = () => {
   // ** Hooks
@@ -51,6 +52,10 @@ const CustomerRegisterCover = () => {
     e.preventDefault()
     dispatch(CustomerRegisterAction.registration(customerInformation))
   }
+
+  useEffect(() => {
+    if (!fetched) return dispatch(PortalSettingDetailAction.portalSettingDetail());
+  }, [fetched])
 
   const illustration = skin === 'dark' ? 'register-v2-dark.svg' : 'register-v2.svg',
     source = require(`@src/assets/images/pages/register-v2.svg`).default
