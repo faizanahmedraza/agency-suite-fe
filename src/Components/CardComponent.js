@@ -14,10 +14,8 @@ import { Link } from "react-router-dom"
 
 const CardContentTypes = ({ services }) => {
 
-    const [serviceType,setServiceType] = useState("");
-
     const handleOnChange = e => {
-        setServiceType(e.target.value);
+        //
     }
 
     return (
@@ -42,7 +40,7 @@ const CardContentTypes = ({ services }) => {
                                             <CardTitle tag='h4'>{service.name}</CardTitle>
                                             <CardText>
                                                 {service.subscription_type === "recurring" ?
-                                                    <Input type='select' value={serviceType} name='subscription_type' id='select-basic' onChange={handleOnChange}>
+                                                    <Input type='select' name='subscription_type' id={`${service.id}`} onChange={handleOnChange}>
                                                         <option value="annualy">Annualy - ${Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}</option>
                                                         <option value="biannually">Biannually - ${Number.parseFloat(service.price_types.biannually ?? 0).toFixed(2)}</option>
                                                         <option value="quarterly">Quarterly - ${Number.parseFloat(service.price_types.quarterly ?? 0).toFixed(2)}</option>
