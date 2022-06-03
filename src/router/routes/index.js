@@ -68,6 +68,7 @@ const CustomerBilling = lazy(() => import("@src/views/CustomerPortal/Billing/Bil
 const DetailCustomerServiceRequest = lazy(() => import("@src/views/CustomerPortal/ServiceRequest/DetailServiceRequest"));
 const DetailServiceRequest = lazy(() => import("@src/views/ServiceRequest/DetailServiceRequest"));
 const Error = lazy(() => import("@src/views/Error"));
+const Authorized = lazy(() => import("@src/views/NotAuthorized"));
 const Catalog = lazy(() => import("@src/views/Catalouge/catalouge"));
 
 // ** Merge Routes
@@ -353,6 +354,13 @@ const Routes = [
   {
     path: "/error",
     element: <Error />,
+    meta: {
+      layout: "blank",
+    },
+  },
+  {
+    path: "/authorized",
+    element: <Authorized />,
     meta: {
       layout: "blank",
     },
