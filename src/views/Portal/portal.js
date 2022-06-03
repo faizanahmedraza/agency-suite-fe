@@ -11,8 +11,8 @@ import {
 // import { convertBase64 } from "@utils";
 // import PortalSettingDetailAction from "@store/V1/PortalSetting/DETAIL/PortalSettingDetailAction";
 // import PortalSettingUpdateAction from "@store/V1/PortalSetting/UPDATE/PortalSettingUpdateAction";
-import PortalSetting from "@src/views/Portal/PortalSettings";
-import PortalPayment from "@src/views/Portal/PortalPayment";
+import PortalSetting from "@src/Components/PortalSettingsComponent";
+import PortalPayment from "@src/Components/PortalPaymentComponent";
 
 
 const PortalSettings = () => {
