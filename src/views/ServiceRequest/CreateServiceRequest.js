@@ -222,46 +222,19 @@ const CreateServiceRequest = () => {
                                     </Col>
                                 </Row>
                                 {
-                                    serviceRequestDetails.is_recurring && serviceRequestDetails.selected_service != null ?
-                                        (
-                                            <Row>
-                                                <Col md='12' sm='12'>
-                                                    <div className='mb-1'>
-                                                        <Label className='form-label pb-0 mb-0' for='select-basic'>
-                                                            Service Subscription
+                                    (serviceRequestDetails.is_recurring && serviceRequestDetails.selected_service != null) &&
+                                    <Row>
+                                        <Col md='12' sm='12'>
+                                            <div className='mb-1'>
+                                                <Label className='form-label pb-0 mb-0' for='select-basic'>
+                                                    Service Subscription
+                                                </Label>
+                                                <div className='demo-inline-spacing'>
+                                                    <div className='form-check'>
+                                                        <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleInputField} />
+                                                        <Label className='form-check-label' for='sr1'>
+                                                            {'annually - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.annually).toFixed(2)}
                                                         </Label>
-                                                        <div className='demo-inline-spacing'>
-                                                            <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleInputField} />
-                                                                <Label className='form-check-label' for='sr1'>
-                                                                    {'annually - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.annually).toFixed(2)}
-                                                                </Label>
-                                                            </div>
-                                                            <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleInputField} />
-                                                                <Label className='form-check-label' for='sr2'>
-                                                                    {'biannually - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.biannually).toFixed(2)}
-                                                                </Label>
-                                                            </div>
-                                                            <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleInputField} />
-                                                                <Label className='form-check-label' for='sr3'>
-                                                                    {'quarterly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.quarterly).toFixed(2)}
-                                                                </Label>
-                                                            </div>
-                                                            <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' value="weekly" onChange={handleInputField} />
-                                                                <Label className='form-check-label' for='sr4'>
-                                                                    {'weekly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.weekly).toFixed(2)}
-                                                                </Label>
-                                                            </div>
-                                                            <div className='form-check'>
-                                                                <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleInputField} defaultChecked />
-                                                                <Label className='form-check-label' for='sr5'>
-                                                                    {'monthly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.monthly).toFixed(2)}
-                                                                </Label>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                     <div className='form-check'>
                                                         <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleInputField} />
@@ -287,42 +260,45 @@ const CreateServiceRequest = () => {
                                                             {'monthly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.monthly).toFixed(2)}
                                                         </Label>
                                                     </div>
-                                                </Col>
-                                            </Row>
-                                        ) : (
-                                            <Row>
-                                                <Col md='4' sm='12'>
-                                                    <div className='mb-1'>
-                                                        <Label className='form-label fs-5' for='select-basic'>
-                                                            Subscription Type
-                                                        </Label>
-                                                        <p className='text-wrap'>
-                                                            one-off
-                                                        </p>
-                                                    </div>
-                                                </Col>
-                                                <Col md='4' sm='12'>
-                                                    <div className='mb-1'>
-                                                        <Label className='form-label fs-5' for='select-basic'>
-                                                            Price
-                                                        </Label>
-                                                        <p className='text-wrap'>
-                                                            ${Number.parseFloat(serviceRequestDetails?.selected_service?.price_types?.price ?? 0).toFixed(2)}
-                                                        </p>
-                                                    </div>
-                                                </Col>
-                                                <Col md='4' sm='12'>
-                                                    <div className='mb-1'>
-                                                        <Label className='form-label fs-5' for='select-basic'>
-                                                            Purchase Limit
-                                                        </Label>
-                                                        <p className='text-wrap'>
-                                                            {serviceRequestDetails?.selected_service?.price_types?.purchase_limit ?? "---"}
-                                                        </p>
-                                                    </div>
-                                                </Col>
-                                            </Row>
-                                        )
+                                                </div>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                }
+                                {
+                                    (!serviceRequestDetails.is_recurring && serviceRequestDetails.selected_service != null) &&
+                                    <Row>
+                                        <Col md='4' sm='12'>
+                                            <div className='mb-1'>
+                                                <Label className='form-label fs-5' for='select-basic'>
+                                                    Subscription Type
+                                                </Label>
+                                                <p className='text-wrap'>
+                                                    one-off
+                                                </p>
+                                            </div>
+                                        </Col>
+                                        <Col md='4' sm='12'>
+                                            <div className='mb-1'>
+                                                <Label className='form-label fs-5' for='select-basic'>
+                                                    Price
+                                                </Label>
+                                                <p className='text-wrap'>
+                                                    ${Number.parseFloat(serviceRequestDetails?.selected_service?.price_types?.price ?? 0).toFixed(2)}
+                                                </p>
+                                            </div>
+                                        </Col>
+                                        <Col md='4' sm='12'>
+                                            <div className='mb-1'>
+                                                <Label className='form-label fs-5' for='select-basic'>
+                                                    Purchase Limit
+                                                </Label>
+                                                <p className='text-wrap'>
+                                                    {serviceRequestDetails?.selected_service?.price_types?.purchase_limit ?? "---"}
+                                                </p>
+                                            </div>
+                                        </Col>
+                                    </Row>
                                 }
                                 <Row>
                                     <Col md='12' sm='12'>
