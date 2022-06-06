@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "@store/store";
-import { Link } from "react-router-dom";
+import { Link , useSearchParams} from "react-router-dom";
 import {
-  UncontrolledDropdown,
   Input,
-  DropdownMenu,
-  DropdownToggle,
   Modal,
   ModalHeader,
   ModalBody,
@@ -29,6 +26,7 @@ const CustomerList = (props) => {
   const [currentItems, setCurrentItems] = useState([]);
   const [offset, setOffset] = useState(props?.pagination?.current_page === undefined ? 0 : props?.pagination?.current_page - 1);
   const [pageCount, setPageCount] = useState(props?.pagination?.total_pages === undefined ? 0 : props?.pagination?.total_pages);
+  const [searchParam, setSearchParam] = useSearchParams()
 
   const customerDelete = (id) => {
     dispatch(CustomerDeleteAction.customerDelete(id));
@@ -49,6 +47,7 @@ const CustomerList = (props) => {
   const handlePageClick = (event) => {
     const selectedPage = event.selected + 1;
     if (props?.tabIndex == 1) {
+      setSearchParam({ index: selectedPage, tabindex: props?.tabIndex })
       dispatch(
         CustomerListAction.customerList(
           GeneralHelper.Serialize({
@@ -57,6 +56,7 @@ const CustomerList = (props) => {
         )
       );
     } else if (props?.tabIndex == 2) {
+      setSearchParam({ index: selectedPage, tabindex: props?.tabIndex })
       dispatch(
         CustomerListAction.customerList(
           GeneralHelper.Serialize({
@@ -66,6 +66,7 @@ const CustomerList = (props) => {
         )
       );
     } else if (props?.tabIndex == 3) {
+      setSearchParam({ index: selectedPage, tabindex: props?.tabIndex })
       dispatch(
         CustomerListAction.customerList(
           GeneralHelper.Serialize({
@@ -81,8 +82,6 @@ const CustomerList = (props) => {
   const handleCustomerStatus = (e, id) => {
     dispatch(CustomerStatusAction.customerStatus(id));
   };
-
-  console.log(formModal)
 
   return (
     <React.Fragment>

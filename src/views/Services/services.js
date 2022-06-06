@@ -71,8 +71,34 @@ const Services = () => {
         }
     }
 
+    const queryParametersByTab = (tabId) => {
+
+        let object = {
+            page: index
+        }
+
+        if (tabId == 1) {
+            return object
+        }
+        if (tabId == 2) {
+            object.catalog_status = "active"
+        }
+        if (tabId == 3) {
+            object.service_type = "one-off"
+        }
+        if (tabId == 4) {
+            object.service_type = "recurring"
+        }
+
+        return object
+
+    }
+
     useEffect(() => {
-        dispatch(ServiceActions.serviceList())
+        dispatch(ServiceActions.serviceList(index ? GeneralHelper.Serialize(queryParametersByTab(tabindex)) : ""))
+        if (tabindex) {
+            setActive(tabindex)
+        }
     }, [isDeleted, isChanged, isServiceStatusChanged])
 
     return (
