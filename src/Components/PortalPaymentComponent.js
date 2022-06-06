@@ -30,7 +30,7 @@ const CardPayment = () => {
               </Label>
               <Input type='text' value='' name='name' id='nameMulti' placeholder='' />
               </Col>
-            <Col className='d-grid' sm='12'>
+            <Col className='text-end' sm='12'>
               <Button color='primary'>Make Payment</Button>
             </Col>
           </Row>
