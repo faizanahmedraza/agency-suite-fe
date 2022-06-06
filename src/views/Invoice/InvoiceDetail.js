@@ -66,15 +66,17 @@ const InvoiceDetail = () => {
     useEffect(() => {
         dispatch(InvoiceDetailAction.invoiceDetail(id));
 
-        dispatch(BillingInformationListAction.billingInformationList(
-            GeneralHelper.Serialize({
-                customer_id: customer_invoice?.customer?.id ?? "",
-            })
-        ));
-
-        if (billingInfofetched) {
-            const primaryCard = customer_billing_information.filter(billingInfo => billingInfo.is_primary === true)
-            setInvoicePaid({ ...invoicePaid, card_id: primaryCard[0]?.id })
+        if (customer_invoice?.customer?.id)
+        {
+            dispatch(BillingInformationListAction.billingInformationList(
+                GeneralHelper.Serialize({
+                    customer_id: customer_invoice?.customer?.id ?? "",
+                })
+            )); 
+            if (billingInfofetched) {
+                const primaryCard = customer_billing_information.filter(billingInfo => billingInfo.is_primary === true)
+                setInvoicePaid({ ...invoicePaid, card_id: primaryCard[0]?.id ?? "" })
+            }
         }
     }, [fetched, billingInfofetched, isPaid]);
 
