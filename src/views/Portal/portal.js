@@ -6,7 +6,8 @@ import {
     TabPane,
     Nav, 
     NavItem, 
-    NavLink
+    NavLink,
+    CardBody
 } from "reactstrap";
 // import { convertBase64 } from "@utils";
 // import PortalSettingDetailAction from "@store/V1/PortalSetting/DETAIL/PortalSettingDetailAction";
@@ -33,7 +34,9 @@ const PortalSettings = () => {
                     <h1>Settings</h1>
                 </CardHeader>
             </Card>
+            <Card>
             <React.Fragment>
+              <CardHeader>
                 <Nav tabs justified>
                     <NavItem>
                 <NavLink
@@ -56,6 +59,8 @@ const PortalSettings = () => {
               </NavLink>
             </NavItem>
           </Nav>
+          </CardHeader>
+          <CardBody>
           <TabContent className="py-50" activeTab={active}>
             <TabPane tabId="1">
                 {/* <h2> Hello </h2> */}
@@ -66,7 +71,9 @@ const PortalSettings = () => {
                 <PortalPayment/>
             </TabPane>
           </TabContent>
+          </CardBody>
             </React.Fragment>
+            </Card>
         </div>   
         </>
     )
