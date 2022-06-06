@@ -25,7 +25,9 @@ const CustomerList = (props) => {
   const _data = props.data;
   const dispatch = useDispatch();
   const [formModal, setFormModal] = useState(false);
-  const [deleteCustomerId, setCustomerId] = useState();
+  const [statusModal, setStatusModal] = useState(false);
+  const [customerId, setCustomerId] = useState(null);
+  const [customerStatus, setCustomerStatus] = useState(null);
   const [currentItems, setCurrentItems] = useState([]);
   const [offset, setOffset] = useState(props?.pagination?.current_page === undefined ? 0 : props?.pagination?.current_page - 1);
   const [pageCount, setPageCount] = useState(props?.pagination?.total_pages === undefined ? 0 : props?.pagination?.total_pages);
@@ -78,8 +80,18 @@ const CustomerList = (props) => {
     setOffset(event.selected)
   };
 
+  const changeCustomerStatus = () => {
+    dispatch(CustomerStatusAction.customerStatus({
+      id: customerId,
+      status: customerStatus
+    }))
+    setStatusModal(!statusModal);
+  }
+
   const handleCustomerStatus = (e, id) => {
-    dispatch(CustomerStatusAction.customerStatus(id));
+    setStatusModal(!statusModal);
+    setCustomerId(id);
+    setCustomerStatus(e.target.value);
   };
 
   console.log(formModal)
@@ -109,19 +121,14 @@ const CustomerList = (props) => {
                     </Link>
                   </td>
                   <td>{customer.email}</td>
-                  <td className="text-center">
-                    <div className="form-switch form-check-primary">
-                      <Input
-                        type="switch"
-                        className="w-full"
-                        onChange={e => handleCustomerStatus(e, customer.id)}
-                        defaultChecked={customer.status === "active"}
-                        id="icon-primary"
-                        name="icon-primary"
-                      />
-                    </div>
+                  <td className='text-left' width="165px">
+                    <Input type='select' name='select' id='select-basic' value={customer.status} onChange={(e) => handleCustomerStatus(e, customer.id)}>
+                      <option value="pending">Pending</option>
+                      <option value="active">Active</option>
+                      <option value="blocked">BLocked</option>
+                    </Input>
                   </td>
-                  <td>{customer.last_logged_in}</td>
+                  <td>{customer.last_logged_in ?? "-"}</td>
                   <td>
                     <Link
                       to={`/customers/edit/${customer.id}`}
@@ -136,7 +143,7 @@ const CustomerList = (props) => {
                 </tr>
               );
             })
-          : <p>No Data Found !</p>}
+            : <p>No Data Found !</p>}
         </tbody>
       </Table>
       <div className="d-flex justify-content-end pt-1">
@@ -180,13 +187,39 @@ const CustomerList = (props) => {
             </Button>
             <Button
               color="danger"
-              onClick={() => customerDelete(deleteCustomerId)}
+              onClick={() => customerDelete(customerId)}
             >
               Delete
             </Button>
           </ModalFooter>
         </Modal>
       </div>
+      <div className="vertically-centered-modal">
+                <Modal
+                    isOpen={statusModal}
+                    toggle={() => setStatusModal(!statusModal)}
+                    className="modal-dialog-centered"
+                >
+                    <ModalHeader toggle={() => setStatusModal(!statusModal)}>
+                        Confirmation
+                    </ModalHeader>
+                    <ModalBody>Are you sure you want to change the status of this customer ?</ModalBody>
+                    <ModalFooter>
+                        <Button
+                            color="primary"
+                            onClick={() => setStatusModal(!statusModal)}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            color="danger"
+                            onClick={() => changeCustomerStatus()}
+                        >
+                            Yes
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+            </div>
     </React.Fragment>
   );
 };

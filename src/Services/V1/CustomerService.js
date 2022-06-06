@@ -50,7 +50,9 @@ async function customerDelete(id) {
 }
 
 async function customerToggleStatus(data) {
-    const response = await Gateway.authGateway("PUT", V1.DOMAIN, V1.agency.change_customer_status + "/" + data);
+    const _data = {};
+    _data.status = data.status;
+    const response = await Gateway.authGateway("PUT", V1.DOMAIN, V1.agency.change_customer_status + "/" + data.id, JSON.stringify(_data));
     return response;
 }
 
