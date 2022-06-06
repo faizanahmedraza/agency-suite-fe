@@ -52,7 +52,6 @@ const InvoiceDetail = () => {
         })
     }
 
-
     const onSubmitHandler = (e) => {
         e.preventDefault();
         dispatch(InvoicePaidAction.invoicePaid(invoicePaid));
@@ -258,9 +257,9 @@ const InvoiceDetail = () => {
                             </Col>
                             {!customer_invoice.is_paid ?
                                 <Col md='12' sm='12' className='my-2'>
-                                    <Form onSubmit={onSubmitHandler}>
-                                        <div className='d-flex justify-content-between align-items-center'>
-                                            <BillingCardInfo cardId={invoicePaid.card_id} onChangeField={handleInvoicePaidField} />
+                                    <div className='d-flex justify-content-between align-items-center'>
+                                        <BillingCardInfo cardId={invoicePaid.card_id} onChangeField={handleInvoicePaidField} />
+                                        <Form onSubmit={onSubmitHandler}>
                                             <Button color='primary' className='btn-sm py-1 px-3 mt-2' type='submit' disabled={createLoading}>
                                                 {
                                                     createLoading ?
@@ -271,8 +270,8 @@ const InvoiceDetail = () => {
                                                         </span>
                                                 }
                                             </Button>
-                                        </div>
-                                    </Form>
+                                        </Form>
+                                    </div>
                                 </Col>
                                 : ""}
                             <Col md='12' sm='12'>

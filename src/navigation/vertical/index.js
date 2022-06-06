@@ -55,8 +55,8 @@ export default [
     header: 'Set up'
   },
   {
-    id: 'Portal',
-    title: 'Portal',
+    id: 'Settings',
+    title: 'Settings',
     icon: <Settings size={20} />,
     navLink: '/portal'
   },
