@@ -23,6 +23,8 @@ const ServiceTable = ({ services, pagination, tabIndex }) => {
 
     const [serviceId, setServiceId] = useState(null)
     const [centeredModal, setCenteredModal] = useState(false)
+    const [centeredStatusModal, setCenteredStatusModal] = useState(false)
+    const [serviceStatus, setServiceStatus] = useState(null)
     const dispatch = useDispatch()
 
     const getServiceInfo = (id) => {
@@ -71,8 +73,18 @@ const ServiceTable = ({ services, pagination, tabIndex }) => {
         dispatch(ServiceCatalogActions.serviceCatalog(id))
     }
 
-    const handleShowServiceStatus = (e, id) => {
-        dispatch(ServiceStatusAction.serviceStatus(id))
+    const changeServiceStatus = () => {
+        dispatch(ServiceStatusAction.serviceStatus({
+            id: serviceId,
+            status: serviceStatus
+        }))
+        setCenteredStatusModal(!centeredStatusModal);
+    }
+
+    const handleServiceStatus = (e, id) => {
+        setCenteredStatusModal(!centeredStatusModal);
+        setServiceId(id);
+        setServiceStatus(e.target.value);
     }
 
     return (
@@ -91,7 +103,7 @@ const ServiceTable = ({ services, pagination, tabIndex }) => {
                                     <th>PRICE</th>
                                     <th className='text-center'>Show in catalog ?</th>
                                     <th>Service Type</th>
-                                    <th className='text-center'>Status</th>
+                                    <th>Status</th>
                                     <th>CREATED</th>
                                     <th>ACTIONS</th>
                                 </tr>
@@ -113,10 +125,12 @@ const ServiceTable = ({ services, pagination, tabIndex }) => {
                                                 </div>
                                             </td>
                                             <td>{service.subscription_type}</td>
-                                            <td className='text-center'>
-                                                <div className='form-switch form-check-primary'>
-                                                    <Input type='switch' onChange={e => handleShowServiceStatus(e, service.id)} defaultChecked={service.status === "active"} id='icon-secondnary' name='icon-status' />
-                                                </div>
+                                            <td className='text-left' width="165px">
+                                                <Input type='select' name='select' id='select-basic' value={service.status} onChange={(e) => handleServiceStatus(e, service.id)}>
+                                                    <option value="pending">Pending</option>
+                                                    <option value="active">Active</option>
+                                                    <option value="blocked">BLocked</option>
+                                                </Input>
                                             </td>
                                             <td>
                                                 {formatDate(service.created_at)}
@@ -173,6 +187,32 @@ const ServiceTable = ({ services, pagination, tabIndex }) => {
                         </Button>
                         <Button color='danger' onClick={deleteService}>
                             Delete
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+            </div>
+            <div className="vertically-centered-modal">
+                <Modal
+                    isOpen={centeredStatusModal}
+                    toggle={() => setCenteredStatusModal(!centeredStatusModal)}
+                    className="modal-dialog-centered"
+                >
+                    <ModalHeader toggle={() => setCenteredStatusModal(!centeredStatusModal)}>
+                        Confirmation
+                    </ModalHeader>
+                    <ModalBody>Are you sure you want to change the status of this service ?</ModalBody>
+                    <ModalFooter>
+                        <Button
+                            color="primary"
+                            onClick={() => setCenteredStatusModal(!centeredStatusModal)}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            color="danger"
+                            onClick={() => changeServiceStatus()}
+                        >
+                            Yes
                         </Button>
                     </ModalFooter>
                 </Modal>

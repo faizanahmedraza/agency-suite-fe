@@ -41,7 +41,9 @@ async function serviceCatalog(data) {
 }
 
 async function serviceStatus(data) {
-    const response = await Gateway.authGateway("PUT", V1.DOMAIN, V1.service.change_status + "/" + data);
+    const _data = {};
+    _data.status = data.status;
+    const response = await Gateway.authGateway("PUT", V1.DOMAIN, V1.service.change_status + "/" + data.id, JSON.stringify(_data));
     return response;
 }
 
