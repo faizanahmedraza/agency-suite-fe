@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import {
     Card,
     Row,
@@ -8,7 +8,6 @@ import {
     Input,
     CardBody,
     Button,
-    CardHeader,
     Form
 } from 'reactstrap'
 import { useDispatch, useSelector } from '@store/store'
@@ -22,7 +21,6 @@ const InvoiceDetail = () => {
 
     const dispatch = useDispatch();
     const { id } = useParams();
-    const navigate = useNavigate();
 
     const {
         customer_invoices: {
@@ -276,9 +274,9 @@ const InvoiceDetail = () => {
                                 : ""}
                             <Col md='12' sm='12'>
                                 <div className='d-flex justify-content-between'>
-                                    <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
+                                    <Link to="/customer-invoices" className='btn btn-outline-secondary'>
                                         Cancel
-                                    </Button>
+                                    </Link>
                                 </div>
                             </Col>
                         </Row>

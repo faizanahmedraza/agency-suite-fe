@@ -13,7 +13,6 @@ import {
     NavItem,
     NavLink,
     Button,
-    CardHeader,
     Modal,
     ModalHeader,
     ModalBody,
@@ -26,6 +25,7 @@ import {
 import { convertBase64 } from "@utils"
 import { useDispatch, useSelector } from '@store/store'
 import ServiceActions from '@store/V1/Service/Create/ServiceCreateAction'
+import { Link } from "react-router-dom"
 
 const CreateService = () => {
 
@@ -319,9 +319,9 @@ const CreateService = () => {
                                             }
                                             <Col sm='12'>
                                                 <div className='d-flex justify-content-between'>
-                                                    <Button outline className='me-1' color='secondary' type='reset'>
+                                                    <Link to="/services" className='btn btn-outline-secondary'>
                                                         Cancel
-                                                    </Button>
+                                                    </Link>
                                                     <Button color='primary' type='submit' disabled={loading}>
                                                         {
                                                             loading ?

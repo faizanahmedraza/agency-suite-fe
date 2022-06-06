@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from '@store/store';
 import CustomerDetailAction from "@store/V1/Customer/DETAIL/CustomerDetailAction";
 import CustomerUpdateAction from "@store/V1/Customer/UPDATE/CustomerUpdateAction";
@@ -11,16 +11,9 @@ import {
     Input,
     CardBody,
     Form,
-    CardHeader,
     Button,
     Spinner,
 } from 'reactstrap';
-
-const Loader = () => {
-    return (
-        <div className='d-flex justify-content-center'><strong>Loading...</strong></div>
-    );
-}
 
 const UpdateCustomer = () => {
 
@@ -35,7 +28,6 @@ const UpdateCustomer = () => {
     const [customerDetails, setCustomerDetails] = useState(initialState);
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const { id } = useParams();
 
     const handleInputField = (e) => {
@@ -43,10 +35,6 @@ const UpdateCustomer = () => {
             ...customerDetails,
             [e.target.name]: e.target.value
         })
-    }
-
-    const resetInputField = (e) => {
-        setCustomerDetails(initialState)
     }
 
     const onSubmitHandler = (e) => {
@@ -105,10 +93,8 @@ const UpdateCustomer = () => {
                             </Col>
                             <Col md='12' sm='12'>
                                 <div className='d-flex justify-content-between'>
-                                    <Link to="/customers">
-                                        <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
-                                            Cancel
-                                        </Button>
+                                    <Link to="/customers" className='btn btn-outline-secondary'>
+                                        Cancel
                                     </Link>
                                     <Button color='primary' type='submit' disabled={updateLoading}>
                                         {

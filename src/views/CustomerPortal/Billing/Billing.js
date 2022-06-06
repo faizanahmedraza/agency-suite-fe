@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
     Card,
     CardTitle,
@@ -21,7 +21,6 @@ const Billing = () => {
 
     const dispatch = useDispatch();
     const [centeredModal, setCenteredModal] = useState(false)
-    const navigate = useNavigate();
 
     const {
         customer_billing_information: {
@@ -70,11 +69,12 @@ const Billing = () => {
             </Card>
             {loading ? <Loader /> :
                 <Row>
-                    <div className='mb-2'>
+                    <div className='d-flex justify-content-between mb-2'>
                         <h3>Payment Methods</h3>
+                        <Button.Ripple color='primary' className="w-25" onClick={cardToggleModal}>Add Payment Method</Button.Ripple>
                     </div>
                     <Col md='6' lg='4'>
-                        <Card className='mb-3' style={{backgroundColor: "#cccccc"}}>
+                        <Card className='mb-3' style={{ backgroundColor: "#cccccc" }}>
                             <CardBody>
                                 <CardTitle tag='h4'>
                                     <div className='d-flex justify-content-between align-items-center'>
@@ -134,12 +134,6 @@ const Billing = () => {
                             </Col>
                         );
                     })}
-                    <div className='d-flex justify-content-between'>
-                        <Button outline className='me-1' tabIndex="4" color='secondary' type='button' onClick={e => navigate(-1)}>
-                            Cancel
-                        </Button>
-                        <Button.Ripple color='primary' className="w-25 ms-2" onClick={cardToggleModal}>Add Payment Method</Button.Ripple>
-                    </div>
                 </Row>
             }
             {/* Billing Information modal */}
