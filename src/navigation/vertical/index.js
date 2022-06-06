@@ -14,7 +14,7 @@ export default [
     id: 'Invoice',
     title: 'Invoices',
     icon: <File size={20} />,
-    navLink: '/invoice'
+    navLink: '/invoices'
   },
   {
     id: 'Customer_Invoices',
