@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "@store/store";
 import ServiceRequestListAction from "@store/V1/ServiceRequest/LIST/ServiceRequestListAction";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -25,6 +25,10 @@ const Loader = () => {
 
 const ServiceRequests = () => {
   const [active, setActive] = useState("1");
+  const [searchParam, setSearchParam] = useSearchParams()
+
+  const index = searchParam.get("index")
+  const tabindex = searchParam.get("tabindex")
 
   const dispatch = useDispatch();
   const {
@@ -47,14 +51,25 @@ const ServiceRequests = () => {
   }
 
   useEffect(() => {
-    dispatch(ServiceRequestListAction.serviceRequestList());
+    dispatch(ServiceRequestListAction.serviceRequestList(index ? GeneralHelper.Serialize({
+      page: index,
+      status: tabindex == 1 ? "" : "active"
+    }) : ""));
+
+    if (tabindex) {
+      setActive(tabindex)
+    }
+
   }, [isChanged])
 
   const toggle = (tab) => {
     if (active !== tab) {
       if (tab == 1) {
+        setSearchParam({ tabindex: tab })
         dispatch(ServiceRequestListAction.serviceRequestList());
+
       } else if (tab == 2) {
+        setSearchParam({ tabindex: tab })
         dispatch(ServiceRequestListAction.serviceRequestList(GeneralHelper.Serialize({
           status: "active"
         })));

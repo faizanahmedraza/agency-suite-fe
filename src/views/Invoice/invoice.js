@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "@store/store";
 import {
   Card,
@@ -6,6 +7,7 @@ import {
 } from 'reactstrap'
 import InvoiceListAction from "@store/V1/Invoice/List/InvoiceListAction"
 import InvoiceTable from '@src/views/Invoice/InvoiceTable'
+import GeneralHelper from "@src/Helpers/GeneralHelper";
 
 const Loader = () => {
   return (
@@ -17,10 +19,12 @@ const Loader = () => {
 
 const Invoice = () => {
   const dispatch = useDispatch();
+  const [searchParam] = useSearchParams()
+
+  const index = searchParam.get('index')
   const {
     list: {
       loading,
-      invoices,
       pagination
     },
     delete: {
@@ -32,7 +36,9 @@ const Invoice = () => {
   } = useSelector(state => state.invoices);
 
   useEffect(() => {
-    dispatch(InvoiceListAction.invoiceList());
+    dispatch(InvoiceListAction.invoiceList(index ? GeneralHelper.Serialize({
+      page: index,
+    }) : ""));
   }, [isDeleted, isChanged])
 
   return (
@@ -56,7 +62,7 @@ const Invoice = () => {
           {loading ? (
             <Loader />
           ) :
-            <InvoiceTable data={invoices} pagination={pagination} />
+            <InvoiceTable pagination={pagination} />
           }
         </CardBody>
       </Card>

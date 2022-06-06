@@ -82,6 +82,8 @@ const CustomerList = (props) => {
     dispatch(CustomerStatusAction.customerStatus(id));
   };
 
+  console.log(formModal)
+
   return (
     <React.Fragment>
       <Table bordered responsive>
@@ -162,17 +164,17 @@ const CustomerList = (props) => {
       <div className="vertically-centered-modal">
         <Modal
           isOpen={formModal}
-          toggle={() => setCenteredModal(!formModal)}
+          toggle={() => setFormModal(!formModal)}
           className="modal-dialog-centered"
         >
-          <ModalHeader toggle={() => setCenteredModal(!formModal)}>
+          <ModalHeader toggle={() => setFormModal(!formModal)}>
             Confirmation
           </ModalHeader>
           <ModalBody>Are you sure you want to delete this customer ?</ModalBody>
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => setCenteredModal(!formModal)}
+              onClick={() => setFormModal(!formModal)}
             >
               Cancel
             </Button>

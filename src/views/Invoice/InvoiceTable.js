@@ -8,7 +8,7 @@ import {
     Button,
     Input
 } from "reactstrap";
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import { useDispatch, useSelector } from "@store/store"
 import ReactPaginate from 'react-paginate';
 import { formatDate } from '@utils'
@@ -19,13 +19,15 @@ import InvoiceStatusAction from "@store/V1/Invoice/Status/InvoiceStatusAction"
 import InvoiceListAction from "@store/V1/Invoice/List/InvoiceListAction"
 
 const InvoiceTable = (props) => {
-    const _data = props.data;
     const [currentItems, setCurrentItems] = useState([]);
     const [offset, setOffset] = useState(props?.pagination?.current_page === undefined ? 0 : props?.pagination?.current_page - 1);
     const [pageCount, setPageCount] = useState(props?.pagination?.total_pages === undefined ? 0 : props?.pagination?.total_pages);
     const [invoiceId, setInvoiceId] = useState(null)
     const [centeredModal, setCenteredModal] = useState(false)
     const dispatch = useDispatch()
+    const [searchParam, setSearchParam] = useSearchParams()
+
+    const index = searchParam.get('index')
 
     const getInvoiceInfo = (id) => {
         setInvoiceId(id)
@@ -37,24 +39,33 @@ const InvoiceTable = (props) => {
         setCenteredModal(!centeredModal)
     }
 
+    const getDataByIndex = () => {
+        console.log(index)
+        dispatch(InvoiceListAction.invoiceList(
+            GeneralHelper.Serialize({
+                page: index,
+            })
+        ))
+        setOffset(index)
+    }
+
     const {
         list: {
-            loading,
             invoices,
             pagination,
-            isFetched
         }
     } = useSelector(state => state.invoices);
 
     useEffect(() => {
-        if (!isFetched) return setCurrentItems(_data);
         setCurrentItems(invoices);
-        setPageCount(pagination.total_pages)
-        setOffset(pagination.current_page - 1)
+        setPageCount(pagination?.total_pages)
+        setOffset(pagination?.current_page - 1)
     }, [offset]);
 
     const handlePageClick = (event) => {
         const selectedPage = event.selected + 1;
+        setSearchParam({ index: selectedPage })
+
         dispatch(InvoiceListAction.invoiceList(
             GeneralHelper.Serialize({
                 page: selectedPage,

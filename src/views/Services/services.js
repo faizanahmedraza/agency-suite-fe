@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 // import AvatarGroup from '@components/avatar-group'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import {
     Card,
     CardBody,
@@ -19,6 +19,10 @@ import GeneralHelper from "@src/Helpers/GeneralHelper";
 const Services = () => {
 
     const [active, setActive] = useState('1')
+    const [searchParam, setSearchParam] = useSearchParams()
+
+    const index = searchParam.get("index")
+    const tabindex = searchParam.get("tabindex")
 
     const dispatch = useDispatch()
     const {
@@ -45,16 +49,20 @@ const Services = () => {
     const toggle = tab => {
         if (active !== tab) {
             if (tab == 1) {
+                setSearchParam({ tabindex: tab })
                 dispatch(ServiceActions.serviceList());
             } else if (tab == 2) {
+                setSearchParam({ tabindex: tab })
                 dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
                     catalog_status: "active"
                 })));
             } else if (tab == 3) {
+                setSearchParam({ tabindex: tab })
                 dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
                     service_type: "one-off"
                 })));
             } else if (tab == 4) {
+                setSearchParam({ tabindex: tab })
                 dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
                     service_type: "recurring"
                 })));
@@ -136,16 +144,16 @@ const Services = () => {
                                 : (
                                     <>
                                         <TabPane tabId='1'>
-                                            <ServiceTable services={services} pagination={pagination}  tabIndex={active}/>
+                                            <ServiceTable services={services} pagination={pagination} tabIndex={active} />
                                         </TabPane>
                                         <TabPane tabId='2'>
-                                            <ServiceTable services={catalog_service} pagination={pagination}  tabIndex={active}/>
+                                            <ServiceTable services={catalog_service} pagination={pagination} tabIndex={active} />
                                         </TabPane>
                                         <TabPane tabId='3'>
-                                            <ServiceTable services={one_off_services} pagination={pagination}  tabIndex={active}/>
+                                            <ServiceTable services={one_off_services} pagination={pagination} tabIndex={active} />
                                         </TabPane>
                                         <TabPane tabId='4'>
-                                            <ServiceTable services={subscription} pagination={pagination}  tabIndex={active}/>
+                                            <ServiceTable services={subscription} pagination={pagination} tabIndex={active} />
                                         </TabPane>
                                     </>
                                 )

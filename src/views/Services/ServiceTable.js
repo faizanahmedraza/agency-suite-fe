@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Table, UncontrolledDropdown, DropdownMenu, DropdownToggle, Modal, ModalHeader, ModalBody, ModalFooter, Button, Input, Label } from 'reactstrap'
 import { formatDate } from '@utils'
 import { MoreVertical, Edit, Trash, Check, X } from 'react-feather'
-import { Link } from "react-router-dom"
+import { Link , useSearchParams} from "react-router-dom"
 import ServiceDeleteActions from '@store/V1/Service/Delete/ServiceDeleteAction'
 import { useDispatch, useSelector } from "@store/store"
 import ReactPaginate from 'react-paginate';
@@ -16,6 +16,7 @@ const ServiceTable = ({ services, pagination, tabIndex }) => {
     const [currentItems, setCurrentItems] = useState(services.length > 0 ? services : []);
     const [offset, setOffset] = useState(pagination?.current_page === undefined ? 0 : pagination?.current_page - 1);
     const [pageCount, setPageCount] = useState(pagination?.total_pages === undefined ? 0 : pagination?.total_pages);
+    const [searchParam, setSearchParam] = useSearchParams()
 
     const {
         list: { services: newServices, pagination: newPagination, isFetched, loading },
@@ -45,20 +46,24 @@ const ServiceTable = ({ services, pagination, tabIndex }) => {
     const handlePageClick = (event) => {
         const selectedPage = event.selected + 1;
         if (tabIndex == 1) {
+            setSearchParam({ index: selectedPage, tabindex: props?.tabIndex })
             dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
                 page: selectedPage
             })));
         } else if (tabIndex == 2) {
+            setSearchParam({ index: selectedPage, tabindex: props?.tabIndex })
             dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
                 page: selectedPage,
                 catalog_status: "active"
             })));
         } else if (tabIndex == 3) {
+            setSearchParam({ index: selectedPage, tabindex: props?.tabIndex })
             dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
                 page: selectedPage,
                 service_type: "one-off"
             })));
         } else if (tabIndex == 4) {
+            setSearchParam({ index: selectedPage, tabindex: props?.tabIndex })
             dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
                 page: selectedPage,
                 service_type: "recurring"

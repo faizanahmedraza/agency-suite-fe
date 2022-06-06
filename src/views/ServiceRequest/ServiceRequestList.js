@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "@store/store";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   UncontrolledDropdown,
   Input,
@@ -29,6 +29,7 @@ const ServiceRequestList = (props) => {
   const [currentItems, setCurrentItems] = useState([]);
   const [offset, setOffset] = useState(props?.pagination?.current_page === undefined ? 0 : props?.pagination?.current_page - 1);
   const [pageCount, setPageCount] = useState(props?.pagination?.total_pages === undefined ? 0 : props?.pagination?.total_pages);
+  const [searchParam, setSearchParam] = useSearchParams()
 
   const {
     list: {
@@ -49,10 +50,12 @@ const ServiceRequestList = (props) => {
   const handlePageClick = (event) => {
     const selectedPage = event.selected + 1;
     if (props?.tabIndex == 1) {
+      setSearchParam({ index: selectedPage, tabindex: props?.tabIndex })
       dispatch(ServiceRequestListAction.serviceRequestList(GeneralHelper.Serialize({
         page: selectedPage,
       })));
     } else if (props?.tabIndex == 2) {
+      setSearchParam({ index: selectedPage, tabindex: props?.tabIndex })
       dispatch(ServiceRequestListAction.serviceRequestList(GeneralHelper.Serialize({
         page: selectedPage,
         status: "active"
