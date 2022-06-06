@@ -27,7 +27,7 @@ const Invoice = () => {
   } = useSelector(state => state.customer_invoices);
 
   useEffect(() => {
-    if (!invoices.length) return dispatch(InvoiceListAction.invoiceList());
+    dispatch(InvoiceListAction.invoiceList());
   }, [])
 
   return (

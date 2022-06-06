@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from '@store/store';
 import ServiceRequestDetailAction from "@store/V1/ServiceRequest/DETAIL/ServiceRequestDetailAction";
 
@@ -11,7 +11,6 @@ import {
     Input,
     CardBody,
     Form,
-    CardHeader,
     Button,
 } from 'reactstrap';
 
@@ -59,7 +58,6 @@ const DetailServiceRequest = () => {
     })
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const { id } = useParams();
 
     useEffect(() => {
@@ -164,37 +162,37 @@ const DetailServiceRequest = () => {
                                         </Row>
                                     ) : (
                                         <Row>
-                                        <Col md='4' sm='12'>
-                                            <div className='mb-1'>
-                                                <Label className='form-label fs-5' for='select-basic'>
-                                                    Subscription Type
-                                                </Label>
-                                                <p className='text-wrap'>
-                                                    one-off
-                                                </p>
-                                            </div>
-                                        </Col>
-                                        <Col md='4' sm='12'>
-                                            <div className='mb-1'>
-                                                <Label className='form-label fs-5' for='select-basic'>
-                                                    Price
-                                                </Label>
-                                                <p className='text-wrap'>
-                                                    ${Number.parseFloat(serviceRequestDetails?.service?.price_types?.price ?? 0).toFixed(2)}
-                                                </p>
-                                            </div>
-                                        </Col>
-                                        <Col md='4' sm='12'>
-                                            <div className='mb-1'>
-                                                <Label className='form-label fs-5' for='select-basic'>
-                                                    Purchase Limit
-                                                </Label>
-                                                <p className='text-wrap'>
-                                                    {serviceRequestDetails?.service?.price_types?.purchase_limit ?? "---"}
-                                                </p>
-                                            </div>
-                                        </Col>
-                                    </Row>
+                                            <Col md='4' sm='12'>
+                                                <div className='mb-1'>
+                                                    <Label className='form-label fs-5' for='select-basic'>
+                                                        Subscription Type
+                                                    </Label>
+                                                    <p className='text-wrap'>
+                                                        one-off
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                            <Col md='4' sm='12'>
+                                                <div className='mb-1'>
+                                                    <Label className='form-label fs-5' for='select-basic'>
+                                                        Price
+                                                    </Label>
+                                                    <p className='text-wrap'>
+                                                        ${Number.parseFloat(serviceRequestDetails?.service?.price_types?.price ?? 0).toFixed(2)}
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                            <Col md='4' sm='12'>
+                                                <div className='mb-1'>
+                                                    <Label className='form-label fs-5' for='select-basic'>
+                                                        Purchase Limit
+                                                    </Label>
+                                                    <p className='text-wrap'>
+                                                        {serviceRequestDetails?.service?.price_types?.purchase_limit ?? "---"}
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                        </Row>
                                     )
                             }
                             <Row>
@@ -215,11 +213,9 @@ const DetailServiceRequest = () => {
                                     </div>
                                 </Col>
                                 <Col md='12' sm='12'>
-                                    <div className='d-flex justify-content-between'>
-                                        <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
-                                            Cancel
-                                        </Button>
-                                    </div>
+                                    <Link to="/service-requests" className='btn btn-outline-secondary'>
+                                        Cancel
+                                    </Link>
                                 </Col>
                             </Row>
                         </Form>

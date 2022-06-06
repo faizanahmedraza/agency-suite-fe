@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect } from 'react'
+import { useParams, Link } from 'react-router-dom';
 import {
     Card,
     Row,
@@ -7,14 +7,7 @@ import {
     Label,
     Input,
     CardBody,
-    Form,
     Button,
-    CardHeader,
-    Spinner,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
 } from 'reactstrap'
 import { useDispatch, useSelector } from '@store/store'
 import ServiceRequestDetailAction from "@store/V1/CustomerPortal/ServiceRequest/DETAIL/ServiceRequestDetailAction";
@@ -31,7 +24,6 @@ const DetailServiceRequest = () => {
 
     const dispatch = useDispatch();
     const { id } = useParams();
-    const navigate = useNavigate();
 
     const {
         customer_service_requests: { detail: { serivice_request, loading, fetched } },
@@ -190,9 +182,9 @@ const DetailServiceRequest = () => {
                                         </Col> */}
                             <Col md='12' sm='12'>
                                 <div className='d-flex justify-content-between'>
-                                    <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
+                                    <Link to="/customer-service-requests" className='btn btn-outline-secondary'>
                                         Cancel
-                                    </Button>
+                                    </Link>
                                 </div>
                             </Col>
                         </Row>

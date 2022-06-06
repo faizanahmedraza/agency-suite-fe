@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from '@store/store';
 import CustomerCreateAction from "@store/V1/Customer/CREATE/CustomerCreateAction";
 import {
@@ -18,7 +18,6 @@ import {
 const CreateCustomer = () => {
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const { loading } = useSelector(state => state.customers.create);
     const initialState = {
         first_name: "",
@@ -83,9 +82,9 @@ const CreateCustomer = () => {
                             </Col>
                             <Col md='12' sm='12'>
                                 <div className='d-flex justify-content-between'>
-                                    <Button outline className='me-1' tabIndex="4" color='secondary' type='button' onClick={() => navigate(-1)}>
+                                    <Link to="/customers" className='btn btn-outline-secondary'>
                                         Cancel
-                                    </Button>
+                                    </Link>
                                     <Button color='primary' tabIndex="5" type='submit' disabled={loading}>
                                         {
                                             loading ?

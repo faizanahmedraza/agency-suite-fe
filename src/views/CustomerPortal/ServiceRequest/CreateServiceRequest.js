@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import {
     Card,
     Row,
@@ -9,7 +9,6 @@ import {
     CardBody,
     Form,
     Button,
-    CardHeader,
     Spinner,
 } from 'reactstrap'
 import { useDispatch, useSelector } from '@store/store'
@@ -23,7 +22,6 @@ const CreateServiceRequest = () => {
 
     const dispatch = useDispatch();
     const { service_id } = useParams();
-    const navigate = useNavigate();
 
     const {
         customer_services: { detail: { service, loading: serviceloading, fetched: serviceFetched } },
@@ -218,9 +216,9 @@ const CreateServiceRequest = () => {
                                 </Col>
                                 <Col md='12' sm='12'>
                                     <div className='d-flex justify-content-between'>
-                                        <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
+                                        <Link to="/customer-service-requests" className='btn btn-outline-secondary'>
                                             Cancel
-                                        </Button>
+                                        </Link>
                                         <Button color='primary' type='submit' disabled={createServiceRequestLoading}>
                                             {
                                                 createServiceRequestLoading ?

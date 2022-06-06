@@ -171,7 +171,7 @@ const Routes = [
     }
   },
   {
-    path: "/invoice",
+    path: "/invoices",
     element: <Invoice />,
     meta: {
       layout: "vertical",

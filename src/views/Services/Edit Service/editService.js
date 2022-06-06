@@ -363,10 +363,8 @@ const EditService = () => {
                                                         }
                                                         <Col sm='12'>
                                                             <div className='d-flex justify-content-between'>
-                                                                <Link to="/services">
-                                                                    <Button outline className='me-1' color='secondary' type='reset'>
-                                                                        Cancel
-                                                                    </Button>
+                                                                <Link to="/services" className='btn btn-outline-secondary'>
+                                                                    Cancel
                                                                 </Link>
                                                                 <Button color='primary' type='submit' disabled={editLoading}>
                                                                     {

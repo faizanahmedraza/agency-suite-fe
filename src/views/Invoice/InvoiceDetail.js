@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
     Card,
     Row,
@@ -8,7 +8,6 @@ import {
     Input,
     CardBody,
     Button,
-    CardHeader,
     Form
 } from 'reactstrap'
 import { useDispatch, useSelector } from '@store/store'
@@ -29,7 +28,6 @@ const InvoiceDetail = () => {
 
     const dispatch = useDispatch();
     const { id } = useParams();
-    const navigate = useNavigate();
 
     const {
         invoices: {
@@ -66,15 +64,17 @@ const InvoiceDetail = () => {
     useEffect(() => {
         dispatch(InvoiceDetailAction.invoiceDetail(id));
 
-        dispatch(BillingInformationListAction.billingInformationList(
-            GeneralHelper.Serialize({
-                customer_id: customer_invoice?.customer?.id ?? "",
-            })
-        ));
-
-        if (billingInfofetched) {
-            const primaryCard = customer_billing_information.filter(billingInfo => billingInfo.is_primary === true)
-            setInvoicePaid({ ...invoicePaid, card_id: primaryCard[0]?.id })
+        if (customer_invoice?.customer?.id)
+        {
+            dispatch(BillingInformationListAction.billingInformationList(
+                GeneralHelper.Serialize({
+                    customer_id: customer_invoice?.customer?.id ?? "",
+                })
+            )); 
+            if (billingInfofetched) {
+                const primaryCard = customer_billing_information.filter(billingInfo => billingInfo.is_primary === true)
+                setInvoicePaid({ ...invoicePaid, card_id: primaryCard[0]?.id ?? "" })
+            }
         }
     }, [fetched, billingInfofetched, isPaid]);
 
@@ -273,9 +273,9 @@ const InvoiceDetail = () => {
                                 ) : ""}
                             <Col md='12' sm='12'>
                                 <div className='d-flex justify-content-between'>
-                                    <Button outline className='me-1' color='secondary' type='button' onClick={() => navigate(-1)}>
+                                    <Link to="/invoices" className='btn btn-outline-secondary'>
                                         Cancel
-                                    </Button>
+                                    </Link>
                                 </div>
                             </Col>
                         </Row>
