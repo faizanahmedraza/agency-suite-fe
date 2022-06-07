@@ -147,10 +147,10 @@ const InvoiceTable = (props) => {
                         Are you sure you want to delete this invoice?
                     </ModalBody>
                     <ModalFooter>
-                        <Button color='primary' onClick={() => setCenteredModal(!centeredModal)}>
+                        <Button color='primary' outline onClick={() => setCenteredModal(!centeredModal)}>
                             Cancel
                         </Button>
-                        <Button color='danger' onClick={deleteService}>
+                        <Button color='primary' onClick={deleteService}>
                             Delete
                         </Button>
                     </ModalFooter>

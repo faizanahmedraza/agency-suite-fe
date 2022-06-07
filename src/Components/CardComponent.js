@@ -1,5 +1,7 @@
 // ** React Imports
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
+import { useSelector, useDispatch } from '@store/store'
+import PortalSettingDetailAction from "@store/V1/PortalSetting/DETAIL/PortalSettingDetailAction";
 import '@src/Styles/card.css'
 // ** Reactstrap Imports
 import {
@@ -13,6 +15,15 @@ import {
 import { Link } from "react-router-dom"
 
 const CardContentTypes = ({ services }) => {
+    // const { logo, agency } = detail.portal_settings
+    const dispatch = useDispatch()
+    const {portal_settings: { detail: { portal_settings, fetched } }
+    } = useSelector((state => state))
+
+    useEffect(() => {
+        if (!fetched) return dispatch(PortalSettingDetailAction.portalSettingDetail());
+      }, [fetched]);
+    
 
     const handleOnChange = e => {
         //
@@ -22,8 +33,10 @@ const CardContentTypes = ({ services }) => {
         <Fragment>
             <div className="container">
                 <div className="row">
-                    <div className="col-12 text-center my-2">
-                        <h1>{JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? 'Agency Tool'}</h1>
+                    <div className="AGT-info">
+                    {portal_settings.logo ?
+                        <img src={portal_settings?.logo} height="50" />: <h2>Hello</h2>}
+                        <h1 className='pl'>{JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? 'Agency Tool'}</h1>
                     </div>
                 </div>
                 <div className="row">
@@ -36,7 +49,7 @@ const CardContentTypes = ({ services }) => {
                                         <div className='crd-dv-im'>
                                             <img src={image} className="crd-img" alt={service.name} />
                                         </div>
-                                        <CardBody>
+                                        <CardBody className='crd-hgt'>
                                             <CardTitle tag='h4'>{service.name}</CardTitle>
                                             <CardText>
                                                 {service.subscription_type === "recurring" ?
@@ -70,7 +83,8 @@ const CardContentTypes = ({ services }) => {
                 </div>
                 <div className="row">
                     <div className="col-12 text-center">
-                        Powered By <a href="#"> Agency Tool </a>
+                        Powered By <h1>{JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? 'Agency Tool'}</h1>
+                        {/* <img src={logo} height="70" alt='logo'/> */}
                     </div>
                 </div>
             </div>
