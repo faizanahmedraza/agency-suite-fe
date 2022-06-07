@@ -97,8 +97,8 @@ const InvoiceTable = (props) => {
                                 <td className='text-center'>
                                     {(invoice?.paid_by === "" || invoice?.paid_by === "agency") ?
                                         <div className='form-switch form-check-primary'>
-                                            <Input type='switch'  onChange={(e) => handleShowInvoiceStatus(e, invoice.id)} defaultChecked={invoice?.is_paid === true} id='icon-secondnary' name='icon-status' />
-                                        </div> : invoice?.is_paid ? "Yes" : "No"}
+                                            <Input type='switch'  onChange={(e) => handleShowInvoiceStatus(e, invoice.id)} defaultChecked={invoice?.is_paid === 'yes'} id='icon-secondnary' name='icon-status' />
+                                        </div> : invoice?.is_paid === "yes" ? "Yes" : "No"}
                                 </td>
                                 <td>{formatDate(invoice?.created_at)}</td>
                                 <td className='text-center'>
