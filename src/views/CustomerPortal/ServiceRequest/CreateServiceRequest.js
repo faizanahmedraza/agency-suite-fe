@@ -80,7 +80,7 @@ const CreateServiceRequest = () => {
                     <div className='d-flex justify-content-between align-items-center'>
                         <h1>Create Service Request</h1>
                         {!serviceloading && checkBillingInfoEmpty() ?
-                            <Button.Ripple color='primary' className="w-50" onClick={cardToggleModal}> Add Payment Method </Button.Ripple> : ''
+                            <Button.Ripple color='primary' className="w-25" onClick={cardToggleModal}> Add Payment Method </Button.Ripple> : ''
                         }
                     </div>
                 </CardBody>

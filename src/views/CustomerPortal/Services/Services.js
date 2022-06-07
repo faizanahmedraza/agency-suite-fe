@@ -93,7 +93,7 @@ const Services = () => {
                                     toggle('3')
                                 }}
                             >
-                                Subscription
+                                Recurring
                             </NavLink>
                         </NavItem>
                     </Nav>

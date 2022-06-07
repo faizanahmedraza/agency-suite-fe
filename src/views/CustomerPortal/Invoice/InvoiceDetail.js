@@ -110,33 +110,6 @@ const InvoiceDetail = () => {
                                     </p>
                                 </div>
                             </Col>
-                            {customer_invoice?.service?.image &&
-                                <Col md='12' sm='12'>
-                                    <div className="mb-2">
-                                        <img src={customer_invoice?.customer_service_request?.service?.image} max-width="100%" height="300" alt="service image" />
-                                    </div>
-                                </Col>
-                            }
-                            <Col md="12" sm='12'>
-                                <div className='mb-1'>
-                                    <Label className='form-label fs-5' for='select-basic'>
-                                        Service Name
-                                    </Label>
-                                    <p>
-                                        {customer_invoice && customer_invoice?.customer_service_request?.service?.name}
-                                    </p>
-                                </div>
-                            </Col>
-                            <Col md="12" sm='12'>
-                                <div className='mb-1'>
-                                    <Label className='form-label fs-5' for='select-basic'>
-                                        Service Description
-                                    </Label>
-                                    <p className='text-wrap'>
-                                        {customer_invoice && customer_invoice?.customer_service_request?.service?.description}
-                                    </p>
-                                </div>
-                            </Col>
                         </Row>
                         <Row>
                             {customer_invoice && customer_invoice?.service?.image &&

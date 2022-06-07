@@ -25,7 +25,8 @@ const Invoice = () => {
   const {
     list: {
       loading,
-      pagination
+      pagination,
+      invoices
     },
     delete: {
       isDeleted
@@ -62,7 +63,7 @@ const Invoice = () => {
           {loading ? (
             <Loader />
           ) :
-            <InvoiceTable pagination={pagination} />
+            <InvoiceTable invoices={invoices} pagination={pagination} />
           }
         </CardBody>
       </Card>

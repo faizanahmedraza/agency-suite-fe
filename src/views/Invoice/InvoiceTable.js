@@ -39,24 +39,16 @@ const InvoiceTable = (props) => {
         setCenteredModal(!centeredModal)
     }
 
-    const getDataByIndex = () => {
-        console.log(index)
-        dispatch(InvoiceListAction.invoiceList(
-            GeneralHelper.Serialize({
-                page: index,
-            })
-        ))
-        setOffset(index)
-    }
-
     const {
         list: {
             invoices,
             pagination,
-        }
+            isFetched
+        },
     } = useSelector(state => state.invoices);
 
     useEffect(() => {
+        if (!isFetched) return setCurrentItems(props.invoices);
         setCurrentItems(invoices);
         setPageCount(pagination?.total_pages)
         setOffset(pagination?.current_page - 1)
@@ -105,7 +97,7 @@ const InvoiceTable = (props) => {
                                 <td className='text-center'>
                                     {(invoice?.paid_by === "" || invoice?.paid_by === "agency") ?
                                         <div className='form-switch form-check-primary'>
-                                            <Input type='switch' className='' onChange={(e) => handleShowInvoiceStatus(e, invoice.id)} defaultChecked={invoice.is_paid} id='icon-secondnary' name='icon-status' />
+                                            <Input type='switch'  onChange={(e) => handleShowInvoiceStatus(e, invoice.id)} defaultChecked={invoice?.is_paid === true} id='icon-secondnary' name='icon-status' />
                                         </div> : invoice?.is_paid ? "Yes" : "No"}
                                 </td>
                                 <td>{formatDate(invoice?.created_at)}</td>
