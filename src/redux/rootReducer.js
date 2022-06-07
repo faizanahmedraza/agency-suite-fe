@@ -19,6 +19,7 @@ import ProfileSettingRootReducer from "@store/V1/ProfileSetting/ProfileSettingRo
 import ServiceRequestRootReducer from "@store/V1/ServiceRequest/ServiceRequestRootReducer";
 import InvoiceRootReducer from "@store/V1/Invoice/InvoiceRootReducer";
 import PasswordUpdateRootReducer from "@store/V1/UpdatePassword/PasswordUpdateRootReducer";
+import PaymentGatewayRootReducer from "@store/V1/PaymentGateway/PaymentGatewayRootReducer";
 import navbar from './navbar'
 import layout from './layout'
 
@@ -43,6 +44,8 @@ const rootReducer = combineReducers({
   billing_information: CustomerBillingInformationRootReducer,
   customer_service_requests: CustomerServiceRequestRootReducer,
   customer_invoices: CustomerInvoiceRootReducer,
+  payment_gateway: PaymentGatewayRootReducer,
+  
 });
 
 export default rootReducer
