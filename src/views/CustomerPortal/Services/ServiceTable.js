@@ -61,7 +61,7 @@ const ServiceTable = (props) => {
                         <strong>Loading...</strong>
                     </div>
                     :
-                    (
+                    <>
                         <Table bordered responsive>
                             <thead>
                                 <tr>
@@ -108,33 +108,29 @@ const ServiceTable = (props) => {
                                 })}
                             </tbody>
                         </Table>
-                    )
-            }
-            {
-                pagination ?
-                    <div className='d-flex justify-content-end pt-1'>
-                        <ReactPaginate
-                            breakLabel="..."
-                            nextLabel="Next >"
-                            onPageChange={handlePageClick}
-                            pageRangeDisplayed={5}
-                            pageCount={pageCount}
-                            previousLabel="< Previous"
-                            renderOnZeroPageCount={null}
-                            breakClassName={'page-item'}
-                            breakLinkClassName={'page-link'}
-                            containerClassName={'pagination'}
-                            pageClassName={'page-item'}
-                            pageLinkClassName={'page-link'}
-                            previousClassName={'page-item'}
-                            previousLinkClassName={'page-link'}
-                            nextClassName={'page-item'}
-                            nextLinkClassName={'page-link'}
-                            activeClassName={'active'}
-                            forcePage={offset}
-                        />
-                    </div>
-                    : null
+                        <div className='d-flex justify-content-end pt-1'>
+                            <ReactPaginate
+                                breakLabel="..."
+                                nextLabel="Next >"
+                                onPageChange={handlePageClick}
+                                pageRangeDisplayed={5}
+                                pageCount={pageCount}
+                                previousLabel="< Previous"
+                                renderOnZeroPageCount={null}
+                                breakClassName={'page-item'}
+                                breakLinkClassName={'page-link'}
+                                containerClassName={'pagination'}
+                                pageClassName={'page-item'}
+                                pageLinkClassName={'page-link'}
+                                previousClassName={'page-item'}
+                                previousLinkClassName={'page-link'}
+                                nextClassName={'page-item'}
+                                nextLinkClassName={'page-link'}
+                                activeClassName={'active'}
+                                forcePage={offset}
+                            />
+                        </div>
+                    </>
             }
         </div>
     )

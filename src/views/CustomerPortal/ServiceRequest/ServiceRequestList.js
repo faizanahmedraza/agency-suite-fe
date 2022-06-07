@@ -50,73 +50,74 @@ const ServiceRequestList = (props) => {
     <React.Fragment>
       {
         currentItems.length ?
-
-          <Table bordered responsive>
-            <thead>
-              <tr>
-                <th>SERVICE NAME</th>
-                <th>IS RECURRING</th>
-                <th>STATUS</th>
-                <th>ACTIONS</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentItems &&
-                currentItems.map((request) => {
-                  return (
-                    <tr key={request.id}>
-                      <td>
-                        <Link to={`/customer-service-requests/detail/${request.id}`}>
+          <>
+            <Table bordered responsive>
+              <thead>
+                <tr>
+                  <th>SERVICE NAME</th>
+                  <th>IS RECURRING</th>
+                  <th>STATUS</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentItems &&
+                  currentItems.map((request) => {
+                    return (
+                      <tr key={request.id}>
+                        <td>
+                          <Link to={`/customer-service-requests/detail/${request.id}`}>
+                            <span className="align-middle fw-bold">
+                              {request?.service_name}
+                            </span>
+                          </Link>
+                        </td>
+                        <td>{request.is_recurring ? 'Yes' : 'No'}</td>
+                        <td className='text-left'>
                           <span className="align-middle fw-bold">
-                            {request?.service_name}
+                            {request.status}
                           </span>
-                        </Link>
-                      </td>
-                      <td>{request.is_recurring ? 'Yes' : 'No'}</td>
-                      <td className='text-left'>
-                        <span className="align-middle fw-bold">
-                          {request.status}
-                        </span>
-                      </td>
-                      <td>
-                        <Link
-                          to={`/customer-service-requests/detail/${request.id}`}
-                        >
-                          <Eye className="me-50" size={20} />
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </Table>
+                        </td>
+                        <td>
+                          <Link
+                            to={`/customer-service-requests/detail/${request.id}`}
+                          >
+                            <Eye className="me-50" size={20} />
+                          </Link>
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </Table>
+            <div className="d-flex justify-content-end pt-1">
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel="next >"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={5}
+                pageCount={pageCount}
+                previousLabel="< previous"
+                renderOnZeroPageCount={null}
+                breakClassName={"page-item"}
+                breakLinkClassName={"page-link"}
+                containerClassName={"pagination"}
+                pageClassName={"page-item"}
+                pageLinkClassName={"page-link"}
+                previousClassName={"page-item"}
+                previousLinkClassName={"page-link"}
+                nextClassName={"page-item"}
+                nextLinkClassName={"page-link"}
+                activeClassName={"active"}
+                forcePage={offset}
+              />
+            </div>
+          </>
           :
           <div className="text-center">
             <strong >No Items Found !</strong>
           </div>
       }
-      <div className="d-flex justify-content-end pt-1">
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel="next >"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={pageCount}
-          previousLabel="< previous"
-          renderOnZeroPageCount={null}
-          breakClassName={"page-item"}
-          breakLinkClassName={"page-link"}
-          containerClassName={"pagination"}
-          pageClassName={"page-item"}
-          pageLinkClassName={"page-link"}
-          previousClassName={"page-item"}
-          previousLinkClassName={"page-link"}
-          nextClassName={"page-item"}
-          nextLinkClassName={"page-link"}
-          activeClassName={"active"}
-          forcePage={offset}
-        />
-      </div>
     </React.Fragment>
   );
 };

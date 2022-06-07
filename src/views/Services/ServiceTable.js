@@ -134,7 +134,7 @@ const ServiceTable = ({ services, pagination, tabIndex }) => {
                                                 <Input type='select' name='select' id='select-basic' value={service.status} onChange={(e) => handleServiceStatus(e, service.id)}>
                                                     <option value="pending">Pending</option>
                                                     <option value="active">Active</option>
-                                                    <option value="blocked">BLocked</option>
+                                                    <option value="blocked">Blocked</option>
                                                 </Input>
                                             </td>
                                             <td>

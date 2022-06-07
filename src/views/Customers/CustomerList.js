@@ -125,7 +125,7 @@ const CustomerList = (props) => {
                     <Input type='select' name='select' id='select-basic' value={customer.status} onChange={(e) => handleCustomerStatus(e, customer.id)}>
                       <option value="pending">Pending</option>
                       <option value="active">Active</option>
-                      <option value="blocked">BLocked</option>
+                      <option value="blocked">Blocked</option>
                     </Input>
                   </td>
                   <td>{customer.last_logged_in ?? "-"}</td>
