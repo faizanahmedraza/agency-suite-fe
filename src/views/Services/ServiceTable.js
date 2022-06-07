@@ -48,24 +48,24 @@ const ServiceTable = ({ services, pagination, tabIndex }) => {
     const handlePageClick = (event) => {
         const selectedPage = event.selected + 1;
         if (tabIndex == 1) {
-            setSearchParam({ index: selectedPage, tabindex: props?.tabIndex })
+            setSearchParam({ index: selectedPage, tabindex: tabIndex })
             dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
                 page: selectedPage
             })));
         } else if (tabIndex == 2) {
-            setSearchParam({ index: selectedPage, tabindex: props?.tabIndex })
+            setSearchParam({ index: selectedPage, tabindex: tabIndex })
             dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
                 page: selectedPage,
                 catalog_status: "active"
             })));
         } else if (tabIndex == 3) {
-            setSearchParam({ index: selectedPage, tabindex: props?.tabIndex })
+            setSearchParam({ index: selectedPage, tabindex: tabIndex })
             dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
                 page: selectedPage,
                 service_type: "one-off"
             })));
         } else if (tabIndex == 4) {
-            setSearchParam({ index: selectedPage, tabindex: props?.tabIndex })
+            setSearchParam({ index: selectedPage, tabindex: tabIndex })
             dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
                 page: selectedPage,
                 service_type: "recurring"

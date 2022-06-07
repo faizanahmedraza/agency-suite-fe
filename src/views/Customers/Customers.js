@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "@store/store";
 import CustomerListAction from "@store/V1/Customer/LIST/CustomerListAction";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -25,6 +25,10 @@ const Loader = () => {
 
 const Customers = () => {
   const [active, setActive] = useState("1");
+  const [searchParam, setSearchParam] = useSearchParams()
+
+  const index = searchParam.get("index")
+  const tabindex = searchParam.get("tabindex")
 
   const dispatch = useDispatch();
   const {
@@ -43,29 +47,55 @@ const Customers = () => {
       return customer.status === "active";
     });
 
-    return <CustomerList data={activeCustomers} pagination={pagination} tabIndex={active}/>;
+    return <CustomerList data={activeCustomers} pagination={pagination} tabIndex={active} />;
   }
   function pendingCustomers() {
     const pendingCustomers = customers.filter((customer) => {
       return customer.status === "pending";
     });
 
-    return <CustomerList data={pendingCustomers} pagination={pagination} tabIndex={active}/>;
+    return <CustomerList data={pendingCustomers} pagination={pagination} tabIndex={active} />;
+  }
+
+  const queryParametersByTab = (tabId) => {
+
+    let object = {
+      page: index
+    }
+
+    if (tabId == 1) {
+      return object
+    }
+    if (tabId == 2) {
+      object.status = "active"
+    }
+    if (tabId == 3) {
+      object.status = "pending"
+    }
+
+    return object
+
   }
 
   useEffect(() => {
-    dispatch(CustomerListAction.customerList());
+    dispatch(CustomerListAction.customerList(index ? GeneralHelper.Serialize(queryParametersByTab(tabindex)) : ""));
+    if (tabindex) {
+      setActive(tabindex)
+    }
   }, [isChanged])
 
   const toggle = (tab) => {
     if (active !== tab) {
       if (tab == 1) {
+        setSearchParam({ tabindex: tab })
         dispatch(CustomerListAction.customerList());
       } else if (tab == 2) {
+        setSearchParam({ tabindex: tab })
         dispatch(CustomerListAction.customerList(GeneralHelper.Serialize({
           status: "active"
         })));
       } else if (tab == 3) {
+        setSearchParam({ tabindex: tab })
         dispatch(CustomerListAction.customerList(GeneralHelper.Serialize({
           status: "pending"
         })));
@@ -132,7 +162,7 @@ const Customers = () => {
             ) : (
               <>
                 <TabPane tabId="1">
-                  <CustomerList data={customers} pagination={pagination} tabIndex={active}/>
+                  <CustomerList data={customers} pagination={pagination} tabIndex={active} />
                 </TabPane>
                 <TabPane tabId="2">
                   {customers && activeCustomers(customers)}
