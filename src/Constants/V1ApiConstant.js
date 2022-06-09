@@ -36,6 +36,10 @@ const V1 = {
     service_request: "v1/agencies/request-services",
     invoices: "v1/agencies/invoices",
     billing_information: "v1/agencies/billing-information",
+    payment_gateway : {
+      create : "v1/agencies/payment/gateway",
+      detail : "v1/agencies/payment/"
+    }
   },
   customer: {
     services: "v1/customers/services",

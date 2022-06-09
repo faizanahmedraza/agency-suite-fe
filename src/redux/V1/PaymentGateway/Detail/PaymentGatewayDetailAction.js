@@ -18,10 +18,10 @@ const paymentGatewayListFailed = () => {
     };
 };
 
-const ServiceListAction = {
+const PaymentGatewayListAction = {
     paymentGatewayList,
     paymentGatewayListSuccess,
     paymentGatewayListFailed
 }
 
-export default ServiceListAction;
+export default PaymentGatewayListAction;
