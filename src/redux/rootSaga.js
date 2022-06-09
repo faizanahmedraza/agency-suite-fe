@@ -17,6 +17,7 @@ import PortalSettingRootSaga from "@store/V1/PortalSetting/PortalSettingRootSaga
 import ProfileSettingRootSaga from "@store/V1/ProfileSetting/ProfileSettingRootSaga";
 import ServiceRequestRootSaga from "@store/V1/ServiceRequest/ServiceRequestRootSaga";
 import PasswordUpdateRootSaga from "@store/V1/UpdatePassword/PasswordUpdateRootSaga";
+import PaymentGatewayRootSaga from "@store/V1/PaymentGateway/PaymentGatewayRootSaga";
 
 export default function* rootSaga() {
   yield all([
@@ -38,5 +39,6 @@ export default function* rootSaga() {
     CustomerInvoiceRootSaga(),
     InvoiceRootSaga(),
     CustomerBillingInformationRootSaga(),
+    PaymentGatewayRootSaga()
   ]);
 }

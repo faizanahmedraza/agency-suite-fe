@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState  , useEffect} from "react";
 import {
     Card,
     CardHeader,
@@ -14,17 +14,23 @@ import {
 // import PortalSettingUpdateAction from "@store/V1/PortalSetting/UPDATE/PortalSettingUpdateAction";
 import PortalSetting from "@src/Components/PortalSettingsComponent";
 import PortalPayment from "@src/Components/PortalPaymentComponent";
-
+import PaymentGatewayListAction from "@store/V1/PaymentGateway/GET/PaymentGatewayListAction"
+import {useDispatch} from "@store/store"
 
 const PortalSettings = () => {
   
     const [active, setActive] = useState("1");
+    const dispatch = useDispatch()
 
   const toggle = (tab) => {
     if (active !== tab) {
       setActive(tab);
     }
   };
+
+  useEffect(()=>{
+    dispatch(PaymentGatewayListAction.paymentGatewayList())
+  },[])
 
     return (
         <>
