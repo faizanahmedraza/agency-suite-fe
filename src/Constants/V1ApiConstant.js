@@ -47,7 +47,7 @@ const V1 = {
   },
   change_auth_password: "v1/change-password",
   // DOMAIN: window.location.hostname
-  DOMAIN: 'irfanagency1.allthingswordpress.io',
+  DOMAIN: 'irfanagency2.allthingswordpress.io',
 };
 
 export default V1;
