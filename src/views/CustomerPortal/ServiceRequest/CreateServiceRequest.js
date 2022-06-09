@@ -84,7 +84,7 @@ const CreateServiceRequest = () => {
                             </div>
                             <div className='col-3'>
                                 {!serviceloading && checkBillingInfoEmpty() ?
-                                    <Button.Ripple color='primary' className="w-25" onClick={cardToggleModal}> Add Payment Method </Button.Ripple> : ''
+                                    <Button.Ripple color='primary' className="w-100" onClick={cardToggleModal}> Add Payment Method </Button.Ripple> : ''
                                 }
                             </div>
                         </div>
