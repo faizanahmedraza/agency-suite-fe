@@ -180,6 +180,7 @@ const CustomerList = (props) => {
           <ModalFooter>
             <Button
               color="primary"
+              outline
               onClick={() => setFormModal(!formModal)}
             >
               Cancel
