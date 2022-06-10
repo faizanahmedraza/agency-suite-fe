@@ -55,7 +55,7 @@ const CardPayment = () => {
     }
 
     if (successStatus) {
-      setWarningStatusModal(!warningStatusModal);
+      setWarningUpdateModal(!warningStatusModal);
     }
 
   }, [isFetched, success, successStatus]);
