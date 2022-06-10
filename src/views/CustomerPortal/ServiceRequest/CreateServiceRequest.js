@@ -31,7 +31,7 @@ const CreateServiceRequest = () => {
 
     const [serviceRequestDetails, setServiceRequestDetails] = useState({
         service_id: "",
-        recurring_type: "",
+        recurring_type: "monthly",
         title: "",
         description: "",
         reference_no: "",

@@ -17,14 +17,12 @@ import {
 } from "reactstrap";
 import PaymentGatewayCreateAction from "@store/V1/PaymentGateway/Create/PaymentGatewayCreateAction";
 import PaymentGatewayListAction from "@store/V1/PaymentGateway/Detail/PaymentGatewayDetailAction";
-import PaymentGatewayStatusAction from "@store/V1/PaymentGateway/Status/PaymentGatewayStatusAction";
 import { useDispatch } from "@store/store";
 import { useSelector } from "react-redux";
 
 const CardPayment = () => {
   const dispatch = useDispatch();
   const [warningUpdateModal, setWarningUpdateModal] = useState(false);
-  const [warningStatusModal, setWarningStatusModal] = useState(false);
 
   const {
     list: { loading, gateway, isFetched },
@@ -36,8 +34,10 @@ const CardPayment = () => {
     gateway: "stripe",
     gateway_id: "",
     gateway_secret: "",
-    is_enable: "yes",
+    is_enable: true,
   });
+
+  console.log(paymentInfo);
 
   const handleChange = (e) => {
     setPaymentInfo({
@@ -64,10 +64,6 @@ const CardPayment = () => {
     dispatch(PaymentGatewayCreateAction.paymentGatewayCreate(paymentInfo));
   };
 
-  const submitStatusModal = () => {
-    dispatch(PaymentGatewayStatusAction.paymentGatewayStatus("stripe"));
-  };
-
   return (
     <Card className="card-payment">
       <CardHeader>
@@ -75,12 +71,10 @@ const CardPayment = () => {
         <CardTitle className="text-primary" tag="h4">
           <div className="form-switch form-check-primary">
             <Input
-              type='switch'
-              checked={paymentInfo?.is_enable === "yes" ?? false}
-              onChange={() => setWarningStatusModal(!warningStatusModal)}
-              value={paymentInfo?.is_enable === "yes"}
-              id='icon-primary'
-              name='icon-primary'
+              type="switch"
+              className=""
+              id="icon-secondnary"
+              name="icon-status"
             />
           </div>
         </CardTitle>
@@ -94,10 +88,10 @@ const CardPayment = () => {
             <Input
               type="text"
               onChange={handleChange}
-              value={!loading ? paymentInfo?.gateway_secret ?? "" : ""}
+              value={paymentInfo.gateway_secret}
               name="gateway_secret"
               id="nameMulti"
-              disabled={paymentInfo?.is_enable === "no"}
+              placeholder=""
             />
           </Col>
           <Col className="text-end pt-2" md="3" sm="12">
@@ -111,7 +105,7 @@ const CardPayment = () => {
       <div className="vertically-centered-modal">
         <Modal
           isOpen={warningUpdateModal}
-          toggle={() => setWarningUpdateModal(!warningUpdateModal)}
+          toggle={() => setWarningUpdateModal(!centeredModal)}
           className="modal-dialog-centered"
         >
           <ModalHeader
@@ -137,46 +131,6 @@ const CardPayment = () => {
               disabled={createLoading}
             >
               {createLoading ? (
-                <>
-                  <Spinner color="white" size="sm" type="grow" />
-                  <span className="ms-50">Loading...</span>
-                </>
-              ) : (
-                <span>Yes</span>
-              )}
-            </Button>
-          </ModalFooter>
-        </Modal>
-      </div>
-      {/* Toggle Status */}
-      <div className="vertically-centered-modal">
-        <Modal
-          isOpen={warningStatusModal}
-          toggle={() => setWarningStatusModal(!warningStatusModal)}
-          className="modal-dialog-centered"
-        >
-          <ModalHeader
-            toggle={() => setWarningStatusModal(!warningStatusModal)}
-          >
-            Confirmation
-          </ModalHeader>
-          <ModalBody>
-            By disabling this your customers payment option stop working ?
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              color="primary"
-              outline
-              onClick={() => setWarningStatusModal(!warningStatusModal)}
-            >
-              Cancel
-            </Button>
-            <Button
-              color="danger"
-              onClick={submitStatusModal}
-              disabled={statusLoading}
-            >
-              {statusLoading ? (
                 <>
                   <Spinner color="white" size="sm" type="grow" />
                   <span className="ms-50">Loading...</span>
