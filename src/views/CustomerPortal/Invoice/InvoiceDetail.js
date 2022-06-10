@@ -42,6 +42,9 @@ const InvoiceDetail = () => {
         card_id: "",
         invoice_id: id
     });
+    
+
+    console.log(customer_invoice)
 
     const handleInvoicePaidField = (e) => {
         setInvoicePaid({

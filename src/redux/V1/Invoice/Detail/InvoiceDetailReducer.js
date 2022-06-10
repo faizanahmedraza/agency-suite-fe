@@ -39,6 +39,7 @@ const InvoiceDetailReducer = (
       return {
         ...state,
         loading: true,
+        customer_invoice: null
       };
     case INVOICE.INVOICE_DETAIL_SUCCESS:
       return {
@@ -51,7 +52,8 @@ const InvoiceDetailReducer = (
       return {
         ...state,
         loading: false,
-        error: action.response
+        error: action.response,
+        customer_invoice: null
       };
     default:
       return state;

@@ -3,8 +3,7 @@ import PAYMENT_GATEWAY from "@store/V1/PaymentGateway/ActionTypes"
 const PaymentGatewayListReducer = (
     state = {
         loading: false,
-        services: [],
-        pagination : null,
+        gateway: {},
         isFetched: false,
     },
     action
@@ -14,21 +13,20 @@ const PaymentGatewayListReducer = (
             return {
                 ...state,
                 loading: true,
-                isFetched: false,
+                gateway: null,
             }
         case PAYMENT_GATEWAY.PAYMENT_GATEWAY_DETAIL_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                services: action.response.services,
-                pagination : action.response.pagination,
+                gateway: action.response.payment_gateway,
                 isFetched: true,
             }
         case PAYMENT_GATEWAY.PAYMENT_GATEWAY_DETAIL_FAILED:
             return {
                 ...state,
                 loading: false,
-                isFetched: false,
+                gateway: null,
             }
         default:
             return state

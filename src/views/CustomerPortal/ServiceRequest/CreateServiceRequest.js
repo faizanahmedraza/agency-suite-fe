@@ -31,7 +31,7 @@ const CreateServiceRequest = () => {
 
     const [serviceRequestDetails, setServiceRequestDetails] = useState({
         service_id: "",
-        recurring_type: "",
+        recurring_type: "monthly",
         title: "",
         description: "",
         reference_no: "",
@@ -83,9 +83,9 @@ const CreateServiceRequest = () => {
                                 <h1>Create Service Request</h1>
                             </div>
                             <div className='col-3'>
-                        {!serviceloading && checkBillingInfoEmpty() ?
-                                <Button.Ripple color='primary' className="w-100" onClick={cardToggleModal}> Create Card +</Button.Ripple> : ''
-                            }
+                                {!serviceloading && checkBillingInfoEmpty() ?
+                                    <Button.Ripple color='primary' className="w-100" onClick={cardToggleModal}> Add Payment Method </Button.Ripple> : ''
+                                }
                             </div>
                         </div>
                     </div>

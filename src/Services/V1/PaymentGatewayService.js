@@ -17,7 +17,7 @@ const paymentGatewayCreateBodyData = (data) => {
 
     _data.gateway = data.gateway;
     _data.gateway_id = data.gateway_id;
-    _data.gateway_code = data.gateway_code;
+    _data.gateway_secret = data.gateway_secret;
 
     return JSON.stringify(_data);
 }

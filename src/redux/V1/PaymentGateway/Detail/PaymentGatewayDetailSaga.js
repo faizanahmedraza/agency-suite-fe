@@ -5,7 +5,6 @@ import PaymentGatewayActions from "@store/V1/PaymentGateway/Detail/PaymentGatewa
 
 function* PaymentGatewayList(data) {
     const response = yield PaymentGatewayService.paymentGatewayDetail(data.request)
-    console.log(response)
     if (response.success) {
         yield put(PaymentGatewayActions.paymentGatewayListSuccess(response.data))
     } else {
