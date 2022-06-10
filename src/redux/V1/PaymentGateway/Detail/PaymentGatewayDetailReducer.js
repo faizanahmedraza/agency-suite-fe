@@ -14,7 +14,6 @@ const PaymentGatewayListReducer = (
                 ...state,
                 loading: true,
                 gateway:{},
-                isFetched: false,
             }
         case PAYMENT_GATEWAY.PAYMENT_GATEWAY_DETAIL_SUCCESS:
             return {
@@ -28,7 +27,6 @@ const PaymentGatewayListReducer = (
                 ...state,
                 loading: false,
                 gateway:{},
-                isFetched: false,
             }
         default:
             return state

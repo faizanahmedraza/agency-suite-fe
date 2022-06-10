@@ -12,6 +12,11 @@ async function paymentGatewayDetail(params) {
     return response;
 }
 
+async function paymentGatewayStatus(params) {
+    const response = await Gateway.authGateway("PUT", V1.DOMAIN , V1.agency.payment_gateway.status + params);
+    return response;
+}
+
 const paymentGatewayCreateBodyData = (data) => {
     let _data = {};
 
@@ -24,7 +29,8 @@ const paymentGatewayCreateBodyData = (data) => {
 
 const PaymentGatewayService = {
     paymentGatewayDetail,
-    paymentGatewayCreate
+    paymentGatewayCreate,
+    paymentGatewayStatus
 }
 
 export default PaymentGatewayService;

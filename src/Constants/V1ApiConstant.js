@@ -38,7 +38,8 @@ const V1 = {
     billing_information: "v1/agencies/billing-information",
     payment_gateway : {
       create : "v1/agencies/payment/gateway",
-      detail : "v1/agencies/payment/"
+      detail : "v1/agencies/payment/",
+      status : "v1/agencies/payment/change-status/"
     }
   },
   customer: {
