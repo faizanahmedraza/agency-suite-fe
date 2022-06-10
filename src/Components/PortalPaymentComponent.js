@@ -50,15 +50,12 @@ const CardPayment = () => {
     dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"));
 
     if (gateway) setPaymentInfo(gateway)
-    
 
-    // setPaymentInfo(gateway);
-    // console.log(gateway, "gateway inside");
+    if (success) {
+      setWarningUpdateModal(!warningUpdateModal);
+    }
 
-    // if (success) {
-    //   setWarningUpdateModal(!warningUpdateModal);
-    // }
-  }, [isFetched]);
+  }, [isFetched , success]);
 
   console.log(gateway , 'gateaewaaaaaaaaaaaaaayyy')
 

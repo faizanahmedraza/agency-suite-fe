@@ -1,37 +1,34 @@
 import PAYMENT_GATEWAY from "@store/V1/PaymentGateway/ActionTypes"
 
-const PaymentGatewayCreateReducer = (
+const PaymentGatewayStatusReducer = (
     state = {
         loading: false,
-        gateway: {},
         success: false,
     },
     action
 ) => {
     switch (action.type) {
-        case PAYMENT_GATEWAY.PAYMENT_GATEWAY_CREATE:
+        case PAYMENT_GATEWAY.PAYMENT_GATEWAY_STATUS:
             return {
                 ...state,
                 loading: true,
-                gateway: {},
-                success: false
+                success: false,
             }
-        case PAYMENT_GATEWAY.PAYMENT_GATEWAY_CREATE_SUCCESS:
+        case PAYMENT_GATEWAY.PAYMENT_GATEWAY_STATUS_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 success: true,
-                gateway: action.response.payment_gateway,
             }
-        case PAYMENT_GATEWAY.PAYMENT_GATEWAY_CREATE_FAILED:
+        case PAYMENT_GATEWAY.PAYMENT_GATEWAY_STATUS_FAILED:
             return {
                 ...state,
                 loading: false,
-                gateway: {},
+                success: false,
             }
         default:
             return state
     }
 }
 
-export default PaymentGatewayCreateReducer;
+export default PaymentGatewayStatusReducer;
