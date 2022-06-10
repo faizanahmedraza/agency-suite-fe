@@ -29,7 +29,7 @@ const CardPayment = () => {
   const {
     list: { loading, gateway, isFetched },
     create: { loading: createLoading, gateway: createGateway, success },
-    status: { loading: statusLoading, successStatus  },
+    status: { loading: statusLoading, success: successStatus  },
   } = useSelector((state) => state.payment_gateway);
 
   const [paymentInfo, setPaymentInfo] = useState({
@@ -45,17 +45,19 @@ const CardPayment = () => {
       [e.target.name]: e.target.value,
     });
   };
-
   useEffect(() => {
     if (!isFetched || successStatus) dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"));
     if (isFetched && !success) return setPaymentInfo(gateway);
     setPaymentInfo(createGateway);
+
     if (success) {
       setWarningUpdateModal(!warningUpdateModal);
     }
+
     if (successStatus) {
       setWarningStatusModal(!warningStatusModal);
     }
+
   }, [isFetched, success, successStatus]);
 
   const submitSaveFormModal = () => {
