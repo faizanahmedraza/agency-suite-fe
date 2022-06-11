@@ -3,6 +3,7 @@ const V1 = {
     register: 'v1/auth/agencies/register',
     customer_register: 'v1/auth/customers/register',
     login: "v1/auth/login",
+    logout: "v1/logout",
     verification: "v1/auth/verify-token",
     forgot_password: "v1/auth/forget-password",
     launch: "v1/public/domain-launch"

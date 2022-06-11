@@ -3,6 +3,7 @@ import { combineReducers } from "redux";
 // ** Reducers Imports
 import LaunchReducer from "@store/V1/Auth/Launch/LaunchReducer";
 import LoginReducer from "@store/V1/Auth/Login/LoginReducer";
+import LogoutReducer from "@store/V1/Auth/Logout/LogoutReducer";
 import CustomerRootReducer from "@store/V1/Customer/CustomerRootReducer";
 import RegisterReducer from "@store/V1/Auth/Register/RegisterReducers";
 import CustomerRegistrationReducer from "@store/V1/Auth/CustomerRegister/CustomerRegisterReducers";
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   navbar,
   layout,
   login: LoginReducer,
+  logout: LogoutReducer,
   launch: LaunchReducer,
   register: RegisterReducer,
   customer_register: CustomerRegistrationReducer,

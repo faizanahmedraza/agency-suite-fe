@@ -7,8 +7,6 @@ const PrivateRoute = ({ children, route }) => {
 
   const { user } = useSelector(state => state.login)
 
-  console.log(user)
-
   if (route) {
     let action = null
     let resource = null
@@ -20,7 +18,7 @@ const PrivateRoute = ({ children, route }) => {
       resource = route.meta.resource
       restrictedRoute = route.meta.restricted
     }
-    
+      
     if (!user) return <Navigate to='/login' replace />
     
     if (user && restrictedRoute) return <Navigate to='/dashboard' replace />

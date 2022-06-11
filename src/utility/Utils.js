@@ -111,8 +111,6 @@ export const setTitle = () => {
   document.title = name
 }
 
-
-
 export const userHeaders = ["Orders","Catalog"]
 export const userRoutes = ["Dashboard", "Customer_Requests","Customer_Services","Customer_Invoices","Customer_Billing"]
 export const adminHeaders = ["Orders", "Set up"]
