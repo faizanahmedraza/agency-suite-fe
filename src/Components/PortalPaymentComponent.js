@@ -159,7 +159,7 @@ const CardPayment = () => {
             Confirmation
           </ModalHeader>
           <ModalBody>
-            By disabling this your customers payment option stop working ?
+            By disabling this your customers payment option stop working?
           </ModalBody>
           <ModalFooter>
             <Button
