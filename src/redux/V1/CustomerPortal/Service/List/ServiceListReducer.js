@@ -15,6 +15,7 @@ const ServiceListReducer = (
                 ...state,
                 loading: true,
                 isFetched: false,
+                services: [],
             }
         case SERVICE.CUSTOMER_SERVICE_LIST_SUCCESS:
             return {
