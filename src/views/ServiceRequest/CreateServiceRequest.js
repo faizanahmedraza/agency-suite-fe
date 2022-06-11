@@ -40,7 +40,7 @@ const CreateServiceRequest = () => {
     const [serviceRequestDetails, setServiceRequestDetails] = useState({
         service_id: "",
         customer_id: "",
-        recurring_type: "",
+        recurring_type: "monthly",
         title: "",
         description: "",
         is_recurring: false,
@@ -266,7 +266,7 @@ const CreateServiceRequest = () => {
                                     </Row>
                                 }
                                 {
-                                    (!serviceRequestDetails.is_recurring && serviceRequestDetails.selected_service != null) &&
+                                    (!serviceRequestDetails.is_recurring && serviceRequestDetails.selected_service !== null) &&
                                     <Row>
                                         <Col md='4' sm='12'>
                                             <div className='mb-1'>

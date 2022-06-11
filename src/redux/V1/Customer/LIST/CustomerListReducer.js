@@ -15,7 +15,8 @@ const CustomerListReducer = (
       return {
         ...state,
         loading: true,
-        isFetched : false
+        isFetched : false,
+        customers: [],
       };
     case CUSTOMER.CUSTOMER_LIST_SUCCESS:
       return {

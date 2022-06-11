@@ -3,13 +3,7 @@ import CUSTOMER from "@store/V1/Customer/ActionType";
 const CustomerDetailReducer = (
   state = {
     loading: false,
-    customer: {
-      first_name: null,
-      last_name: null,
-      email: null,
-      status: null,
-      last_logged_in: null,
-    },
+    customer: {},
     error: null,
     fetched: false,
   },
@@ -20,6 +14,7 @@ const CustomerDetailReducer = (
       return {
         ...state,
         loading: true,
+        customer: {},
       };
     case CUSTOMER.CUSTOMER_DETAIL_SUCCESS:
       return {
