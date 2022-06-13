@@ -64,17 +64,17 @@ const InvoiceDetail = () => {
     useEffect(() => {
         dispatch(InvoiceDetailAction.invoiceDetail(id));
 
-        if (customer_invoice?.customer?.id)
+        if (customer_invoice.customer.id)
         {
             dispatch(BillingInformationListAction.billingInformationList(
                 GeneralHelper.Serialize({
                     customer_id: customer_invoice?.customer?.id ?? "",
                 })
             )); 
-            if (billingInfofetched) {
-                const primaryCard = customer_billing_information.filter(billingInfo => billingInfo.is_primary === true)
-                setInvoicePaid({ ...invoicePaid, card_id: primaryCard[0]?.id ?? "" })
-            }
+        }
+        if (billingInfofetched) {
+            const primaryCard = customer_billing_information.filter(billingInfo => billingInfo.is_primary === true)
+            setInvoicePaid({ ...invoicePaid, card_id: primaryCard[0]?.id ?? "" })
         }
     }, [fetched, billingInfofetched, isPaid]);
 
@@ -242,7 +242,7 @@ const InvoiceDetail = () => {
                                     <Input type='textarea' value={customer_invoice?.customer_service_request?.intake_form[0]?.description ? customer_invoice?.customer_service_request?.intake_form[0]?.description : ""} name='description' id='description' placeholder='Enter Description' readOnly />
                                 </div>
                             </Col>
-                            {!customer_invoice.is_paid ?
+                            { customer_invoice.is_paid === "no" ?
                                 (billingInfoLoading ? <Loader /> :
                                     <Col md='12' sm='12'>
                                         <Form onSubmit={onSubmitHandler}>

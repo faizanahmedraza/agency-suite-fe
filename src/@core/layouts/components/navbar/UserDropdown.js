@@ -3,11 +3,12 @@ import Avatar from '@components/avatar'
 import { User, Power } from 'react-feather'
 import { UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap'
 import defaultAvatar from '@src/assets/images/portrait/small/avatar-s-27.png'
-import LogoutHelper from "@src/Helpers/LogoutHelper"
-import { useSelector } from "@store/store"
+import LogoutAction from "@store/V1/Auth/Logout/LogoutAction";
+import { useDispatch, useSelector } from "@store/store"
 import { useState, useEffect } from "react"
 
 const UserDropdown = () => {
+  const dispatch = useDispatch();
   const {
     login: {
       user: login_user
@@ -32,6 +33,10 @@ const UserDropdown = () => {
   const role = user?.roles[0].name;
   const logo = user?.image;
 
+  const logOut = () => {
+    dispatch(LogoutAction.deleteLogout());
+  }
+
   return (
     <UncontrolledDropdown tag='li' className='dropdown-user nav-item'>
       <DropdownToggle href='/' tag='a' className='nav-link dropdown-user-link' onClick={e => e.preventDefault()}>
@@ -46,7 +51,7 @@ const UserDropdown = () => {
           <User size={14} className='me-75' />
           <span className='align-middle'>Profile</span>
         </DropdownItem>
-        <DropdownItem onClick={() => LogoutHelper.logout()} tag={Link} to='/login'>
+        <DropdownItem className='w-100' onClick={logOut}>
           <Power size={14} className='me-75' />
           <span className='align-middle'>Logout</span>
         </DropdownItem>

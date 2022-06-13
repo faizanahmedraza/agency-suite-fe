@@ -3,7 +3,7 @@
 //Template config options
 const themeConfig = {
   app: {
-    appName: 'Agency Tool',
+    appName: JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? 'Agency',
     appLogoImage: require('@src/assets/images/logo/logo.svg').default
   },
   layout: {

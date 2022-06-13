@@ -203,16 +203,16 @@ const CustomerList = (props) => {
                     <ModalHeader toggle={() => setStatusModal(!statusModal)}>
                         Confirmation
                     </ModalHeader>
-                    <ModalBody>Are you sure you want to change the status of this customer ?</ModalBody>
+                    <ModalBody>Are you sure you want to change the status of this customer Faizan ?</ModalBody>
                     <ModalFooter>
                         <Button
-                            color="primary"
+                            color="secondary"
                             onClick={() => setStatusModal(!statusModal)}
                         >
                             Cancel
                         </Button>
                         <Button
-                            color="danger"
+                            color="primary"
                             onClick={() => changeCustomerStatus()}
                         >
                             Yes

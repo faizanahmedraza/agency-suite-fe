@@ -1,6 +1,7 @@
 import { all } from "redux-saga/effects";
 import LaunchRootSaga from "@store/V1/Auth/Launch/LaunchRootSaga";
 import LoginRootSaga from "@store/V1/Auth/Login/LoginRootSaga";
+import LogoutRootSaga from "@store/V1/Auth/Logout/LogoutRootSaga";
 import RegisterRootSaga from "@store/V1/Auth/Register/RegisterRootSaga";
 import CustomerRegisterRootSaga from "@store/V1/Auth/CustomerRegister/CustomerRegisterRootSaga";
 import VerificationRootSaga from "@store/V1/Auth/Verification/VerificationRootSaga";
@@ -17,10 +18,12 @@ import PortalSettingRootSaga from "@store/V1/PortalSetting/PortalSettingRootSaga
 import ProfileSettingRootSaga from "@store/V1/ProfileSetting/ProfileSettingRootSaga";
 import ServiceRequestRootSaga from "@store/V1/ServiceRequest/ServiceRequestRootSaga";
 import PasswordUpdateRootSaga from "@store/V1/UpdatePassword/PasswordUpdateRootSaga";
+import PaymentGatewayRootSaga from "@store/V1/PaymentGateway/PaymentGatewayRootSaga";
 
 export default function* rootSaga() {
   yield all([
     LoginRootSaga(),
+    LogoutRootSaga(),
     LaunchRootSaga(),
     RegisterRootSaga(),
     CustomerRegisterRootSaga(),
@@ -38,5 +41,6 @@ export default function* rootSaga() {
     CustomerInvoiceRootSaga(),
     InvoiceRootSaga(),
     CustomerBillingInformationRootSaga(),
+    PaymentGatewayRootSaga()
   ]);
 }

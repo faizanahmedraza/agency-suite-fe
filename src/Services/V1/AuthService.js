@@ -13,6 +13,11 @@ async function loginPost(data) {
     return response;
 }
 
+async function logoutDelete() {
+    const response = await Gateway.authGateway("DELETE", V1.DOMAIN,V1.auth.logout);
+    return response;
+}
+
 async function registerPost(data) {
     const _data = RegisterPostBody(data);
     const response = await Gateway.guestGateway("POST", V1.DOMAIN, V1.auth.register, _data);
@@ -76,6 +81,7 @@ const forgotPasswordPostBody = (data) => {
 
 const AuthService = {
     loginPost,
+    logoutDelete,
     registerPost,
     verificationPost,
     forgotPasswordPost,

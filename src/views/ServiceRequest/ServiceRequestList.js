@@ -164,13 +164,13 @@ const ServiceRequestList = (props) => {
           <ModalBody>Are you sure you want to change the status of this service request ?</ModalBody>
           <ModalFooter>
             <Button
-              color="primary"
+              color="secondary"
               onClick={() => setCenteredModal(!centeredModal)}
             >
               Cancel
             </Button>
             <Button
-              color="danger"
+              color="primary"
               onClick={() => changeRequestServiceStatus()}
             >
               Yes

@@ -24,6 +24,9 @@ const BillingCardInfo = (props) => {
 
     useEffect(() => {
         dispatch(BillingInformationListAction.billingInformationList());
+        return () => {
+            setCenteredModal(false);
+        };
     }, []);
 
     const cardToggleModal = () => {

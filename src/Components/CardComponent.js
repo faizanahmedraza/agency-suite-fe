@@ -15,7 +15,6 @@ import {
 import { Link } from "react-router-dom"
 
 const CardContentTypes = ({ services }) => {
-    // const { logo, agency } = detail.portal_settings
     const dispatch = useDispatch()
     const {portal_settings: { detail: { portal_settings, fetched } }
     } = useSelector((state => state))
@@ -35,8 +34,8 @@ const CardContentTypes = ({ services }) => {
                 <div className="row">
                     <div className="AGT-info">
                     {portal_settings.logo ?
-                        <img src={portal_settings?.logo} height="50" />: <h2>Hello</h2>}
-                        <h1 className='pl'>{JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? 'Agency Tool'}</h1>
+                        <img src={portal_settings?.logo} height="50" /> : <h2>Hello</h2>}
+                        <h1 className='pl'>{JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? ''}</h1>
                     </div>
                 </div>
                 <div className="row">

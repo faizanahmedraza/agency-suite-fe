@@ -42,6 +42,9 @@ const Billing = () => {
 
     useEffect(() => {
         dispatch(BillingInformationListAction.billingInformationList());
+        return () => {
+            setCenteredModal(false);
+        };
     }, [isPrimary, isDeleted, success]);
 
     const cardToggleModal = () => {

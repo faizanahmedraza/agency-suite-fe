@@ -1,37 +1,34 @@
-import CUSTOMER from "@store/V1/Customer/ActionType";
+import PAYMENT_GATEWAY from "@store/V1/PaymentGateway/ActionTypes"
 
-const CustomerUpdateReducer = (
+const PaymentGatewayStatusReducer = (
     state = {
         loading: false,
         success: false,
-        customer: {},
-        error: null
     },
     action
 ) => {
     switch (action.type) {
-        case CUSTOMER.CUSTOMER_UPDATE:
+        case PAYMENT_GATEWAY.PAYMENT_GATEWAY_STATUS:
             return {
                 ...state,
                 loading: true,
-                customer: {},
+                success: false,
             }
-        case CUSTOMER.CUSTOMER_UPDATE_SUCCESS:
+        case PAYMENT_GATEWAY.PAYMENT_GATEWAY_STATUS_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 success: true,
-                customer: action.response.customer,
             }
-        case CUSTOMER.CUSTOMER_UPDATE_FAILED:
+        case PAYMENT_GATEWAY.PAYMENT_GATEWAY_STATUS_FAILED:
             return {
                 ...state,
                 loading: false,
-                error: action.response.message
+                success: false,
             }
         default:
             return state
     }
 }
 
-export default CustomerUpdateReducer;
+export default PaymentGatewayStatusReducer;
