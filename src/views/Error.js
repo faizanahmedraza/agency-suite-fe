@@ -13,7 +13,7 @@ const Error = () => {
     <div className='misc-wrapper'>
       <div className='misc-inner p-2 p-sm-3'>
         <div className='w-100 text-center'>
-          <h2 className='mb-1'>404 Page Not Found 🕵🏻‍♀️</h2>
+          <h2 className='mb-1'>404 Page Not Found .</h2>
           <p className='mb-2'>Oops! 😖 The page you were looking for doesn't exist.</p>
           <Button tag={Link} to='/' color='primary' className='btn-sm-block mb-2'>
             Back to home

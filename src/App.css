@@ -40,6 +40,41 @@ table a , .auth-wrapper a , .auth-wrapper h2 , .toggle-icon{
     border-color: var(--custom-color-primary) !important;
 }
 
+/* buttons Outline Primary */
+btn-outline-primary {
+    color: var(--custom-color) !important;
+    /* background-color: var(--custom-color-primary) !important; */
+    border-color: var(--custom-color-primary) !important;
+}
+
+btn-outline-primary:focus {
+    color: #fff !important;
+    /* background-color: var(--custom-color-primary) !important; */
+    border-color: var(--custom-color-primary) !important;
+}
+/* buttons with secondary work  */
+.btn-secondary {
+    color: var(--custom-color-primary) !important;
+    background-color: var(--custom-color) !important;
+    border-color: var(--custom-color) !important;
+}
+.btn-secondary:focus {
+    color: #fff !important;
+    background-color: var(--custom-color) !important;
+    border-color: var(--custom-color) !important;
+}
+/* buttons Outline Secondary */
+.btn-outline-secondary {
+    color: var(--custom-color) !important;
+    /* background-color: var(--custom-color) !important; */
+    border-color: var(--custom-color) !important;
+}
+.btn-outline-secondary:focus {
+    color: #fff !important;
+    /* background-color: var(--custom-color) !important; */
+    border-color: var(--custom-color) !important;
+}
+
 /* buttons used throughout our entire application END*/
 
 .dropdown-item:active , .dropdown-item:hover{

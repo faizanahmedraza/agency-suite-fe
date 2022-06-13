@@ -179,13 +179,14 @@ const CustomerList = (props) => {
           <ModalBody>Are you sure you want to delete this customer ?</ModalBody>
           <ModalFooter>
             <Button
-              color="primary"
+              color="secondary"
+              outline
               onClick={() => setFormModal(!formModal)}
             >
               Cancel
             </Button>
             <Button
-              color="danger"
+              color="primary"
               onClick={() => customerDelete(customerId)}
             >
               Delete
@@ -205,13 +206,14 @@ const CustomerList = (props) => {
                     <ModalBody>Are you sure you want to change the status of this customer ?</ModalBody>
                     <ModalFooter>
                         <Button
-                            color="primary"
+                            color="secondary"
+                            outline
                             onClick={() => setStatusModal(!statusModal)}
                         >
                             Cancel
                         </Button>
                         <Button
-                            color="danger"
+                            color="primary"
                             onClick={() => changeCustomerStatus()}
                         >
                             Yes

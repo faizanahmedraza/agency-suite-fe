@@ -187,7 +187,7 @@ const ServiceTable = ({ services, pagination, tabIndex }) => {
                         Are you sure you want to delete this service ?
                     </ModalBody>
                     <ModalFooter>
-                        <Button color='primary' outline onClick={() => setCenteredModal(!centeredModal)}>
+                        <Button color='secondary' outline onClick={() => setCenteredModal(!centeredModal)}>
                             Cancel
                         </Button>
                         <Button color='primary' onClick={deleteService}>

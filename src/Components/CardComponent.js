@@ -30,7 +30,7 @@ const CardContentTypes = ({ services }) => {
 
     return (
         <Fragment>
-            <div className="container">
+            <div className="container main-cnt">
                 <div className="row">
                     <div className="AGT-info">
                     {portal_settings.logo ?
@@ -81,8 +81,8 @@ const CardContentTypes = ({ services }) => {
                     }
                 </div>
                 <div className="row">
-                    <div className="col-12 text-center">
-                        Powered By <h1>{JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? 'Agency'}</h1>
+                    <div className="pos-abs col-12 text-center">
+                        Powered By <h1>{JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? 'Agency Tool'}</h1>
                     </div>
                 </div>
             </div>
