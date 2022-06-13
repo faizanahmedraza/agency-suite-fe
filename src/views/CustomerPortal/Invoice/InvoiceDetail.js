@@ -16,6 +16,7 @@ import BillingCardInfo from '@src/views/CustomerPortal/Billing/BillingCardInfo';
 import InvoicePaidAction from "@store/V1/CustomerPortal/Invoice/InvoicePaid/InvoicePaidAction";
 import BillingInformationListAction from "@store/V1/CustomerPortal/BillingInformation/LIST/BillingInformationListAction";
 import Loader from '@src/views/GrowLoader';
+import GeneralHelper from "@src/Helpers/GeneralHelper";
 
 const InvoiceDetail = () => {
 
@@ -42,9 +43,6 @@ const InvoiceDetail = () => {
         card_id: "",
         invoice_id: id
     });
-    
-
-    console.log(customer_invoice)
 
     const handleInvoicePaidField = (e) => {
         setInvoicePaid({
@@ -109,7 +107,7 @@ const InvoiceDetail = () => {
                                         Is Invoice Paid?
                                     </Label>
                                     <p className='text-wrap'>
-                                        {customer_invoice && customer_invoice.is_paid ? 'Yes' : 'No'}
+                                        {customer_invoice.is_paid && GeneralHelper.Capitalize(customer_invoice.is_paid)}
                                     </p>
                                 </div>
                             </Col>

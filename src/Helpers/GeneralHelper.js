@@ -7,6 +7,15 @@ const PascalCase = (str) => {
     return arr.join(" ");
 }
 
+const Capitalize = str => {
+  let strVal = '';
+  str = str.split(' ');
+  for (let chr = 0; chr < str.length; chr++) {
+    strVal += str[chr].substring(0, 1).toUpperCase() + str[chr].substring(1, str[chr].length) + ' '
+  }
+  return strVal;
+}
+
 const Serialize = (obj) => {
     var str = [];
     for (var p in obj)
@@ -18,7 +27,8 @@ const Serialize = (obj) => {
 
 const GeneralHelper = {
     PascalCase,
-    Serialize
+    Serialize,
+    Capitalize
 };
 
 export default GeneralHelper;

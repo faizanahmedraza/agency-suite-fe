@@ -24,6 +24,7 @@ const Portal = () => {
     const [portalSetting, setPortalSetting] = useState({
         agency: {
             name: "",
+            default_domain: "",
         },
         logo: null,
         favicon: null,
@@ -76,141 +77,157 @@ const Portal = () => {
                 <CardBody>
                     <TabContent className="py-50" activeTab={active}>
                         <TabPane tabId="1">
-                                {
-                                    loading ?
-                                        <Row>
-                                            <div className="text-center">
-                                                <strong>Loading...</strong>
+                            {
+                                loading ?
+                                    <Row>
+                                        <div className="text-center">
+                                            <strong>Loading...</strong>
+                                        </div>
+                                    </Row>
+                                    :
+                                    <Form onSubmit={onSubmitHandler}>
+                                        <Col md="6">
+                                            <div className="mb-1">
+                                                <Label className="form-label" for="name">Agency Name</Label>
+                                                <Input
+                                                    type="text"
+                                                    onChange={handleNestedObject}
+                                                    name="name"
+                                                    id="name"
+                                                    value={portalSetting?.agency?.name}
+                                                />
                                             </div>
-                                        </Row>
-                                        :
-                                        <Form onSubmit={onSubmitHandler}>
-                                            <Col md="6">
-                                                <div className="mb-1">
-                                                    <Label className="form-label" for="name">Name</Label>
+                                        </Col>
+                                        <Col md="6">
+                                            <div className="mb-1">
+                                                <Label className="form-label" for="default_domain">Domain ( You can change domain by adding new domain. )</Label>
+                                                <Input
+                                                    type="text"
+                                                    onChange={handleNestedObject}
+                                                    name="default_domain"
+                                                    id="default_domain"
+                                                    value={portalSetting?.agency?.default_domain}
+                                                />
+                                            </div>
+                                        </Col>
+                                        <Col md="8">
+                                            <div className="mb-1">
+                                                <Label className="form-label">
+                                                    Primary Color ( The primary color will apply to buttons
+                                                    and links. )
+                                                </Label>
+                                                <Input
+                                                    type="color"
+                                                    className="w-25"
+                                                    style={{ height: "30px" }}
+                                                    onChange={handleInputField}
+                                                    name="primary_color"
+                                                    placeholder="Enter Service Name"
+                                                    value={!loading ? portalSetting.primary_color : ''}
+                                                />
+                                            </div>
+                                            <div className="mb-1">
+                                                <Label className="form-label">
+                                                    Seconday Color ( The secondary color will apply to
+                                                    backgrounds and headers. )
+                                                </Label>
+                                                <Input
+                                                    type="color"
+                                                    className="w-25"
+                                                    style={{ height: "30px" }}
+                                                    onChange={handleInputField}
+                                                    name="secondary_color"
+                                                    placeholder="Enter Service Name"
+                                                    value={!loading ? portalSetting.secondary_color : ''}
+                                                />
+                                            </div>
+                                            <div className="mb-1">
+                                                <Label className="form-label">
+                                                    Logo{" "}
+                                                    <small>
+                                                        ( Recommended: 200x50 px or similar proportions.
+                                                        Transparent background image. ){" "}
+                                                    </small>
+                                                </Label>
+                                            </div>
+                                        </Col>
+                                        <Col md="6">
+                                            <Row>
+                                                <Col md="6">
+                                                    <div >
+                                                        <img
+                                                            src={
+                                                                portalSetting.logo ||
+                                                                "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
+                                                            }
+                                                            className="image-box"
+                                                            alt="service image"
+                                                        />
+                                                    </div>
+                                                </Col>
+                                                <Col md="6" className="pt-1">
                                                     <Input
-                                                        type="text"
-                                                        onChange={handleNestedObject}
-                                                        name="name"
-                                                        id="name"
-                                                        value={portalSetting?.agency?.name}
-                                                    />
-                                                </div>
-                                                <div className="mb-1">
-                                                    <Label className="form-label">
-                                                        Primary Color ( The primary color will apply to buttons
-                                                        and links. )
-                                                    </Label>
-                                                    <Input
-                                                        type="color"
-                                                        className="w-25"
-                                                        style={{ height: "30px" }}
+                                                        type="file"
                                                         onChange={handleInputField}
-                                                        name="primary_color"
-                                                        placeholder="Enter Service Name"
-                                                        value={!loading ? portalSetting.primary_color : ''}
+                                                        accept="image/*"
+                                                        name="logo"
+                                                        id="logo"
                                                     />
-                                                </div>
-                                                <div className="mb-1">
-                                                    <Label className="form-label">
-                                                        Seconday Color ( The secondary color will apply to
-                                                        backgrounds and headers. )
-                                                    </Label>
-                                                    <Input
-                                                        type="color"
-                                                        className="w-25"
-                                                        style={{ height: "30px" }}
-                                                        onChange={handleInputField}
-                                                        name="secondary_color"
-                                                        placeholder="Enter Service Name"
-                                                        value={!loading ? portalSetting.secondary_color : ''}
-                                                    />
-                                                </div>
-                                                <div className="mb-1">
-                                                    <Label className="form-label">
-                                                        Logo{" "}
-                                                        <small>
-                                                            ( Recommended: 200x50 px or similar proportions.
-                                                            Transparent background image. ){" "}
-                                                        </small>
-                                                    </Label>
-                                                    <Row>
-                                                        <Col md="6">
-                                                            <div >
-                                                                <img
-                                                                    src={
-                                                                        portalSetting.logo ||
-                                                                        "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
-                                                                    }
-                                                                    className="image-box"
-                                                                    alt="service image"
-                                                                />
-                                                            </div>
-                                                        </Col>
-                                                        <Col md="6" className="pt-1">
-                                                            <Input
-                                                                type="file"
-                                                                onChange={handleInputField}
-                                                                accept="image/*"
-                                                                name="logo"
-                                                                id="logo"
+                                                </Col>
+                                            </Row>
+                                            <div className="mb-1">
+                                                <Label className="form-label" for="nameMulti">
+                                                    Favicon
+                                                </Label>
+                                                <Row>
+                                                    <Col md="6">
+                                                        <div >
+                                                            <img
+                                                                src={
+                                                                    portalSetting.favicon ||
+                                                                    "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
+                                                                }
+                                                                className="image-box"
+                                                                alt="service image"
                                                             />
-                                                        </Col>
-                                                    </Row>
-                                                </div>
-                                                <div className="mb-1">
-                                                    <Label className="form-label" for="nameMulti">
-                                                        Favicon
-                                                    </Label>
-                                                    <Row>
-                                                        <Col md="6">
-                                                            <div >
-                                                                <img
-                                                                    src={
-                                                                        portalSetting.favicon ||
-                                                                        "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
-                                                                    }
-                                                                    className="image-box"
-                                                                    alt="service image"
-                                                                />
-                                                            </div>
-                                                        </Col>
-                                                        <Col md="6" className="pt-1">
-                                                            <Input
-                                                                type="file"
-                                                                onChange={handleInputField}
-                                                                accept="image/*"
-                                                                name="favicon"
-                                                                id="fav"
-                                                            />
-                                                        </Col>
-                                                    </Row>
-                                                </div>
-                                            </Col>
-                                            <Col sm="12">
-                                                <div className="d-flex justify-content-end">
-                                                    <Button color="primary" disabled={updateLoading} type="submit">
-                                                        {
-                                                            updateLoading ?
-                                                                <>
-                                                                    <Spinner color='white' size='sm' type='grow' />
-                                                                    <span className='ms-50'>Loading...</span>
-                                                                </>
-                                                                :
-                                                                <span>
-                                                                    Save
-                                                                </span>
-                                                        }
-                                                    </Button>
-                                                </div>
-                                            </Col>
-                                        </Form>
-                                }
+                                                        </div>
+                                                    </Col>
+                                                    <Col md="6" className="pt-1">
+                                                        <Input
+                                                            type="file"
+                                                            onChange={handleInputField}
+                                                            accept="image/*"
+                                                            name="favicon"
+                                                            id="fav"
+                                                        />
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        </Col>
+                                        <Col sm="12">
+                                            <div className="d-flex justify-content-end">
+                                                <Button color="primary" disabled={updateLoading} type="submit">
+                                                    {
+                                                        updateLoading ?
+                                                            <>
+                                                                <Spinner color='white' size='sm' type='grow' />
+                                                                <span className='ms-50'>Loading...</span>
+                                                            </>
+                                                            :
+                                                            <span>
+                                                                Save
+                                                            </span>
+                                                    }
+                                                </Button>
+                                            </div>
+                                        </Col>
+                                    </Form>
+                            }
                         </TabPane>
                     </TabContent>
                 </CardBody>
             </Card>
-        </div>
+        </div >
     );
 };
 
