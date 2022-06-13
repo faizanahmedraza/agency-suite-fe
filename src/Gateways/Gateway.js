@@ -21,6 +21,10 @@ async function authGateway(METHOD, DOMAIN, API, BODY = null) {
             if (response.success !== true) {
                 if (response.error.code === 401) {
                     LogoutHelper.logout();
+                } else if (response.error.code === 403) {
+                    window.location.href = "/un-authorized";
+                } else if (response.error.code === 404) {
+                    window.location.href = "/not-found";
                 }
             } else {
                 localStorage.setItem(

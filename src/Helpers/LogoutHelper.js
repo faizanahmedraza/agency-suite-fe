@@ -1,4 +1,4 @@
-const logout = (status) => {
+const logout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("access_token");
     localStorage.removeItem("permissions");

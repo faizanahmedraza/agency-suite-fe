@@ -14,6 +14,7 @@ const CustomerUpdateReducer = (
             return {
                 ...state,
                 loading: true,
+                customer: {},
             }
         case CUSTOMER.CUSTOMER_UPDATE_SUCCESS:
             return {
