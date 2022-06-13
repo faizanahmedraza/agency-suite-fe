@@ -22,6 +22,7 @@ const Invoice = () => {
   const [searchParam] = useSearchParams()
 
   const index = searchParam.get('index')
+  
   const {
     list: {
       loading,
