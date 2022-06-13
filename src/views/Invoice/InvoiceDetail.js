@@ -124,7 +124,7 @@ const InvoiceDetail = () => {
                                         Is Invoice Paid?
                                     </Label>
                                     <p className='text-wrap'>
-                                        {customer_invoice && customer_invoice.is_paid ? 'Yes' : 'No'}
+                                        {customer_invoice.is_paid && GeneralHelper.Capitalize(customer_invoice.is_paid)}
                                     </p>
                                 </div>
                             </Col>
