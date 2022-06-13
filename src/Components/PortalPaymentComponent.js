@@ -123,14 +123,14 @@ const CardPayment = () => {
           </ModalBody>
           <ModalFooter>
             <Button
-              color="Secondary"
+              color="secondary"
               outline
               onClick={() => setWarningUpdateModal(!warningUpdateModal)}
             >
               Cancel
             </Button>
             <Button
-              color="Primary"
+              color="primary"
               onClick={submitSaveFormModal}
               disabled={createLoading}
             >
@@ -163,14 +163,14 @@ const CardPayment = () => {
           </ModalBody>
           <ModalFooter>
             <Button
-              color="primary"
+              color="secondary"
               outline
               onClick={() => setWarningStatusModal(!warningStatusModal)}
             >
               Cancel
             </Button>
             <Button
-              color="danger"
+              color="primary"
               onClick={submitStatusModal}
               disabled={statusLoading}
             >
