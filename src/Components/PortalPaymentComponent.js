@@ -119,7 +119,7 @@ const CardPayment = () => {
           </ModalHeader>
           <ModalBody>
             {
-              gateway && gateway.gateway_secret.length > 0 ? <>
+              gateway.gateway_secret ? <>
                 By changing your <b>Secret key</b> old customers attached card will
                 stop working
               </> : <>

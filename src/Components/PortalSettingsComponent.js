@@ -25,7 +25,7 @@ const Portal = () => {
     agency: {
       name: "",
       default_domain: "",
-      other_domain: "",
+      custom_domain: "",
     },
     logo: null,
     favicon: null,
@@ -64,7 +64,7 @@ const Portal = () => {
       ...prevPortalSetting,
       agency: {
         ...prevPortalSetting.agency,
-        other_domain: e.target.value,
+        custom_domain: e.target.value,
       },
     }));
   };
@@ -116,15 +116,15 @@ const Portal = () => {
                   </Col>
                   <Col md="6">
                     <div className="mb-1">
-                      <Label className="form-label" for="other_domain">
+                      <Label className="form-label" for="custom_domain">
                         Domain ( You can change domain by adding new domain. )
                       </Label>
                       <Input
                         type="text"
                         onChange={handleAgencyDomainObject}
-                        name="other_domain"
-                        id="other_domain"
-                        value={portalSetting?.agency?.other_domain ?? ""}
+                        name="custom_domain"
+                        id="custom_domain"
+                        value={portalSetting?.agency?.custom_domain ?? ""}
                       />
                     </div>
                   </Col>

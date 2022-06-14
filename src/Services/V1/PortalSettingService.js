@@ -23,7 +23,7 @@ async function portalSettingPut(data) {
 const portalSettingBodyData = (data) => {
     let _data = {};
     _data.name = data.agency.name;
-    _data.domain = data.agency.other_domain;
+    _data.domain = data.agency.custom_domain;
     _data.logo = data.logo;
     _data.favicon = data.favicon;
     _data.primary_color = data.primary_color;
