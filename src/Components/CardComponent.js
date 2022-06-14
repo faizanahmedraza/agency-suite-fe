@@ -30,14 +30,16 @@ const CardContentTypes = ({ services }) => {
 
     return (
         <Fragment>
-            <div className="container main-cnt">
-                <div className="row">
+            <div className="container">
+                <header>
                     <div className="AGT-info">
-                    {portal_settings.logo ?
+                        {portal_settings.logo ?
                         <img src={portal_settings?.logo} height="50" /> : <h2>Hello</h2>}
                         <h1 className='pl'>{JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? ''}</h1>
                     </div>
-                </div>
+                </header>
+            </div>
+            <div className="container main-cnt">
                 <div className="row">
                     {
                         services && services.map((service) => {
@@ -80,12 +82,14 @@ const CardContentTypes = ({ services }) => {
                         })
                     }
                 </div>
+            </div>
+            <footer>
                 <div className="row">
-                    <div className="pos-abs col-12 text-center">
+                    <div className="col-12 text-center">
                         Powered By <h1>{JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? 'Agency Tool'}</h1>
                     </div>
                 </div>
-            </div>
+            </footer>    
         </Fragment>
     )
 }
