@@ -42,24 +42,27 @@ const ServiceRequests = () => {
     }
   } = useSelector(state => state.service_requests);
 
-  function activeRequests() {
-    const activeRequests = service_requests.filter((service) => {
-      return service.status == "active";
-    });
+  const queryParametersByTab = (tabId) => {
+    let object = {
+        page: index
+    }
 
-    return <ServiceRequestList data={activeRequests} pagination={pagination} tabIndex={active} />;
-  }
+    if (tabId == 1) {
+        return object
+    }
+    if (tabId == 2) {
+        object.status = "active"
+    }
+    return object
+}
+
+  const activeRequests = service_requests.filter(request => request.status === "active");
 
   useEffect(() => {
-    dispatch(ServiceRequestListAction.serviceRequestList(index ? GeneralHelper.Serialize({
-      page: index,
-      status: tabindex == 1 ? "" : "active"
-    }) : ""));
-
+    dispatch(ServiceRequestListAction.serviceRequestList(index ? GeneralHelper.Serialize(queryParametersByTab(tabindex)) : ""));
     if (tabindex) {
       setActive(tabindex)
     }
-
   }, [isChanged])
 
   const toggle = (tab) => {
@@ -124,10 +127,10 @@ const ServiceRequests = () => {
             ) : (
               <>
                 <TabPane tabId="1">
-                  <ServiceRequestList data={service_requests} pagination={pagination} tabIndex={active} />
+                  <ServiceRequestList service_requests={service_requests} pagination={pagination} tabIndex={active} />
                 </TabPane>
                 <TabPane tabId="2">
-                  {service_requests && activeRequests(service_requests)}
+                  <ServiceRequestList service_requests={activeRequests} pagination={pagination} tabIndex={active} />
                 </TabPane>
               </>
             )}

@@ -1,4 +1,4 @@
-import INVOICE from "@store/V1/Invoice/ActionTypes"
+import INVOICE from "@store/V1/Invoice/ActionTypes";
 
 const customer_invoice = {
   invoice_number: "",
@@ -15,8 +15,8 @@ const customer_invoice = {
         biannually: "",
         annually: "",
         price: "",
-        purchase_limit: ""
-      }
+        purchase_limit: "",
+      },
     },
     is_recurring: false,
     recurring_type: "",
@@ -31,14 +31,14 @@ const customer_invoice = {
     last_name: null,
     status: null,
   },
-  is_paid: false,
+  is_paid: "no",
   amount: "",
 };
 
 const InvoiceDetailReducer = (
   state = {
     loading: false,
-    customer_invoice,
+    customer_invoice: { ...customer_invoice },
     error: null,
     fetched: false,
   },
@@ -49,7 +49,7 @@ const InvoiceDetailReducer = (
       return {
         ...state,
         loading: true,
-        customer_invoice,
+        customer_invoice: { ...customer_invoice },
       };
     case INVOICE.INVOICE_DETAIL_SUCCESS:
       return {
@@ -63,7 +63,15 @@ const InvoiceDetailReducer = (
         ...state,
         loading: false,
         error: action.response,
-        customer_invoice: null
+        customer_invoice: null,
+      };
+    case INVOICE.INVOICE_DETAIL_EMPTY:
+      console.log(customer_invoice, "invoice detail ka reducer");
+      return {
+        ...state,
+        loading: false,
+        customer_invoice: { ...customer_invoice },
+        fetched: false,
       };
     default:
       return state;

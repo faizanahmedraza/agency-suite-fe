@@ -227,7 +227,7 @@ const InvoiceDetail = () => {
                                     <Input type='textarea' value={customer_invoice?.customer_service_request?.intake_form[0]?.description ? customer_invoice?.customer_service_request?.intake_form[0]?.description : ""} name='description' id='description' placeholder='Enter Description' readOnly />
                                 </div>
                             </Col>
-                            {!customer_invoice.is_paid ?
+                            {customer_invoice.is_paid == "no" ?
                                 <Col md='12' sm='12' className='my-2'>
                                     <div className='d-flex justify-content-between align-items-center'>
                                         <BillingCardInfo cardId={invoicePaid.card_id} onChangeField={handleInvoicePaidField} />

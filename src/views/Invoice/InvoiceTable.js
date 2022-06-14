@@ -18,10 +18,10 @@ import InvoiceDeleteAction from "@store/V1/Invoice/Delete/InvoiceDeleteAction"
 import InvoiceStatusAction from "@store/V1/Invoice/Status/InvoiceStatusAction"
 import InvoiceListAction from "@store/V1/Invoice/List/InvoiceListAction"
 
-const InvoiceTable = (props) => {
-    const [currentItems, setCurrentItems] = useState([]);
-    const [offset, setOffset] = useState(props?.pagination?.current_page === undefined ? 0 : props?.pagination?.current_page - 1);
-    const [pageCount, setPageCount] = useState(props?.pagination?.total_pages === undefined ? 0 : props?.pagination?.total_pages);
+const InvoiceTable = ({ invoices, pagination }) => {
+    const [currentItems, setCurrentItems] = useState(invoices.length > 0 ? invoices : []);
+    const [offset, setOffset] = useState(pagination?.current_page === undefined ? 0 : pagination?.current_page - 1);
+    const [pageCount, setPageCount] = useState(pagination?.total_pages === undefined ? 0 : pagination?.total_pages);
     const [invoiceId, setInvoiceId] = useState(null)
     const [centeredModal, setCenteredModal] = useState(false)
     const dispatch = useDispatch()
@@ -41,17 +41,17 @@ const InvoiceTable = (props) => {
 
     const {
         list: {
-            invoices,
-            pagination,
+            invoices: newInvoices,
+            pagination: newPagination,
             isFetched
         },
     } = useSelector(state => state.invoices);
 
     useEffect(() => {
-        if (!isFetched) return setCurrentItems(props.invoices);
-        setCurrentItems(invoices);
-        setPageCount(pagination?.total_pages)
-        setOffset(pagination?.current_page - 1)
+        if (!isFetched) return setCurrentItems(invoices);
+        setCurrentItems(newInvoices);
+        setPageCount(newPagination?.total_pages)
+        setOffset(newPagination?.current_page - 1)
     }, [offset]);
 
     const handlePageClick = (event) => {
@@ -114,7 +114,7 @@ const InvoiceTable = (props) => {
                 </tbody>
             </Table>
             {
-                props.pagination ?
+                pagination ?
                     <div className='d-flex justify-content-end pt-1'>
                         <ReactPaginate
                             breakLabel="..."

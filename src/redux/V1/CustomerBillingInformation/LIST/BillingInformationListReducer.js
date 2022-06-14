@@ -13,6 +13,7 @@ const BillingInformationListReducer = (
       return {
         ...state,
         loading: true,
+        customer_billing_information: [],
       };
     case CUSTOMER_BILLING_INFORMATION.CUSTOMER_BILLING_INFORMATION_LIST_SUCCESS:
       return {
@@ -26,6 +27,13 @@ const BillingInformationListReducer = (
          ...state,
           loading: false,
           error: action.response.message
+      };
+    case CUSTOMER_BILLING_INFORMATION.CUSTOMER_BILLING_INFORMATION_LIST_EMPTY:
+      return {
+         ...state,
+          loading: false,
+          customer_billing_information: [],
+          fetched:false
       };
     default:
       return state;

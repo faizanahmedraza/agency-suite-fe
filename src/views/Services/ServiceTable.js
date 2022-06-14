@@ -208,13 +208,14 @@ const ServiceTable = ({ services, pagination, tabIndex }) => {
                     <ModalBody>Are you sure you want to change the status of this service ?</ModalBody>
                     <ModalFooter>
                         <Button
-                            color="primary"
+                            color='secondary'
+                            outline
                             onClick={() => setCenteredStatusModal(!centeredStatusModal)}
                         >
                             Cancel
                         </Button>
                         <Button
-                            color="danger"
+                            color='primary'
                             onClick={() => changeServiceStatus()}
                         >
                             Yes

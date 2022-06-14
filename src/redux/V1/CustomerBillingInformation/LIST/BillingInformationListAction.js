@@ -21,10 +21,17 @@ const billingInformationListFailed = (data) => {
   };
 };
 
+const billingInformationListEmpty = () => {
+  return {
+    type: CUSTOMER_BILLING_INFORMATION.CUSTOMER_BILLING_INFORMATION_LIST_EMPTY,
+  };
+};
+
 const BillingInformationListAction = {
   billingInformationList,
   billingInformationListSuccess,
   billingInformationListFailed,
+  billingInformationListEmpty
 };
 
 export default BillingInformationListAction;

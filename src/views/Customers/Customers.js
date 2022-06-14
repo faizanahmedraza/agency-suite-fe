@@ -45,22 +45,11 @@ const Customers = () => {
     }
   } = useSelector(state => state.customers)
 
-  function activeCustomers() {
-    const activeCustomers = customers.filter((customer) => {
-      return customer.status === "active";
-    });
-
-    return <CustomerList data={activeCustomers} pagination={pagination} tabIndex={active} />;
-  }
-  function pendingCustomers() {
-    const pendingCustomers = customers.filter((customer) => {
-      return customer.status === "pending";
-    });
-
-    return <CustomerList data={pendingCustomers} pagination={pagination} tabIndex={active} />;
-  }
+  const activeCustomers = customers.filter(customer => customer.status === "active");
+  const pendingCustomers = customers.filter(customer => customer.status === "pending");
 
   const queryParametersByTab = (tabId) => {
+    console.log(tabId, index, '-----')
 
     let object = {
       page: index
@@ -165,13 +154,13 @@ const Customers = () => {
             ) : (
               <>
                 <TabPane tabId="1">
-                  <CustomerList data={customers} pagination={pagination} tabIndex={active} />
+                  <CustomerList customers={customers} pagination={pagination} tabIndex={active} />
                 </TabPane>
-                <TabPane tabId="2">
-                  {customers && activeCustomers(customers)}
+                <TabPane tabId='2'>
+                  <CustomerList customers={activeCustomers} pagination={pagination} tabIndex={active} />
                 </TabPane>
-                <TabPane tabId="3">
-                  {customers && pendingCustomers(customers)}
+                <TabPane tabId='3'>
+                  <CustomerList customers={pendingCustomers} pagination={pagination} tabIndex={active} />
                 </TabPane>
               </>
             )}

@@ -21,10 +21,17 @@ const invoiceDetailFailed = (data) => {
   };
 };
 
+const invoiceDetailEmpty = () => {
+  return {
+    type: INVOICE.INVOICE_DETAIL_EMPTY,
+  };
+};
+
 const InvoiceDetailAction = {
   invoiceDetail,
   invoiceDetailSuccess,
   invoiceDetailFailed,
+  invoiceDetailEmpty
 };
 
 export default InvoiceDetailAction;

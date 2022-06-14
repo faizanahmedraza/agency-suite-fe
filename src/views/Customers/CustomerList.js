@@ -18,16 +18,15 @@ import GeneralHelper from "@src/Helpers/GeneralHelper";
 import { Edit, Trash } from "react-feather";
 import { useSelector } from "react-redux";
 
-const CustomerList = (props) => {
-  const _data = props.data;
+const CustomerList = ({ customers, pagination, tabIndex}) => {
   const dispatch = useDispatch();
   const [formModal, setFormModal] = useState(false);
   const [statusModal, setStatusModal] = useState(false);
   const [customerId, setCustomerId] = useState(null);
   const [customerStatus, setCustomerStatus] = useState(null);
-  const [currentItems, setCurrentItems] = useState(_data.length > 0 ? _data : []);
-  const [offset, setOffset] = useState(props?.pagination?.current_page === undefined ? 0 : props?.pagination?.current_page - 1);
-  const [pageCount, setPageCount] = useState(props?.pagination?.total_pages === undefined ? 0 : props?.pagination?.total_pages);
+  const [currentItems, setCurrentItems] = useState(customers.length > 0 ? customers : []);
+  const [offset, setOffset] = useState(pagination?.current_page === undefined ? 0 : pagination?.current_page - 1);
+  const [pageCount, setPageCount] = useState(pagination?.total_pages === undefined ? 0 : pagination?.total_pages);
   const [searchParam, setSearchParam] = useSearchParams()
 
   const customerDelete = (id) => {
@@ -36,20 +35,20 @@ const CustomerList = (props) => {
   };
 
   const {
-    list: { customers, pagination, isFetched },
+    list: { customers : newCustomers, pagination: newPagination, isFetched },
   } = useSelector((state) => state.customers);
 
   useEffect(() => {
-    if (!isFetched) return setCurrentItems(_data);
-    setCurrentItems(customers);
-    setPageCount(pagination.total_pages)
-    setOffset(pagination.current_page - 1)
+    if (!isFetched) return setCurrentItems(customers);
+    setCurrentItems(newCustomers);
+    setPageCount(newPagination.total_pages)
+    setOffset(newPagination.current_page - 1)
   }, [offset]);
 
   const handlePageClick = (event) => {
     const selectedPage = event.selected + 1;
-    if (props?.tabIndex == 1) {
-      setSearchParam({ index: selectedPage, tabindex: props?.tabIndex })
+    if (tabIndex == 1) {
+      setSearchParam({ index: selectedPage, tabindex: tabIndex })
       dispatch(
         CustomerListAction.customerList(
           GeneralHelper.Serialize({
@@ -57,8 +56,8 @@ const CustomerList = (props) => {
           })
         )
       );
-    } else if (props?.tabIndex == 2) {
-      setSearchParam({ index: selectedPage, tabindex: props?.tabIndex })
+    } else if (tabIndex == 2) {
+      setSearchParam({ index: selectedPage, tabindex: tabIndex })
       dispatch(
         CustomerListAction.customerList(
           GeneralHelper.Serialize({
@@ -67,8 +66,8 @@ const CustomerList = (props) => {
           })
         )
       );
-    } else if (props?.tabIndex == 3) {
-      setSearchParam({ index: selectedPage, tabindex: props?.tabIndex })
+    } else if (tabIndex == 3) {
+      setSearchParam({ index: selectedPage, tabindex: tabIndex })
       dispatch(
         CustomerListAction.customerList(
           GeneralHelper.Serialize({

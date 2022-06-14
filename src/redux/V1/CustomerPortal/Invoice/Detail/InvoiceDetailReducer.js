@@ -26,7 +26,7 @@ const InvoiceDetailReducer = (
         intake_form: [],
         status: "",
       },
-      is_paid: false,
+      is_paid: "no",
       amount: "",
     },
     error: null,
