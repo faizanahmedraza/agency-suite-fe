@@ -42,7 +42,7 @@ export default [
     navLink: '/billing'
   },
   {
-    header: 'Catalog'
+    header: 'Catalogue'
   },
   {
     id: 'Customer_Services',

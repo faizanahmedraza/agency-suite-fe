@@ -44,8 +44,6 @@ const Profile = () => {
 
   }
 
-  console.log(profileSetting.image)
-
   useEffect(() => {
     dispatch(ProfileSettingDetailAction.profileSettingDetail());
     setProfileSetting(profile_settings)

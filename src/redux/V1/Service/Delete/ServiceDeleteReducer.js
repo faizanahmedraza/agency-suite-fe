@@ -12,6 +12,7 @@ const ServiceDeleteReducer = (
             return {
                 ...state,
                 loading: true,
+                isDeleted: false
             }
         case SERVICE.SERVICE_DELETE_SUCCESS:
             return {

@@ -212,7 +212,7 @@ const LoginCover = () => {
                   </Link>
                 </p>
                 <p className='text-center mt-2'>
-                  <Link to='/catalog' tabIndex="5">
+                  <Link to='/catalogue' tabIndex="5">
                     <span className='align-middle'>Go to Catalogue</span>
                     <ChevronRight className='rotate-rtl me-25' size={14} />
                   </Link>

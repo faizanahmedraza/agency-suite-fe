@@ -94,7 +94,7 @@ const Portal = () => {
                                                     onChange={handleNestedObject}
                                                     name="name"
                                                     id="name"
-                                                    value={portalSetting?.agency?.name}
+                                                    value={portalSetting?.agency?.name ?? ""}
                                                 />
                                             </div>
                                         </Col>
@@ -106,7 +106,7 @@ const Portal = () => {
                                                     onChange={handleNestedObject}
                                                     name="default_domain"
                                                     id="default_domain"
-                                                    value={portalSetting?.agency?.default_domain}
+                                                    value={portalSetting?.agency?.default_domain ?? ""}
                                                 />
                                             </div>
                                         </Col>
