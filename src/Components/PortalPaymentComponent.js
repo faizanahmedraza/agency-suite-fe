@@ -29,7 +29,7 @@ const CardPayment = () => {
   const {
     list: { loading, gateway, isFetched },
     create: { loading: createLoading, gateway: createGateway, success },
-    status: { loading: statusLoading, successStatus  },
+    status: { loading: statusLoading, successStatus },
   } = useSelector((state) => state.payment_gateway);
 
   const [paymentInfo, setPaymentInfo] = useState({
@@ -118,8 +118,14 @@ const CardPayment = () => {
             Confirmation
           </ModalHeader>
           <ModalBody>
-            By changing your <b>Secret key</b> old customers attached card will
-            stop working ?
+            {
+              gateway && gateway.gateway_secret.length > 0 ? <>
+                By changing your <b>Secret key</b> old customers attached card will
+                stop working
+              </> : <>
+                Are you sure ?
+              </>
+            }
           </ModalBody>
           <ModalFooter>
             <Button
