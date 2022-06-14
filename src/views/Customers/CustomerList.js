@@ -186,7 +186,7 @@ const CustomerList = (props) => {
               Cancel
             </Button>
             <Button
-              color="primary"
+              color="danger"
               onClick={() => customerDelete(customerId)}
             >
               Delete

@@ -150,7 +150,7 @@ const InvoiceTable = (props) => {
                         <Button color='secondary' outline onClick={() => setCenteredModal(!centeredModal)}>
                             Cancel
                         </Button>
-                        <Button color='primary' onClick={deleteService}>
+                        <Button color='danger' onClick={deleteService}>
                             Delete
                         </Button>
                     </ModalFooter>
