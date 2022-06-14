@@ -37,8 +37,6 @@ const CardPayment = () => {
     is_enable: true,
   });
 
-  console.log(paymentInfo);
-
   const handleChange = (e) => {
     setPaymentInfo({
       ...paymentInfo,
@@ -88,7 +86,7 @@ const CardPayment = () => {
             <Input
               type="text"
               onChange={handleChange}
-              value={paymentInfo.gateway_secret}
+              value={paymentInfo.gateway_secret ?? ""}
               name="gateway_secret"
               id="nameMulti"
               placeholder=""

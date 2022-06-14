@@ -25,7 +25,7 @@ const CustomerList = (props) => {
   const [statusModal, setStatusModal] = useState(false);
   const [customerId, setCustomerId] = useState(null);
   const [customerStatus, setCustomerStatus] = useState(null);
-  const [currentItems, setCurrentItems] = useState([]);
+  const [currentItems, setCurrentItems] = useState(_data.length > 0 ? _data : []);
   const [offset, setOffset] = useState(props?.pagination?.current_page === undefined ? 0 : props?.pagination?.current_page - 1);
   const [pageCount, setPageCount] = useState(props?.pagination?.total_pages === undefined ? 0 : props?.pagination?.total_pages);
   const [searchParam, setSearchParam] = useSearchParams()

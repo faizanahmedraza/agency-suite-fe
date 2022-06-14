@@ -369,7 +369,7 @@ const Routes = [
   },
   // Public Route
   {
-    path: "/catalog",
+    path: "/catalogue",
     element: <Catalog />,
     meta: {
       layout: "blank",

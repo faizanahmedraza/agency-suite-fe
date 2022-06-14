@@ -39,6 +39,9 @@ const Customers = () => {
     },
     customer_status: {
       isChanged,
+    },
+    delete: {
+      isDeleted
     }
   } = useSelector(state => state.customers)
 
@@ -82,7 +85,7 @@ const Customers = () => {
     if (tabindex) {
       setActive(tabindex)
     }
-  }, [isChanged])
+  }, [isChanged, isDeleted])
 
   const toggle = (tab) => {
     if (active !== tab) {

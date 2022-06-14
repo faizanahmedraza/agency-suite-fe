@@ -68,7 +68,7 @@ const CardContentTypes = ({ services }) => {
                                             <CardText>
                                                 {service.description}
                                             </CardText>
-                                            <Link to="/register">
+                                            <Link to={`/customer-service-requests/create/${service.id}`}>
                                                 <Button color='primary' outline>
                                                     Purchase
                                                 </Button>
