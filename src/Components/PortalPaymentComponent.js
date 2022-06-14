@@ -129,7 +129,7 @@ const CardPayment = () => {
           </ModalBody>
           <ModalFooter>
             <Button
-              color="secondary"
+              color="Danger"
               outline
               onClick={() => setWarningUpdateModal(!warningUpdateModal)}
             >

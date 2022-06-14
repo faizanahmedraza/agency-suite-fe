@@ -185,7 +185,7 @@ const CustomerList = ({ customers, pagination, tabIndex}) => {
               Cancel
             </Button>
             <Button
-              color="primary"
+              color="danger"
               onClick={() => customerDelete(customerId)}
             >
               Delete
