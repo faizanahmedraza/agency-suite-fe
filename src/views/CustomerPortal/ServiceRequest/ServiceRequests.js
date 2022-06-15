@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "@store/store";
 import ServiceRequestListAction from "@store/V1/CustomerPortal/ServiceRequest/LIST/ServiceRequestListAction";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -25,6 +25,9 @@ const Loader = () => {
 
 const ServiceRequests = () => {
   const [active, setActive] = useState("1");
+  const [searchParam, setSearchParam] = useSearchParams()
+  const index = searchParam.get("index")
+  const tabindex = searchParam.get("tabindex")
 
   const dispatch = useDispatch();
   const {
@@ -35,23 +38,36 @@ const ServiceRequests = () => {
     }
   } = useSelector(state => state.customer_service_requests);
 
-  function activeRequests() {
-    const activeRequests = service_requests.filter((service) => {
-      return service.status == "active";
-    });
+  const queryParametersByTab = (tabId) => {
+    let object = {
+      page: index
+    }
 
-    return <ServiceRequestList data={activeRequests} pagination={pagination} tabIndex={active}/>;
+    if (tabId == 1) {
+      return object
+    }
+    if (tabId == 2) {
+      object.status = "active"
+    }
+    return object
   }
 
+  const activeRequests = service_requests.filter(request => request.status === "active");
+
   useEffect(() => {
-    dispatch(ServiceRequestListAction.serviceRequestList());
+    dispatch(ServiceRequestListAction.serviceRequestList(index ? GeneralHelper.Serialize(queryParametersByTab(tabindex)) : ""));
+    if (tabindex) {
+      setActive(tabindex)
+    }
   }, [])
 
   const toggle = (tab) => {
     if (active !== tab) {
       if (tab == 1) {
+        setSearchParam({ tabindex: tab })
         dispatch(ServiceRequestListAction.serviceRequestList());
       } else if (tab == 2) {
+        setSearchParam({ tabindex: tab })
         dispatch(ServiceRequestListAction.serviceRequestList(GeneralHelper.Serialize({
           status: "active"
         })));
@@ -87,7 +103,7 @@ const ServiceRequests = () => {
                 }}
               >
                 All
-                    </NavLink>
+              </NavLink>
             </NavItem>
             <NavItem>
               <NavLink
@@ -97,22 +113,22 @@ const ServiceRequests = () => {
                 }}
               >
                 Active
-                    </NavLink>
+              </NavLink>
             </NavItem>
           </Nav>
           <TabContent className='py-50' activeTab={active}>
-          {loading ? (
+            {loading ? (
               <Loader />
             ) : (
-                <>
-                  <TabPane tabId="1">
-                  <ServiceRequestList data={service_requests} pagination={pagination} tabIndex={active}/>
-                  </TabPane>
-                  <TabPane tabId="2">
-                    {service_requests && activeRequests(service_requests)}
-                  </TabPane>
-                </>
-              )}
+              <>
+                 <TabPane tabId="1">
+                  <ServiceRequestList service_requests={service_requests} pagination={pagination} tabIndex={active} />
+                </TabPane>
+                <TabPane tabId="2">
+                  <ServiceRequestList service_requests={activeRequests} pagination={pagination} tabIndex={active} />
+                </TabPane>
+              </>
+            )}
           </TabContent>
         </CardBody>
       </Card>

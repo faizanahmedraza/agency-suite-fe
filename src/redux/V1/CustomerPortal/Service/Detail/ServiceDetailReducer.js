@@ -14,6 +14,7 @@ const ServiceDetailReducer = (
       return {
         ...state,
         loading: true,
+        fetched: false,
         service: {}
       };
     case SERVICE.CUSTOMER_SERVICE_DETAIL_SUCCESS:

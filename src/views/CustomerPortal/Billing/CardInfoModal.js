@@ -77,6 +77,8 @@ const CardInfoModal = (props) => {
       <Modal
         isOpen={props.onShow}
         toggle={props.onHide}
+        backdrop="static"
+        keyboard={false}
         className="modal-dialog-centered"
       >
         <ModalHeader toggle={props.onHide}>

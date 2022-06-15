@@ -137,7 +137,7 @@ const Services = () => {
                                     toggle('2')
                                 }}
                             >
-                                Catalog
+                                Catalogue
                             </NavLink>
                         </NavItem>
                         <NavItem>

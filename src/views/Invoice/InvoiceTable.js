@@ -27,8 +27,6 @@ const InvoiceTable = ({ invoices, pagination }) => {
     const dispatch = useDispatch()
     const [searchParam, setSearchParam] = useSearchParams()
 
-    const index = searchParam.get('index')
-
     const getInvoiceInfo = (id) => {
         setInvoiceId(id)
         setCenteredModal(!centeredModal)

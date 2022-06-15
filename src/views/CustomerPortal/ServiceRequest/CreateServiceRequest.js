@@ -26,7 +26,7 @@ const CreateServiceRequest = () => {
     const {
         customer_services: { detail: { service, loading: serviceloading, fetched: serviceFetched } },
         customer_service_requests: { create: { loading: createServiceRequestLoading } },
-        customer_billing_information: { list: { customer_billing_information } }
+        customer_billing_information: { list: { customer_billing_information, loading: billingInfoLoading, fetched: billingInfoFetched} }
     } = useSelector(state => state);
 
     const [serviceRequestDetails, setServiceRequestDetails] = useState({
@@ -40,15 +40,16 @@ const CreateServiceRequest = () => {
     const [centeredModal, setCenteredModal] = useState(false)
 
     useEffect(() => {
-        dispatch(ServiceActions.serviceDetail(service_id));
         dispatch(BillingInformationListAction.billingInformationList());
+        if(!serviceFetched) return dispatch(ServiceActions.serviceDetail(service_id));
+
         if (serviceFetched) {
             setServiceRequestDetails({
                 ...serviceRequestDetails,
                 service_id: service.id
             })
         }
-    }, [serviceFetched]);
+    }, [serviceFetched,billingInfoFetched]);
 
     const handleServiceRequestInputField = (e) => {
         setServiceRequestDetails({
@@ -83,7 +84,7 @@ const CreateServiceRequest = () => {
                                 <h1>Create Service Request</h1>
                             </div>
                             <div className='col-3'>
-                                {!serviceloading && checkBillingInfoEmpty() ?
+                                {!billingInfoLoading && checkBillingInfoEmpty() ?
                                     <Button.Ripple color='primary' className="w-100" onClick={cardToggleModal}> Add Payment Method </Button.Ripple> : ''
                                 }
                             </div>

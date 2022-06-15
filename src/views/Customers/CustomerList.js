@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { formatDate } from '@utils'
 import { useDispatch } from "@store/store";
 import { Link , useSearchParams} from "react-router-dom";
 import {
@@ -126,7 +127,7 @@ const CustomerList = ({ customers, pagination, tabIndex}) => {
                       <option value="blocked">Blocked</option>
                     </Input>
                   </td>
-                  <td>{customer.last_logged_in ?? "-"}</td>
+                  <td>{formatDate(customer.last_logged_in) ?? "-"}</td>
                   <td>
                     <Link
                       to={`/customers/edit/${customer.id}`}

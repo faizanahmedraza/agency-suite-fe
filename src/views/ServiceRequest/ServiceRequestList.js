@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { formatDate } from '@utils'
 import { useDispatch, useSelector } from "@store/store";
 import { Link, useSearchParams } from "react-router-dom";
 import {
-  UncontrolledDropdown,
   Input,
-  DropdownMenu,
-  DropdownToggle,
   Modal,
   ModalHeader,
   ModalBody,
@@ -115,7 +113,7 @@ const ServiceRequestList = ({ service_requests, pagination, tabIndex}) => {
                       <option value="completed">Completed</option>
                     </Input>
                   </td>
-                  <td>{moment(request.created_at).format('YYYY-MM-DD')}</td>
+                  <td>{formatDate(request.created_at)}</td>
                   <td className="text-center">
                     <Link
                       to={`/service-requests/detail/${request.id}`}

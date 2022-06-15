@@ -10,6 +10,7 @@ import {
     NavLink,
 } from 'reactstrap'
 import { useDispatch, useSelector } from "@store/store"
+import { useSearchParams } from 'react-router-dom'
 import ServiceActions from '@store/V1/CustomerPortal/Service/List/ServiceListAction'
 import ServiceTable from './ServiceTable'
 import GeneralHelper from "@src/Helpers/GeneralHelper";
@@ -18,6 +19,10 @@ import Loader from '@src/views/GrowLoader';
 const Services = () => {
 
     const [active, setActive] = useState('1')
+    const [searchParam, setSearchParam] = useSearchParams()
+
+    const index = searchParam.get("index")
+    const tabindex = searchParam.get("tabindex")
 
     const dispatch = useDispatch()
     const {
@@ -34,12 +39,15 @@ const Services = () => {
     const toggle = tab => {
         if (active !== tab) {
             if (tab == 1) {
+                setSearchParam({ tabindex: tab })
                 dispatch(ServiceActions.serviceList());
             } else if (tab == 2) {
+                setSearchParam({ tabindex: tab })
                 dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
                     service_type: "one-off"
                 })));
             } else if (tab == 3) {
+                setSearchParam({ tabindex: tab })
                 dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
                     service_type: "recurring"
                 })));
@@ -48,8 +56,29 @@ const Services = () => {
         }
     }
 
+    const queryParametersByTab = (tabId) => {
+
+        let object = {
+            page: index
+        }
+
+        if (tabId == 1) {
+            return object
+        }
+        if (tabId == 2) {
+            object.catalog_status = "active"
+        }
+        if (tabId == 3) {
+            object.service_type = "one-off"
+        }
+        return object
+    }
+
     useEffect(() => {
-        dispatch(ServiceActions.serviceList())
+        dispatch(ServiceActions.serviceList(index ? GeneralHelper.Serialize(queryParametersByTab(tabindex)) : ""))
+        if (tabindex) {
+            setActive(tabindex)
+        }
     }, [])
 
     return (
