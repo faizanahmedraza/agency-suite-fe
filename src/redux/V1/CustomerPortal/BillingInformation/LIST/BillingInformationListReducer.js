@@ -14,6 +14,7 @@ const BillingInformationListReducer = (
       return {
         ...state,
         loading: true,
+        customer_billing_information: [],
       };
     case BILLING_INFORMATION.BILLING_INFORMATION_LIST_SUCCESS:
       return {
