@@ -54,9 +54,16 @@ const CardPayment = () => {
       setWarningUpdateModal(!warningUpdateModal);
     }
     if (successStatus) {
-      setWarningUpdateModal(!warningStatusModal);
+      setWarningStatusModal(!warningStatusModal);
     }
   }, [isFetched, success, successStatus]);
+
+  useEffect(() => {
+    return () => {
+      setWarningStatusModal(false);
+      setWarningUpdateModal(false);
+    }
+  }, []);
 
   const submitSaveFormModal = () => {
     dispatch(PaymentGatewayCreateAction.paymentGatewayCreate(paymentInfo));
@@ -122,9 +129,7 @@ const CardPayment = () => {
               gateway.gateway_secret ? <>
                 By changing your <b>Secret key</b> old customers attached card will
                 stop working
-              </> : <>
-                Are you sure ?
-              </>
+              </> : ""
             }
           </ModalBody>
           <ModalFooter>
