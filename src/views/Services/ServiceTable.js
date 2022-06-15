@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Table, UncontrolledDropdown, DropdownMenu, DropdownToggle, Modal, ModalHeader, ModalBody, ModalFooter, Button, Input, Label } from 'reactstrap'
+import { Table, Modal, ModalHeader, ModalBody, ModalFooter, Button, Input } from 'reactstrap'
 import { formatDate } from '@utils'
-import { MoreVertical, Edit, Trash, Check, X } from 'react-feather'
+import { Edit, Trash } from 'react-feather'
 import { Link , useSearchParams} from "react-router-dom"
 import ServiceDeleteActions from '@store/V1/Service/Delete/ServiceDeleteAction'
 import { useDispatch, useSelector } from "@store/store"
@@ -106,7 +106,7 @@ const ServiceTable = ({ services, pagination, tabIndex }) => {
                                 <tr>
                                     <th>NAME</th>
                                     <th>PRICE</th>
-                                    <th className='text-center'>Show in catalog ?</th>
+                                    <th className='text-center'>Show in catalogue ?</th>
                                     <th>Service Type</th>
                                     <th>Status</th>
                                     <th>CREATED</th>

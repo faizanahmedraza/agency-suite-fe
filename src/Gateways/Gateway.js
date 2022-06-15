@@ -19,6 +19,7 @@ async function authGateway(METHOD, DOMAIN, API, BODY = null) {
         .then(handleResponse)
         .then((response) => {
             if (response.success !== true) {
+                console.log(response.error.code)
                 if (response.error.code === 401) {
                     LogoutHelper.logout();
                 } else if (response.error.code === 403) {

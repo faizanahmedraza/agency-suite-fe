@@ -1,50 +1,54 @@
 import React, { useState, useEffect } from 'react'
 import { Table, Tooltip } from 'reactstrap'
 import { Save } from 'react-feather'
-import { Link } from "react-router-dom"
+import { Link,useSearchParams } from "react-router-dom"
 import { useDispatch, useSelector } from "@store/store"
 import ReactPaginate from 'react-paginate';
 import GeneralHelper from "@src/Helpers/GeneralHelper";
 import ServiceActions from '@store/V1/CustomerPortal/Service/List/ServiceListAction'
 
-const ServiceTable = (props) => {
+const ServiceTable = ({ services, pagination, tabIndex}) => {
 
     const dispatch = useDispatch();
-    const [currentItems, setCurrentItems] = useState([]);
-    const [offset, setOffset] = useState(props?.pagination?.current_page === undefined ? 0 : props?.pagination?.current_page - 1);
-    const [pageCount, setPageCount] = useState(props?.pagination?.total_pages === undefined ? 0 : props?.pagination?.total_pages);
+    const [currentItems, setCurrentItems] = useState(services.length > 0 ? services : []);
+    const [offset, setOffset] = useState(pagination?.current_page === undefined ? 0 : pagination?.current_page - 1);
+    const [pageCount, setPageCount] = useState(pagination?.total_pages === undefined ? 0 : pagination?.total_pages);
     const [tooltipOpen, setTooltipOpen] = useState(false)
+    const [searchParam, setSearchParam] = useSearchParams()
 
     const {
         list: {
             loading,
-            services,
-            pagination,
+            services: newServices,
+            pagination: newPagination,
             isFetched
         },
     } = useSelector(state => state.customer_services)
 
     useEffect(() => {
-        if (!isFetched) return setCurrentItems(props.services);
-        setCurrentItems(services);
-        setPageCount(pagination.total_pages)
-        setOffset(pagination.current_page - 1)
+        if (!isFetched) return setCurrentItems(services);
+        setCurrentItems(newServices);
+        setPageCount(newPagination.total_pages)
+        setOffset(newPagination.current_page - 1)
     }, [offset]);
 
     const handlePageClick = (event) => {
         const selectedPage = event.selected + 1;
-        if (props?.tabIndex == 1) {
+        if (tabIndex == 1) {
+            setSearchParam({ index: selectedPage, tabindex: tabIndex })
             dispatch(ServiceActions.serviceList(
                 GeneralHelper.Serialize({
                     page: selectedPage,
                 })
             ));
-        } else if (props?.tabIndex == 2) {
+        } else if (tabIndex == 2) {
+            setSearchParam({ index: selectedPage, tabindex: tabIndex })
             dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
                 page: selectedPage,
                 service_type: "one-off"
             })));
-        } else if (props?.tabIndex == 3) {
+        } else if (tabIndex == 3) {
+            setSearchParam({ index: selectedPage, tabindex: tabIndex })
             dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
                 page: selectedPage,
                 service_type: "recurring"

@@ -9,7 +9,6 @@ function* customerCreate(data) {
     if (response.success) {
         toast.success(response.message)
         yield put(CustomerCreateAction.customerCreateSuccess(response));
-        window.location.href = "/customers";
     } else {
         toast.error(response.error.message)
         yield put(CustomerCreateAction.customerCreateFailed(response))
@@ -19,3 +18,12 @@ function* customerCreate(data) {
 export function* customerCreateSaga() {
     yield takeEvery(CUSTOMER.CUSTOMER_CREATE, customerCreate);
 }
+
+function customerCreateSuccess() {
+    window.location.href = "/customers";
+}
+
+export function* customerCreateSuccessSaga() {
+    yield takeEvery(CUSTOMER.CUSTOMER_CREATE_SUCCESS, customerCreateSuccess);
+}
+

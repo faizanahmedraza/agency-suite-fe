@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import {
-    UncontrolledDropdown,
-    DropdownMenu,
-    DropdownToggle,
     Table,
 } from "reactstrap";
-import { Link } from "react-router-dom"
+import { Link,useSearchParams } from "react-router-dom"
 import ReactPaginate from 'react-paginate';
 import { formatDate } from '@utils'
 import { useDispatch, useSelector } from "@store/store"
@@ -13,31 +10,32 @@ import InvoiceListAction from "@store/V1/CustomerPortal/Invoice/List/InvoiceList
 import GeneralHelper from "@src/Helpers/GeneralHelper";
 import { Eye } from "react-feather";
 
-const InvoiceTable = (props) => {
-    const _data = props.data;
+const InvoiceTable = ({ invoices, pagination }) => {
     const dispatch = useDispatch();
-    const [currentItems, setCurrentItems] = useState([]);
-    const [offset, setOffset] = useState(props?.pagination?.current_page === undefined ? 0 : props?.pagination?.current_page - 1);
-    const [pageCount, setPageCount] = useState(props?.pagination?.total_pages === undefined ? 0 : props?.pagination?.total_pages);
+    const [currentItems, setCurrentItems] = useState(invoices.length > 0 ? invoices : []);
+    const [offset, setOffset] = useState(pagination?.current_page === undefined ? 0 : pagination?.current_page - 1);
+    const [pageCount, setPageCount] = useState(pagination?.total_pages === undefined ? 0 : pagination?.total_pages);
+    const [searchParam, setSearchParam] = useSearchParams()
 
     const {
         list: {
             loading,
-            invoices,
-            pagination,
+            invoices: newInvoices,
+            pagination: newPagination,
             isFetched
         }
     } = useSelector(state => state.customer_invoices);
 
     useEffect(() => {
-        if (!isFetched) return setCurrentItems(_data);
-        setCurrentItems(invoices);
-        setPageCount(pagination.total_pages)
-        setOffset(pagination.current_page - 1)
+        if (!isFetched) return setCurrentItems(invoices);
+        setCurrentItems(newInvoices);
+        setPageCount(newPagination?.total_pages)
+        setOffset(newPagination?.current_page - 1)
     }, [offset]);
 
     const handlePageClick = (event) => {
         const selectedPage = event.selected + 1;
+        setSearchParam({ index: selectedPage })
         dispatch(InvoiceListAction.invoiceList(
             GeneralHelper.Serialize({
                 page: selectedPage,

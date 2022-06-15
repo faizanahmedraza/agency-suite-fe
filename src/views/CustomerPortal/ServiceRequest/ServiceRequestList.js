@@ -7,37 +7,38 @@ import { Eye } from "react-feather";
 import ServiceRequestListAction from "@store/V1/CustomerPortal/ServiceRequest/LIST/ServiceRequestListAction";
 import GeneralHelper from "@src/Helpers/GeneralHelper";
 
-const ServiceRequestList = (props) => {
-  const _data = props.data;
+const ServiceRequestList = ({ service_requests, pagination, tabIndex}) => {
   const dispatch = useDispatch();
-  const [currentItems, setCurrentItems] = useState([]);
-  const [offset, setOffset] = useState(props?.pagination?.current_page === undefined ? 0 : props?.pagination?.current_page - 1);
-  const [pageCount, setPageCount] = useState(props?.pagination?.total_pages === undefined ? 0 : props?.pagination?.total_pages);
+  const [currentItems, setCurrentItems] = useState(service_requests.length > 0 ? service_requests : []);
+  const [offset, setOffset] = useState(pagination?.current_page === undefined ? 0 : pagination?.current_page - 1);
+  const [pageCount, setPageCount] = useState(pagination?.total_pages === undefined ? 0 : pagination?.total_pages);
 
   const {
     list: {
-      service_requests,
-      pagination,
+      service_requests: newServiceRequests,
+      pagination: newPagination,
       isFetched
     }
   } = useSelector(state => state.customer_service_requests);
 
   useEffect(() => {
-    if (!isFetched) return setCurrentItems(_data);
-    setCurrentItems(service_requests);
-    setPageCount(pagination.total_pages)
-    setOffset(pagination.current_page - 1)
+    if (!isFetched) return setCurrentItems(service_requests);
+    setCurrentItems(newServiceRequests);
+    setPageCount(newPagination.total_pages)
+    setOffset(newPagination.current_page - 1)
   }, [offset]);
 
   const handlePageClick = (event) => {
     const selectedPage = event.selected + 1;
-    if (props?.tabIndex == 1) {
+    if (tabIndex == 1) {
+      setSearchParam({ index: selectedPage, tabindex: tabIndex })
       dispatch(ServiceRequestListAction.serviceRequestList(
         GeneralHelper.Serialize({
           page: selectedPage,
         })
       ));
-    } else if (props?.tabIndex == 2) {
+    } else if (tabIndex == 2) {
+      setSearchParam({ index: selectedPage, tabindex: tabIndex })
       dispatch(ServiceRequestListAction.serviceRequestList(GeneralHelper.Serialize({
         page: selectedPage,
         status: "active"
