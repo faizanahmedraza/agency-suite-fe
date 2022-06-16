@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from '@store/store'
 
 import RegisterActions from "@store/V1/Auth/Register/RegisterActions"
 
-import SaasfaLog from "@src/assets/images/logo/Saasfa-iconPNG-new.png"
+import SaasfaLog from "@src/assets/images/logo/Logo-300x100.png"
 
 
 const RegisterCover = () => {

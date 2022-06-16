@@ -4,7 +4,7 @@
 const themeConfig = {
   app: {
     appName: JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? 'Agency',
-    appLogoImage: require('@src/assets/images/logo/logo.svg').default
+    appLogoImage: require('@src/assets/images/logo/Saasfa-iconPNG-new.png').default
   },
   layout: {
     isRTL: false,

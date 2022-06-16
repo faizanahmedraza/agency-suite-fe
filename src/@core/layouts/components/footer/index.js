@@ -1,4 +1,5 @@
 import { useSelector } from "@store/store"
+import '@src/Styles/card.css'
 
 const Footer = () => {
 
@@ -10,10 +11,10 @@ const Footer = () => {
     <p className='clearfix mb-0'>
       <span className='float-md-start d-block d-md-inline-block mt-25'>
         COPYRIGHT © {new Date().getFullYear()}{' '}
-        <a href='https://1.envato.market/pixinvent_portfolio' target='_blank' rel='noopener noreferrer'>
+        <a href='' className="ft-ag-clr" color="" target='_blank'>
           {portal_settings && portal_settings?.agency?.name}
         </a>
-        <span className='d-none d-sm-inline-block'>, All rights Reserved</span>
+        <span className='d-none d-sm-inline-block'>, All Rights Reserved</span>
       </span>
     </p>
   )
