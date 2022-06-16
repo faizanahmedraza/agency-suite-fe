@@ -376,6 +376,14 @@ const Routes = [
       publicRoute: true,
       restricted: false
     },
+  },
+  {
+    path: '*',
+    element: <Error />,
+    meta: {
+      publicRoute: true,
+      layout: 'blank'
+    }
   }
 ];
 

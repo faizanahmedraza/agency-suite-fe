@@ -9,20 +9,6 @@ const Login = lazy(() => import("@src/views/Login"));
 const Router = ({ allRoutes }) => { 
 
   const routes = useRoutes([
-    {
-      path: "/login",
-      element: <Login />,
-      meta: {
-        layout: "blank",
-        publicRoute: true,
-        restricted: true,
-      },
-    },
-    {
-      path: '*',
-      element: <BlankLayout />,
-      children: [{ path: '*', element: <Error /> }]
-    },
     ...allRoutes
   ])
 

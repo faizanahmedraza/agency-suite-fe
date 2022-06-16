@@ -20,11 +20,13 @@ import PaymentGatewayListAction from "@store/V1/PaymentGateway/Detail/PaymentGat
 import PaymentGatewayStatusAction from "@store/V1/PaymentGateway/Status/PaymentGatewayStatusAction";
 import { useDispatch } from "@store/store";
 import { useSelector } from "react-redux";
+import Loader from "@src/Components/LoaderComponent"
 
 const CardPayment = () => {
   const dispatch = useDispatch();
   const [warningUpdateModal, setWarningUpdateModal] = useState(false);
   const [warningStatusModal, setWarningStatusModal] = useState(false);
+  const [check, setCheck] = useState(true);
 
   const {
     list: { loading, gateway, isFetched },
@@ -50,11 +52,14 @@ const CardPayment = () => {
     if (!isFetched || successStatus) dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"));
     if (isFetched && !success) return setPaymentInfo(gateway);
     setPaymentInfo(createGateway);
-    if (success) {
+    if (success && check) {
       setWarningUpdateModal(!warningUpdateModal);
     }
     if (successStatus) {
       setWarningStatusModal(!warningStatusModal);
+    }
+    if (gateway.gateway_secret) {
+      setCheck(true)
     }
   }, [isFetched, success, successStatus]);
 
@@ -69,134 +74,151 @@ const CardPayment = () => {
     dispatch(PaymentGatewayCreateAction.paymentGatewayCreate(paymentInfo));
   };
 
+  const submitSaveForm = () => {
+    setCheck(false)
+    dispatch(PaymentGatewayCreateAction.paymentGatewayCreate(paymentInfo));
+  };
+
   const submitStatusModal = () => {
     dispatch(PaymentGatewayStatusAction.paymentGatewayStatus("stripe"));
   };
 
   return (
     <Card className="card-payment">
-      <CardHeader>
-        <CardTitle tag="h4">Stripe</CardTitle>
-        <CardTitle className="text-primary" tag="h4">
-          <div className="form-switch form-check-primary">
-            <Input
-              type='switch'
-              checked={paymentInfo?.is_enable === "yes" ?? false}
-              onChange={() => setWarningStatusModal(!warningStatusModal)}
-              value={paymentInfo?.is_enable === "yes"}
-              id='icon-primary'
-              name='icon-primary'
-            />
-          </div>
-        </CardTitle>
-      </CardHeader>
-      <CardBody>
-        <Row>
-          <Col md="9" sm="12">
-            <Label className="form-label" for="payment-expiry">
-              Client Secret
-            </Label>
-            <Input
-              type="text"
-              onChange={handleChange}
-              value={!loading ? paymentInfo?.gateway_secret ?? "" : ""}
-              name="gateway_secret"
-              id="nameMulti"
-              disabled={paymentInfo?.is_enable === "no"}
-            />
-          </Col>
-          <Col className="text-end pt-2" md="3" sm="12">
-            <Button onClick={() => setWarningUpdateModal(!warningUpdateModal)}>
-              Save
-            </Button>
-          </Col>
-        </Row>
-      </CardBody>
-      {/* Warning Update modal */}
-      <div className="vertically-centered-modal">
-        <Modal
-          isOpen={warningUpdateModal}
-          toggle={() => setWarningUpdateModal(!warningUpdateModal)}
-          className="modal-dialog-centered"
-        >
-          <ModalHeader
-            toggle={() => setWarningUpdateModal(!warningUpdateModal)}
-          >
-            Confirmation
-          </ModalHeader>
-          <ModalBody>
-            {
-              gateway.gateway_secret ? <>
+      {loading ? <div className="text-center">
+        <strong>Loading...</strong>
+      </div> :
+        <>
+          <CardHeader>
+            <CardTitle tag="h4">Stripe</CardTitle>
+            <CardTitle className="text-primary" tag="h4">
+              <div className="form-switch form-check-primary">
+                <Input
+                  type='switch'
+                  checked={paymentInfo?.is_enable === "yes" ?? false}
+                  onChange={() => setWarningStatusModal(!warningStatusModal)}
+                  value={paymentInfo?.is_enable === "yes"}
+                  id='icon-primary'
+                  name='icon-primary'
+                />
+              </div>
+            </CardTitle>
+          </CardHeader>
+          <CardBody>
+            <Row>
+              <Col md="9" sm="12">
+                <Label className="form-label" for="payment-expiry">
+                  Client Secret
+                </Label>
+                <Input
+                  type="text"
+                  onChange={handleChange}
+                  value={paymentInfo?.gateway_secret ?? ""}
+                  name="gateway_secret"
+                  id="nameMulti"
+                  disabled={paymentInfo?.is_enable === "no"}
+                />
+              </Col>
+              <Col className="text-end pt-2" md="3" sm="12">
+                {
+                  gateway.gateway_secret ?
+                    <Button onClick={() => setWarningUpdateModal(!warningUpdateModal)}>
+                      Save
+                    </Button> :
+                    <Button onClick={submitSaveForm}>
+                      Save
+                    </Button>
+                }
+              </Col>
+            </Row>
+          </CardBody>
+          {/* Warning Update modal */}
+          <div className="vertically-centered-modal">
+            <Modal
+              isOpen={warningUpdateModal}
+              toggle={() => setWarningUpdateModal(!warningUpdateModal)}
+              className="modal-dialog-centered"
+              backdrop="static"
+              keyboard={false}
+            >
+              <ModalHeader
+                toggle={() => setWarningUpdateModal(!warningUpdateModal)}
+              >
+                Confirmation
+              </ModalHeader>
+              <ModalBody>
                 By changing your <b>Secret key</b> old customers attached card will
                 stop working
-              </> : ""
-            }
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              color="Danger"
-              outline
-              onClick={() => setWarningUpdateModal(!warningUpdateModal)}
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  color="secondary"
+                  outline
+                  onClick={() => setWarningUpdateModal(!warningUpdateModal)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  color="primary"
+                  onClick={submitSaveFormModal}
+                  disabled={createLoading}
+                >
+                  {createLoading ? (
+                    <>
+                      <Spinner color="white" size="sm" type="grow" />
+                      <span className="ms-50">Loading...</span>
+                    </>
+                  ) : (
+                    <span>Yes</span>
+                  )}
+                </Button>
+              </ModalFooter>
+            </Modal>
+          </div>
+          {/* Toggle Status */}
+          <div className="vertically-centered-modal">
+            <Modal
+              isOpen={warningStatusModal}
+              toggle={() => setWarningStatusModal(!warningStatusModal)}
+              className="modal-dialog-centered"
+              backdrop="static"
+              keyboard={false}
             >
-              Cancel
-            </Button>
-            <Button
-              color="primary"
-              onClick={submitSaveFormModal}
-              disabled={createLoading}
-            >
-              {createLoading ? (
-                <>
-                  <Spinner color="white" size="sm" type="grow" />
-                  <span className="ms-50">Loading...</span>
-                </>
-              ) : (
-                <span>Yes</span>
-              )}
-            </Button>
-          </ModalFooter>
-        </Modal>
-      </div>
-      {/* Toggle Status */}
-      <div className="vertically-centered-modal">
-        <Modal
-          isOpen={warningStatusModal}
-          toggle={() => setWarningStatusModal(!warningStatusModal)}
-          className="modal-dialog-centered"
-        >
-          <ModalHeader
-            toggle={() => setWarningStatusModal(!warningStatusModal)}
-          >
-            Confirmation
-          </ModalHeader>
-          <ModalBody>
-            By disabling this your customers payment option stop working?
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              color="secondary"
-              outline
-              onClick={() => setWarningStatusModal(!warningStatusModal)}
-            >
-              Cancel
-            </Button>
-            <Button
-              color="primary"
-              onClick={submitStatusModal}
-              disabled={statusLoading}
-            >
-              {statusLoading ? (
-                <>
-                  <Spinner color="white" size="sm" type="grow" />
-                  <span className="ms-50">Loading...</span>
-                </>
-              ) : (
-                <span>Yes</span>
-              )}
-            </Button>
-          </ModalFooter>
-        </Modal>
-      </div>
+              <ModalHeader
+                toggle={() => setWarningStatusModal(!warningStatusModal)}
+              >
+                Confirmation
+              </ModalHeader>
+              <ModalBody>
+                By disabling this your customers payment option stop working?
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  color="secondary"
+                  outline
+                  onClick={() => setWarningStatusModal(!warningStatusModal)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  color="primary"
+                  onClick={submitStatusModal}
+                  disabled={statusLoading}
+                >
+                  {statusLoading ? (
+                    <>
+                      <Spinner color="white" size="sm" type="grow" />
+                      <span className="ms-50">Loading...</span>
+                    </>
+                  ) : (
+                    <span>Yes</span>
+                  )}
+                </Button>
+              </ModalFooter>
+            </Modal>
+          </div>
+        </>
+      }
     </Card>
   );
 };
