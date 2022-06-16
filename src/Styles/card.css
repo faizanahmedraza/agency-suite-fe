@@ -33,3 +33,6 @@
     position:absolute;
     top: 93%; 
 }
+.ft-ag-clr{
+    color: var(--custom-color);
+}
