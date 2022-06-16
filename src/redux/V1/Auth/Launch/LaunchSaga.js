@@ -23,7 +23,7 @@ function* postLaunch(data) {
 
 function postLaunchSuccess(data) {
     const { portal_settings: { agency } } = data.response
-    window.location.href = `//${agency.default_domain}`;
+    window.location.href = `http://${agency.default_domain}`;
 }
 
 function postLaunchFailed(data) {
