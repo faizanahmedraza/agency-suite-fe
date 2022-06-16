@@ -19,7 +19,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import FormValidation from '@src/validations/BillingInfoCard';
 import BillingInformationCreateAction from "@store/V1/CustomerPortal/BillingInformation/CREATE/BillingInformationCreateAction";
 
-const CardInfoModal = (props) => {
+const CardInfoModal = ({isOpenModal,hideModal}) => {
   const dispatch = useDispatch();
   const billingInformation = {
     holder_name: "",
@@ -59,7 +59,7 @@ const CardInfoModal = (props) => {
 
   useEffect(() => {
     if (success) {
-      props.onHide();
+      hideModal();
       reset(billingInformation)
       setBillingInfoDetails(billingInformation);
     }
@@ -75,13 +75,13 @@ const CardInfoModal = (props) => {
   return (
     <div className="vertically-centered-modal">
       <Modal
-        isOpen={props.onShow}
-        toggle={props.onHide}
+        isOpen={isOpenModal}
+        toggle={hideModal}
         backdrop="static"
         keyboard={false}
         className="modal-dialog-centered"
       >
-        <ModalHeader toggle={props.onHide}>
+        <ModalHeader toggle={hideModal}>
           Your Billing Information
         </ModalHeader>
         <Form onSubmit={handleSubmit(onSubmitBillingHandler)}>
@@ -266,7 +266,7 @@ const CardInfoModal = (props) => {
             </Row>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={props.onHide}>
+            <Button color="primary" onClick={hideModal}>
               Cancel
             </Button>
             <Button
