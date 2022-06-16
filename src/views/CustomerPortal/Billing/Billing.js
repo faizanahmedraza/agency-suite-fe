@@ -20,7 +20,7 @@ import Loader from '@src/views/GrowLoader';
 const Billing = () => {
 
     const dispatch = useDispatch();
-    const [centeredModal, setCenteredModal] = useState(false)
+    const [isOpenModal, setIsOpenModal] = useState(false)
 
     const {
         customer_billing_information: {
@@ -46,12 +46,16 @@ const Billing = () => {
 
     useEffect(() => {
         return () => {
-            setCenteredModal(false)
+            setIsOpenModal(false)
         };
     }, []);
 
-    const cardToggleModal = () => {
-        setCenteredModal(!centeredModal);
+    const setModalIsOpenToTrue =()=>{
+        setIsOpenModal(true)
+    }
+
+    const setModalIsOpenToFalse =()=>{
+        setIsOpenModal(false)
     }
 
     const handleMarkPrimaryStatus = (id) => {
@@ -77,7 +81,7 @@ const Billing = () => {
                 <Row>
                     <div className='d-flex justify-content-between mb-2'>
                         <h3>Payment Methods</h3>
-                        <Button.Ripple color='primary' className="w-25" onClick={cardToggleModal}>Add Payment Method</Button.Ripple>
+                        <Button.Ripple color='primary' className="w-25" onClick={setModalIsOpenToTrue}>Add Payment Method</Button.Ripple>
                     </div>
                     <Col md='6' lg='4'>
                         <Card className='mb-3' style={{ backgroundColor: "#cccccc" }}>
@@ -143,7 +147,7 @@ const Billing = () => {
                 </Row>
             }
             {/* Billing Information modal */}
-            <CardInfoModal onShow={centeredModal} onHide={cardToggleModal} />
+            <CardInfoModal isOpenModal={isOpenModal} hideModal={setModalIsOpenToFalse}/>
         </div >
     )
 }

@@ -49,7 +49,7 @@ const CardPayment = () => {
   };
 
   useEffect(() => {
-    if (!isFetched || successStatus) dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"));
+    dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"));
     if (isFetched && !success) return setPaymentInfo(gateway);
     setPaymentInfo(createGateway);
     if (success && check) {
