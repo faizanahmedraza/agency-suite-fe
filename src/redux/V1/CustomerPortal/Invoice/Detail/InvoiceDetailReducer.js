@@ -1,5 +1,6 @@
 import INVOICE from "@store/V1/CustomerPortal/Invoice/ActionTypes"
 
+
 const InvoiceDetailReducer = (
   state = {
     loading: false,
@@ -39,6 +40,32 @@ const InvoiceDetailReducer = (
       return {
         ...state,
         loading: true,
+        customer_invoice: {
+          invoice_number: "",
+          customer_service_request: {
+            service: {
+              id: "",
+              name: "",
+              description: "",
+              subscription_type: "",
+              price_types: {
+                weekly: "",
+                monthly: "",
+                quarterly: "",
+                biannually: "",
+                annually: "",
+                price: "",
+                purchase_limit: ""
+              }
+            },
+            is_recurring: false,
+            recurring_type: "",
+            intake_form: [],
+            status: "",
+          },
+          is_paid: "no",
+          amount: "",
+        }
       };
     case INVOICE.CUSTOMER_INVOICE_DETAIL_SUCCESS:
       return {

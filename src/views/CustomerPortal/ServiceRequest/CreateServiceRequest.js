@@ -26,7 +26,10 @@ const CreateServiceRequest = () => {
     const {
         customer_services: { detail: { service, loading: serviceloading, fetched: serviceFetched } },
         customer_service_requests: { create: { loading: createServiceRequestLoading } },
-        customer_billing_information: { list: { customer_billing_information, loading: billingInfoLoading, fetched: billingInfoFetched} }
+        customer_billing_information: {
+            list: { customer_billing_information, loading: billingInfoLoading, fetched: billingInfoFetched },
+            create: { success }
+        }
     } = useSelector(state => state);
 
     const [serviceRequestDetails, setServiceRequestDetails] = useState({
@@ -40,8 +43,8 @@ const CreateServiceRequest = () => {
     const [centeredModal, setCenteredModal] = useState(false)
 
     useEffect(() => {
-        dispatch(BillingInformationListAction.billingInformationList());
-        if(!serviceFetched) return dispatch(ServiceActions.serviceDetail(service_id));
+        if (!billingInfoFetched || success) return dispatch(BillingInformationListAction.billingInformationList());
+        if (!serviceFetched) return dispatch(ServiceActions.serviceDetail(service_id));
 
         if (serviceFetched) {
             setServiceRequestDetails({
@@ -49,7 +52,13 @@ const CreateServiceRequest = () => {
                 service_id: service.id
             })
         }
-    }, [serviceFetched,billingInfoFetched]);
+    }, [serviceFetched, billingInfoFetched, success]);
+
+    useEffect(() => {
+        return () => {
+            setCenteredModal(false)
+        };
+    }, []);
 
     const handleServiceRequestInputField = (e) => {
         setServiceRequestDetails({

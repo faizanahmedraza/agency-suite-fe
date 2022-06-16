@@ -66,7 +66,6 @@ const InvoiceDetailReducer = (
         customer_invoice: null,
       };
     case INVOICE.INVOICE_DETAIL_EMPTY:
-      console.log(customer_invoice, "invoice detail ka reducer");
       return {
         ...state,
         loading: false,

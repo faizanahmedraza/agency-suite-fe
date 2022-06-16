@@ -4,29 +4,16 @@ import {
     Input,
     Button,
 } from 'reactstrap'
-import { useDispatch, useSelector } from '@store/store'
-import BillingInformationListAction from "@store/V1/CustomerPortal/BillingInformation/LIST/BillingInformationListAction";
 import CardInfoModal from '@src/views/CustomerPortal/Billing/CardInfoModal';
 import { Plus } from "react-feather";
 
-const BillingCardInfo = (props) => {
-
-    const dispatch = useDispatch();
+const BillingCardInfo = ({ billingInfoList,cardId,onChangeField }) => {
     const [centeredModal, setCenteredModal] = useState(false)
 
-    const {
-        customer_billing_information: {
-            list: { customer_billing_information }
-        }
-    } = useSelector(state => state);
-
-    const primaryCard = customer_billing_information.filter(billingInfo => billingInfo.is_primary == true)
-
     useEffect(() => {
-        dispatch(BillingInformationListAction.billingInformationList());
         return () => {
             setCenteredModal(false)
-          };
+        };
     }, []);
 
     const cardToggleModal = () => {
@@ -39,10 +26,10 @@ const BillingCardInfo = (props) => {
                 Payment Method
             </Label>
             <div className='d-flex justify-content-between'>
-                <Input type='select' className="flex-grow-1" name='card_id' id='select-custom' defaultValue={primaryCard[0]?.id ?? props?.cardId} onChange={props?.onChangeField}>
+                <Input type='select' className="flex-grow-1" name='card_id' id='select-custom' defaultValue={cardId} onChange={onChangeField}>
                     <option value="">Select Card</option>
                     {
-                        customer_billing_information && customer_billing_information.map((option) => {
+                        billingInfoList && billingInfoList.map((option) => {
                             return <option value={option.id} key={option.id}>.... .... .... {option.last_digits}</option>
                         })
                     }

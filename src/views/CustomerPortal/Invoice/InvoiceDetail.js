@@ -58,11 +58,11 @@ const InvoiceDetail = () => {
 
     useEffect(() => {
         dispatch(InvoiceDetailAction.invoiceDetail(id));
-        dispatch(BillingInformationListAction.billingInformationList());
+        if(!billingInfofetched) return dispatch(BillingInformationListAction.billingInformationList());
 
         if (billingInfofetched) {
-            const primaryCard = customer_billing_information.filter(billingInfo => billingInfo.is_primary == true)
-            setInvoicePaid({ ...invoicePaid, card_id: primaryCard[0]?.id })
+            const primaryCard = customer_billing_information.find(({is_primary}) => is_primary === true)
+            setInvoicePaid({ ...invoicePaid, card_id: primaryCard.id ?? "" })
         }
     }, [fetched, isPaid, billingInfofetched]);
 
@@ -230,7 +230,7 @@ const InvoiceDetail = () => {
                             {customer_invoice.is_paid == "no" ?
                                 <Col md='12' sm='12' className='my-2'>
                                     <div className='d-flex justify-content-between align-items-center'>
-                                        <BillingCardInfo cardId={invoicePaid.card_id} onChangeField={handleInvoicePaidField} />
+                                        <BillingCardInfo billingInfoList={customer_billing_information} cardId={invoicePaid.card_id} onChangeField={handleInvoicePaidField} />
                                         <Form onSubmit={onSubmitHandler}>
                                             <Button color='primary' className='btn-sm py-1 px-3 mt-2' type='submit' disabled={createLoading}>
                                                 {

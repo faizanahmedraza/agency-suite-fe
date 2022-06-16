@@ -13,6 +13,7 @@ const BillingInformationCreateReducer = (
             return {
                 ...state,
                 loading: true,
+                success: false
             }
         case BILLING_INFORMATION.BILLING_INFORMATION_CREATE_SUCCESS:
             return {
