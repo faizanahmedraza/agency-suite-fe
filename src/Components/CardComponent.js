@@ -16,16 +16,32 @@ import { Link } from "react-router-dom"
 
 const CardContentTypes = ({ services }) => {
     const dispatch = useDispatch()
-    const {portal_settings: { detail: { portal_settings, fetched } }
+    const {
+        portal_settings: { detail: { portal_settings, fetched } },
+        user
     } = useSelector((state => state))
 
     useEffect(() => {
         if (!fetched) return dispatch(PortalSettingDetailAction.portalSettingDetail());
-      }, [fetched]);
-    
+    }, [fetched]);
+
 
     const handleOnChange = e => {
         //
+    }
+
+    const returnLink = (id) => {
+        let link = ``;
+        if (user) {
+            if (user.roles[0].name === "Agency") {
+                link = `/service-requests/create`
+            } else {
+                link = `/customer-service-requests/create/${id}`
+            }
+        } else {
+            link = `/login`
+        }
+        return
     }
 
     return (
@@ -34,7 +50,7 @@ const CardContentTypes = ({ services }) => {
                 <header>
                     <div className="AGT-info">
                         {portal_settings.logo ?
-                        <img src={portal_settings?.logo} height="50" /> : <h2>Hello</h2>}
+                            <img src={portal_settings?.logo} height="50" /> : <h2>Hello</h2>}
                         <h1 className='pl'>{JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? ''}</h1>
                     </div>
                 </header>
@@ -70,7 +86,7 @@ const CardContentTypes = ({ services }) => {
                                             <CardText>
                                                 {service.description}
                                             </CardText>
-                                            <Link to={`/customer-service-requests/create/${service.id}`}>
+                                            <Link to={returnLink(service.id)}>
                                                 <Button color='primary' outline>
                                                     Purchase
                                                 </Button>
@@ -89,7 +105,7 @@ const CardContentTypes = ({ services }) => {
                         Powered By <h1>{JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? 'Agency Tool'}</h1>
                     </div>
                 </div>
-            </footer>    
+            </footer>
         </Fragment>
     )
 }

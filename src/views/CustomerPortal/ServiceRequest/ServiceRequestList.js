@@ -58,6 +58,7 @@ const ServiceRequestList = ({ service_requests, pagination, tabIndex}) => {
                   <th>SERVICE NAME</th>
                   <th>IS RECURRING</th>
                   <th>STATUS</th>
+                  <th>CREATED AT</th>
                   <th>ACTIONS</th>
                 </tr>
               </thead>
@@ -79,6 +80,7 @@ const ServiceRequestList = ({ service_requests, pagination, tabIndex}) => {
                             {request.status}
                           </span>
                         </td>
+                        <td>{formatDate(request.created_at)}</td>
                         <td>
                           <Link
                             to={`/customer-service-requests/detail/${request.id}`}
