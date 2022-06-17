@@ -18,7 +18,6 @@ const CardContentTypes = ({ services }) => {
     const dispatch = useDispatch()
     const {
         portal_settings: { detail: { portal_settings, fetched } },
-        user
     } = useSelector((state => state))
 
     useEffect(() => {
@@ -30,7 +29,8 @@ const CardContentTypes = ({ services }) => {
         //
     }
 
-    const returnLink = (id) => {
+    function returnLink(id) {
+        const user = JSON.parse(localStorage.getItem("user"));
         let link = ``;
         if (user) {
             if (user.roles[0].name === "Agency") {
@@ -41,7 +41,7 @@ const CardContentTypes = ({ services }) => {
         } else {
             link = `/login`
         }
-        return
+        return link;
     }
 
     return (
