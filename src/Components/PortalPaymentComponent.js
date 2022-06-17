@@ -31,7 +31,7 @@ const CardPayment = () => {
   const {
     list: { loading, gateway, isFetched },
     create: { loading: createLoading, gateway: createGateway, success },
-    status: { loading: statusLoading, successStatus },
+    status: { loading: statusLoading, isChanged },
   } = useSelector((state) => state.payment_gateway);
 
   const [paymentInfo, setPaymentInfo] = useState({
@@ -49,19 +49,21 @@ const CardPayment = () => {
   };
 
   useEffect(() => {
-    if (!isFetched || successStatus) dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"));
-    if (isFetched && !success) return setPaymentInfo(gateway);
-    setPaymentInfo(createGateway);
+    if (!isFetched || success || isChanged) { dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"))};
     if (success && check) {
-      setWarningUpdateModal(!warningUpdateModal);
+      setWarningUpdateModal(false);
     }
-    if (successStatus) {
-      setWarningStatusModal(!warningStatusModal);
+    if (isChanged) {
+      setWarningStatusModal(false);
     }
     if (gateway.gateway_secret) {
       setCheck(true)
     }
-  }, [isFetched, success, successStatus]);
+    setPaymentInfo(gateway);
+    if (success) {
+      setPaymentInfo(createGateway)
+    }
+  }, [isFetched, success, isChanged]);
 
   useEffect(() => {
     return () => {
@@ -95,9 +97,9 @@ const CardPayment = () => {
               <div className="form-switch form-check-primary">
                 <Input
                   type='switch'
-                  checked={paymentInfo?.is_enable === "yes" ?? false}
+                  checked={paymentInfo.is_enable === "yes"}
                   onChange={() => setWarningStatusModal(!warningStatusModal)}
-                  value={paymentInfo?.is_enable === "yes"}
+                  value={paymentInfo.is_enable === "yes" ?? "no"}
                   id='icon-primary'
                   name='icon-primary'
                 />
@@ -113,10 +115,10 @@ const CardPayment = () => {
                 <Input
                   type="text"
                   onChange={handleChange}
-                  value={paymentInfo?.gateway_secret ?? ""}
+                  value={paymentInfo.gateway_secret ?? ""}
                   name="gateway_secret"
                   id="nameMulti"
-                  disabled={paymentInfo?.is_enable === "no"}
+                  disabled={paymentInfo.is_enable === "no"}
                 />
               </Col>
               <Col className="text-end pt-2" md="3" sm="12">
@@ -190,7 +192,9 @@ const CardPayment = () => {
                 Confirmation
               </ModalHeader>
               <ModalBody>
-                By disabling this your customers payment option stop working?
+                {
+                  gateway.is_enable === "no" ? "Are you sure?" : "By disabling this your customers payment option stop working?"
+                }
               </ModalBody>
               <ModalFooter>
                 <Button

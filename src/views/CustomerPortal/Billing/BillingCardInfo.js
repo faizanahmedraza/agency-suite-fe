@@ -8,16 +8,20 @@ import CardInfoModal from '@src/views/CustomerPortal/Billing/CardInfoModal';
 import { Plus } from "react-feather";
 
 const BillingCardInfo = ({ billingInfoList,cardId,onChangeField }) => {
-    const [centeredModal, setCenteredModal] = useState(false)
+    const [isOpenModal, setIsOpenModal] = useState(false)
 
     useEffect(() => {
         return () => {
-            setCenteredModal(false)
+            setIsOpenModal(false)
         };
     }, []);
 
-    const cardToggleModal = () => {
-        setCenteredModal(!centeredModal);
+    const setModalIsOpenToTrue =()=>{
+        setIsOpenModal(true)
+    }
+
+    const setModalIsOpenToFalse =()=>{
+        setIsOpenModal(false)
     }
 
     return (
@@ -34,10 +38,10 @@ const BillingCardInfo = ({ billingInfoList,cardId,onChangeField }) => {
                         })
                     }
                 </Input>
-                <Button.Ripple color='primary' className="w-25 ms-2" onClick={cardToggleModal}><Plus size={15} /></Button.Ripple>
+                <Button.Ripple color='primary' className="w-25 ms-2" onClick={setModalIsOpenToTrue}><Plus size={15} /></Button.Ripple>
             </div>
             {/* Billing Information modal */}
-            <CardInfoModal onShow={centeredModal} onHide={cardToggleModal} />
+            <CardInfoModal isOpenModal={isOpenModal} hideModal={setModalIsOpenToFalse}/>
         </div>
     )
 }

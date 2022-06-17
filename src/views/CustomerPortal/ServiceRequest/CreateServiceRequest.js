@@ -40,10 +40,10 @@ const CreateServiceRequest = () => {
         reference_no: "",
     });
 
-    const [centeredModal, setCenteredModal] = useState(false)
+    const [isOpenModal, setIsOpenModal] = useState(false)
 
     useEffect(() => {
-        if (!billingInfoFetched || success) return dispatch(BillingInformationListAction.billingInformationList());
+        dispatch(BillingInformationListAction.billingInformationList());
         if (!serviceFetched) return dispatch(ServiceActions.serviceDetail(service_id));
 
         if (serviceFetched) {
@@ -56,7 +56,7 @@ const CreateServiceRequest = () => {
 
     useEffect(() => {
         return () => {
-            setCenteredModal(false)
+            setIsOpenModal(false)
         };
     }, []);
 
@@ -79,8 +79,12 @@ const CreateServiceRequest = () => {
         return false;
     }
 
-    const cardToggleModal = () => {
-        setCenteredModal(!centeredModal);
+    const setModalIsOpenToTrue =()=>{
+        setIsOpenModal(true)
+    }
+
+    const setModalIsOpenToFalse =()=>{
+        setIsOpenModal(false)
     }
 
     return (
@@ -94,7 +98,7 @@ const CreateServiceRequest = () => {
                             </div>
                             <div className='col-3'>
                                 {!billingInfoLoading && checkBillingInfoEmpty() ?
-                                    <Button.Ripple color='primary' className="w-100" onClick={cardToggleModal}> Add Payment Method </Button.Ripple> : ''
+                                    <Button.Ripple color='primary' className="w-100" onClick={setModalIsOpenToTrue}> Add Payment Method </Button.Ripple> : ''
                                 }
                             </div>
                         </div>
@@ -256,7 +260,7 @@ const CreateServiceRequest = () => {
                 </CardBody>
             </Card >
             {/* Billing Information modal */}
-            <CardInfoModal onShow={centeredModal} onHide={cardToggleModal} />
+            <CardInfoModal isOpenModal={isOpenModal} hideModal={setModalIsOpenToFalse} />
         </div >
     )
 }
