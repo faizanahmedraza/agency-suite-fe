@@ -32,6 +32,7 @@ const customer_invoice = {
     status: null,
   },
   is_paid: "no",
+  paid_at: "",
   amount: "",
 };
 

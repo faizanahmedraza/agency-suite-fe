@@ -69,7 +69,7 @@ const InvoiceTable = ({ invoices, pagination }) => {
                                                 <span className='align-middle fw-bold'>{GeneralHelper.PascalCase(invoice?.customer_service_request?.service?.name)}</span>
                                             </td>
                                             <td>{'$' + Number.parseFloat(invoice?.amount).toFixed(2)}</td>
-                                            <td>{GeneralHelper.Capitalize(invoice?.is_paid)}</td>
+                                            <td>{GeneralHelper.Capitalize(invoice?.is_paid)} {invoice?.is_paid === "yes" ? <><br /> {formatDate(invoice.paid_at)} </> : ""}</td>
                                             <td>{formatDate(invoice?.created_at)}</td>
                                             <td className='text-center'>
                                                 <Link to={`/customer-invoices/detail/${invoice.id}`}>

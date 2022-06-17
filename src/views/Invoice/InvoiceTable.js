@@ -92,13 +92,17 @@ const InvoiceTable = ({ invoices, pagination }) => {
                                     <span className='align-middle fw-bold'>{invoice?.customer_service_request?.service?.name}</span>
                                 </td>
                                 <td>${Number.parseFloat(invoice?.amount).toFixed(2)}</td>
-                                <td className='text-center'>
+                                <td className='text-center px-0'>
                                     {(invoice?.paid_by === "" || invoice?.paid_by === "agency") ?
-                                        <div className='form-switch form-check-primary'>
-                                            <Input type='switch'  onChange={(e) => handleShowInvoiceStatus(e, invoice.id)} defaultChecked={invoice?.is_paid === 'yes'} id='icon-secondnary' name='icon-status' />
-                                        </div> : invoice?.is_paid === "yes" ? "Yes" : "No"}
+                                        <>
+                                            <div className='form-switch form-check-primary pb-1'>
+                                                <Input type='switch' onChange={(e) => handleShowInvoiceStatus(e, invoice.id)} defaultChecked={invoice?.is_paid === 'yes'} id='icon-secondnary' name='icon-status' />
+                                            </div>
+                                            {invoice?.is_paid === "yes" ? formatDate(invoice.paid_at) : ""}
+                                        </> : invoice?.is_paid === "yes" ? <>Yes <br /> {formatDate(invoice.paid_at)} </> : "No"}
+
                                 </td>
-                                <td>{formatDate(invoice?.created_at)}</td>
+                                <td className='text-center px-0'>{formatDate(invoice?.created_at)}</td>
                                 <td className='text-center'>
                                     <Link to={`/invoice/detail/${invoice.id}`}>
                                         <Eye className='me-50' size={20} />
