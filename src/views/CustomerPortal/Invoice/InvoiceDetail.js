@@ -62,7 +62,7 @@ const InvoiceDetail = () => {
 
         if (billingInfofetched) {
             const primaryCard = customer_billing_information.find(({is_primary}) => is_primary === true)
-            setInvoicePaid({ ...invoicePaid, card_id: primaryCard.id ?? "" })
+            setInvoicePaid({ ...invoicePaid, card_id: primaryCard?.id ?? "" })
         }
     }, [fetched, isPaid, billingInfofetched]);
 

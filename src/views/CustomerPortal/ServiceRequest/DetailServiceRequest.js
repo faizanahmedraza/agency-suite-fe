@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom';
 import {
     Card,
@@ -24,6 +24,7 @@ const DetailServiceRequest = () => {
 
     const dispatch = useDispatch();
     const { id } = useParams();
+    const [cancelModal,setCancelModal] = useState(false);
 
     const {
         customer_service_requests: { detail: { serivice_request, loading, fetched } },
@@ -32,6 +33,10 @@ const DetailServiceRequest = () => {
     useEffect(() => {
         dispatch(ServiceRequestDetailAction.serviceRequestDetail(id));
     }, [fetched]);
+
+    const onSubmitCancelModal = () => {
+        dispatch(ServiceRequestDetailAction.serviceRequestDetail(id));
+    }
 
     return (
         <div>
@@ -185,7 +190,7 @@ const DetailServiceRequest = () => {
                                     <Link to="/customer-service-requests" className='btn btn-outline-secondary'>
                                         Back
                                     </Link>
-                                    <Button color='primary' className="mw-25"> Cancel Request </Button>
+                                    <Button color='primary' className="mw-25" onClick={() => setCancelModal(!cancelModal)}> Cancel Request </Button>
                                 </div>
                             </Col>
                         </Row>

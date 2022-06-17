@@ -49,21 +49,10 @@ const CardPayment = () => {
   };
 
   useEffect(() => {
-    if (!isFetched || success || isChanged) { dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"))};
-    if (success && check) {
-      setWarningUpdateModal(false);
-    }
-    if (isChanged) {
-      setWarningStatusModal(false);
-    }
-    if (gateway.gateway_secret) {
-      setCheck(true)
-    }
-    setPaymentInfo(gateway);
-    if (success) {
-      setPaymentInfo(createGateway)
-    }
-  }, [isFetched, success, isChanged]);
+    dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"))
+    setPaymentInfo(gateway)
+    if (success) return setPaymentInfo(createGateway);
+  }, [isFetched, isChanged]);
 
   useEffect(() => {
     return () => {
@@ -74,15 +63,17 @@ const CardPayment = () => {
 
   const submitSaveFormModal = () => {
     dispatch(PaymentGatewayCreateAction.paymentGatewayCreate(paymentInfo));
+    setWarningUpdateModal(false);
   };
 
   const submitSaveForm = () => {
-    setCheck(false)
     dispatch(PaymentGatewayCreateAction.paymentGatewayCreate(paymentInfo));
+    setWarningUpdateModal(false);
   };
 
   const submitStatusModal = () => {
     dispatch(PaymentGatewayStatusAction.paymentGatewayStatus("stripe"));
+    setWarningStatusModal(false);
   };
 
   return (
