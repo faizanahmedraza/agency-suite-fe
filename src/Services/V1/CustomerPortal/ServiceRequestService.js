@@ -23,6 +23,11 @@ async function serviceRequestPagination(data) {
     return response;
 }
 
+async function serviceRequestCancel(data) {
+    const response = await Gateway.authGateway("PUT", V1.DOMAIN, V1.customer.service_request + "/" + data);
+    return response;
+}
+
 const serviceRequestBody = (data) => {
     let _data = {};
     _data.service_id = data.service_id;
@@ -43,6 +48,7 @@ const ServiceRequestService = {
     serviceRequestList,
     serviceRequestDetail,
     serviceRequestPagination,
+    serviceRequestCancel
 }
 
 export default ServiceRequestService;

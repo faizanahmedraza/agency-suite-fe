@@ -8,9 +8,14 @@ import {
     Input,
     CardBody,
     Button,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter
 } from 'reactstrap'
 import { useDispatch, useSelector } from '@store/store'
 import ServiceRequestDetailAction from "@store/V1/CustomerPortal/ServiceRequest/DETAIL/ServiceRequestDetailAction";
+import ServiceRequestCancelAction from "@store/V1/CustomerPortal/ServiceRequest/CANCEL/CancelAction";
 
 const Loader = () => {
     return (
@@ -24,10 +29,12 @@ const DetailServiceRequest = () => {
 
     const dispatch = useDispatch();
     const { id } = useParams();
-    const [cancelModal,setCancelModal] = useState(false);
+    const [cancelModal, setCancelModal] = useState(false);
 
     const {
-        customer_service_requests: { detail: { serivice_request, loading, fetched } },
+        customer_service_requests: {
+            detail: { serivice_request, loading, fetched },
+        },
     } = useSelector(state => state);
 
     useEffect(() => {
@@ -35,7 +42,7 @@ const DetailServiceRequest = () => {
     }, [fetched]);
 
     const onSubmitCancelModal = () => {
-        dispatch(ServiceRequestDetailAction.serviceRequestDetail(id));
+        dispatch(ServiceRequestCancelAction.cancelServiceRequest(id));
     }
 
     return (
@@ -177,26 +184,56 @@ const DetailServiceRequest = () => {
                                     <Input type='textarea' value={serivice_request?.intake_form[0]?.description} name='description' id='description' placeholder='Enter Description' readOnly />
                                 </div>
                             </Col>
-                            {/* <Col md='12' sm='12'>
-                                            <div className='mb-1'>
-                                                <Label className='form-label' for='reference_no'>
-                                                    Reference Number
-                                                </Label>
-                                                <Input type='number' value={serivice_request.reference_no} name='reference_no' id='reference_no' placeholder='Enter Reference Number' />
-                                            </div>
-                                        </Col> */}
+                            <Col md='12' sm='12'>
+                                <div className='mb-1'>
+                                    <Label className='form-label fs-5' for='status'>
+                                        Status
+                                    </Label>
+                                    <Input type='text' value={serivice_request?.status} name='status' id='status' readOnly />
+                                </div>
+                            </Col>
                             <Col md='12' sm='12'>
                                 <div className='d-flex justify-content-between'>
                                     <Link to="/customer-service-requests" className='btn btn-outline-secondary'>
                                         Back
                                     </Link>
-                                    <Button color='primary' className="mw-25" onClick={() => setCancelModal(!cancelModal)}> Cancel Request </Button>
+                                    {
+                                        serivice_request.status !== "cancelled" ?
+                                            <Button color='primary' className="mw-25" onClick={() => setCancelModal(!cancelModal)}> Cancel Request </Button> : ""}
                                 </div>
                             </Col>
                         </Row>
                     </>}
                 </CardBody>
             </Card >
+            {/* Cancel Modal */}
+            <div className="vertically-centered-modal">
+                <Modal
+                    isOpen={cancelModal}
+                    toggle={() => setCancelModal(!cancelModal)}
+                    className="modal-dialog-centered"
+                >
+                    <ModalHeader toggle={() => setCancelModal(!cancelModal)}>
+                        Confirmation
+                    </ModalHeader>
+                    <ModalBody>Are you sure you want to cancel this service request ?</ModalBody>
+                    <ModalFooter>
+                        <Button
+                            color='secondary'
+                            outline
+                            onClick={() => setCancelModal(!cancelModal)}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            color="primary"
+                            onClick={() => onSubmitCancelModal()}
+                        >
+                            Yes
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+            </div>
         </div >
     )
 }
