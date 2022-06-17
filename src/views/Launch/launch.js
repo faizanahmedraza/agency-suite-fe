@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "@store/store"
 import { Row, Col, CardTitle, CardText, Button, Form, Label, Input, Spinner } from 'reactstrap'
 import { ChevronLeft } from 'react-feather'
 import '@styles/base/pages/authentication.scss'
-import SaasfaLog from "@src/assets/images/logo/Saasfa-iconPNG-new.png"
+import SaasfaLog from "@src/assets/images/logo/Logo-300x100.png"
 
 const VerifyEmailCover = () => {
   // ** Hooks
