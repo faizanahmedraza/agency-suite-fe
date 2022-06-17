@@ -28,6 +28,7 @@ const InvoiceDetailReducer = (
         status: "",
       },
       is_paid: "no",
+      paid_at: "",
       amount: "",
     },
     error: null,
@@ -64,6 +65,7 @@ const InvoiceDetailReducer = (
             status: "",
           },
           is_paid: "no",
+          paid_at: "",
           amount: "",
         }
       };
