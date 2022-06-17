@@ -13,7 +13,6 @@ import {
 } from "reactstrap";
 import ReactPaginate from "react-paginate";
 import { Eye } from "react-feather";
-import moment from "moment";
 import ServiceRequestStatusAction from "@store/V1/ServiceRequest/STATUS/ServiceRequestStatusAction";
 import ServiceRequestListAction from "@store/V1/ServiceRequest/LIST/ServiceRequestListAction";
 import GeneralHelper from "@src/Helpers/GeneralHelper";

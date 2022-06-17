@@ -183,8 +183,9 @@ const DetailServiceRequest = () => {
                             <Col md='12' sm='12'>
                                 <div className='d-flex justify-content-between'>
                                     <Link to="/customer-service-requests" className='btn btn-outline-secondary'>
-                                        Cancel
+                                        Back
                                     </Link>
+                                    <Button color='primary' className="mw-25"> Cancel Request </Button>
                                 </div>
                             </Col>
                         </Row>

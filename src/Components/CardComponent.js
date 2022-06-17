@@ -31,15 +31,13 @@ const CardContentTypes = ({ services }) => {
 
     function returnLink(id) {
         const user = JSON.parse(localStorage.getItem("user"));
-        let link = ``;
+        let link = `/login`;
         if (user) {
             if (user.roles[0].name === "Agency") {
                 link = `/service-requests/create`
             } else {
                 link = `/customer-service-requests/create/${id}`
             }
-        } else {
-            link = `/login`
         }
         return link;
     }
