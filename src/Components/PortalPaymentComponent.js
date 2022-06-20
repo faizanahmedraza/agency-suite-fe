@@ -194,7 +194,7 @@ const CardPayment = () => {
               </ModalHeader>
               <ModalBody>
                 {
-                  gateway.is_enable === "no" ? "You want to enable the client secret?" : "By disabling this your customers payment option stop working?"
+                  gateway.is_enable === "no" ? "Do you want to enable the client secret?" : "By disabling this your customers payment option stop working?"
                 }
               </ModalBody>
               <ModalFooter>

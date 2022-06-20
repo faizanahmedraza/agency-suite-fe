@@ -38,6 +38,7 @@ const ServiceRequestDetailReducer = (
       return {
         ...state,
         loading: true,
+        serivice_request: {...state.serivice_request}
       };
     case SERVICE_REQUEST.SERVICE_REQUEST_DETAIL_SUCCESS:
       return {

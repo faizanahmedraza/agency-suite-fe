@@ -9,6 +9,11 @@ import {
     Input,
     CardBody,
     Button,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    Spinner
 } from 'reactstrap'
 import { useDispatch, useSelector } from '@store/store'
 import BillingInformationListAction from "@store/V1/CustomerPortal/BillingInformation/LIST/BillingInformationListAction";
@@ -21,6 +26,8 @@ const Billing = () => {
 
     const dispatch = useDispatch();
     const [isOpenModal, setIsOpenModal] = useState(false)
+    const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
+    const [isDeleteId,setIsDeleteId] = useState(null);
 
     const {
         customer_billing_information: {
@@ -32,7 +39,8 @@ const Billing = () => {
                 isPrimary
             },
             delete: {
-                isDeleted
+                isDeleted,
+                loading: deleteLoading
             },
             create: {
                 success
@@ -50,20 +58,29 @@ const Billing = () => {
         };
     }, []);
 
-    const setModalIsOpenToTrue =()=>{
+    const setModalIsOpenToTrue = () => {
         setIsOpenModal(true)
     }
 
-    const setModalIsOpenToFalse =()=>{
+    const setModalIsOpenToFalse = () => {
         setIsOpenModal(false)
+    }
+
+    const setDeleteModalIsOpenToTrue = () => {
+        setIsOpenDeleteModal(true)
+    }
+
+    const setDeleteModalIsOpenToFalse = () => {
+        setIsOpenDeleteModal(false)
+    }
+
+    const submitDeleteFormModal = () => {
+        dispatch(BillingInformationDeleteAction.billingInfoDelete(isDeleteId));
+        setDeleteModalIsOpenToFalse();
     }
 
     const handleMarkPrimaryStatus = (id) => {
         dispatch(MarkPrimaryAction.markPrimary(id));
-    }
-
-    const handleDeleteBillingInfo = (id) => {
-        dispatch(BillingInformationDeleteAction.billingInfoDelete(id));
     }
 
     return (
@@ -135,7 +152,10 @@ const Billing = () => {
                                             <div className='d-flex justify-content-between align-items-center'>
                                                 <div className='fs-5'>{data.exp_month} / 20{data.exp_year}</div>
                                                 {!data.is_primary ?
-                                                    <Button className='btn-primary btn-sm' onClick={e => handleDeleteBillingInfo(data.id)}>Delete</Button>
+                                                    <Button className='btn-primary btn-sm' onClick={e => {
+                                                        setIsDeleteId(data.id)
+                                                        setDeleteModalIsOpenToTrue()
+                                                    }}>Delete</Button>
                                                     : ""}
                                             </div>
                                         </div>
@@ -147,7 +167,49 @@ const Billing = () => {
                 </Row>
             }
             {/* Billing Information modal */}
-            <CardInfoModal isOpenModal={isOpenModal} hideModal={setModalIsOpenToFalse}/>
+            <CardInfoModal isOpenModal={isOpenModal} hideModal={setModalIsOpenToFalse} />
+            {/* Delete modal */}
+            <div className="vertically-centered-modal">
+                <Modal
+                    isOpen={isOpenDeleteModal}
+                    toggle={setDeleteModalIsOpenToFalse}
+                    className="modal-dialog-centered"
+                    backdrop="static"
+                    keyboard={false}
+                >
+                    <ModalHeader
+                        toggle={setDeleteModalIsOpenToFalse}
+                    >
+                        Confirmation
+                    </ModalHeader>
+                    <ModalBody>
+                        Are you sure you want to delete this card?
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button
+                            color="secondary"
+                            outline
+                            onClick={setDeleteModalIsOpenToFalse}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            color="primary"
+                            onClick={submitDeleteFormModal}
+                            disabled={deleteLoading}
+                        >
+                            {deleteLoading ? (
+                                <>
+                                    <Spinner color="white" size="sm" type="grow" />
+                                    <span className="ms-50">Loading...</span>
+                                </>
+                            ) : (
+                                <span>Yes</span>
+                            )}
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+            </div>
         </div >
     )
 }
