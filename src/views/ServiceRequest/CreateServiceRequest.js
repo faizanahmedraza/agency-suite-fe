@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import {
     Card,
     Row,
@@ -29,11 +29,16 @@ const Loader = () => {
 const CreateServiceRequest = () => {
 
     const dispatch = useDispatch();
+    const [searchParam, setSearchParam] = useSearchParams()
+    const serviceId = searchParam.get("service_id")
+
     const {
         service: { list: { services, loading: serviceLoading } },
         customers: { list: { customers, loading: customerLoading } },
         service_requests: { create: { loading } }
     } = useSelector(state => state);
+
+    const requiredService = (!serviceLoading && serviceId !== null) ? services.find(({ id }) => id === Number(serviceId)) : null;
 
     const [serviceRequestDetails, setServiceRequestDetails] = useState({
         service_id: "",
@@ -51,14 +56,27 @@ const CreateServiceRequest = () => {
     const [defaultServiceOptions, setDefaultServiceOptions] = useState([]);
 
     useEffect(() => {
-        dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
-            status: "active,pending"
-        })));
-        dispatch(CustomerListAction.customerList(GeneralHelper.Serialize({
-            status: "active,pending"
-        })));
+        if (!services.length) {
+            dispatch(ServiceActions.serviceList(GeneralHelper.Serialize({
+                status: "active,pending"
+            })));
+        }
+        if (!customers.length) {
+            dispatch(CustomerListAction.customerList(GeneralHelper.Serialize({
+                status: "active,pending"
+            })));
+        }
+        if (requiredService) {
+            setServiceRequestDetails({
+                ...serviceRequestDetails,
+                service_id: requiredService?.id ?? "",
+                recurring_type: "monthly",
+                is_recurring: requiredService?.subscription_type == "recurring" ? true : false,
+                selected_service: requiredService,
+            })
+        }
         loadDefaultOptions();
-    }, []);
+    }, [requiredService]);
 
     const handleInputField = (e) => {
         setServiceRequestDetails({
@@ -165,6 +183,13 @@ const CreateServiceRequest = () => {
         setDefaultServiceOptions(resultService)
     };
 
+    const defaulServicetValue = {
+        value: requiredService?.id ?? "",
+        label: requiredService?.name ?? "",
+    }
+
+    console.log(requiredService, services, serviceRequestDetails, '191 dd')
+
     return (
         <div>
             <Card>
@@ -208,6 +233,7 @@ const CreateServiceRequest = () => {
                                             <AsyncSelect
                                                 isClearable={false}
                                                 cacheOptions
+                                                defaultValue={defaulServicetValue}
                                                 defaultOptions={defaultServiceOptions}
                                                 className='react-select'
                                                 classNamePrefix='select'
