@@ -110,6 +110,7 @@ const ServiceRequestList = ({ service_requests, pagination, tabIndex}) => {
                       <option value="active">Active</option>
                       <option value="hold">Hold</option>
                       <option value="completed">Completed</option>
+                      <option value="cancelled">Cancelled</option>
                     </Input>
                   </td>
                   <td>{formatDate(request.created_at)}</td>
