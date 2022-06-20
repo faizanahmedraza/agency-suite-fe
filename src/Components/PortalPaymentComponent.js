@@ -49,10 +49,20 @@ const CardPayment = () => {
   };
 
   useEffect(() => {
-    dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"))
-    setPaymentInfo(gateway)
-    if (success) return setPaymentInfo(createGateway);
-  }, [isFetched, isChanged]);
+    if (!isFetched) {
+      dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"))
+    }
+    if (isFetched) return setPaymentInfo(gateway);
+    setPaymentInfo(createGateway);
+  }, [isFetched]);
+
+  useEffect(() => {
+    if (isChanged) {
+      dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"))
+    }
+    if (isFetched) return setPaymentInfo(gateway);
+  }, [isChanged]);
+
 
   useEffect(() => {
     return () => {
@@ -115,7 +125,7 @@ const CardPayment = () => {
               <Col className="text-end pt-2" md="3" sm="12">
                 {
                   gateway.gateway_secret ?
-                    <Button onClick={() => setWarningUpdateModal(!warningUpdateModal)}>
+                    <Button onClick={() => setWarningUpdateModal(!warningUpdateModal)} disabled={paymentInfo.is_enable === "no"}>
                       Save
                     </Button> :
                     <Button onClick={submitSaveForm}>
@@ -184,7 +194,7 @@ const CardPayment = () => {
               </ModalHeader>
               <ModalBody>
                 {
-                  gateway.is_enable === "no" ? "Are you sure?" : "By disabling this your customers payment option stop working?"
+                  gateway.is_enable === "no" ? "You want to enable the client secret?" : "By disabling this your customers payment option stop working?"
                 }
               </ModalBody>
               <ModalFooter>

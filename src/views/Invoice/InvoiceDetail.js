@@ -207,8 +207,8 @@ const InvoiceDetail = () => {
                             {"annually - $" +
                               Number.parseFloat(
                                 customer_invoice &&
-                                  customer_invoice?.customer_service_request
-                                    ?.service?.price_types?.annually
+                                customer_invoice?.customer_service_request
+                                  ?.service?.price_types?.annually
                               ).toFixed(2)}
                           </Label>
                         </div>
@@ -229,8 +229,8 @@ const InvoiceDetail = () => {
                             {"biannually - $" +
                               Number.parseFloat(
                                 customer_invoice &&
-                                  customer_invoice?.customer_service_request
-                                    ?.service?.price_types.biannually
+                                customer_invoice?.customer_service_request
+                                  ?.service?.price_types.biannually
                               ).toFixed(2)}
                           </Label>
                         </div>
@@ -251,8 +251,8 @@ const InvoiceDetail = () => {
                             {"quarterly - $" +
                               Number.parseFloat(
                                 customer_invoice &&
-                                  customer_invoice?.customer_service_request
-                                    ?.service?.price_types.quarterly
+                                customer_invoice?.customer_service_request
+                                  ?.service?.price_types.quarterly
                               ).toFixed(2)}
                           </Label>
                         </div>
@@ -272,8 +272,8 @@ const InvoiceDetail = () => {
                             {"weekly - $" +
                               Number.parseFloat(
                                 customer_invoice &&
-                                  customer_invoice?.customer_service_request
-                                    ?.service?.price_types.weekly
+                                customer_invoice?.customer_service_request
+                                  ?.service?.price_types.weekly
                               ).toFixed(2)}
                           </Label>
                         </div>
@@ -294,8 +294,8 @@ const InvoiceDetail = () => {
                             {"monthly - $" +
                               Number.parseFloat(
                                 customer_invoice &&
-                                  customer_invoice?.customer_service_request
-                                    ?.service?.price_types.monthly
+                                customer_invoice?.customer_service_request
+                                  ?.service?.price_types.monthly
                               ).toFixed(2)}
                           </Label>
                         </div>
@@ -338,7 +338,7 @@ const InvoiceDetail = () => {
                         customer_invoice?.customer_service_request
                           ?.intake_form[0]?.title
                           ? customer_invoice?.customer_service_request
-                              ?.intake_form[0]?.title
+                            ?.intake_form[0]?.title
                           : ""
                       }
                       name="title"
@@ -359,7 +359,7 @@ const InvoiceDetail = () => {
                         customer_invoice?.customer_service_request
                           ?.intake_form[0]?.description
                           ? customer_invoice?.customer_service_request
-                              ?.intake_form[0]?.description
+                            ?.intake_form[0]?.description
                           : ""
                       }
                       name="description"
@@ -369,7 +369,7 @@ const InvoiceDetail = () => {
                     />
                   </div>
                 </Col>
-                {customer_invoice.is_paid === "no" ? (
+                {(customer_invoice?.customer_service_request.status !== 'cancelled' && customer_invoice.is_paid === "no") ? (
                   billingInfoLoading ? (
                     <Loader />
                   ) : (
