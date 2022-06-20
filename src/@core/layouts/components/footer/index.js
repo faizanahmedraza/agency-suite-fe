@@ -1,5 +1,4 @@
 import { useSelector } from "@store/store"
-import '@src/Styles/card.css'
 
 const Footer = () => {
 
@@ -10,13 +9,8 @@ const Footer = () => {
   return (
     <p className='clearfix mb-0'>
       <span className='float-md-start d-block d-md-inline-block mt-25'>
-        COPYRIGHT © {new Date().getFullYear()}{' '}
-        {/* <a href='#' className="ft-ag-clr" color="" target='_blank'> */}
-          <span className="ft-ag-clr"> 
-          {portal_settings && portal_settings?.agency?.name}
-          </span>
-        {/* </a> */}
-        <span className='d-none d-sm-inline-block'>, All Rights Reserved</span>
+        COPYRIGHT © {new Date().getFullYear()}{' '} Powered By Business Tree Kit
+        <span className='d-none d-sm-inline-block'>, All rights Reserved</span>
       </span>
     </p>
   )
