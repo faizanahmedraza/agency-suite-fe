@@ -12,7 +12,7 @@ import {
     Button,
     Input
 } from 'reactstrap'
-import { Link } from "react-router-dom"
+import GeneralHelper from "@src/Helpers/GeneralHelper";
 
 const CardContentTypes = ({ services }) => {
     const dispatch = useDispatch()
@@ -31,17 +31,18 @@ const CardContentTypes = ({ services }) => {
 
     function returnLink(id) {
         const user = JSON.parse(localStorage.getItem("user"));
-        let link = ``;
+        let link = "/login";
         if (user) {
             if (user.roles[0].name === "Agency") {
-                link = `/service-requests/create`
+                let serviceId = GeneralHelper.Serialize({
+                    service_id: id
+                })
+                link = "/service-requests/create?"+serviceId
             } else {
-                link = `/customer-service-requests/create/${id}`
+                link = "/customer-service-requests/create/"+id
             }
-        } else {
-            link = `/login`
         }
-        return link;
+        window.location.href = link;
     }
 
     return (
@@ -86,11 +87,9 @@ const CardContentTypes = ({ services }) => {
                                             <CardText>
                                                 {service.description}
                                             </CardText>
-                                            <Link to={returnLink(service.id)}>
-                                                <Button color='primary' outline>
-                                                    Purchase
-                                                </Button>
-                                            </Link>
+                                            <Button color='primary' outline onClick={() => returnLink(service.id)}>
+                                                Purchase
+                                            </Button>
                                         </CardBody>
                                     </Card>
                                 </div>
