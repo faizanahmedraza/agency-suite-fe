@@ -10,8 +10,8 @@ async function authGateway(METHOD, DOMAIN, API, BODY = null) {
         headers: {
             // 'access-control-allow-origin': '*',
             'Content-Type': 'application/json',
-            "Domain": DOMAIN,
-            "Authorization": `Bearer ${TOKEN}`
+            Domain: 'irfanagency1.allthingswordpress.io',
+            Authorization: `Bearer ${TOKEN}`,
         },
         body: BODY,
     };
@@ -39,7 +39,7 @@ async function guestGateway(METHOD, DOMAIN = null, API, BODY = null) {
         headers: {
             'Content-Type': 'application/json',
             // 'access-control-allow-origin': '*',
-            "Domain": DOMAIN ? DOMAIN : "",
+            Domain: DOMAIN ? DOMAIN : 'irfanagency1.allthingswordpress.io',
             'Client-ID': config.client_id,
             'Client-Secret': config.client_secret,
         },
