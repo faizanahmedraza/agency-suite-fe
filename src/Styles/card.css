@@ -10,8 +10,8 @@
     align-items: center;
 }
 .crd-hgt{
-    max-height: 15rem;
-    min-height: 15rem;
+    max-height: 18rem;
+    min-height: 18rem;
 }
 .pl{
     padding-left: 20px;
@@ -35,4 +35,10 @@
 }
 .ft-ag-clr{
     color: var(--custom-color);
+}
+.crd-hgt-amnt{
+    height: 2rem ;
+}
+.crd-hgt-desc{
+    min-height: 4rem !important;
 }

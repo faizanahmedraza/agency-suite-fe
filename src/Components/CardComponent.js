@@ -58,6 +58,7 @@ const CardContentTypes = ({ services }) => {
                     {
                         services && services.map((service) => {
                             const image = service.image ? service.image : "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
+                           let description = service.description.slice(0,100)
                             return (
                                 <div className="col-4" key={service.id}>
                                     <Card>
@@ -66,7 +67,7 @@ const CardContentTypes = ({ services }) => {
                                         </div>
                                         <CardBody className='crd-hgt'>
                                             <CardTitle tag='h4'>{service.name}</CardTitle>
-                                            <CardText>
+                                            <CardText className='crd-hgt-amnt'>
                                                 {service.subscription_type === "recurring" ?
                                                     <Input type='select' name='subscription_type' id={`${service.id}`} onChange={handleOnChange}>
                                                         <option value="annualy">Annualy - ${Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}</option>
@@ -81,8 +82,8 @@ const CardContentTypes = ({ services }) => {
                                                     </>
                                                 }
                                             </CardText>
-                                            <CardText>
-                                                {service.description}
+                                            <CardText className='crd-hgt-desc'>
+                                                {description}{service.description.length > 100? "..." : null}
                                             </CardText>
                                             <Link to={returnLink(service.id)}>
                                                 <Button color='primary' outline>
