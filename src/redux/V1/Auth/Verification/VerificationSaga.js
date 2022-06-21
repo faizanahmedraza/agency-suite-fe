@@ -21,7 +21,19 @@ function* verification(data) {
 }
 
 function verificationSuccess(data) {
-    window.location.href = "/login";
+    localStorage.setItem(
+        "access_token",
+        data.response.authentication.access_token
+    );
+    localStorage.setItem(
+        "user",
+        JSON.stringify(data.response.authentication.user)
+    );
+    localStorage.setItem(
+        "permissions",
+        JSON.stringify(data.response.authentication.user.roles[0].permissions)
+    );
+    window.location.href = "/dashboard";
 }
 
 function verificationFailed(data) {
