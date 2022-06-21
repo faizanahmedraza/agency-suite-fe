@@ -70,6 +70,7 @@ const DetailServiceRequest = lazy(() => import("@src/views/ServiceRequest/Detail
 const NotAuthorized = lazy(() => import("@src/views/NotAuthorized"));
 const Error = lazy(() => import("@src/views/Error"));
 const Catalog = lazy(() => import("@src/views/Catalouge/catalouge"));
+const ServiceDetails = lazy(() => import("@src/views/Services/ServiceDetails"));
 
 // ** Merge Routes
 const Routes = [
@@ -371,6 +372,15 @@ const Routes = [
   {
     path: "/catalogue",
     element: <Catalog />,
+    meta: {
+      layout: "blank",
+      publicRoute: true,
+      restricted: false
+    },
+  },
+  {
+    path: "/Service-details",
+    element: <ServiceDetails />,
     meta: {
       layout: "blank",
       publicRoute: true,
