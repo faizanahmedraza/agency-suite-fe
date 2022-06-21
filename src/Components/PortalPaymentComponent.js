@@ -100,7 +100,7 @@ const CardPayment = () => {
                   type='switch'
                   checked={paymentInfo.is_enable === "yes"}
                   onChange={() => setWarningStatusModal(!warningStatusModal)}
-                  value={paymentInfo.is_enable === "yes" ?? "no"}
+                  value={paymentInfo.is_enable ?? "yes"}
                   id='icon-primary'
                   name='icon-primary'
                 />

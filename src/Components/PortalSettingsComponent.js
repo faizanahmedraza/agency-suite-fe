@@ -71,10 +71,10 @@ const Portal = () => {
 
 
   useEffect(() => {
-    if (!fetched) {
+    if (!fetched || isChanged) {
       dispatch(PortalSettingDetailAction.portalSettingDetail());
     }
-    if (fetched || !isChanged) return setPortalSetting(portal_settings);
+    if (fetched && !isChanged) return setPortalSetting(portal_settings);
     setPortalSetting(updatedPortalSettings);
   }, [fetched, isChanged]);
 
