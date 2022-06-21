@@ -30,7 +30,7 @@ const CardPayment = () => {
 
   const {
     list: { loading, gateway, isFetched },
-    create: { loading: createLoading, gateway: createGateway, success },
+    create: { loading: createLoading, gateway: createGateway, isSuccess },
     status: { loading: statusLoading, isChanged },
   } = useSelector((state) => state.payment_gateway);
 
@@ -57,13 +57,19 @@ const CardPayment = () => {
   }, [isFetched]);
 
   useEffect(() => {
+    if (isSuccess) {
+      dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"))
+    }
+    if (isFetched) return setPaymentInfo(gateway);
+  }, [isSuccess]);
+
+  useEffect(() => {
     if (isChanged) {
       dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"))
     }
     if (isFetched) return setPaymentInfo(gateway);
   }, [isChanged]);
-
-
+  
   useEffect(() => {
     return () => {
       setWarningStatusModal(false);
@@ -94,18 +100,20 @@ const CardPayment = () => {
         <>
           <CardHeader>
             <CardTitle tag="h4">Stripe</CardTitle>
-            <CardTitle className="text-primary" tag="h4">
-              <div className="form-switch form-check-primary">
-                <Input
-                  type='switch'
-                  checked={paymentInfo.is_enable === "yes"}
-                  onChange={() => setWarningStatusModal(!warningStatusModal)}
-                  value={paymentInfo.is_enable ?? "yes"}
-                  id='icon-primary'
-                  name='icon-primary'
-                />
-              </div>
-            </CardTitle>
+            {
+              gateway.gateway_secret ?
+                <div className="form-switch form-check-primary">
+                  <Input
+                    type='switch'
+                    checked={paymentInfo.is_enable === "yes"}
+                    onChange={() => setWarningStatusModal(!warningStatusModal)}
+                    value={paymentInfo.is_enable ?? "yes"}
+                    id='icon-primary'
+                    name='icon-primary'
+                  />
+                </div>
+                : ""
+            }
           </CardHeader>
           <CardBody>
             <Row>
