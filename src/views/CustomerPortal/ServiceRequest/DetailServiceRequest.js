@@ -198,7 +198,7 @@ const DetailServiceRequest = () => {
                                         Back
                                     </Link>
                                     {
-                                        serivice_request.status !== "cancelled" ?
+                                        (serivice_request.status !== "cancelled" || serivice_request.status !== "completed") ?
                                             <Button color='primary' className="mw-25" onClick={() => setCancelModal(!cancelModal)}> Cancel Request </Button> : ""}
                                 </div>
                             </Col>
