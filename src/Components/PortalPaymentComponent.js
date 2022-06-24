@@ -133,10 +133,10 @@ const CardPayment = () => {
               <Col className="text-end pt-2" md="3" sm="12">
                 {
                   gateway.gateway_secret ?
-                    <Button onClick={() => setWarningUpdateModal(!warningUpdateModal)} disabled={paymentInfo.is_enable === "no"}>
+                    <Button color="primary" onClick={() => setWarningUpdateModal(!warningUpdateModal)} disabled={paymentInfo.is_enable === "no"}>
                       Save
                     </Button> :
-                    <Button onClick={submitSaveForm}>
+                    <Button color="primary" onClick={submitSaveForm}>
                       Save
                     </Button>
                 }
