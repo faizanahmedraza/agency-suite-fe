@@ -101,9 +101,11 @@ const CardContentTypes = ({ services }) => {
             </div>
             <footer>
                 <div className="row">
-                    <div className="col-12 text-center">
-                        Powered By <h1>{JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? 'Agency Tool'}</h1>
-                    </div>
+                    <p className='clearfix mb-0 text-center'>
+                        <span className='my-25'>
+                            COPYRIGHT © {new Date().getFullYear()}{' '} Powered By <span className="ft-ag-clr"> Agency Suite </span>
+                        </span>
+                    </p>
                 </div>
             </footer>
         </Fragment>
