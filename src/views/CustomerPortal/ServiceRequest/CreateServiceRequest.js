@@ -37,13 +37,12 @@ const CreateServiceRequest = () => {
         recurring_type: "monthly",
         title: "",
         description: "",
-        reference_no: "",
+        quantity: ""
     });
 
     const [isOpenModal, setIsOpenModal] = useState(false)
 
     useEffect(() => {
-        dispatch(BillingInformationListAction.billingInformationList());
         if (!serviceFetched) return dispatch(ServiceActions.serviceDetail(service_id));
 
         if (serviceFetched) {
@@ -52,7 +51,11 @@ const CreateServiceRequest = () => {
                 service_id: service.id
             })
         }
-    }, [serviceFetched, billingInfoFetched, success]);
+    }, [serviceFetched]);
+
+    useEffect(() => {
+        if (!billingInfoFetched || success) return dispatch(BillingInformationListAction.billingInformationList());
+    }, [billingInfoFetched, success]);
 
     useEffect(() => {
         return () => {
@@ -79,11 +82,11 @@ const CreateServiceRequest = () => {
         return false;
     }
 
-    const setModalIsOpenToTrue =()=>{
+    const setModalIsOpenToTrue = () => {
         setIsOpenModal(true)
     }
 
-    const setModalIsOpenToFalse =()=>{
+    const setModalIsOpenToFalse = () => {
         setIsOpenModal(false)
     }
 
@@ -232,6 +235,14 @@ const CreateServiceRequest = () => {
                                             Description
                                         </Label>
                                         <Input type='textarea' value={serviceRequestDetails.description ?? ""} onChange={handleServiceRequestInputField} name='description' id='description' placeholder='Enter Description' />
+                                    </div>
+                                </Col>
+                                <Col md='12' sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label fs-5' for='select-basic'>
+                                            Quantity
+                                        </Label>
+                                        <Input type='number' value={serviceRequestDetails.quantity ?? ""} onChange={handleServiceRequestInputField} name='quantity' id='quantity' placeholder='Enter Quantity' />
                                     </div>
                                 </Col>
                                 <Col md='12' sm='12'>
