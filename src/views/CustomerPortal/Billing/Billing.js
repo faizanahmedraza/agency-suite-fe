@@ -106,7 +106,7 @@ const Billing = () => {
                                 <CardTitle tag='h4'>
                                     <div className='d-flex justify-content-between align-items-center'>
                                         <strong className='fs-5'>Wallet</strong>
-                                        <Button className='btn-primary btn-sm' disabled>Top Up</Button>
+                                        <Button className='btn-primary btn-sm' color ="primary" disabled>Top Up</Button>
                                     </div>
                                 </CardTitle>
                                 <div className='d-flex flex-column pt-2'>
@@ -152,7 +152,7 @@ const Billing = () => {
                                             <div className='d-flex justify-content-between align-items-center'>
                                                 <div className='fs-5'>{data.exp_month} / 20{data.exp_year}</div>
                                                 {!data.is_primary ?
-                                                    <Button className='btn-primary btn-sm' onClick={e => {
+                                                    <Button className='btn-primary btn-sm' color='primary' onClick={e => {
                                                         setIsDeleteId(data.id)
                                                         setDeleteModalIsOpenToTrue()
                                                     }}>Delete</Button>
