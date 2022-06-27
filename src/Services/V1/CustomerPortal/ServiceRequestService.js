@@ -32,7 +32,7 @@ const serviceRequestBody = (data) => {
     let _data = {};
     _data.service_id = data.service_id;
     _data.recurring_type = data.recurring_type;
-    _data.reference_no = data.reference_no;
+    _data.quantity = data.quantity;
     _data.intake_form = [
         {
             title: data.title,

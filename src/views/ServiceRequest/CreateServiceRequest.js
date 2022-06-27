@@ -48,6 +48,7 @@ const CreateServiceRequest = () => {
         description: "",
         is_recurring: false,
         selected_service: null,
+        quantity: ""
     })
 
     const [inputCustomerValue, setCustomerValue] = useState('');
@@ -339,6 +340,14 @@ const CreateServiceRequest = () => {
                                                 Description
                                             </Label>
                                             <Input type='textarea' value={serviceRequestDetails.description} onChange={handleInputField} name='description' id='description' placeholder='Enter Description' />
+                                        </div>
+                                    </Col>
+                                    <Col md='12' sm='12'>
+                                        <div className='mb-1'>
+                                            <Label className='form-label fs-5' for='select-basic'>
+                                                Quantity
+                                            </Label>
+                                            <Input type='number' value={serviceRequestDetails.quantity} onChange={handleInputField} name='quantity' id='quantity' placeholder='Enter Quantity' />
                                         </div>
                                     </Col>
                                     <Col md='12' sm='12'>

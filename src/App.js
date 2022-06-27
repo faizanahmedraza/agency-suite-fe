@@ -37,7 +37,7 @@ const App = () => {
 
   useEffect(() => {
     if (window.location.hostname !== config.public_url && localStorage.getItem('portal_settings') === null) {
-      if (!fetched) return dispatch(PortalSettingDetailAction.portalSettingDetail());
+      if (!fetched) dispatch(PortalSettingDetailAction.portalSettingDetail());
     }
     setFavIcon();
     setTitle();

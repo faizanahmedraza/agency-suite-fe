@@ -99,7 +99,7 @@ const InvoiceTable = ({ invoices, pagination }) => {
                                                 <Input type='switch' onChange={(e) => handleShowInvoiceStatus(e, invoice.id)} defaultChecked={invoice?.is_paid === 'yes'} id='icon-secondnary' name='icon-status' />
                                             </div>
                                             {invoice?.is_paid === "yes" ? formatDate(invoice.paid_at) : ""}
-                                        </> : ""}
+                                        </> : (invoice?.is_paid === "yes" ? formatDate(invoice.paid_at) : "")}
 
                                 </td>
                                 <td className='text-center px-0'>{formatDate(invoice?.created_at)}</td>
