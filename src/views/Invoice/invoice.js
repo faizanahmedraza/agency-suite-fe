@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams,Link } from 'react-router-dom'
 import { useDispatch, useSelector } from "@store/store";
 import {
   Card,
   CardBody,
+  Button
 } from 'reactstrap'
 import InvoiceListAction from "@store/V1/Invoice/List/InvoiceListAction"
 import InvoiceTable from '@src/views/Invoice/InvoiceTable'
@@ -51,11 +52,11 @@ const Invoice = () => {
             <div className='col-md-9'>
               <h1>Invoices</h1>
             </div>
-            {/* <div className='col-md-3'>
-              <Link to="/invoice/create">
+            <div className='col-md-3'>
+              <Link to="/invoices/create">
                 <Button.Ripple className="w-100" color='primary'>Create Invoice</Button.Ripple>
               </Link>
-            </div> */}
+            </div>
           </div>
         </CardBody >
       </Card >

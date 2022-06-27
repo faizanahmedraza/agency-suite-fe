@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useSearchParams } from 'react-router-dom';
 import {
     Card,
     Row,
@@ -12,9 +11,10 @@ import {
     Spinner,
 } from 'reactstrap'
 import { useDispatch, useSelector } from '@store/store'
-import ServiceRequestCreateAction from "@store/V1/ServiceRequest/CREATE/ServiceRequestCreateAction";
 import ServiceActions from '@store/V1/Service/List/ServiceListAction';
 import CustomerListAction from "@store/V1/Customer/LIST/CustomerListAction";
+import InvoiceCreateAction from "@store/V1/Invoice/Create/InvoiceCreateAction"
+import { Link } from "react-router-dom"
 import AsyncSelect from 'react-select/async';
 import CustomerService from '@src/Services/V1/CustomerService';
 import AgencyService from '@src/Services/V1/AgencyService';
@@ -26,21 +26,23 @@ const Loader = () => {
     );
 }
 
-const CreateServiceRequest = () => {
-
+const CreateInvoice = () => {
     const dispatch = useDispatch();
-    const [searchParam, setSearchParam] = useSearchParams()
-    const serviceId = searchParam.get("service_id")
 
     const {
         service: { list: { services, loading: serviceLoading } },
         customers: { list: { customers, loading: customerLoading } },
-        service_requests: { create: { loading } }
+        invoices: {
+            create: { loading },
+        },
     } = useSelector(state => state);
 
-    const requiredService = (!serviceLoading && serviceId !== null) ? services.find(({ id }) => id === Number(serviceId)) : null;
+    const [inputCustomerValue, setCustomerValue] = useState('');
+    const [inputServiceValue, setServiceValue] = useState('');
+    const [defaultCustomerOptions, setDefaultCustomerOptions] = useState([]);
+    const [defaultServiceOptions, setDefaultServiceOptions] = useState([]);
 
-    const [serviceRequestDetails, setServiceRequestDetails] = useState({
+    const [invoiceDetails, setInvoiceDetails] = useState({
         service_id: "",
         customer_id: "",
         recurring_type: "monthly",
@@ -51,10 +53,6 @@ const CreateServiceRequest = () => {
         quantity: ""
     })
 
-    const [inputCustomerValue, setCustomerValue] = useState('');
-    const [inputServiceValue, setServiceValue] = useState('');
-    const [defaultCustomerOptions, setDefaultCustomerOptions] = useState([]);
-    const [defaultServiceOptions, setDefaultServiceOptions] = useState([]);
 
     useEffect(() => {
         if (!services.length) {
@@ -67,21 +65,12 @@ const CreateServiceRequest = () => {
                 status: "active,pending"
             })));
         }
-        if (requiredService) {
-            setServiceRequestDetails({
-                ...serviceRequestDetails,
-                service_id: requiredService?.id ?? "",
-                recurring_type: "monthly",
-                is_recurring: requiredService?.subscription_type == "recurring" ? true : false,
-                selected_service: requiredService,
-            })
-        }
         loadDefaultOptions();
-    }, [requiredService]);
+    }, []);
 
     const handleInputField = (e) => {
-        setServiceRequestDetails({
-            ...serviceRequestDetails,
+        setInvoiceDetails({
+            ...invoiceDetails,
             [e.target.name]: e.target.value
         })
     }
@@ -109,20 +98,20 @@ const CreateServiceRequest = () => {
     // handle on change async selection
     const handleOnChange = (options, e) => {
         if (e.name == "customers") {
-            serviceRequestDetails.customer_id = options.value;
+            invoiceDetails.customer_id = options.value;
         } else {
-            serviceRequestDetails.service_id = options.value;
-            serviceRequestDetails.selected_service = services.find(service => service.id === Number(options.value));
-            serviceRequestDetails.is_recurring = serviceRequestDetails.selected_service?.subscription_type == "recurring" ? true : false;
+            invoiceDetails.service_id = options.value;
+            invoiceDetails.selected_service = services.find(service => service.id === Number(options.value));
+            invoiceDetails.is_recurring = invoiceDetails.selected_service?.subscription_type == "recurring" ? true : false;
         }
-        setServiceRequestDetails({
-            ...serviceRequestDetails
+        setInvoiceDetails({
+            ...invoiceDetails
         });
     }
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        dispatch(ServiceRequestCreateAction.serviceRequestCreate(serviceRequestDetails));
+        dispatch(InvoiceCreateAction.invoiceCreate(invoiceDetails));
     }
 
     const smartCustomerSearchFilter = async (inputValue) => {
@@ -184,18 +173,13 @@ const CreateServiceRequest = () => {
         setDefaultServiceOptions(resultService)
     };
 
-    const defaulServicetValue = {
-        value: requiredService?.id ?? "",
-        label: requiredService?.name ?? "",
-    }
-
     return (
         <div>
             <Card>
                 <CardBody>
                     <div className='row'>
                         <div className='col-md-5'>
-                            <h1>Create Service Request</h1>
+                            <h1>Create Invoice</h1>
                         </div>
                     </div>
                 </CardBody>
@@ -232,7 +216,6 @@ const CreateServiceRequest = () => {
                                             <AsyncSelect
                                                 isClearable={false}
                                                 cacheOptions
-                                                defaultValue={defaulServicetValue}
                                                 defaultOptions={defaultServiceOptions}
                                                 className='react-select'
                                                 classNamePrefix='select'
@@ -245,7 +228,7 @@ const CreateServiceRequest = () => {
                                     </Col>
                                 </Row>
                                 {
-                                    (serviceRequestDetails.is_recurring && serviceRequestDetails.selected_service != null) &&
+                                    (invoiceDetails.is_recurring && invoiceDetails.selected_service != null) &&
                                     <Row>
                                         <Col md='12' sm='12'>
                                             <div className='mb-1'>
@@ -256,31 +239,31 @@ const CreateServiceRequest = () => {
                                                     <div className='form-check'>
                                                         <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleInputField} />
                                                         <Label className='form-check-label' for='sr1'>
-                                                            {'annually - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.annually).toFixed(2)}
+                                                            {'annually - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.annually).toFixed(2)}
                                                         </Label>
                                                     </div>
                                                     <div className='form-check'>
                                                         <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleInputField} />
                                                         <Label className='form-check-label' for='sr2'>
-                                                            {'biannually - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.biannually).toFixed(2)}
+                                                            {'biannually - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.biannually).toFixed(2)}
                                                         </Label>
                                                     </div>
                                                     <div className='form-check'>
                                                         <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleInputField} />
                                                         <Label className='form-check-label' for='sr3'>
-                                                            {'quarterly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.quarterly).toFixed(2)}
+                                                            {'quarterly - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.quarterly).toFixed(2)}
                                                         </Label>
                                                     </div>
                                                     <div className='form-check'>
                                                         <Input type='radio' name='recurring_type' value="weekly" onChange={handleInputField} />
                                                         <Label className='form-check-label' for='sr4'>
-                                                            {'weekly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.weekly).toFixed(2)}
+                                                            {'weekly - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.weekly).toFixed(2)}
                                                         </Label>
                                                     </div>
                                                     <div className='form-check'>
                                                         <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleInputField} defaultChecked />
                                                         <Label className='form-check-label' for='sr5'>
-                                                            {'monthly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.monthly).toFixed(2)}
+                                                            {'monthly - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.monthly).toFixed(2)}
                                                         </Label>
                                                     </div>
                                                 </div>
@@ -289,7 +272,7 @@ const CreateServiceRequest = () => {
                                     </Row>
                                 }
                                 {
-                                    (!serviceRequestDetails.is_recurring && serviceRequestDetails.selected_service !== null) &&
+                                    (!invoiceDetails.is_recurring && invoiceDetails.selected_service !== null) &&
                                     <Row>
                                         <Col md='4' sm='12'>
                                             <div className='mb-1'>
@@ -307,7 +290,7 @@ const CreateServiceRequest = () => {
                                                     Price
                                                 </Label>
                                                 <p className='text-wrap'>
-                                                    ${Number.parseFloat(serviceRequestDetails?.selected_service?.price_types?.price ?? 0).toFixed(2)}
+                                                    ${Number.parseFloat(invoiceDetails?.selected_service?.price_types?.price ?? 0).toFixed(2)}
                                                 </p>
                                             </div>
                                         </Col>
@@ -317,7 +300,7 @@ const CreateServiceRequest = () => {
                                                     Purchase Limit
                                                 </Label>
                                                 <p className='text-wrap'>
-                                                    {serviceRequestDetails?.selected_service?.price_types?.purchase_limit ?? "---"}
+                                                    {invoiceDetails?.selected_service?.price_types?.purchase_limit ?? "---"}
                                                 </p>
                                             </div>
                                         </Col>
@@ -329,7 +312,7 @@ const CreateServiceRequest = () => {
                                             <Label className='form-label' for='nameMulti'>
                                                 Title
                                             </Label>
-                                            <Input type='text' value={serviceRequestDetails.title} onChange={handleInputField} name='title' id='title' placeholder='Enter Title' />
+                                            <Input type='text' value={invoiceDetails.title} onChange={handleInputField} name='title' id='title' placeholder='Enter Title' />
                                         </div>
                                     </Col>
                                     <Col md='12' sm='12'>
@@ -337,7 +320,7 @@ const CreateServiceRequest = () => {
                                             <Label className='form-label' for='nameMulti'>
                                                 Description
                                             </Label>
-                                            <Input type='textarea' value={serviceRequestDetails.description} onChange={handleInputField} name='description' id='description' placeholder='Enter Description' />
+                                            <Input type='textarea' value={invoiceDetails.description} onChange={handleInputField} name='description' id='description' placeholder='Enter Description' />
                                         </div>
                                     </Col>
                                     <Col md='12' sm='12'>
@@ -345,7 +328,7 @@ const CreateServiceRequest = () => {
                                             <Label className='form-label fs-5' for='select-basic'>
                                                 Quantity
                                             </Label>
-                                            <Input type='number' value={serviceRequestDetails.quantity} onChange={handleInputField} name='quantity' id='quantity' placeholder='Enter Quantity' />
+                                            <Input type='number' value={invoiceDetails.quantity} onChange={handleInputField} name='quantity' id='quantity' placeholder='Enter Quantity' />
                                         </div>
                                     </Col>
                                     <Col md='12' sm='12'>
@@ -378,4 +361,4 @@ const CreateServiceRequest = () => {
     )
 }
 
-export default CreateServiceRequest;
+export default CreateInvoice

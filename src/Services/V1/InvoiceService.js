@@ -7,6 +7,12 @@ async function invoiceList(params) {
     return response;
 }
 
+async function invoicePost(data) {
+    const _data = invoiceBody(data);
+    const response = await Gateway.authGateway("POST", V1.DOMAIN, V1.agency.invoices, _data);
+    return response;
+}
+
 async function invoiceDetail(id) {
     const response = await Gateway.authGateway(
         "GET",
@@ -47,8 +53,27 @@ const invoicePaidBodyData = (data) => {
     return JSON.stringify(_data);
 }
 
+const invoiceBody = (data) => {
+    let _data = {};
+
+    _data.service_id = data.service_id;
+    _data.customer_id = data.customer_id;
+    _data.recurring_type = data.recurring_type;
+    _data.quantity = data.quantity;
+    _data.intake_form =  [
+        {
+            title: data.title,
+            description: data.description
+        }
+    ];
+
+    return JSON.stringify(_data);
+
+};
+
 const InvoiceService = {
     invoiceList,
+    invoicePost,
     invoiceDetail,
     invoiceStatus,
     invoiceDelete,
