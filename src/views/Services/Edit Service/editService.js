@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import EditorComponent from "@src/Components/EditorComponent";
 import {
     Card,
     Row,
@@ -75,13 +76,19 @@ const EditService = () => {
             ]
         }
     })
-
-    const handleInputField = (e) => {
+    const getEditorValue = (value) => {
         setServiceDetails({
-            ...serviceDetails,
-            [e.target.name]: e.target.value
-        })
-    }
+          ...serviceDetails,
+          description: value,
+        });
+      };
+    
+      const handleInputField = (e) => {
+        setServiceDetails({
+          ...serviceDetails,
+          [e.target.name]: e.target.value,
+        });
+      };
 
     const handleNestedObject = (e) => {
         setServiceDetails((prevState) => ({
@@ -116,8 +123,11 @@ const EditService = () => {
 
         if (selected_service) {
             setServiceDetails(selected_service)
+            console.log(selected_service);
         }
     }, [selected_service])
+
+    console.log(serviceDetails)
 
     const onSubmitHandler = (e) => {
         e.preventDefault()
@@ -183,7 +193,11 @@ const EditService = () => {
                                                                 <Label className='form-label' for='nameMulti'>
                                                                     Description
                                                                 </Label>
-                                                                <Input type='textarea' value={serviceDetails.description ?? ""} onChange={handleInputField} name='description' id='nameMulti' placeholder='Enter Description' />
+
+                                                                <EditorComponent
+                                                                     serviceDetails={serviceDetails}
+                                                                     getEditorValue={getEditorValue}
+                                                                />
                                                             </div>
                                                         </Col>
                                                         <Col md='6' sm='12'>
@@ -411,7 +425,12 @@ const EditService = () => {
                                                     <Label className='form-label' for='nameMulti'>
                                                         Description
                                                     </Label>
-                                                    <Input type='textarea' disabled name='name' id='nameMulti' placeholder='Enter Description    ' />
+                                                    <EditorComponent
+                                                                     disabled 
+                                                                     serviceDetails={serviceDetails}
+                                                                     getEditorValue={getEditorValue}
+                                                                     />  
+                                                    {/* <Input type='textarea' disabled name='name' id='nameMulti' placeholder='Enter Description    ' /> */}
                                                 </div>
                                             </Container>
                                         </Col>

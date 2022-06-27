@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import EditorComponent from "@src/Components/EditorComponent";
 import { useParams, Link } from 'react-router-dom';
 import {
     Card,
@@ -70,6 +71,12 @@ const CreateServiceRequest = () => {
         })
     }
 
+    const getEditorValue = (value) => {
+        setServiceDetails({
+          ...serviceDetails,
+          description: value,
+        });
+      };   
     const onSubmitHandler = (e) => {
         e.preventDefault();
         dispatch(ServiceRequestCreateAction.serviceRequestCreate(serviceRequestDetails));
@@ -152,24 +159,6 @@ const CreateServiceRequest = () => {
                                                     </Label>
                                                     <div className='demo-inline-spacing'>
                                                         <div className='form-check'>
-                                                            <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleServiceRequestInputField} />
-                                                            <Label className='form-check-label fs-5' for='sr1'>
-                                                                {'annually - $' + Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}
-                                                            </Label>
-                                                        </div>
-                                                        <div className='form-check'>
-                                                            <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleServiceRequestInputField} />
-                                                            <Label className='form-check-label fs-5' for='sr2'>
-                                                                {'biannually - $' + Number.parseFloat(service.price_types.biannually ?? 0).toFixed(2)}
-                                                            </Label>
-                                                        </div>
-                                                        <div className='form-check'>
-                                                            <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleServiceRequestInputField} />
-                                                            <Label className='form-check-label fs-5' for='sr3'>
-                                                                {'quarterly - $' + Number.parseFloat(service.price_types.quarterly ?? 0).toFixed(2)}
-                                                            </Label>
-                                                        </div>
-                                                        <div className='form-check'>
                                                             <Input type='radio' name='recurring_type' value="weekly" onChange={handleServiceRequestInputField} />
                                                             <Label className='form-check-label fs-5' for='sr4'>
                                                                 {'weekly - $' + Number.parseFloat(service.price_types.weekly ?? 0).toFixed(2)}
@@ -179,6 +168,24 @@ const CreateServiceRequest = () => {
                                                             <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleServiceRequestInputField} defaultChecked />
                                                             <Label className='form-check-label fs-5' for='sr5'>
                                                                 {'monthly - $' + Number.parseFloat(service.price_types.monthly ?? 0).toFixed(2)}
+                                                            </Label>
+                                                        </div>
+                                                        <div className='form-check'>
+                                                            <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleServiceRequestInputField} />
+                                                            <Label className='form-check-label fs-5' for='sr3'>
+                                                                {'quarterly - $' + Number.parseFloat(service.price_types.quarterly ?? 0).toFixed(2)}
+                                                            </Label>
+                                                        </div>
+                                                        <div className='form-check'>
+                                                            <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleServiceRequestInputField} />
+                                                            <Label className='form-check-label fs-5' for='sr2'>
+                                                                {'biannually - $' + Number.parseFloat(service.price_types.biannually ?? 0).toFixed(2)}
+                                                            </Label>
+                                                        </div>
+                                                        <div className='form-check'>
+                                                            <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleServiceRequestInputField} />
+                                                            <Label className='form-check-label fs-5' for='sr1'>
+                                                                {'annually - $' + Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}
                                                             </Label>
                                                         </div>
                                                     </div>
@@ -234,7 +241,12 @@ const CreateServiceRequest = () => {
                                         <Label className='form-label fs-5' for='description'>
                                             Description
                                         </Label>
-                                        <Input type='textarea' value={serviceRequestDetails.description ?? ""} onChange={handleServiceRequestInputField} name='description' id='description' placeholder='Enter Description' />
+                                        <EditorComponent
+                                            serviceDetails={serviceRequestDetails}
+                                            getEditorValue={getEditorValue}
+                                            id='description'
+                                        />
+                                        {/* <Input type='textarea' value={serviceRequestDetails.description ?? ""} onChange={handleServiceRequestInputField} name='description' id='description' placeholder='Enter Description' /> */}
                                     </div>
                                 </Col>
                                 <Col md='12' sm='12'>
