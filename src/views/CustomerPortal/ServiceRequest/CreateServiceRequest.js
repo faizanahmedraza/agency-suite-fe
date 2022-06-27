@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import EditorComponent from "@src/Components/EditorComponent";
 import { useParams, Link } from 'react-router-dom';
 import {
     Card,
@@ -67,6 +68,12 @@ const CreateServiceRequest = () => {
         })
     }
 
+    const getEditorValue = (value) => {
+        setServiceDetails({
+          ...serviceDetails,
+          description: value,
+        });
+      };   
     const onSubmitHandler = (e) => {
         e.preventDefault();
         dispatch(ServiceRequestCreateAction.serviceRequestCreate(serviceRequestDetails));
@@ -231,7 +238,11 @@ const CreateServiceRequest = () => {
                                         <Label className='form-label fs-5' for='description'>
                                             Description
                                         </Label>
-                                        <Input type='textarea' value={serviceRequestDetails.description ?? ""} onChange={handleServiceRequestInputField} name='description' id='description' placeholder='Enter Description' />
+                                        <EditorComponent
+                                            serviceDetails={serviceRequestDetails}
+                                            getEditorValue={getEditorValue}
+                                        />
+                                        {/* <Input type='textarea' value={serviceRequestDetails.description ?? ""} onChange={handleServiceRequestInputField} name='description' id='description' placeholder='Enter Description' /> */}
                                     </div>
                                 </Col>
                                 <Col md='12' sm='12'>
