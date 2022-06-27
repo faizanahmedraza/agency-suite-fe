@@ -1,7 +1,7 @@
 import { Fragment, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from '@store/store'
 import PortalSettingDetailAction from "@store/V1/PortalSetting/DETAIL/PortalSettingDetailAction";
-import '@src/Styles/card.css'
+import '@src/Styles/serviceDetails.css'
 // ** Reactstrap Imports
 import {
     Card,
@@ -42,7 +42,6 @@ const CardDetails = ({ services }) => {
             }
         }
         window.location.href = link;
-        
     }
     return (
         <Fragment>
@@ -51,9 +50,106 @@ const CardDetails = ({ services }) => {
                     {portal_settings.logo ?
                         <img src={portal_settings?.logo} height="50" /> : <h2>Hello</h2>}
                         <h1 className='pl'>{JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? ''}</h1>
-                    </div>
-                    
+                    </div>  
             </header>
+            <div className="container">
+                <div className="row">
+                    {
+                        services && services.map((service) => {
+                            const image = service.image ? service.image : "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
+                           let description = service.description.slice(0,100)
+                            return (
+                                <div className="col-12" key={service.id}>
+                                    {/* <Card>
+                                    <CardBody>
+                                        <input type="text" name="" id="" value={service.name}/>
+                                      </CardBody>  
+                                    </Card> */}
+                                    <div className="row">
+                                        <div className="col-6">
+                                            <Card>
+                                                <CardBody>
+                                                    <div className="row">
+                                                        <div className="col-6">
+                                                            <h3>  Service Name :</h3>
+                                                        </div>
+                                                        <div className="col-6">
+                                                            <h3> {service.name}</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col-6">
+                                                            <h3> Service Payment :</h3>
+                                                        </div>
+                                                        <div className="col-6">
+                                                            <h4>{service.subscription_type === "recurring" ?
+                                                                <Input type='select' name='subscription_type' id={`${service.id}`} onChange={handleOnChange}>
+                                                                    <option value="weekly">Weekly - ${Number.parseFloat(service.price_types.weekly ?? 0).toFixed(2)}</option>
+                                                                    <option value="monthly">Monthly - ${Number.parseFloat(service.price_types.monthly ?? 0).toFixed(2)}</option>
+                                                                    <option value="quarterly">Quarterly - ${Number.parseFloat(service.price_types.quarterly ?? 0).toFixed(2)}</option>
+                                                                    <option value="biannually">Biannually - ${Number.parseFloat(service.price_types.biannually ?? 0).toFixed(2)}</option>
+                                                                    <option value="annualy">Annualy - ${Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}</option>
+                                                                </Input>
+                                                                :
+                                                                <>
+                                                                    $ {Number.parseFloat(service.price_types.price).toFixed(2)}
+                                                                </>
+                                                            }</h4>    
+                                                        </div>
+                                                    </div>
+                                                </CardBody>
+                                                <CardBody className=''>
+                                                    <div className="row">
+                                                        <div className="col-6">
+                                                            <h3> Service Description :</h3>
+                                                            {description}
+                                                        </div>
+                                                    </div>
+                                                </CardBody>
+                                            </Card>        
+
+                                            {/* <Card>
+                                                <div className='crd-dv-im'>
+                                                    <img src={image} className="crd-img" alt={service.name} />
+                                                </div>
+                                            <CardBody className='crd-hgt'>
+                                                <CardTitle tag='h4'>{service.name}</CardTitle>
+                                                <CardText className='crd-hgt-amnt'>
+                                                    {service.subscription_type === "recurring" ?
+                                                        <Input type='select' name='subscription_type' id={`${service.id}`} onChange={handleOnChange}>
+                                                            <option value="weekly">Weekly - ${Number.parseFloat(service.price_types.weekly ?? 0).toFixed(2)}</option>
+                                                            <option value="monthly">Monthly - ${Number.parseFloat(service.price_types.monthly ?? 0).toFixed(2)}</option>
+                                                            <option value="quarterly">Quarterly - ${Number.parseFloat(service.price_types.quarterly ?? 0).toFixed(2)}</option>
+                                                            <option value="biannually">Biannually - ${Number.parseFloat(service.price_types.biannually ?? 0).toFixed(2)}</option>
+                                                            <option value="annualy">Annualy - ${Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}</option>
+                                                        </Input>
+                                                        :
+                                                        <>
+                                                            $ {Number.parseFloat(service.price_types.price).toFixed(2)}
+                                                        </>
+                                                    }
+                                                </CardText>
+                                                <CardText className='crd-hgt-desc'>
+                                                    {description}{service.description.length > 100? "..." : null}
+                                                </CardText>
+                                                <Button color='primary' outline onClick={() => returnLink(service.id)}>
+                                                    Purchase
+                                                </Button>
+                                            </CardBody>
+                                        </Card> */}
+                                        </div>
+                                        <div className="col-6">
+                                            <div className='crd-dv-im'>
+                                                <img src={image} className="crd-img" alt={service.name} />
+                                            </div>
+                                        </div>
+                                    </div>   
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            </div>    
         </Fragment>
     )
 }

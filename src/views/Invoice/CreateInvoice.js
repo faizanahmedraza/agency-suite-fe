@@ -237,24 +237,6 @@ const CreateInvoice = () => {
                                                 </Label>
                                                 <div className='demo-inline-spacing'>
                                                     <div className='form-check'>
-                                                        <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleInputField} />
-                                                        <Label className='form-check-label' for='sr1'>
-                                                            {'annually - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.annually).toFixed(2)}
-                                                        </Label>
-                                                    </div>
-                                                    <div className='form-check'>
-                                                        <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleInputField} />
-                                                        <Label className='form-check-label' for='sr2'>
-                                                            {'biannually - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.biannually).toFixed(2)}
-                                                        </Label>
-                                                    </div>
-                                                    <div className='form-check'>
-                                                        <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleInputField} />
-                                                        <Label className='form-check-label' for='sr3'>
-                                                            {'quarterly - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.quarterly).toFixed(2)}
-                                                        </Label>
-                                                    </div>
-                                                    <div className='form-check'>
                                                         <Input type='radio' name='recurring_type' value="weekly" onChange={handleInputField} />
                                                         <Label className='form-check-label' for='sr4'>
                                                             {'weekly - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.weekly).toFixed(2)}
@@ -266,6 +248,25 @@ const CreateInvoice = () => {
                                                             {'monthly - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.monthly).toFixed(2)}
                                                         </Label>
                                                     </div>
+                                                    <div className='form-check'>
+                                                        <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleInputField} />
+                                                        <Label className='form-check-label' for='sr3'>
+                                                            {'quarterly - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.quarterly).toFixed(2)}
+                                                        </Label>
+                                                    </div>
+                                                    <div className='form-check'>
+                                                        <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleInputField} />
+                                                        <Label className='form-check-label' for='sr2'>
+                                                            {'biannually - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.biannually).toFixed(2)}
+                                                        </Label>
+                                                    </div>
+                                                    <div className='form-check'>
+                                                        <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleInputField} />
+                                                        <Label className='form-check-label' for='sr1'>
+                                                            {'annually - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.annually).toFixed(2)}
+                                                        </Label>
+                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </Col>

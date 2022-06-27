@@ -73,11 +73,11 @@ const CardContentTypes = ({ services }) => {
                                             <CardText className='crd-hgt-amnt'>
                                                 {service.subscription_type === "recurring" ?
                                                     <Input type='select' name='subscription_type' id={`${service.id}`} onChange={handleOnChange}>
-                                                        <option value="annualy">Annualy - ${Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}</option>
-                                                        <option value="biannually">Biannually - ${Number.parseFloat(service.price_types.biannually ?? 0).toFixed(2)}</option>
-                                                        <option value="quarterly">Quarterly - ${Number.parseFloat(service.price_types.quarterly ?? 0).toFixed(2)}</option>
                                                         <option value="weekly">Weekly - ${Number.parseFloat(service.price_types.weekly ?? 0).toFixed(2)}</option>
                                                         <option value="monthly">Monthly - ${Number.parseFloat(service.price_types.monthly ?? 0).toFixed(2)}</option>
+                                                        <option value="quarterly">Quarterly - ${Number.parseFloat(service.price_types.quarterly ?? 0).toFixed(2)}</option>
+                                                        <option value="biannually">Biannually - ${Number.parseFloat(service.price_types.biannually ?? 0).toFixed(2)}</option>
+                                                        <option value="annualy">Annualy - ${Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}</option>
                                                     </Input>
                                                     :
                                                     <>
