@@ -160,6 +160,7 @@ const CreateService = () => {
                           <EditorComponent
                             serviceDetails={serviceDetails}
                             getEditorValue={getEditorValue}
+                            name="description"
                             id='nameMulti'
                           />
                           {/* <Input type='textarea' value={serviceDetails.description} onChange={handleInputField} name='description' id='nameMulti' placeholder='Enter Description' /> */}
