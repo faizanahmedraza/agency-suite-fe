@@ -160,6 +160,7 @@ const CreateService = () => {
                           <EditorComponent
                             serviceDetails={serviceDetails}
                             getEditorValue={getEditorValue}
+                            name="description"
                             id='nameMulti'
                           />
                           {/* <Input type='textarea' value={serviceDetails.description} onChange={handleInputField} name='description' id='nameMulti' placeholder='Enter Description' /> */}
@@ -464,19 +465,13 @@ const CreateService = () => {
                           <Label className="form-label" for="nameMulti">
                             Description
                           </Label>
-                          <EditorComponent
-                            serviceDetails={serviceDetails}
-                            getEditorValue={getEditorValue}
-                            id='nameMulti'
-                            readonly
-                          />
-                          {/* <Input
+                          <Input
                             type="textarea"
                             disabled
                             name="name"
                             id="nameMulti"
                             placeholder="Enter Description    "
-                          /> */}
+                          />
                         </div>
                       </Container>
                     </Col>

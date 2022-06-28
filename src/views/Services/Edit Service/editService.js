@@ -77,18 +77,19 @@ const EditService = () => {
         }
     })
     const getEditorValue = (value) => {
+        console.log(value,'ddsddd')
         setServiceDetails({
-          ...serviceDetails,
-          description: value,
+            ...serviceDetails,
+            description: value,
         });
-      };
-    
-      const handleInputField = (e) => {
+    };
+
+    const handleInputField = (e) => {
         setServiceDetails({
-          ...serviceDetails,
-          [e.target.name]: e.target.value,
+            ...serviceDetails,
+            [e.target.name]: e.target.value,
         });
-      };
+    };
 
     const handleNestedObject = (e) => {
         setServiceDetails((prevState) => ({
@@ -123,7 +124,6 @@ const EditService = () => {
 
         if (selected_service) {
             setServiceDetails(selected_service)
-            console.log(selected_service);
         }
     }, [selected_service])
 
@@ -195,8 +195,8 @@ const EditService = () => {
                                                                 </Label>
 
                                                                 <EditorComponent
-                                                                     serviceDetails={serviceDetails}
-                                                                     getEditorValue={getEditorValue}
+                                                                    serviceDetails={serviceDetails}
+                                                                    getEditorValue={getEditorValue}
                                                                 />
                                                             </div>
                                                         </Col>
@@ -425,12 +425,7 @@ const EditService = () => {
                                                     <Label className='form-label' for='nameMulti'>
                                                         Description
                                                     </Label>
-                                                    <EditorComponent
-                                                                     disabled 
-                                                                     serviceDetails={serviceDetails}
-                                                                     getEditorValue={getEditorValue}
-                                                                     />  
-                                                    {/* <Input type='textarea' disabled name='name' id='nameMulti' placeholder='Enter Description    ' /> */}
+                                                    <Input type='textarea' disabled name='name' id='nameMulti' placeholder='Enter Description    ' />
                                                 </div>
                                             </Container>
                                         </Col>
