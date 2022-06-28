@@ -10,6 +10,7 @@ import {
     Button,
     Spinner,
 } from 'reactstrap'
+import Select from 'react-select'
 import { useDispatch, useSelector } from '@store/store'
 import ServiceActions from '@store/V1/Service/List/ServiceListAction';
 import CustomerListAction from "@store/V1/Customer/LIST/CustomerListAction";
@@ -39,18 +40,17 @@ const CreateInvoice = () => {
 
     const [inputCustomerValue, setCustomerValue] = useState('');
     const [inputServiceValue, setServiceValue] = useState('');
-    const [defaultCustomerOptions, setDefaultCustomerOptions] = useState([]);
-    const [defaultServiceOptions, setDefaultServiceOptions] = useState([]);
 
     const [invoiceDetails, setInvoiceDetails] = useState({
+        invoice_type: "",
         service_id: "",
         customer_id: "",
-        recurring_type: "monthly",
+        recurring_type: "",
         title: "",
         description: "",
         is_recurring: false,
         selected_service: null,
-        quantity: ""
+        quantity: 1
     })
 
 
@@ -65,7 +65,6 @@ const CreateInvoice = () => {
                 status: "active,pending"
             })));
         }
-        loadDefaultOptions();
     }, []);
 
     const handleInputField = (e) => {
@@ -80,9 +79,6 @@ const CreateInvoice = () => {
         if (action === "input-change") {
             setCustomerValue(inputValue);
         }
-        if (action === "menu-close") {
-            loadDefaultOptions();
-        }
     };
 
     // handle service input change event
@@ -90,15 +86,18 @@ const CreateInvoice = () => {
         if (action === "input-change") {
             setServiceValue(inputValue);
         }
-        if (action === "menu-close") {
-            loadDefaultOptions();
-        }
     };
 
     // handle on change async selection
     const handleOnChange = (options, e) => {
         if (e.name == "customers") {
             invoiceDetails.customer_id = options.value;
+        } else if (e.name == "invoice_type") {
+            invoiceDetails.invoice_type = options.value;
+            if (options.value == "custom") {
+                invoiceDetails.is_recurring = false;
+                invoiceDetails.selected_service = null;
+            }
         } else {
             invoiceDetails.service_id = options.value;
             invoiceDetails.selected_service = services.find(service => service.id === Number(options.value));
@@ -156,22 +155,25 @@ const CreateInvoice = () => {
         callback(result);
     };
 
-    const loadDefaultOptions = () => {
-        const resultCustomer = customers.slice(0, 20).map((d) => {
-            return {
-                value: `${d.id}`,
-                label: `${d.first_name + ' ' + d.last_name}`,
-            };
-        });
-        const resultService = services.slice(0, 20).map((d) => {
-            return {
-                value: `${d.id}`,
-                label: `${d.name}`,
-            };
-        });
-        setDefaultCustomerOptions(resultCustomer)
-        setDefaultServiceOptions(resultService)
-    };
+    const resultDefaultCustomer = customers.slice(0, 20).map((d) => {
+        return {
+            value: `${d.id}`,
+            label: `${d.first_name + ' ' + d.last_name}`,
+        };
+    });
+
+    const resultDefaultService = services.slice(0, 20).map((d) => {
+        return {
+            value: `${d.id}`,
+            label: `${d.name}`,
+        };
+    });
+
+    const invoiceOptions = [
+        { value: '', label: 'Select...' },
+        { value: 'custom', label: 'Custom' },
+        { value: 'service', label: 'Service' },
+    ]
 
     return (
         <div>
@@ -186,127 +188,162 @@ const CreateInvoice = () => {
             </Card>
             <Card>
                 <CardBody>
-                    {
-                        (serviceLoading || customerLoading) ? <Loader /> :
-                            <Form onSubmit={onSubmitHandler}>
+                    <Form onSubmit={onSubmitHandler}>
+                        <Row>
+                            <Col md="12" sm='12'>
+                                <div className='mb-1'>
+                                    <Label className='form-label fs-5' for='select-basic'>
+                                        Invoice To
+                                    </Label>
+                                    <AsyncSelect
+                                        isClearable={false}
+                                        cacheOptions
+                                        defaultOptions={resultDefaultCustomer}
+                                        className='react-select'
+                                        classNamePrefix='select'
+                                        name="customers"
+                                        loadOptions={loadCustomerOptions}
+                                        onInputChange={handleCustomerInputChange}
+                                        onChange={(options, e) => handleOnChange(options, e)}
+                                    />
+                                </div>
+                            </Col>
+                            <Col md="12" sm='12'>
+                                <div className='mb-1'>
+                                    <Label className='form-label fs-5' for='select-basic'>
+                                        Select Type
+                                    </Label>
+                                    <Select
+                                        className='react-select'
+                                        classNamePrefix='select'
+                                        defaultValue={invoiceOptions[0]}
+                                        options={invoiceOptions}
+                                        isClearable={false}
+                                        name="invoice_type"
+                                        onChange={(options, e) => handleOnChange(options, e)}
+                                    />
+                                </div>
+                            </Col>
+                        </Row>
+                        {
+                            (invoiceDetails.invoice_type == "custom")
+                                ?
                                 <Row>
-                                    <Col md="6" sm='12'>
-                                        <div className='mb-1'>
-                                            <Label className='form-label' for='select-basic'>
-                                                Customer
-                                            </Label>
-                                            <AsyncSelect
-                                                isClearable={false}
-                                                cacheOptions
-                                                defaultOptions={defaultCustomerOptions}
-                                                className='react-select'
-                                                classNamePrefix='select'
-                                                name="customers"
-                                                loadOptions={loadCustomerOptions}
-                                                onInputChange={handleCustomerInputChange}
-                                                onChange={(options, e) => handleOnChange(options, e)}
-                                            />
-                                        </div>
-                                    </Col>
-                                    <Col md="6" sm='12'>
-                                        <div className='mb-1'>
-                                            <Label className='form-label' for='select-basic'>
-                                                Service
-                                            </Label>
-                                            <AsyncSelect
-                                                isClearable={false}
-                                                cacheOptions
-                                                defaultOptions={defaultServiceOptions}
-                                                className='react-select'
-                                                classNamePrefix='select'
-                                                name="services"
-                                                loadOptions={loadServiceOptions}
-                                                onInputChange={handleServiceInputChange}
-                                                onChange={(options, e) => handleOnChange(options, e)}
-                                            />
-                                        </div>
-                                    </Col>
+
                                 </Row>
-                                {
-                                    (invoiceDetails.is_recurring && invoiceDetails.selected_service != null) &&
-                                    <Row>
-                                        <Col md='12' sm='12'>
-                                            <div className='mb-1'>
-                                                <Label className='form-label pb-0 mb-0' for='select-basic'>
-                                                    Service Subscription
-                                                </Label>
-                                                <div className='demo-inline-spacing'>
-                                                    <div className='form-check'>
-                                                        <Input type='radio' name='recurring_type' value="weekly" onChange={handleInputField} />
-                                                        <Label className='form-check-label' for='sr4'>
-                                                            {'weekly - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.weekly).toFixed(2)}
-                                                        </Label>
-                                                    </div>
-                                                    <div className='form-check'>
-                                                        <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleInputField} defaultChecked />
-                                                        <Label className='form-check-label' for='sr5'>
-                                                            {'monthly - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.monthly).toFixed(2)}
-                                                        </Label>
-                                                    </div>
-                                                    <div className='form-check'>
-                                                        <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleInputField} />
-                                                        <Label className='form-check-label' for='sr3'>
-                                                            {'quarterly - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.quarterly).toFixed(2)}
-                                                        </Label>
-                                                    </div>
-                                                    <div className='form-check'>
-                                                        <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleInputField} />
-                                                        <Label className='form-check-label' for='sr2'>
-                                                            {'biannually - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.biannually).toFixed(2)}
-                                                        </Label>
-                                                    </div>
-                                                    <div className='form-check'>
-                                                        <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleInputField} />
-                                                        <Label className='form-check-label' for='sr1'>
-                                                            {'annually - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.annually).toFixed(2)}
-                                                        </Label>
+                                :
+                                (invoiceDetails.invoice_type == "service") &&
+                                <Row>
+                                    {
+                                        (serviceLoading) ? <Loader /> :
+                                            <Col md="12" sm='12'>
+                                                <div className='mb-1'>
+                                                    <Label className='form-label' for='select-basic'>
+                                                        Service
+                                                    </Label>
+                                                    <AsyncSelect
+                                                        isClearable={false}
+                                                        cacheOptions
+                                                        defaultOptions={resultDefaultService}
+                                                        className='react-select'
+                                                        classNamePrefix='select'
+                                                        name="services"
+                                                        loadOptions={loadServiceOptions}
+                                                        onInputChange={handleServiceInputChange}
+                                                        onChange={(options, e) => handleOnChange(options, e)}
+                                                    />
+                                                </div>
+                                            </Col>
+                                    }
+                                    {
+                                        (invoiceDetails.is_recurring && invoiceDetails.selected_service != null) &&
+                                        <Row>
+                                            <Col md='12' sm='12'>
+                                                <div className='mb-1'>
+                                                    <Label className='form-label pb-0 mb-0' for='select-basic'>
+                                                        Service Subscription
+                                                    </Label>
+                                                    <div className='demo-inline-spacing'>
+                                                        {invoiceDetails.selected_service.price_types.weekly ?
+                                                            <div className='form-check'>
+                                                                <Input type='radio' name='recurring_type' value="weekly" onChange={handleInputField} />
+                                                                <Label className='form-check-label' for='sr4'>
+                                                                    {'weekly - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.weekly).toFixed(2)}
+                                                                </Label>
+                                                            </div> : ""
+                                                        }
+                                                        {invoiceDetails.selected_service.price_types.monthly ?
+                                                            <div className='form-check'>
+                                                                <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleInputField} />
+                                                                <Label className='form-check-label' for='sr5'>
+                                                                    {'monthly - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.monthly).toFixed(2)}
+                                                                </Label>
+                                                            </div> : ""
+                                                        }
+                                                        {invoiceDetails.selected_service.price_types.quarterly ?
+                                                            <div className='form-check'>
+                                                                <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleInputField} />
+                                                                <Label className='form-check-label' for='sr3'>
+                                                                    {'quarterly - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.quarterly).toFixed(2)}
+                                                                </Label>
+                                                            </div> : ""
+                                                        }
+                                                        {invoiceDetails.selected_service.price_types.biannually ?
+                                                            <div className='form-check'>
+                                                                <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleInputField} />
+                                                                <Label className='form-check-label' for='sr2'>
+                                                                    {'biannually - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.biannually).toFixed(2)}
+                                                                </Label>
+                                                            </div> : ""
+                                                        }
+                                                        {invoiceDetails.selected_service.price_types.annually ?
+                                                            <div className='form-check'>
+                                                                <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleInputField} />
+                                                                <Label className='form-check-label' for='sr1'>
+                                                                    {'annually - $' + Number.parseFloat(invoiceDetails.selected_service.price_types.annually).toFixed(2)}
+                                                                </Label>
+                                                            </div> : ""
+                                                        }
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                }
-                                {
-                                    (!invoiceDetails.is_recurring && invoiceDetails.selected_service !== null) &&
-                                    <Row>
-                                        <Col md='4' sm='12'>
-                                            <div className='mb-1'>
-                                                <Label className='form-label fs-5' for='select-basic'>
-                                                    Subscription Type
-                                                </Label>
-                                                <p className='text-wrap'>
-                                                    one-off
-                                                </p>
-                                            </div>
-                                        </Col>
-                                        <Col md='4' sm='12'>
-                                            <div className='mb-1'>
-                                                <Label className='form-label fs-5' for='select-basic'>
-                                                    Price
-                                                </Label>
-                                                <p className='text-wrap'>
-                                                    ${Number.parseFloat(invoiceDetails?.selected_service?.price_types?.price ?? 0).toFixed(2)}
-                                                </p>
-                                            </div>
-                                        </Col>
-                                        <Col md='4' sm='12'>
-                                            <div className='mb-1'>
-                                                <Label className='form-label fs-5' for='select-basic'>
-                                                    Purchase Limit
-                                                </Label>
-                                                <p className='text-wrap'>
-                                                    {invoiceDetails?.selected_service?.price_types?.purchase_limit ?? "---"}
-                                                </p>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                }
-                                <Row>
+                                            </Col>
+                                        </Row>
+                                    }
+                                    {
+                                        (!invoiceDetails.is_recurring && invoiceDetails.selected_service != null) &&
+                                        <Row>
+                                            <Col md='4' sm='12'>
+                                                <div className='mb-1'>
+                                                    <Label className='form-label fs-5' for='select-basic'>
+                                                        Subscription Type
+                                                    </Label>
+                                                    <p className='text-wrap'>
+                                                        one-off
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                            <Col md='4' sm='12'>
+                                                <div className='mb-1'>
+                                                    <Label className='form-label fs-5' for='select-basic'>
+                                                        Price
+                                                    </Label>
+                                                    <p className='text-wrap'>
+                                                        ${Number.parseFloat(invoiceDetails?.selected_service?.price_types?.price ?? 0).toFixed(2)}
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                            <Col md='4' sm='12'>
+                                                <div className='mb-1'>
+                                                    <Label className='form-label fs-5' for='select-basic'>
+                                                        Purchase Limit
+                                                    </Label>
+                                                    <p className='text-wrap'>
+                                                        {invoiceDetails?.selected_service?.price_types?.purchase_limit ?? "---"}
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    }
                                     <Col md='12' sm='12'>
                                         <div className='mb-1'>
                                             <Label className='form-label' for='nameMulti'>
@@ -331,30 +368,31 @@ const CreateInvoice = () => {
                                             <Input type='number' value={invoiceDetails.quantity} onChange={handleInputField} name='quantity' id='quantity' placeholder='Enter Quantity' />
                                         </div>
                                     </Col>
-                                    <Col md='12' sm='12'>
-                                        <div className='d-flex justify-content-between'>
-                                            <Link to="/service-requests" className='btn btn-outline-secondary'>
-                                                Cancel
-                                            </Link>
-                                            <Button color='primary' type='submit' disabled={loading}>
-                                                {
-                                                    loading ?
-                                                        <>
-                                                            <Spinner color='white' size='sm' type='grow' />
-                                                            <span className='ms-50'>Loading...</span>
-                                                        </>
-                                                        :
-                                                        <span>
-                                                            Create
-                                                        </span>
-                                                }
-                                            </Button>
-
-                                        </div>
-                                    </Col>
                                 </Row>
-                            </Form>
-                    }
+                        }
+                        <Row>
+                            <Col md='12' sm='12'>
+                                <div className='d-flex justify-content-between'>
+                                    <Link to="/service-requests" className='btn btn-outline-secondary'>
+                                        Cancel
+                                    </Link>
+                                    <Button color='primary' type='submit' disabled={loading}>
+                                        {
+                                            loading ?
+                                                <>
+                                                    <Spinner color='white' size='sm' type='grow' />
+                                                    <span className='ms-50'>Loading...</span>
+                                                </>
+                                                :
+                                                <span>
+                                                    Create
+                                                </span>
+                                        }
+                                    </Button>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Form>
                 </CardBody>
             </Card>
         </div >
