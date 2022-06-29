@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
+import { v4 as uuidv4 } from 'uuid';
 import {
     Card,
     Row,
@@ -11,7 +12,6 @@ import {
     Spinner,
 } from 'reactstrap'
 import Select from 'react-select'
-import Repeater from '@components/repeater'
 import { SlideDown } from 'react-slidedown'
 import { X, Plus } from 'react-feather'
 import { useDispatch, useSelector } from '@store/store'
@@ -47,10 +47,12 @@ const CreateInvoice = () => {
         quantity: 1,
         invoice_items: [
             {
+                id: uuidv4(),
                 name: "",
-                rate: 0.00,
-                quantity: 0,
-                amount: 0.00
+                rate: 0,
+                quantity: 1,
+                discount: 0,
+                amount: 0,
             }
         ]
     })
@@ -62,26 +64,6 @@ const CreateInvoice = () => {
             create: { loading },
         },
     } = useSelector(state => state);
-
-
-    const increaseCount = () => {
-        setCount(count + 1)
-    }
-
-    const deleteForm = e => {
-        e.preventDefault()
-        const slideDownWrapper = e.target.closest('.react-slidedown'),
-            items = e.target.closest('.items')
-        if (slideDownWrapper) {
-            slideDownWrapper.remove()
-        } else {
-            items.remove()
-        }
-    }
-
-    const calcLineItemsTotal = () => {
-        return invoiceDetails.invoice_items.reduce((prev, cur) => (prev + (cur.quantity * cur.amount)), 0)
-    }
 
     useEffect(() => {
         if (!services.length) {
@@ -95,13 +77,6 @@ const CreateInvoice = () => {
             })));
         }
     }, []);
-
-    const handleInvoiceItemsInput = (e) => {
-        setInvoiceDetails({
-            ...invoiceDetails,
-            [e.target.name]: e.target.value
-        })
-    }
 
     const handleInputField = (e) => {
         setInvoiceDetails({
@@ -212,6 +187,41 @@ const CreateInvoice = () => {
         { value: 'service', label: 'Service' },
     ]
 
+
+    // Addable Inputs
+    const handleChangeInput = (id, event) => {
+        const newInputFields = invoiceDetails.invoice_items.map((i) => {
+            if (id === i.id) {
+                i[event.target.name] = event.target.value;
+            }
+            return i;
+        });
+        setInvoiceDetails(prevInvoiceDetails => ({
+            ...prevInvoiceDetails,
+            invoice_items: newInputFields
+        }))
+    };
+    const handleRemoveFields = (id) => {
+        const values = [...invoiceDetails.invoice_items];
+        values.splice(
+            values.findIndex((val) => val.id === id),
+            1
+        );
+        setInvoiceDetails(prevInvoiceDetails => ({
+            ...prevInvoiceDetails,
+            invoice_items: values
+        }))
+    };
+    const handleAddFields = () => {
+        setInvoiceDetails(prevInvoiceDetails => ({
+            ...prevInvoiceDetails,
+            invoice_items: [
+                ...prevInvoiceDetails.invoice_items,
+                { id: uuidv4(), name: "", rate: 0, quantity: 1, discount: 0, amount: 0, }
+            ]
+        }))
+    };
+
     return (
         <div>
             <Card>
@@ -269,61 +279,104 @@ const CreateInvoice = () => {
                                     <Row>
                                         <Col md="12" sm="12">
                                             <div className='mb-1'>
-                                                <Repeater count={count}>
-                                                    {i => {
-                                                        const Tag = i === 0 ? 'div' : SlideDown
-                                                        return (
-                                                            <Tag key={i}>
-                                                                <Row className='justify-content-between align-items-center items'>
-                                                                    <Col md={4} className='mb-md-0 mb-1'>
-                                                                        <Label className='form-label' for={`animation-item-name-${i}`}>
-                                                                            Item Name
-                                                                        </Label>
-                                                                        <Input type='text' id={`animation-item-name-${i}`} placeholder='Item Name'/>
-                                                                    </Col>
-                                                                    <Col md={2} className='mb-md-0 mb-1'>
-                                                                        <Label className='form-label' for={`animation-cost-${i}`}>
-                                                                            Rate
-                                                                        </Label>
-                                                                        <Input type='number' id={`animation-cost-${i}`} placeholder='50' value="" onChange={handleInvoiceItemsInput}/>
-                                                                    </Col>
-                                                                    <Col md={2} className='mb-md-0 mb-1'>
-                                                                        <Label className='form-label' for={`animation-quantity-${i}`}>
-                                                                            Quantity
-                                                                        </Label>
-                                                                        <Input type='number' id={`animation-quantity-${i}`} placeholder='1' value="" onChange={handleInvoiceItemsInput}/>
-                                                                    </Col>
-                                                                    <Col md={2} className='mb-md-0 mb-1'>
-                                                                        <Label className='form-label' for={`animation-price-${i}`}>
-                                                                            Amount
-                                                                        </Label>
-                                                                        <input
-                                                                            readOnly
-                                                                            disabled
-                                                                            value='$32'
-                                                                            placeholder='$32'
-                                                                            id={`animation-price-${i}`}
-                                                                            className='form-control-plaintext'
-                                                                        />
-                                                                    </Col>
-                                                                    <Col md={2}>
-                                                                        <Button color='danger' className='text-nowrap px-1' onClick={deleteForm} outline>
-                                                                            <X size={14} className='me-50' />
-                                                                            <span>Delete</span>
-                                                                        </Button>
-                                                                    </Col>
-                                                                    <Col sm={12}>
-                                                                        <hr />
-                                                                    </Col>
-                                                                </Row>
-                                                            </Tag>
-                                                        )
-                                                    }}
-                                                </Repeater>
-                                                <Button className='btn-icon' color='primary' onClick={increaseCount}>
-                                                    <Plus size={14} />
-                                                    <span className='align-middle ms-25'>Add New</span>
-                                                </Button>
+                                                {invoiceDetails.invoice_items && invoiceDetails?.invoice_items.map((inputField, i) => (
+                                                    <div key={inputField.id} >
+                                                        <Row className='justify-content-between align-items-center'>
+                                                            <Col md={4} className='mb-md-0 mb-1'>
+                                                                <Label className='form-label' for={`animation-item-name-${i}`}>
+                                                                    Item Name
+                                                                </Label>
+                                                                <Input name="name" onChange={(event) =>
+                                                                    handleChangeInput(inputField.id, event)
+                                                                } value={inputField.name} type='text' id={`animation-item-name-${i}`} placeholder='Vuexy Admin Template' />
+                                                            </Col>
+                                                            <Col md={2} className='mb-md-0 mb-1'>
+                                                                <Label className='form-label' for={`animation-cost-${i}`}>
+                                                                    Rate
+                                                                </Label>
+                                                                <Input
+                                                                    name="rate"
+                                                                    onChange={(event) =>
+                                                                        handleChangeInput(inputField.id, event)
+                                                                    }
+                                                                    value={inputField.rate}
+                                                                    type='number'
+                                                                    id={`animation-cost-${i}`}
+                                                                    placeholder='32'
+                                                                    min={0} />
+                                                            </Col>
+                                                            <Col md={2} className='mb-md-0 mb-1'>
+                                                                <Label className='form-label' for={`animation-quantity-${i}`}>
+                                                                    Quantity
+                                                                </Label>
+                                                                <Input
+                                                                    name='quantity'
+                                                                    onChange={(event) =>
+                                                                        handleChangeInput(inputField.id, event)
+                                                                    }
+                                                                    value={inputField.quantity}
+                                                                    type='number'
+                                                                    id={`animation-quantity-${i}`}
+                                                                    placeholder='1'
+                                                                    min={1}
+                                                                />
+                                                            </Col>
+                                                            <Col md={2} className='mb-md-0 mb-1'>
+                                                                <Label className='form-label' for={`animation-quantity-${i}`}>
+                                                                    Discount
+                                                                </Label>
+                                                                <Input
+                                                                    name='discount'
+                                                                    onChange={(event) =>
+                                                                        handleChangeInput(inputField.id, event)
+                                                                    }
+                                                                    value={inputField.discount}
+                                                                    type='number'
+                                                                    id={`animation-quantity-${i}`}
+                                                                    placeholder='1'
+                                                                    min={0} />
+                                                            </Col>
+                                                            <Col md={2} className='mb-md-0 mb-1'>
+                                                                <Label className='form-label' for={`animation-price-${i}`}>
+                                                                    Amount
+                                                                </Label>
+                                                                <input
+                                                                    readOnly
+                                                                    disabled
+                                                                    value={`$ ${(inputField.rate * inputField.quantity) - inputField.discount}`}
+                                                                    name="amount"
+                                                                    placeholder='$32'
+                                                                    id={`animation-price-${i}`}
+                                                                    className='form-control-plaintext'
+                                                                />
+                                                            </Col>
+                                                            <Col sm={12}>
+                                                                <hr />
+                                                            </Col>
+                                                        </Row>
+
+                                                        <div className="d-flex  text-right ms-auto">
+                                                            <Button
+                                                                color="primary"
+                                                                onClick={handleAddFields}
+                                                            >
+                                                                ADD
+                                                            </Button>
+                                                            &nbsp;
+                                                            <Button
+                                                                color='secondary'
+                                                                outline
+                                                                disabled={invoiceDetails.invoice_items.length === 1}
+                                                                onClick={() =>
+                                                                    handleRemoveFields(inputField.id)
+                                                                }
+                                                            >
+                                                                DELETE
+                                                            </Button>
+                                                        </div>
+                                                        <hr />
+                                                    </div>
+                                                ))}
                                             </div>
                                         </Col>
                                     </Row>
