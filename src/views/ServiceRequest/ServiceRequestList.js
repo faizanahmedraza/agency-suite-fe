@@ -17,7 +17,7 @@ import ServiceRequestStatusAction from "@store/V1/ServiceRequest/STATUS/ServiceR
 import ServiceRequestListAction from "@store/V1/ServiceRequest/LIST/ServiceRequestListAction";
 import GeneralHelper from "@src/Helpers/GeneralHelper";
 
-const ServiceRequestList = ({ service_requests, pagination, tabIndex}) => {
+const ServiceRequestList = ({ service_requests, pagination, tabIndex }) => {
   const dispatch = useDispatch();
   const [centeredModal, setCenteredModal] = useState(false)
   const [serviceRequestId, setServiceRequestId] = useState()
@@ -81,7 +81,8 @@ const ServiceRequestList = ({ service_requests, pagination, tabIndex}) => {
             <th>CUSTOMER NAME</th>
             <th>SERVICE NAME</th>
             <th>STATUS</th>
-            <th>CREATED AT</th>
+            <th>REQUESTED DATE</th>
+            <th>RENEWAL DATE</th>
             <th>ACTIONS</th>
           </tr>
         </thead>
@@ -114,6 +115,7 @@ const ServiceRequestList = ({ service_requests, pagination, tabIndex}) => {
                     </Input>
                   </td>
                   <td>{formatDate(request.created_at)}</td>
+                  <td>{formatDate(request.next_recurring_date)}</td>
                   <td className="text-center">
                     <Link
                       to={`/service-requests/detail/${request.id}`}
