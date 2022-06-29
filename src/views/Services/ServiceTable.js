@@ -119,7 +119,7 @@ const ServiceTable = ({ services, pagination, tabIndex }) => {
                                     return (
                                         <tr key={service.id}>
                                             <td>
-                                                <Link to={`/services/edit/${service.id}`}>
+                                                <Link to={`/services/edit/${service.id}`} target="_blank" rel="noopener noreferrer">
                                                     <span className='align-middle fw-bold'>{service.name}</span>
                                                 </Link>
                                             </td>

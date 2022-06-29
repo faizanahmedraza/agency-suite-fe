@@ -91,14 +91,14 @@ const ServiceRequestList = ({ service_requests, pagination, tabIndex}) => {
               return (
                 <tr key={request.id}>
                   <td>
-                    <Link to={`/customers/edit/${request?.customer?.id}`}>
+                    <Link to={`/customers/edit/${request?.customer?.id}`} target="_blank" rel="noopener noreferrer">
                       <span className="align-middle fw-bold">
                         {request?.customer?.first_name + " " + request?.customer?.last_name}
                       </span>
                     </Link>
                   </td>
                   <td>
-                    <Link to={`/services/edit/${request?.service?.id}`}>
+                    <Link to={`/services/edit/${request?.service?.id}`} target="_blank" rel="noopener noreferrer">
                       <span className="align-middle fw-bold">
                         {request?.service?.name}
                       </span>
