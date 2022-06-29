@@ -91,6 +91,9 @@ const CardContentTypes = ({ services }) => {
                                             <Button color='primary' outline onClick={() => returnLink(service.id)}>
                                                 Purchase
                                             </Button>
+                                            {/* <Button color='primary' outline onClick={() => returnLink(service.id)}>
+                                                Read More
+                                            </Button> */}
                                         </CardBody>
                                     </Card>
                                 </div>

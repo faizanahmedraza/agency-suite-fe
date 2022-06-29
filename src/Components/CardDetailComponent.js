@@ -12,6 +12,7 @@ import {
     Input
 } from 'reactstrap'
 import GeneralHelper from "@src/Helpers/GeneralHelper";
+import ipad from "@src/assets/images/elements/ipad-pro.png"
 
 const CardDetails = ({ services }) => {
     const dispatch = useDispatch()
@@ -45,6 +46,7 @@ const CardDetails = ({ services }) => {
     }
     return (
         <Fragment>
+            {/* ==========header========= */}
             <header>
                 <div className="AGT-info">
                     {portal_settings.logo ?
@@ -52,104 +54,66 @@ const CardDetails = ({ services }) => {
                         <h1 className='pl'>{JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? ''}</h1>
                     </div>  
             </header>
-            <div className="container">
-                <div className="row">
-                    {
-                        services && services.map((service) => {
-                            const image = service.image ? service.image : "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
-                           let description = service.description.slice(0,100)
-                            return (
-                                <div className="col-12" key={service.id}>
-                                    {/* <Card>
-                                    <CardBody>
-                                        <input type="text" name="" id="" value={service.name}/>
-                                      </CardBody>  
-                                    </Card> */}
-                                    <div className="row">
-                                        <div className="col-6">
-                                            <Card>
-                                                <CardBody>
-                                                    <div className="row">
-                                                        <div className="col-6">
-                                                            <h3>  Service Name :</h3>
-                                                        </div>
-                                                        <div className="col-6">
-                                                            <h3> {service.name}</h3>
-                                                        </div>
-                                                    </div>
-                                                    <div className="row">
-                                                        <div className="col-6">
-                                                            <h3> Service Payment :</h3>
-                                                        </div>
-                                                        <div className="col-6">
-                                                            <h4>{service.subscription_type === "recurring" ?
-                                                                <Input type='select' name='subscription_type' id={`${service.id}`} onChange={handleOnChange}>
-                                                                    <option value="weekly">Weekly - ${Number.parseFloat(service.price_types.weekly ?? 0).toFixed(2)}</option>
-                                                                    <option value="monthly">Monthly - ${Number.parseFloat(service.price_types.monthly ?? 0).toFixed(2)}</option>
-                                                                    <option value="quarterly">Quarterly - ${Number.parseFloat(service.price_types.quarterly ?? 0).toFixed(2)}</option>
-                                                                    <option value="biannually">Biannually - ${Number.parseFloat(service.price_types.biannually ?? 0).toFixed(2)}</option>
-                                                                    <option value="annualy">Annualy - ${Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}</option>
-                                                                </Input>
-                                                                :
-                                                                <>
-                                                                    $ {Number.parseFloat(service.price_types.price).toFixed(2)}
-                                                                </>
-                                                            }</h4>    
-                                                        </div>
-                                                    </div>
-                                                </CardBody>
-                                                <CardBody className=''>
-                                                    <div className="row">
-                                                        <div className="col-6">
-                                                            <h3> Service Description :</h3>
-                                                            {description}
-                                                        </div>
-                                                    </div>
-                                                </CardBody>
-                                            </Card>        
 
-                                            {/* <Card>
-                                                <div className='crd-dv-im'>
-                                                    <img src={image} className="crd-img" alt={service.name} />
-                                                </div>
-                                            <CardBody className='crd-hgt'>
-                                                <CardTitle tag='h4'>{service.name}</CardTitle>
-                                                <CardText className='crd-hgt-amnt'>
-                                                    {service.subscription_type === "recurring" ?
-                                                        <Input type='select' name='subscription_type' id={`${service.id}`} onChange={handleOnChange}>
-                                                            <option value="weekly">Weekly - ${Number.parseFloat(service.price_types.weekly ?? 0).toFixed(2)}</option>
-                                                            <option value="monthly">Monthly - ${Number.parseFloat(service.price_types.monthly ?? 0).toFixed(2)}</option>
-                                                            <option value="quarterly">Quarterly - ${Number.parseFloat(service.price_types.quarterly ?? 0).toFixed(2)}</option>
-                                                            <option value="biannually">Biannually - ${Number.parseFloat(service.price_types.biannually ?? 0).toFixed(2)}</option>
-                                                            <option value="annualy">Annualy - ${Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}</option>
-                                                        </Input>
-                                                        :
-                                                        <>
-                                                            $ {Number.parseFloat(service.price_types.price).toFixed(2)}
-                                                        </>
-                                                    }
-                                                </CardText>
-                                                <CardText className='crd-hgt-desc'>
-                                                    {description}{service.description.length > 100? "..." : null}
-                                                </CardText>
-                                                <Button color='primary' outline onClick={() => returnLink(service.id)}>
-                                                    Purchase
-                                                </Button>
-                                            </CardBody>
-                                        </Card> */}
-                                        </div>
-                                        <div className="col-6">
-                                            <div className='crd-dv-im'>
-                                                <img src={image} className="crd-img" alt={service.name} />
-                                            </div>
-                                        </div>
-                                    </div>   
-                                </div>
-                            )
-                        })
-                    }
+            {/* =======Body======== */}
+            <div className="container">
+                <Card className='pad-alf'>
+                    <div className="row">
+                        <div className="col-4">
+                            <img src={ipad} alt="" />
+                        </div>
+                    </div>
+                    <hr/> <br/>
+                    <div className="row">
+                        <div className="col-4">
+                           <h2>   Service Name : </h2> 
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-4 offset-1">
+                          <h4>  Web Development </h4> 
+                        </div>
+                    </div>
+                    <hr/> <br/>
+                    <div className="row">
+                        <div className="col-4">
+                           <h2>   Payment : </h2> 
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-4 offset-1">
+                          <h4>  Recurring </h4> 
+                        </div>
+                    </div>
+                    <hr/> <br/>
+                    <div className="row">
+                        <div className="col-4">
+                           <h2>   Description : </h2> 
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-10 offset-1">
+                          <h4>  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum, similique molestias iure beatae aperiam est, ipsa earum debitis architecto, recusandae cumque perspiciatis error porro officia quis asperiores sed commodi aut. </h4> 
+                        </div>
+                    </div>
+                    <hr/> <br/>
+                    <div className="row">
+                        <div className="col-12 text-end">
+                          <Button> Purchase </Button>
+                        </div>
+                    </div>
+                </Card>
+            </div>
+            {/* ========footer=========== */}
+            <footer>
+                <div className="row">
+                    <p className='clearfix mb-0 text-center'>
+                        <span className='my-25'>
+                            COPYRIGHT © {new Date().getFullYear()}{' '} Powered By <span className="ft-ag-clr"> Agency Suite </span>
+                        </span>
+                    </p>
                 </div>
-            </div>    
+            </footer>
         </Fragment>
     )
 }
