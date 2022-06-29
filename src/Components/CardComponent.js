@@ -77,7 +77,7 @@ const CardContentTypes = ({ services }) => {
                                                         <option value="monthly">Monthly - ${Number.parseFloat(service.price_types.monthly ?? 0).toFixed(2)}</option>
                                                         <option value="quarterly">Quarterly - ${Number.parseFloat(service.price_types.quarterly ?? 0).toFixed(2)}</option>
                                                         <option value="biannually">Biannually - ${Number.parseFloat(service.price_types.biannually ?? 0).toFixed(2)}</option>
-                                                        <option value="annualy">Annualy - ${Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}</option>
+                                                        <option value="annually">Annually - ${Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}</option>
                                                     </Input>
                                                     :
                                                     <>

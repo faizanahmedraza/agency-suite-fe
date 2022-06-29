@@ -183,7 +183,7 @@ const DetailServiceRequest = () => {
                                         Intake Description
                                     </Label>
                                     <EditorComponent
-                                            serviceDetails={serviceRequestDetails}
+                                            serviceDetails={serivice_request?.intake_form[0]}
                                             getEditorValue={getEditorValue}
                                             id='description'
                                             readOnly
