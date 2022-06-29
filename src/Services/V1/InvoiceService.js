@@ -9,7 +9,6 @@ async function invoiceList(params) {
 
 async function invoicePost(data) {
     const _data = invoiceBody(data);
-    alert(_data)
     const response = await Gateway.authGateway("POST", V1.DOMAIN, V1.agency.invoices, _data);
     return response;
 }
