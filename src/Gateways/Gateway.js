@@ -10,7 +10,7 @@ async function authGateway(METHOD, DOMAIN, API, BODY = null) {
         headers: {
             // 'access-control-allow-origin': '*',
             'Content-Type': 'application/json',
-            Domain: 'irfanagency1.allthingswordpress.io',
+            Domain: DOMAIN,
             Authorization: `Bearer ${TOKEN}`,
         },
         body: BODY,

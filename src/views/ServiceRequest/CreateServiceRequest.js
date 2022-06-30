@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom';
+import { EditorState,convertToRaw  } from 'draft-js';
+import EditorComponent from "@src/Components/EditorComponent";
 import {
     Card,
     Row,
@@ -48,13 +50,25 @@ const CreateServiceRequest = () => {
         description: "",
         is_recurring: false,
         selected_service: null,
-        quantity: ""
+        quantity: 1
     })
 
     const [inputCustomerValue, setCustomerValue] = useState('');
     const [inputServiceValue, setServiceValue] = useState('');
-    const [defaultCustomerOptions, setDefaultCustomerOptions] = useState([]);
-    const [defaultServiceOptions, setDefaultServiceOptions] = useState([]);
+    const [editorState, setEditorState] = useState(EditorState.createEmpty())
+
+    const resultDefaultCustomer = customers.slice(0, 20).map((d) => {
+        return {
+            value: `${d.id}`,
+            label: `${d.first_name + ' ' + d.last_name}`,
+        };
+    });
+    const resultDefaultService = services.slice(0, 20).map((d) => {
+        return {
+            value: `${d.id}`,
+            label: `${d.name}`,
+        };
+    });
 
     useEffect(() => {
         if (!services.length) {
@@ -76,8 +90,20 @@ const CreateServiceRequest = () => {
                 selected_service: requiredService,
             })
         }
-        loadDefaultOptions();
     }, [requiredService]);
+
+    const descriptionSaveContent = (content) => {
+        setServiceRequestDetails({
+            ...serviceRequestDetails,
+            description: JSON.stringify(convertToRaw(content)),
+        });
+    }
+
+    const onEditorStateChange = (editorState) => {
+        const contentState = editorState.getCurrentContent();
+        descriptionSaveContent(contentState);
+        setEditorState(editorState);
+    };
 
     const handleInputField = (e) => {
         setServiceRequestDetails({
@@ -91,18 +117,12 @@ const CreateServiceRequest = () => {
         if (action === "input-change") {
             setCustomerValue(inputValue);
         }
-        if (action === "menu-close") {
-            loadDefaultOptions();
-        }
     };
 
     // handle service input change event
     const handleServiceInputChange = (inputValue, { action }) => {
         if (action === "input-change") {
             setServiceValue(inputValue);
-        }
-        if (action === "menu-close") {
-            loadDefaultOptions();
         }
     };
 
@@ -167,26 +187,9 @@ const CreateServiceRequest = () => {
         callback(result);
     };
 
-    const loadDefaultOptions = () => {
-        const resultCustomer = customers.slice(0, 20).map((d) => {
-            return {
-                value: `${d.id}`,
-                label: `${d.first_name + ' ' + d.last_name}`,
-            };
-        });
-        const resultService = services.slice(0, 20).map((d) => {
-            return {
-                value: `${d.id}`,
-                label: `${d.name}`,
-            };
-        });
-        setDefaultCustomerOptions(resultCustomer)
-        setDefaultServiceOptions(resultService)
-    };
-
     const defaulServicetValue = {
-        value: requiredService?.id ?? "",
-        label: requiredService?.name ?? "",
+        value: requiredService?.id ?? "Select...",
+        label: requiredService?.name ?? "Select...",
     }
 
     return (
@@ -214,7 +217,7 @@ const CreateServiceRequest = () => {
                                             <AsyncSelect
                                                 isClearable={false}
                                                 cacheOptions
-                                                defaultOptions={defaultCustomerOptions}
+                                                defaultOptions={resultDefaultCustomer}
                                                 className='react-select'
                                                 classNamePrefix='select'
                                                 name="customers"
@@ -233,7 +236,7 @@ const CreateServiceRequest = () => {
                                                 isClearable={false}
                                                 cacheOptions
                                                 defaultValue={defaulServicetValue}
-                                                defaultOptions={defaultServiceOptions}
+                                                defaultOptions={resultDefaultService}
                                                 className='react-select'
                                                 classNamePrefix='select'
                                                 name="services"
@@ -253,42 +256,54 @@ const CreateServiceRequest = () => {
                                                     Service Subscription
                                                 </Label>
                                                 <div className='demo-inline-spacing'>
+                                                    {serviceRequestDetails.selected_service.price_types.weekly ?
+                                                        <div className='form-check'>
+                                                            <Input type='radio' name='recurring_type' value="weekly" onChange={handleInputField} />
+                                                            <Label className='form-check-label' for='sr4'>
+                                                                {'weekly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.weekly).toFixed(2)}
+                                                            </Label>
+                                                        </div>
+                                                        : ""
+                                                    }
+                                                    {serviceRequestDetails.selected_service.price_types.monthly ?
+                                                        <div className='form-check'>
+                                                            <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleInputField} defaultChecked />
+                                                            <Label className='form-check-label' for='sr5'>
+                                                                {'monthly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.monthly).toFixed(2)}
+                                                            </Label>
+                                                        </div>
+                                                        : ""
+                                                    }
+                                                    {serviceRequestDetails.selected_service.price_types.quarterly ?
 
-                                                    <div className='form-check'>
-                                                        <Input type='radio' name='recurring_type' value="weekly" onChange={handleInputField} />
-                                                        <Label className='form-check-label' for='sr4'>
-                                                            {'weekly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.weekly).toFixed(2)}
-                                                        </Label>
-                                                    </div>
+                                                        <div className='form-check'>
+                                                            <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleInputField} />
+                                                            <Label className='form-check-label' for='sr3'>
+                                                                {'quarterly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.quarterly).toFixed(2)}
+                                                            </Label>
+                                                        </div>
+                                                        : ""
+                                                    }
+                                                    {serviceRequestDetails.selected_service.price_types.biannually ?
 
-                                                    <div className='form-check'>
-                                                        <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleInputField} defaultChecked />
-                                                        <Label className='form-check-label' for='sr5'>
-                                                            {'monthly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.monthly).toFixed(2)}
-                                                        </Label>
-                                                    </div>
+                                                        <div className='form-check'>
+                                                            <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleInputField} />
+                                                            <Label className='form-check-label' for='sr2'>
+                                                                {'biannually - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.biannually).toFixed(2)}
+                                                            </Label>
+                                                        </div>
+                                                        : ""
+                                                    }
+                                                    {serviceRequestDetails.selected_service.price_types.annually ?
 
-                                                    <div className='form-check'>
-                                                        <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleInputField} />
-                                                        <Label className='form-check-label' for='sr3'>
-                                                            {'quarterly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.quarterly).toFixed(2)}
-                                                        </Label>
-                                                    </div>
-
-                                                    <div className='form-check'>
-                                                        <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleInputField} />
-                                                        <Label className='form-check-label' for='sr2'>
-                                                            {'biannually - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.biannually).toFixed(2)}
-                                                        </Label>
-                                                    </div>
-
-                                                    <div className='form-check'>
-                                                        <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleInputField} />
-                                                        <Label className='form-check-label' for='sr1'>
-                                                            {'annually - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.annually).toFixed(2)}
-                                                        </Label>
-                                                    </div>
-                                                    
+                                                        <div className='form-check'>
+                                                            <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleInputField} />
+                                                            <Label className='form-check-label' for='sr1'>
+                                                                {'annually - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.annually).toFixed(2)}
+                                                            </Label>
+                                                        </div>
+                                                        : ""
+                                                    }
                                                 </div>
                                             </div>
                                         </Col>
@@ -343,7 +358,13 @@ const CreateServiceRequest = () => {
                                             <Label className='form-label' for='nameMulti'>
                                                 Description
                                             </Label>
-                                            <Input type='textarea' value={serviceRequestDetails.description} onChange={handleInputField} name='description' id='description' placeholder='Enter Description' />
+                                            <div>
+                                                <EditorComponent
+                                                
+                                                    editorState={editorState}
+                                                    onEditorStateChange={onEditorStateChange}
+                                                />
+                                            </div>
                                         </div>
                                     </Col>
                                     <Col md='12' sm='12'>
@@ -351,7 +372,7 @@ const CreateServiceRequest = () => {
                                             <Label className='form-label fs-5' for='select-basic'>
                                                 Quantity
                                             </Label>
-                                            <Input type='number' value={serviceRequestDetails.quantity} onChange={handleInputField} name='quantity' id='quantity' placeholder='Enter Quantity' />
+                                            <Input type='number' value={serviceRequestDetails.quantity} onChange={handleInputField} name='quantity' id='quantity' placeholder='Enter Quantity (Minimum 1)' min={1}/>
                                         </div>
                                     </Col>
                                     <Col md='12' sm='12'>

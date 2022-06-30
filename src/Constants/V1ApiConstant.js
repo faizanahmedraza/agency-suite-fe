@@ -35,6 +35,7 @@ const V1 = {
         profile_settings: 'v1/profile',
         service_request: 'v1/agencies/request-services',
         invoices: 'v1/agencies/invoices',
+        billing_information: "v1/agencies/billing-information"
     },
     customer: {
         services: 'v1/customers/services',

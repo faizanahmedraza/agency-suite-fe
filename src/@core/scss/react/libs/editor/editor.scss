@@ -24,6 +24,8 @@
     }
     .rdw-dropdown-wrapper {
       border: 1px solid $border-color;
+      z-index: 0;
+      
       .rdw-dropdown-optionwrapper {
         &:hover {
           box-shadow: none;

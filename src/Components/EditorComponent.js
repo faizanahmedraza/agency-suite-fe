@@ -8,7 +8,7 @@ const EditorControlled = ({ editorState, onEditorStateChange }) => {
       onEditorStateChange={onEditorStateChange}
       toolbar={{
         options: ['inline', 'blockType', 'fontFamily', 'fontSize', 'list', 'textAlign','link', 'history'],
-        inline: { inDropdown: true },
+        inline: { inDropdown: true},
         blockType: { inDropdown: true },
         fontFamily: { inDropdown: true },
         fontSize: { inDropdown: true },

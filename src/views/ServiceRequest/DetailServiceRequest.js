@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from '@store/store';
 import ServiceRequestDetailAction from "@store/V1/ServiceRequest/DETAIL/ServiceRequestDetailAction";
+import draftToHtml from 'draftjs-to-html';
 
 import {
     Card,
@@ -39,6 +40,7 @@ const DetailServiceRequest = () => {
         service: {
             id: null,
             name: null,
+            description: null,
             price_types: {
                 weekly: null,
                 monthly: null,
@@ -66,6 +68,16 @@ const DetailServiceRequest = () => {
             setServiceRequestDetails(serivice_request)
         }
     }, [fetched]);
+
+    function descriptionConversion(str) {
+        if (str) {
+            const hashConfig = {
+                trigger: '#',
+                separator: ' ',
+            }
+            return draftToHtml(JSON.parse(str), hashConfig)
+        }
+    }
 
     return (
         <div>
@@ -112,7 +124,7 @@ const DetailServiceRequest = () => {
                                         <Label className='form-label fs-5' for='description'>
                                             Service Description
                                         </Label>
-                                        <Input type='textarea' name='description' id='description' defaultValue={serviceRequestDetails?.service?.description} readOnly style={pointerStyle} />
+                                        <p className='text-wrap' contentEditable='false' dangerouslySetInnerHTML={{ __html: descriptionConversion(serviceRequestDetails?.service?.description) }}></p>
                                     </div>
                                 </Col>
                             </Row>
@@ -207,7 +219,7 @@ const DetailServiceRequest = () => {
                                         <Label className='form-label fs-5' for='nameMulti'>
                                             Intake Title
                                         </Label>
-                                        <Input type='text' defaultValue={serviceRequestDetails?.intake_form[0]?.title} name='title' id='title' placeholder='Enter Title' readOnly />
+                                        <p className='text-wrap'>{serviceRequestDetails?.intake_form[0]?.title}</p>
                                     </div>
                                 </Col>
                                 <Col md='12' sm='12'>
@@ -215,7 +227,7 @@ const DetailServiceRequest = () => {
                                         <Label className='form-label fs-5' for='nameMulti'>
                                             Intake Description
                                         </Label>
-                                        <Input type='textarea' defaultValue={serviceRequestDetails?.intake_form[0]?.description} name='description' id='description' placeholder='Enter Description' readOnly />
+                                        <p className='text-wrap' contentEditable='false' dangerouslySetInnerHTML={{ __html: descriptionConversion(serviceRequestDetails?.intake_form[0]?.description) }}></p>
                                     </div>
                                 </Col>
                                 <Col md='12' sm='12'>
