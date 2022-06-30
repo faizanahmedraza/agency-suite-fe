@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import EditorComponent from "@src/Components/EditorComponent";
 import {
     Card,
     Row,
@@ -75,13 +76,20 @@ const EditService = () => {
             ]
         }
     })
+    const getEditorValue = (value) => {
+        console.log(value,'ddsddd')
+        setServiceDetails({
+            ...serviceDetails,
+            description: value,
+        });
+    };
 
     const handleInputField = (e) => {
         setServiceDetails({
             ...serviceDetails,
-            [e.target.name]: e.target.value
-        })
-    }
+            [e.target.name]: e.target.value,
+        });
+    };
 
     const handleNestedObject = (e) => {
         setServiceDetails((prevState) => ({
@@ -118,6 +126,8 @@ const EditService = () => {
             setServiceDetails(selected_service)
         }
     }, [selected_service])
+
+    console.log(serviceDetails)
 
     const onSubmitHandler = (e) => {
         e.preventDefault()
@@ -183,7 +193,11 @@ const EditService = () => {
                                                                 <Label className='form-label' for='nameMulti'>
                                                                     Description
                                                                 </Label>
-                                                                <Input type='textarea' value={serviceDetails.description ?? ""} onChange={handleInputField} name='description' id='nameMulti' placeholder='Enter Description' />
+
+                                                                <EditorComponent
+                                                                    serviceDetails={serviceDetails}
+                                                                    getEditorValue={getEditorValue}
+                                                                />
                                                             </div>
                                                         </Col>
                                                         <Col md='6' sm='12'>
@@ -265,7 +279,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.weekly ?? ""} onChange={handleNestedObject} name="weekly" placeholder='0.00' />
+                                                                                <Input value={serviceDetails?.price_types?.weekly ?? ""} onChange={handleNestedObject} name="weekly" placeholder='0.00' />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -279,7 +293,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.monthly ?? ""} placeholder='0.00' name="monthly" onChange={handleNestedObject} />
+                                                                                <Input value={serviceDetails?.price_types?.monthly ?? ""} placeholder='0.00' name="monthly" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -293,7 +307,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.quarterly ?? ""} placeholder='0.00' name="quarterly" onChange={handleNestedObject} />
+                                                                                <Input value={serviceDetails?.price_types?.quarterly ?? ""} placeholder='0.00' name="quarterly" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -306,7 +320,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.biannually ?? ""} placeholder='0.00' name="biannually" onChange={handleNestedObject} />
+                                                                                <Input value={serviceDetails?.price_types?.biannually ?? ""} placeholder='0.00' name="biannually" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -319,7 +333,7 @@ const EditService = () => {
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
                                                                                 <InputGroupText>$</InputGroupText>
-                                                                                <Input value={serviceDetails.price_types.annually ?? ""} placeholder='0.00' name="annually" onChange={handleNestedObject} />
+                                                                                <Input value={serviceDetails?.price_types?.annually ?? ""} placeholder='0.00' name="annually" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -338,7 +352,7 @@ const EditService = () => {
                                                                                 <small>( Leave empty if you allow unlimited concurrent requests for this subscription. )</small>
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
-                                                                                <Input value={serviceDetails.price_types.max_concurrent_requests ?? ""} placeholder='0' name="max_concurrent_requests" onChange={handleNestedObject} />
+                                                                                <Input value={serviceDetails?.price_types?.max_concurrent_requests ?? ""} placeholder='0' name="max_concurrent_requests" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>
@@ -353,7 +367,7 @@ const EditService = () => {
                                                                                 <small>( Leave empty if you allow unlimited requests per month for this subscription. )</small>
                                                                             </Label>
                                                                             <InputGroup className='input-group-merge mb-2'>
-                                                                                <Input value={serviceDetails.price_types.max_requests_per_month ?? ""} placeholder='0' name="max_requests_per_month" onChange={handleNestedObject} />
+                                                                                <Input value={serviceDetails?.price_types?.max_requests_per_month ?? ""} placeholder='0' name="max_requests_per_month" onChange={handleNestedObject} />
                                                                             </InputGroup>
                                                                         </div>
                                                                     </Col>

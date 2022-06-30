@@ -6,8 +6,6 @@ body,
   height: 100%;
 }
 
-$custom:var(--custom-color-primary);
-
 // Vertical Menu
 // ========================================================================
 .vertical-layout .main-menu {
@@ -32,7 +30,7 @@ $custom:var(--custom-color-primary);
       z-index: 1;
       // background: linear-gradient(118deg, rgba($primary , 1), rgba($primary, 0.7));
       box-shadow: 0 0 10px 1px rgba(var(--custom-color-primary), 0.7);
-      color: $white;
+      color: var(--custom-color);
       font-weight: 400;
       border-radius: 4px;
     }

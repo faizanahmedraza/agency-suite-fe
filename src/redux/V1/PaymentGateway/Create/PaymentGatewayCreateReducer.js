@@ -4,7 +4,7 @@ const PaymentGatewayCreateReducer = (
     state = {
         loading: false,
         gateway: {},
-        success: false,
+        isSuccess: false,
     },
     action
 ) => {
@@ -14,13 +14,12 @@ const PaymentGatewayCreateReducer = (
                 ...state,
                 loading: true,
                 gateway: {},
-                success: false
             }
         case PAYMENT_GATEWAY.PAYMENT_GATEWAY_CREATE_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                success: true,
+                isSuccess: true,
                 gateway: action.response.payment_gateway,
             }
         case PAYMENT_GATEWAY.PAYMENT_GATEWAY_CREATE_FAILED:

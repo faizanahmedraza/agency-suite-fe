@@ -43,7 +43,7 @@ const UpdateCustomer = lazy(() =>
 const Portal = lazy(() => import("@src/views/Portal/portal"));
 const Invoice = lazy(() => import("@src/views/Invoice/invoice"));
 const InvoiceDetail = lazy(() => import("@src/views/Invoice/InvoiceDetail"));
-const CreateInvoice = lazy(() => import("@src/views/Invoice/Create Invoice"));
+const CreateInvoice = lazy(() => import("@src/views/Invoice/CreateInvoice"));
 const CreateServices = lazy(() =>
   import("@src/views/Services/Create Service/createService")
 );
@@ -70,6 +70,7 @@ const DetailServiceRequest = lazy(() => import("@src/views/ServiceRequest/Detail
 const NotAuthorized = lazy(() => import("@src/views/NotAuthorized"));
 const Error = lazy(() => import("@src/views/Error"));
 const Catalog = lazy(() => import("@src/views/Catalouge/catalouge"));
+const ServiceDetails = lazy(() => import("@src/views/Services/ServiceDetails"));
 
 // ** Merge Routes
 const Routes = [
@@ -180,12 +181,12 @@ const Routes = [
     },
   },
   {
-    path: "/invoice/create",
+    path: "/invoices/create",
     element: <CreateInvoice />,
     meta: {
       layout: "vertical",
       publicRoute: false,
-      customer_restricted: false
+      customer_restricted: true
     },
   },
   {
@@ -371,6 +372,16 @@ const Routes = [
   {
     path: "/catalogue",
     element: <Catalog />,
+    meta: {
+      layout: "blank",
+      publicRoute: true,
+      restricted: false
+    },
+  },
+  {
+    
+    path: "/Service-details",
+    element: <ServiceDetails />,
     meta: {
       layout: "blank",
       publicRoute: true,

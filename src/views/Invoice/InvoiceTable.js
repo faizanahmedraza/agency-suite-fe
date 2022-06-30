@@ -87,9 +87,11 @@ const InvoiceTable = ({ invoices, pagination }) => {
                         return (
                             <tr key={invoice.id}>
                                 <td>{invoice?.invoice_number}</td>
-                                <td>{invoice?.customer?.first_name + ' ' + invoice?.customer?.last_name}</td>
+                                <td> <Link to={`/invoice/detail/${invoice.id}`}> {invoice?.customer?.first_name + ' ' + invoice?.customer?.last_name} </Link> </td>
                                 <td>
+                                <Link to={`/invoice/detail/${invoice.id}`}>
                                     <span className='align-middle fw-bold'>{invoice?.customer_service_request?.service?.name}</span>
+                                   </Link> 
                                 </td>
                                 <td>${Number.parseFloat(invoice?.amount).toFixed(2)}</td>
                                 <td className='text-center px-0'>
@@ -99,7 +101,7 @@ const InvoiceTable = ({ invoices, pagination }) => {
                                                 <Input type='switch' onChange={(e) => handleShowInvoiceStatus(e, invoice.id)} defaultChecked={invoice?.is_paid === 'yes'} id='icon-secondnary' name='icon-status' />
                                             </div>
                                             {invoice?.is_paid === "yes" ? formatDate(invoice.paid_at) : ""}
-                                        </> : invoice?.is_paid === "yes" ? <>Yes <br /> {formatDate(invoice.paid_at)} </> : "No"}
+                                        </> : (invoice?.is_paid === "yes" ? formatDate(invoice.paid_at) : "")}
 
                                 </td>
                                 <td className='text-center px-0'>{formatDate(invoice?.created_at)}</td>

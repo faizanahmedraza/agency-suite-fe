@@ -126,36 +126,42 @@ const DetailServiceRequest = () => {
                                                         Service Subscription
                                                     </Label>
                                                     <div className='demo-inline-spacing'>
-                                                        <div className='form-check'>
-                                                            <Input type='radio' name='recurring_type' id='sr1' defaultChecked={serviceRequestDetails?.recurring_type === "annually"} disabled />
-                                                            <Label className='form-check-label fs-5' for='sr1'>
-                                                                {'annualy - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.annually).toFixed(2)}
-                                                            </Label>
-                                                        </div>
-                                                        <div className='form-check'>
-                                                            <Input type='radio' name='recurring_type' id='sr2' defaultValue="biannually" defaultChecked={serviceRequestDetails?.recurring_type === "biannually"} disabled />
-                                                            <Label className='form-check-label fs-5' for='sr2'>
-                                                                {'biannually - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.biannually).toFixed(2)}
-                                                            </Label>
-                                                        </div>
-                                                        <div className='form-check'>
-                                                            <Input type='radio' name='recurring_type' id='sr3' defaultValue="quarterly" defaultChecked={serviceRequestDetails?.recurring_type === "quarterly"} disabled />
-                                                            <Label className='form-check-label fs-5' for='sr3'>
-                                                                {'quarterly - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.quarterly).toFixed(2)}
-                                                            </Label>
-                                                        </div>
+
                                                         <div className='form-check'>
                                                             <Input type='radio' name='recurring_type' defaultValue="weekly" defaultChecked={serviceRequestDetails?.recurring_type === "weekly"} disabled />
                                                             <Label className='form-check-label fs-5' for='sr4'>
                                                                 {'weekly - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.weekly).toFixed(2)}
                                                             </Label>
                                                         </div>
+
                                                         <div className='form-check'>
                                                             <Input type='radio' name='recurring_type' id='sr5' defaultValue="monthly" defaultChecked={serviceRequestDetails?.recurring_type === "monthly"} disabled />
                                                             <Label className='form-check-label fs-5' for='sr5'>
                                                                 {'monthly - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.monthly).toFixed(2)}
                                                             </Label>
                                                         </div>
+
+                                                        <div className='form-check'>
+                                                            <Input type='radio' name='recurring_type' id='sr3' defaultValue="quarterly" defaultChecked={serviceRequestDetails?.recurring_type === "quarterly"} disabled />
+                                                            <Label className='form-check-label fs-5' for='sr3'>
+                                                                {'quarterly - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.quarterly).toFixed(2)}
+                                                            </Label>
+                                                        </div>
+
+                                                        <div className='form-check'>
+                                                            <Input type='radio' name='recurring_type' id='sr2' defaultValue="biannually" defaultChecked={serviceRequestDetails?.recurring_type === "biannually"} disabled />
+                                                            <Label className='form-check-label fs-5' for='sr2'>
+                                                                {'biannually - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.biannually).toFixed(2)}
+                                                            </Label>
+                                                        </div>
+
+                                                        <div className='form-check'>
+                                                            <Input type='radio' name='recurring_type' id='sr1' defaultChecked={serviceRequestDetails?.recurring_type === "annually"} disabled />
+                                                            <Label className='form-check-label fs-5' for='sr1'>
+                                                                {'annually - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.annually).toFixed(2)}
+                                                            </Label>
+                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
                                             </Col>

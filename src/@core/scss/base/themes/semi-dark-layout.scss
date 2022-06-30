@@ -44,7 +44,7 @@
       }
       .nav-item {
         a {
-          color: $theme-dark-body-color;
+          color:var(--custom-color-primary);
         }
         &.open:not(.sidebar-group-active) {
           > a {
@@ -53,7 +53,8 @@
         }
         a:after,
         a {
-          color: $theme-dark-body-color !important;
+          // color:var(--custom-color-primary) !important;
+          // color:red;
         }
         .menu-content {
           background-color: var(--custom-color);

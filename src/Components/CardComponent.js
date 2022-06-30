@@ -12,7 +12,7 @@ import {
     Button,
     Input
 } from 'reactstrap'
-import { Link } from "react-router-dom"
+import GeneralHelper from "@src/Helpers/GeneralHelper";
 
 const CardContentTypes = ({ services }) => {
     const dispatch = useDispatch()
@@ -31,15 +31,18 @@ const CardContentTypes = ({ services }) => {
 
     function returnLink(id) {
         const user = JSON.parse(localStorage.getItem("user"));
-        let link = `/login`;
+        let link = "/login";
         if (user) {
             if (user.roles[0].name === "Agency") {
-                link = `/service-requests/create`
+                let serviceId = GeneralHelper.Serialize({
+                    service_id: id
+                })
+                link = "/service-requests/create?"+serviceId
             } else {
-                link = `/customer-service-requests/create/${id}`
+                link = "/customer-service-requests/create/"+id
             }
         }
-        return link;
+        window.location.href = link;
     }
 
     return (
@@ -58,6 +61,7 @@ const CardContentTypes = ({ services }) => {
                     {
                         services && services.map((service) => {
                             const image = service.image ? service.image : "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
+                           let description = service.description.slice(0,100)
                             return (
                                 <div className="col-4" key={service.id}>
                                     <Card>
@@ -66,14 +70,14 @@ const CardContentTypes = ({ services }) => {
                                         </div>
                                         <CardBody className='crd-hgt'>
                                             <CardTitle tag='h4'>{service.name}</CardTitle>
-                                            <CardText>
+                                            <CardText className='crd-hgt-amnt'>
                                                 {service.subscription_type === "recurring" ?
                                                     <Input type='select' name='subscription_type' id={`${service.id}`} onChange={handleOnChange}>
-                                                        <option value="annualy">Annualy - ${Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}</option>
-                                                        <option value="biannually">Biannually - ${Number.parseFloat(service.price_types.biannually ?? 0).toFixed(2)}</option>
-                                                        <option value="quarterly">Quarterly - ${Number.parseFloat(service.price_types.quarterly ?? 0).toFixed(2)}</option>
                                                         <option value="weekly">Weekly - ${Number.parseFloat(service.price_types.weekly ?? 0).toFixed(2)}</option>
                                                         <option value="monthly">Monthly - ${Number.parseFloat(service.price_types.monthly ?? 0).toFixed(2)}</option>
+                                                        <option value="quarterly">Quarterly - ${Number.parseFloat(service.price_types.quarterly ?? 0).toFixed(2)}</option>
+                                                        <option value="biannually">Biannually - ${Number.parseFloat(service.price_types.biannually ?? 0).toFixed(2)}</option>
+                                                        <option value="annually">Annually - ${Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}</option>
                                                     </Input>
                                                     :
                                                     <>
@@ -81,14 +85,15 @@ const CardContentTypes = ({ services }) => {
                                                     </>
                                                 }
                                             </CardText>
-                                            <CardText>
-                                                {service.description}
+                                            <CardText className='crd-hgt-desc'>
+                                                {description}{service.description.length > 100? "..." : null}
                                             </CardText>
-                                            <Link to={returnLink(service.id)}>
-                                                <Button color='primary' outline>
-                                                    Purchase
-                                                </Button>
-                                            </Link>
+                                            <Button color='primary' outline onClick={() => returnLink(service.id)}>
+                                                Purchase
+                                            </Button>
+                                            {/* <Button color='primary' outline onClick={() => returnLink(service.id)}>
+                                                Read More
+                                            </Button> */}
                                         </CardBody>
                                     </Card>
                                 </div>
@@ -99,9 +104,11 @@ const CardContentTypes = ({ services }) => {
             </div>
             <footer>
                 <div className="row">
-                    <div className="col-12 text-center">
-                        Powered By <h1>{JSON.parse(localStorage.getItem("portal_settings"))?.agency?.name ?? 'Agency Tool'}</h1>
-                    </div>
+                    <p className='clearfix mb-0 text-center'>
+                        <span className='my-25'>
+                            COPYRIGHT © {new Date().getFullYear()}{' '} Powered By <span className="ft-ag-clr"> Agency Suite </span>
+                        </span>
+                    </p>
                 </div>
             </footer>
         </Fragment>

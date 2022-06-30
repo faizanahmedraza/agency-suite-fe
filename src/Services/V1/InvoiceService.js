@@ -3,7 +3,13 @@ import V1 from "@src/Constants/V1ApiConstant";
 
 async function invoiceList(params) {
     const _params = params ? '?' + params : "";
-    const response = await Gateway.authGateway("GET", V1.DOMAIN, V1.agency.invoices+_params);
+    const response = await Gateway.authGateway("GET", V1.DOMAIN, V1.agency.invoices + _params);
+    return response;
+}
+
+async function invoicePost(data) {
+    const _data = invoiceBody(data);
+    const response = await Gateway.authGateway("POST", V1.DOMAIN, V1.agency.invoices, _data);
     return response;
 }
 
@@ -47,8 +53,33 @@ const invoicePaidBodyData = (data) => {
     return JSON.stringify(_data);
 }
 
+const invoiceBody = (data) => {
+    let _data = {};
+
+    _data.invoice_type = data.invoice_type;
+    _data.customer_id = data.customer_id;
+
+    if (_data.invoice_type == "custom") {
+        _data.invoice_items = data.invoice_items;
+    } else {
+        _data.service_id = data.service_id;
+        _data.recurring_type = data.recurring_type;
+        _data.quantity = data.quantity;
+        _data.intake_form = [
+            {
+                title: data.title,
+                description: data.description
+            }
+        ];
+    }
+
+    return JSON.stringify(_data);
+
+};
+
 const InvoiceService = {
     invoiceList,
+    invoicePost,
     invoiceDetail,
     invoiceStatus,
     invoiceDelete,

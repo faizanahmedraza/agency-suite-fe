@@ -55,7 +55,7 @@ const Portal = () => {
 
   const handleAgencyNameObject = (e) => {
     setPortalSetting((prevPortalSetting) => ({
-      ...prevPortalSetting , agency: { ...prevPortalSetting.agency, name: e.target.value },
+      ...prevPortalSetting, agency: { ...prevPortalSetting.agency, name: e.target.value },
     }));
   };
 
@@ -71,7 +71,9 @@ const Portal = () => {
 
 
   useEffect(() => {
-    dispatch(PortalSettingDetailAction.portalSettingDetail());
+    if (!fetched || isChanged) {
+      dispatch(PortalSettingDetailAction.portalSettingDetail());
+    }
     if (fetched && !isChanged) return setPortalSetting(portal_settings);
     setPortalSetting(updatedPortalSettings);
   }, [fetched, isChanged]);

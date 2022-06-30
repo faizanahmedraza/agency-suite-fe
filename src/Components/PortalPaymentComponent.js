@@ -30,7 +30,7 @@ const CardPayment = () => {
 
   const {
     list: { loading, gateway, isFetched },
-    create: { loading: createLoading, gateway: createGateway, success },
+    create: { loading: createLoading, gateway: createGateway, isSuccess },
     status: { loading: statusLoading, isChanged },
   } = useSelector((state) => state.payment_gateway);
 
@@ -49,11 +49,27 @@ const CardPayment = () => {
   };
 
   useEffect(() => {
-    dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"))
-    if (isFetched && !isChanged && !success) return setPaymentInfo(gateway)
+    if (!isFetched) {
+      dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"))
+    }
+    if (isFetched) return setPaymentInfo(gateway);
     setPaymentInfo(createGateway);
-  }, [isFetched, isChanged, success]);
+  }, [isFetched]);
 
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"))
+    }
+    if (isFetched) return setPaymentInfo(gateway);
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isChanged) {
+      dispatch(PaymentGatewayListAction.paymentGatewayList("stripe"))
+    }
+    if (isFetched) return setPaymentInfo(gateway);
+  }, [isChanged]);
+  
   useEffect(() => {
     return () => {
       setWarningStatusModal(false);
@@ -84,18 +100,20 @@ const CardPayment = () => {
         <>
           <CardHeader>
             <CardTitle tag="h4">Stripe</CardTitle>
-            <CardTitle className="text-primary" tag="h4">
-              <div className="form-switch form-check-primary">
-                <Input
-                  type='switch'
-                  checked={paymentInfo.is_enable === "yes"}
-                  onChange={() => setWarningStatusModal(!warningStatusModal)}
-                  value={paymentInfo.is_enable === "yes" ?? "no"}
-                  id='icon-primary'
-                  name='icon-primary'
-                />
-              </div>
-            </CardTitle>
+            {
+              gateway.gateway_secret ?
+                <div className="form-switch form-check-primary">
+                  <Input
+                    type='switch'
+                    checked={paymentInfo.is_enable === "yes"}
+                    onChange={() => setWarningStatusModal(!warningStatusModal)}
+                    value={paymentInfo.is_enable ?? "yes"}
+                    id='icon-primary'
+                    name='icon-primary'
+                  />
+                </div>
+                : ""
+            }
           </CardHeader>
           <CardBody>
             <Row>
@@ -115,10 +133,10 @@ const CardPayment = () => {
               <Col className="text-end pt-2" md="3" sm="12">
                 {
                   gateway.gateway_secret ?
-                    <Button onClick={() => setWarningUpdateModal(!warningUpdateModal)}>
+                    <Button color="primary" onClick={() => setWarningUpdateModal(!warningUpdateModal)} disabled={paymentInfo.is_enable === "no"}>
                       Save
                     </Button> :
-                    <Button onClick={submitSaveForm}>
+                    <Button color="primary" onClick={submitSaveForm}>
                       Save
                     </Button>
                 }
@@ -184,7 +202,7 @@ const CardPayment = () => {
               </ModalHeader>
               <ModalBody>
                 {
-                  gateway.is_enable === "no" ? "Are you sure?" : "By disabling this your customers payment option stop working?"
+                  gateway.is_enable === "no" ? "Do you want to enable the client secret?" : "By disabling this your customers payment option stop working?"
                 }
               </ModalBody>
               <ModalFooter>

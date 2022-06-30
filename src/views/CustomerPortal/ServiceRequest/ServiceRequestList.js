@@ -59,7 +59,8 @@ const ServiceRequestList = ({ service_requests, pagination, tabIndex}) => {
                   <th>SERVICE NAME</th>
                   <th>IS RECURRING</th>
                   <th>STATUS</th>
-                  <th>CREATED AT</th>
+                  <th>REQUESTED DATE</th>
+                  <th>RENEWAL DATE</th>
                   <th>ACTIONS</th>
                 </tr>
               </thead>
@@ -82,6 +83,7 @@ const ServiceRequestList = ({ service_requests, pagination, tabIndex}) => {
                           </span>
                         </td>
                         <td>{formatDate(request.created_at)}</td>
+                        <td>{formatDate(request.next_recurring_date)}</td>
                         <td>
                           <Link
                             to={`/customer-service-requests/detail/${request.id}`}

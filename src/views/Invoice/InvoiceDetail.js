@@ -190,115 +190,115 @@ const InvoiceDetail = () => {
                         Service Subscription
                       </Label>
                       <div className="demo-inline-spacing">
-                        <div className="form-check">
-                          <Input
-                            type="radio"
-                            name="recurring_type"
-                            id="sr1"
-                            value="annually"
-                            defaultChecked={
-                              customer_invoice &&
-                              customer_invoice?.customer_service_request
-                                ?.recurring_type === "annually"
-                            }
-                            disabled
-                          />
-                          <Label className="form-check-label" for="sr1">
-                            {"annually - $" +
-                              Number.parseFloat(
+                          <div className="form-check">
+                            <Input
+                              type="radio"
+                              name="recurring_type"
+                              value="weekly"
+                              defaultChecked={
                                 customer_invoice &&
-                                  customer_invoice?.customer_service_request
-                                    ?.service?.price_types?.annually
-                              ).toFixed(2)}
-                          </Label>
-                        </div>
-                        <div className="form-check">
-                          <Input
-                            type="radio"
-                            name="recurring_type"
-                            id="sr2"
-                            value="biannually"
-                            defaultChecked={
-                              customer_invoice &&
-                              customer_invoice?.customer_service_request
-                                ?.recurring_type === "biannually"
-                            }
-                            disabled
-                          />
-                          <Label className="form-check-label" for="sr2">
-                            {"biannually - $" +
-                              Number.parseFloat(
-                                customer_invoice &&
-                                  customer_invoice?.customer_service_request
-                                    ?.service?.price_types.biannually
-                              ).toFixed(2)}
-                          </Label>
-                        </div>
-                        <div className="form-check">
-                          <Input
-                            type="radio"
-                            name="recurring_type"
-                            id="sr3"
-                            value="quarterly"
-                            defaultChecked={
-                              customer_invoice &&
-                              customer_invoice?.customer_service_request
-                                ?.recurring_type === "quarterly"
-                            }
-                            disabled
-                          />
-                          <Label className="form-check-label" for="sr3">
-                            {"quarterly - $" +
-                              Number.parseFloat(
-                                customer_invoice &&
-                                  customer_invoice?.customer_service_request
-                                    ?.service?.price_types.quarterly
-                              ).toFixed(2)}
-                          </Label>
-                        </div>
-                        <div className="form-check">
-                          <Input
-                            type="radio"
-                            name="recurring_type"
-                            value="weekly"
-                            defaultChecked={
-                              customer_invoice &&
-                              customer_invoice?.customer_service_request
-                                ?.recurring_type === "weekly"
-                            }
-                            disabled
-                          />
-                          <Label className="form-check-label" for="sr4">
-                            {"weekly - $" +
-                              Number.parseFloat(
-                                customer_invoice &&
+                                customer_invoice?.customer_service_request
+                                  ?.recurring_type === "weekly"
+                              }
+                              disabled
+                            />
+                            <Label className="form-check-label" for="sr4">
+                              {"weekly - $" +
+                                Number.parseFloat(
+                                  customer_invoice &&
                                   customer_invoice?.customer_service_request
                                     ?.service?.price_types.weekly
-                              ).toFixed(2)}
-                          </Label>
-                        </div>
-                        <div className="form-check">
-                          <Input
-                            type="radio"
-                            name="recurring_type"
-                            id="sr5"
-                            value="monthly"
-                            defaultChecked={
-                              customer_invoice &&
-                              customer_invoice?.customer_service_request
-                                ?.recurring_type === "monthly"
-                            }
-                            disabled
-                          />
-                          <Label className="form-check-label" for="sr5">
-                            {"monthly - $" +
-                              Number.parseFloat(
+                                ).toFixed(2)}
+                            </Label>
+                          </div>
+                          <div className="form-check">
+                            <Input
+                              type="radio"
+                              name="recurring_type"
+                              id="sr5"
+                              value="monthly"
+                              defaultChecked={
                                 customer_invoice &&
+                                customer_invoice?.customer_service_request
+                                  ?.recurring_type === "monthly"
+                              }
+                              disabled
+                            />
+                            <Label className="form-check-label" for="sr5">
+                              {"monthly - $" +
+                                Number.parseFloat(
+                                  customer_invoice &&
                                   customer_invoice?.customer_service_request
                                     ?.service?.price_types.monthly
-                              ).toFixed(2)}
-                          </Label>
-                        </div>
+                                ).toFixed(2)}
+                            </Label>
+                          </div>
+                          <div className="form-check">
+                            <Input
+                              type="radio"
+                              name="recurring_type"
+                              id="sr3"
+                              value="quarterly"
+                              defaultChecked={
+                                customer_invoice &&
+                                customer_invoice?.customer_service_request
+                                ?.recurring_type === "quarterly"
+                              }
+                              disabled
+                            />
+                            <Label className="form-check-label" for="sr3">
+                              {"quarterly - $" +
+                                Number.parseFloat(
+                                  customer_invoice &&
+                                  customer_invoice?.customer_service_request
+                                    ?.service?.price_types.quarterly
+                                ).toFixed(2)}
+                            </Label>
+                          </div>
+                          <div className="form-check">
+                            <Input
+                              type="radio"
+                              name="recurring_type"
+                              id="sr2"
+                              value="biannually"
+                              defaultChecked={
+                                customer_invoice &&
+                                customer_invoice?.customer_service_request
+                                  ?.recurring_type === "biannually"
+                              }
+                              disabled
+                            />
+                            <Label className="form-check-label" for="sr2">
+                              {"biannually - $" +
+                                Number.parseFloat(
+                                  customer_invoice &&
+                                  customer_invoice?.customer_service_request
+                                    ?.service?.price_types.biannually
+                                ).toFixed(2)}
+                            </Label>
+                          </div>
+                          <div className="form-check">
+                            <Input
+                              type="radio"
+                              name="recurring_type"
+                              id="sr1"
+                              value="annually"
+                              defaultChecked={
+                                customer_invoice &&
+                                customer_invoice?.customer_service_request
+                                  ?.recurring_type === "annually"
+                              }
+                              disabled
+                            />
+                          <Label className="form-check-label" for="sr1">
+                              {"annually - $" +
+                                Number.parseFloat(
+                                  customer_invoice &&
+                                  customer_invoice?.customer_service_request
+                                    ?.service?.price_types?.annually
+                                ).toFixed(2)}
+                            </Label>
+                          </div>
                       </div>
                     </div>
                   </Col>
@@ -338,7 +338,7 @@ const InvoiceDetail = () => {
                         customer_invoice?.customer_service_request
                           ?.intake_form[0]?.title
                           ? customer_invoice?.customer_service_request
-                              ?.intake_form[0]?.title
+                            ?.intake_form[0]?.title
                           : ""
                       }
                       name="title"
@@ -353,13 +353,14 @@ const InvoiceDetail = () => {
                     <Label className="form-label fs-5" for="description">
                       Intake Description
                     </Label>
+                    
                     <Input
                       type="textarea"
                       value={
                         customer_invoice?.customer_service_request
                           ?.intake_form[0]?.description
                           ? customer_invoice?.customer_service_request
-                              ?.intake_form[0]?.description
+                            ?.intake_form[0]?.description
                           : ""
                       }
                       name="description"
@@ -369,7 +370,7 @@ const InvoiceDetail = () => {
                     />
                   </div>
                 </Col>
-                {customer_invoice.is_paid === "no" ? (
+                {(customer_invoice?.customer_service_request.status !== 'cancelled' && customer_invoice.is_paid === "no") ? (
                   billingInfoLoading ? (
                     <Loader />
                   ) : (

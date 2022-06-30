@@ -113,7 +113,7 @@ const CustomerList = ({ customers, pagination, tabIndex}) => {
               return (
                 <tr key={customer.id}>
                   <td>
-                    <Link to={`/customers/edit/${customer.id}`}>
+                    <Link to={`/customers/edit/${customer.id}`} target="_blank">
                       <span className="align-middle fw-bold">
                         {customer.first_name + " " + customer.last_name}
                       </span>

@@ -17,7 +17,7 @@ import ServiceRequestStatusAction from "@store/V1/ServiceRequest/STATUS/ServiceR
 import ServiceRequestListAction from "@store/V1/ServiceRequest/LIST/ServiceRequestListAction";
 import GeneralHelper from "@src/Helpers/GeneralHelper";
 
-const ServiceRequestList = ({ service_requests, pagination, tabIndex}) => {
+const ServiceRequestList = ({ service_requests, pagination, tabIndex }) => {
   const dispatch = useDispatch();
   const [centeredModal, setCenteredModal] = useState(false)
   const [serviceRequestId, setServiceRequestId] = useState()
@@ -81,7 +81,8 @@ const ServiceRequestList = ({ service_requests, pagination, tabIndex}) => {
             <th>CUSTOMER NAME</th>
             <th>SERVICE NAME</th>
             <th>STATUS</th>
-            <th>CREATED AT</th>
+            <th>REQUESTED DATE</th>
+            <th>RENEWAL DATE</th>
             <th>ACTIONS</th>
           </tr>
         </thead>
@@ -91,14 +92,14 @@ const ServiceRequestList = ({ service_requests, pagination, tabIndex}) => {
               return (
                 <tr key={request.id}>
                   <td>
-                    <Link to={`/customers/edit/${request?.customer?.id}`}>
+                    <Link to={`/customers/edit/${request?.customer?.id}`} target="_blank" rel="noopener noreferrer">
                       <span className="align-middle fw-bold">
                         {request?.customer?.first_name + " " + request?.customer?.last_name}
                       </span>
                     </Link>
                   </td>
                   <td>
-                    <Link to={`/services/edit/${request?.service?.id}`}>
+                    <Link to={`/services/edit/${request?.service?.id}`} target="_blank" rel="noopener noreferrer">
                       <span className="align-middle fw-bold">
                         {request?.service?.name}
                       </span>
@@ -110,9 +111,11 @@ const ServiceRequestList = ({ service_requests, pagination, tabIndex}) => {
                       <option value="active">Active</option>
                       <option value="hold">Hold</option>
                       <option value="completed">Completed</option>
+                      <option value="cancelled">Cancelled</option>
                     </Input>
                   </td>
                   <td>{formatDate(request.created_at)}</td>
+                  <td>{formatDate(request.next_recurring_date)}</td>
                   <td className="text-center">
                     <Link
                       to={`/service-requests/detail/${request.id}`}
