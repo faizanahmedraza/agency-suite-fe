@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { EditorState,convertToRaw  } from 'draft-js'
 import EditorComponent from "@src/Components/EditorComponent";
 import {
   Card,
@@ -63,11 +64,19 @@ const CreateService = () => {
     },
   });
 
-  const getEditorValue = (value) => {
+  const [editorState,setEditorState] = useState(EditorState.createEmpty())
+
+  const descriptionSaveContent = (content) => {
     setServiceDetails({
       ...serviceDetails,
-      description: value,
+      description: JSON.stringify(convertToRaw(content)),
     });
+  }
+
+  const onEditorStateChange = (editorState) => {
+    const contentState = editorState.getCurrentContent();
+    descriptionSaveContent(contentState);
+    setEditorState(editorState);
   };
 
   const handleInputField = (e) => {
@@ -157,12 +166,12 @@ const CreateService = () => {
                           <Label className="form-label" for="nameMulti">
                             Description
                           </Label>
-                          <EditorComponent
-                            serviceDetails={serviceDetails}
-                            getEditorValue={getEditorValue}
-                            name="description"
-                            id='nameMulti'
-                          />
+                          <div>
+                            <EditorComponent
+                              editorState={editorState}
+                              onEditorStateChange={onEditorStateChange}
+                            />
+                          </div>
                           {/* <Input type='textarea' value={serviceDetails.description} onChange={handleInputField} name='description' id='nameMulti' placeholder='Enter Description' /> */}
                         </div>
                       </Col>
@@ -470,7 +479,7 @@ const CreateService = () => {
                             disabled
                             name="name"
                             id="nameMulti"
-                            placeholder="Enter Description    "
+                            placeholder="Enter Description"
                           />
                         </div>
                       </Container>

@@ -16,13 +16,6 @@ import ipad from "@src/assets/images/elements/ipad-pro.png"
 
 const CardDetails = ({ services }) => {
     const dispatch = useDispatch()
-    const {
-        portal_settings: { detail: { portal_settings, fetched } },
-    } = useSelector((state => state))
-
-    useEffect(() => {
-        if (!fetched) return dispatch(PortalSettingDetailAction.portalSettingDetail());
-    }, [fetched]);
 
 
     const handleOnChange = e => {
@@ -44,6 +37,7 @@ const CardDetails = ({ services }) => {
         }
         window.location.href = link;
     }
+
     return (
         <Fragment>
             {/* ==========header========= */}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 import EditorComponent from "@src/Components/EditorComponent";
 import {
     Card,
@@ -51,7 +52,7 @@ const EditService = () => {
 
     const [serviceDetails, setServiceDetails] = useState({
         name: "",
-        description: " ",
+        description: "",
         image: "",
         subscription_type: "",
         price: "",
@@ -76,12 +77,20 @@ const EditService = () => {
             ]
         }
     })
-    const getEditorValue = (value) => {
-        console.log(value,'ddsddd')
+
+    const [editorState, setEditorState] = useState(EditorState.createEmpty())
+
+    const descriptionSaveContent = (content) => {
         setServiceDetails({
             ...serviceDetails,
-            description: value,
+            description: JSON.stringify(convertToRaw(content)),
         });
+    }
+
+    const onEditorStateChange = (editorState) => {
+        const contentState = editorState.getCurrentContent();
+        descriptionSaveContent(contentState);
+        setEditorState(editorState);
     };
 
     const handleInputField = (e) => {
@@ -124,10 +133,12 @@ const EditService = () => {
 
         if (selected_service) {
             setServiceDetails(selected_service)
+            if (JSON.parse(selected_service.description)) {
+                const contentState = EditorState.createWithContent(convertFromRaw(JSON.parse(selected_service.description)));
+                setEditorState(contentState);
+            }
         }
     }, [selected_service])
-
-    console.log(serviceDetails)
 
     const onSubmitHandler = (e) => {
         e.preventDefault()
@@ -140,7 +151,7 @@ const EditService = () => {
                 <CardBody>
                     <div className='row'>
                         <div className='col-md-3'>
-                            <h1>Create service</h1>
+                            <h1>Update service</h1>
                         </div>
                     </div>
                 </CardBody>
@@ -193,11 +204,12 @@ const EditService = () => {
                                                                 <Label className='form-label' for='nameMulti'>
                                                                     Description
                                                                 </Label>
-
-                                                                <EditorComponent
-                                                                    serviceDetails={serviceDetails}
-                                                                    getEditorValue={getEditorValue}
-                                                                />
+                                                                <div>
+                                                                    <EditorComponent
+                                                                        editorState={editorState}
+                                                                        onEditorStateChange={onEditorStateChange}
+                                                                    />
+                                                                </div>
                                                             </div>
                                                         </Col>
                                                         <Col md='6' sm='12'>
