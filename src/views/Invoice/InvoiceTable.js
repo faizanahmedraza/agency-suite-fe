@@ -90,7 +90,7 @@ const InvoiceTable = ({ invoices, pagination }) => {
                                 <td> <Link to={`/invoice/detail/${invoice.id}`}> {invoice?.customer?.first_name + ' ' + invoice?.customer?.last_name} </Link> </td>
                                 <td>
                                 <Link to={`/invoice/detail/${invoice.id}`}>
-                                    <span className='align-middle fw-bold'>{invoice?.customer_service_request?.service?.name}</span>
+                                    <span className='align-middle fw-bold'>{invoice.customer_service_request ? invoice?.customer_service_request?.service?.name : "-"}</span>
                                    </Link> 
                                 </td>
                                 <td>${Number.parseFloat(invoice?.amount).toFixed(2)}</td>
