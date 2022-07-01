@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { v4 as uuidv4 } from 'uuid';
+import { EditorState, convertToRaw } from 'draft-js';
+import EditorComponent from "@src/Components/EditorComponent";
 import {
     Card,
     Row,
@@ -35,6 +37,7 @@ const CreateInvoice = () => {
     const [inputCustomerValue, setCustomerValue] = useState('');
     const [inputServiceValue, setServiceValue] = useState('');
     const [count, setCount] = useState(1)
+    const [editorState, setEditorState] = useState(EditorState.createEmpty())
     const [invoiceDetails, setInvoiceDetails] = useState({
         invoice_type: "",
         service_id: "",
@@ -44,15 +47,15 @@ const CreateInvoice = () => {
         description: "",
         is_recurring: false,
         selected_service: null,
-        quantity: 1,
+        quantity: "",
         invoice_items: [
             {
                 id: uuidv4(),
                 name: "",
-                rate: 0,
-                quantity: 1,
-                discount: 0,
-                amount: 0,
+                rate: "",
+                quantity: "",
+                discount: "",
+                amount: "",
             }
         ]
     })
@@ -77,6 +80,19 @@ const CreateInvoice = () => {
             })));
         }
     }, []);
+
+    const descriptionSaveContent = (content) => {
+        setInvoiceDetails({
+            ...invoiceDetails,
+            description: JSON.stringify(convertToRaw(content)),
+        });
+    }
+
+    const onEditorStateChange = (editorState) => {
+        const contentState = editorState.getCurrentContent();
+        descriptionSaveContent(contentState);
+        setEditorState(editorState);
+    };
 
     const handleInputField = (e) => {
         setInvoiceDetails({
@@ -217,7 +233,7 @@ const CreateInvoice = () => {
             ...prevInvoiceDetails,
             invoice_items: [
                 ...prevInvoiceDetails.invoice_items,
-                { id: uuidv4(), name: "", rate: 0, quantity: 1, discount: 0, amount: 0, }
+                { id: uuidv4(), name: "", rate: "", quantity: "", discount: "", amount: "", }
             ]
         }))
     };
@@ -288,7 +304,7 @@ const CreateInvoice = () => {
                                                                 </Label>
                                                                 <Input name="name" onChange={(event) =>
                                                                     handleChangeInput(inputField.id, event)
-                                                                } value={inputField.name} type='text' id={`animation-item-name-${i}`} placeholder='Vuexy Admin Template' />
+                                                                } value={inputField.name} type='text' id={`animation-item-name-${i}`} placeholder='Item Name' />
                                                             </Col>
                                                             <Col md={2} className='mb-md-0 mb-1'>
                                                                 <Label className='form-label' for={`animation-cost-${i}`}>
@@ -302,7 +318,7 @@ const CreateInvoice = () => {
                                                                     value={inputField.rate}
                                                                     type='number'
                                                                     id={`animation-cost-${i}`}
-                                                                    placeholder='32'
+                                                                    placeholder='Rate (Min 0)'
                                                                     min={0} />
                                                             </Col>
                                                             <Col md={2} className='mb-md-0 mb-1'>
@@ -317,7 +333,7 @@ const CreateInvoice = () => {
                                                                     value={inputField.quantity}
                                                                     type='number'
                                                                     id={`animation-quantity-${i}`}
-                                                                    placeholder='1'
+                                                                    placeholder='Quantity (Min 1)'
                                                                     min={1}
                                                                 />
                                                             </Col>
@@ -333,7 +349,7 @@ const CreateInvoice = () => {
                                                                     value={inputField.discount}
                                                                     type='number'
                                                                     id={`animation-quantity-${i}`}
-                                                                    placeholder='1'
+                                                                    placeholder='Discount (Min 0)'
                                                                     min={0} />
                                                             </Col>
                                                             <Col md={2} className='mb-md-0 mb-1'>
@@ -506,7 +522,12 @@ const CreateInvoice = () => {
                                                 <Label className='form-label' for='nameMulti'>
                                                     Description
                                                 </Label>
-                                                <Input type='textarea' value={invoiceDetails.description} onChange={handleInputField} name='description' id='description' placeholder='Enter Description' />
+                                                <div>
+                                                    <EditorComponent
+                                                        editorState={editorState}
+                                                        onEditorStateChange={onEditorStateChange}
+                                                    />
+                                                </div>
                                             </div>
                                         </Col>
                                         <Col md='12' sm='12'>
@@ -514,7 +535,7 @@ const CreateInvoice = () => {
                                                 <Label className='form-label fs-5' for='select-basic'>
                                                     Quantity
                                                 </Label>
-                                                <Input type='number' value={invoiceDetails.quantity} onChange={handleInputField} name='quantity' id='quantity' placeholder='Enter Quantity' />
+                                                <Input type='number' value={invoiceDetails.quantity} onChange={handleInputField} name='quantity' id='quantity' placeholder='Quantity (Minimum 1)' />
                                             </div>
                                         </Col>
                                     </Row>

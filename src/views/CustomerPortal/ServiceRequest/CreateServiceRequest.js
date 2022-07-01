@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { EditorState, convertToRaw } from 'draft-js';
 import EditorComponent from "@src/Components/EditorComponent";
 import { useParams, Link } from 'react-router-dom';
 import {
@@ -23,6 +24,7 @@ const CreateServiceRequest = () => {
 
     const dispatch = useDispatch();
     const { service_id } = useParams();
+    const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
     const {
         customer_services: { detail: { service, loading: serviceloading, fetched: serviceFetched } },
@@ -64,6 +66,19 @@ const CreateServiceRequest = () => {
         };
     }, []);
 
+    const descriptionSaveContent = (content) => {
+        setServiceRequestDetails({
+            ...serviceRequestDetails,
+            description: JSON.stringify(convertToRaw(content)),
+        });
+    }
+
+    const onEditorStateChange = (editorState) => {
+        const contentState = editorState.getCurrentContent();
+        descriptionSaveContent(contentState);
+        setEditorState(editorState);
+    };
+
     const handleServiceRequestInputField = (e) => {
         setServiceRequestDetails({
             ...serviceRequestDetails,
@@ -73,10 +88,10 @@ const CreateServiceRequest = () => {
 
     const getEditorValue = (value) => {
         setServiceDetails({
-          ...serviceDetails,
-          description: value,
+            ...serviceDetails,
+            description: value,
         });
-      };   
+    };
     const onSubmitHandler = (e) => {
         e.preventDefault();
         dispatch(ServiceRequestCreateAction.serviceRequestCreate(serviceRequestDetails));
@@ -241,12 +256,12 @@ const CreateServiceRequest = () => {
                                         <Label className='form-label fs-5' for='description'>
                                             Description
                                         </Label>
-                                        <EditorComponent
-                                            serviceDetails={serviceRequestDetails}
-                                            getEditorValue={getEditorValue}
-                                            id='description'
-                                        />
-                                        {/* <Input type='textarea' value={serviceRequestDetails.description ?? ""} onChange={handleServiceRequestInputField} name='description' id='description' placeholder='Enter Description' /> */}
+                                        <div>
+                                            <EditorComponent
+                                                editorState={editorState}
+                                                onEditorStateChange={onEditorStateChange}
+                                            />
+                                        </div>
                                     </div>
                                 </Col>
                                 <Col md='12' sm='12'>

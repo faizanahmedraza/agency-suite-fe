@@ -83,7 +83,7 @@ const ServiceRequestList = ({ service_requests, pagination, tabIndex}) => {
                           </span>
                         </td>
                         <td>{formatDate(request.created_at)}</td>
-                        <td>{formatDate(request.next_recurring_date)}</td>
+                        <td>{request.next_recurring_date ? formatDate(request.next_recurring_date) : ""}</td>
                         <td>
                           <Link
                             to={`/customer-service-requests/detail/${request.id}`}
