@@ -66,7 +66,7 @@ const InvoiceTable = ({ invoices, pagination }) => {
                                         <tr key={invoice.id}>
                                             <td>{invoice?.invoice_number}</td>
                                             <td>
-                                                <span className='align-middle fw-bold'>{GeneralHelper.Capitalize(invoice?.customer_service_request?.service?.name)}</span>
+                                                <span className='align-middle fw-bold'>{invoice.customer_service_request ? invoice?.customer_service_request?.service?.name : "-"}</span>
                                             </td>
                                             <td>{'$' + Number.parseFloat(invoice?.amount).toFixed(2)}</td>
                                             <td>{invoice?.is_paid === "yes" ? <>{formatDate(invoice.paid_at)} </> : GeneralHelper.Capitalize(invoice?.is_paid)}</td>
