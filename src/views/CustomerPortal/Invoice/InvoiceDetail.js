@@ -167,9 +167,7 @@ const InvoiceDetail = () => {
                                         <Label className='form-label fs-5 fw-bold' for='select-basic'>
                                             Service Description
                                         </Label>
-                                        <p className='text-wrap'>
-                                            {customer_invoice && customer_invoice?.customer_service_request?.service?.description}
-                                        </p>
+                                        <p className='text-wrap' contentEditable='false' dangerouslySetInnerHTML={{ __html: descriptionConversion(customer_invoice?.customer_service_request?.service?.description) }}></p>
                                     </div>
                                 </Col>
                             </Row>
@@ -343,7 +341,7 @@ const InvoiceDetail = () => {
                     }
                     {loading ? "" : (
                         <Row>
-                            {customer_invoice.is_paid == "no" ?
+                            {(!customer_invoice.customer_service_request && customer_invoice.is_paid == "no") ?
                                 <Col md='12' sm='12' className='my-2'>
                                     <div className='d-flex justify-content-between align-items-center'>
                                         <BillingCardInfo billingInfoList={customer_billing_information} cardId={invoicePaid.card_id} onChangeField={handleInvoicePaidField} />

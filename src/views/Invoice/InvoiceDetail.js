@@ -499,7 +499,7 @@ const InvoiceDetail = () => {
           )}
           {loading ? "" : (
             <Row>
-              {(customer_invoice.is_paid === "no") ? (
+              {(!customer_invoice.customer_service_request && customer_invoice.is_paid === "no") ? (
                 billingInfoLoading ? (
                   <Loader />
                 ) : (
