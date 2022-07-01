@@ -173,7 +173,7 @@ const DetailServiceRequest = () => {
                                                                 {'annually - $' + Number.parseFloat(serviceRequestDetails?.service?.price_types?.annually).toFixed(2)}
                                                             </Label>
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </div>
                                             </Col>
@@ -228,6 +228,14 @@ const DetailServiceRequest = () => {
                                             Intake Description
                                         </Label>
                                         <p className='text-wrap' contentEditable='false' dangerouslySetInnerHTML={{ __html: descriptionConversion(serviceRequestDetails?.intake_form[0]?.description) }}></p>
+                                    </div>
+                                </Col>
+                                <Col md='12' sm='12'>
+                                    <div className='mb-1'>
+                                        <Label className='form-label fs-5' for='quantity'>
+                                            Quantity
+                                        </Label>
+                                        <Input type='text' value={serviceRequestDetails?.quantity} name='quantity' id='quantity' readOnly />
                                     </div>
                                 </Col>
                                 <Col md='12' sm='12'>

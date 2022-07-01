@@ -499,6 +499,51 @@ const InvoiceDetail = () => {
           )}
           {loading ? "" : (
             <Row>
+              {(customer_invoice.is_paid === "no") ? (
+                billingInfoLoading ? (
+                  <Loader />
+                ) : (
+                  <Col md="12" sm="12">
+                    <Form onSubmit={onSubmitHandler}>
+                      <div className="d-flex justify-content-between align-items-center mb-2">
+                        <div className="w-50">
+                          <Input
+                            type="select"
+                            name="card_id"
+                            id="select-custom"
+                            defaultValue={invoicePaid?.card_id}
+                            onChange={handleInvoicePaidField}
+                          >
+                            <option value="">Select Card</option>
+                            {customer_billing_information &&
+                              customer_billing_information.map((option) => {
+                                return (
+                                  <option value={option.id} key={option.id}>
+                                    .... .... .... {option.last_digits}
+                                  </option>
+                                );
+                              })}
+                          </Input>
+                        </div>
+                        <Button
+                          color="primary"
+                          className="btn-sm py-1 px-3"
+                          type="submit"
+                          disabled={invoicePaidLoading}
+                        >
+                          {invoicePaidLoading ? (
+                            <Loader />
+                          ) : (
+                            <span>Paid</span>
+                          )}
+                        </Button>
+                      </div>
+                    </Form>
+                  </Col>
+                )
+              ) : (
+                ""
+              )}
               <Col md="12" sm="12">
                 <div className="d-flex justify-content-between">
                   <Link to="/invoices" className="btn btn-outline-secondary">

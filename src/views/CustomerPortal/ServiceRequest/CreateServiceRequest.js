@@ -19,6 +19,7 @@ import ServiceActions from "@store/V1/CustomerPortal/Service/Detail/ServiceDetai
 import BillingInformationListAction from "@store/V1/CustomerPortal/BillingInformation/LIST/BillingInformationListAction";
 import CardInfoModal from '@src/views/CustomerPortal/Billing/CardInfoModal';
 import Loader from '@src/views/GrowLoader';
+import draftToHtml from 'draftjs-to-html';
 
 const CreateServiceRequest = () => {
 
@@ -112,6 +113,16 @@ const CreateServiceRequest = () => {
         setIsOpenModal(false)
     }
 
+    function descriptionConversion(str) {
+        if (str) {
+            const hashConfig = {
+                trigger: '#',
+                separator: ' ',
+            }
+            return draftToHtml(JSON.parse(str), hashConfig)
+        }
+    }
+
     return (
         <div>
             <Card>
@@ -157,9 +168,7 @@ const CreateServiceRequest = () => {
                                         <Label className='form-label fs-5' for='select-basic'>
                                             Service Description
                                         </Label>
-                                        <p className='text-wrap'>
-                                            {service && service.description}
-                                        </p>
+                                        <p className='text-wrap' contentEditable='false' dangerouslySetInnerHTML={{ __html: descriptionConversion(service.description) }}></p>
                                     </div>
                                 </Col>
                             </Row>

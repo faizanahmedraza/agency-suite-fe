@@ -61,7 +61,6 @@ const CardContentTypes = ({ services }) => {
                     {
                         services && services.map((service) => {
                             const image = service.image ? service.image : "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"
-                           let description = service.description.slice(0,100)
                             return (
                                 <div className="col-4" key={service.id}>
                                     <Card>
@@ -84,9 +83,6 @@ const CardContentTypes = ({ services }) => {
                                                         $ {Number.parseFloat(service.price_types.price).toFixed(2)}
                                                     </>
                                                 }
-                                            </CardText>
-                                            <CardText className='crd-hgt-desc'>
-                                                {description}{service.description.length > 100? "..." : null}
                                             </CardText>
                                             <Button color='primary' outline onClick={() => returnLink(service.id)}>
                                                 Purchase

@@ -17,6 +17,7 @@ import {
 import { useDispatch, useSelector } from '@store/store'
 import ServiceRequestDetailAction from "@store/V1/CustomerPortal/ServiceRequest/DETAIL/ServiceRequestDetailAction";
 import ServiceRequestCancelAction from "@store/V1/CustomerPortal/ServiceRequest/CANCEL/CancelAction";
+import draftToHtml from 'draftjs-to-html';
 
 const Loader = () => {
     return (
@@ -44,6 +45,16 @@ const DetailServiceRequest = () => {
 
     const onSubmitCancelModal = () => {
         dispatch(ServiceRequestCancelAction.cancelServiceRequest(id));
+    }
+
+    function descriptionConversion(str) {
+        if (str) {
+            const hashConfig = {
+                trigger: '#',
+                separator: ' ',
+            }
+            return draftToHtml(JSON.parse(str), hashConfig)
+        }
     }
 
     return (
@@ -83,9 +94,7 @@ const DetailServiceRequest = () => {
                                     <Label className='form-label fs-5' for='select-basic'>
                                         Service Description
                                     </Label>
-                                    <p className='text-wrap'>
-                                        {serivice_request && serivice_request?.service?.description}
-                                    </p>
+                                    <p className='text-wrap' contentEditable='false' dangerouslySetInnerHTML={{ __html: descriptionConversion(serivice_request?.service?.description) }}></p>
                                 </div>
                             </Col>
                         </Row>
@@ -99,36 +108,36 @@ const DetailServiceRequest = () => {
                                                     Service Subscription
                                                 </Label>
                                                 <div className='demo-inline-spacing'>
-                                                <div className='form-check'>
-                                                            <Input type='radio' name='recurring_type' value="weekly" onChange={handleServiceRequestInputField} />
-                                                            <Label className='form-check-label fs-5' for='sr4'>
-                                                                {'weekly - $' + Number.parseFloat(service.price_types.weekly ?? 0).toFixed(2)}
-                                                            </Label>
-                                                        </div>
-                                                        <div className='form-check'>
-                                                            <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleServiceRequestInputField} defaultChecked />
-                                                            <Label className='form-check-label fs-5' for='sr5'>
-                                                                {'monthly - $' + Number.parseFloat(service.price_types.monthly ?? 0).toFixed(2)}
-                                                            </Label>
-                                                        </div>
-                                                        <div className='form-check'>
-                                                            <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleServiceRequestInputField} />
-                                                            <Label className='form-check-label fs-5' for='sr3'>
-                                                                {'quarterly - $' + Number.parseFloat(service.price_types.quarterly ?? 0).toFixed(2)}
-                                                            </Label>
-                                                        </div>
-                                                        <div className='form-check'>
-                                                            <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleServiceRequestInputField} />
-                                                            <Label className='form-check-label fs-5' for='sr2'>
-                                                                {'biannually - $' + Number.parseFloat(service.price_types.biannually ?? 0).toFixed(2)}
-                                                            </Label>
-                                                        </div>
-                                                        <div className='form-check'>
-                                                            <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleServiceRequestInputField} />
-                                                            <Label className='form-check-label fs-5' for='sr1'>
-                                                                {'annually - $' + Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}
-                                                            </Label>
-                                                        </div>
+                                                    <div className='form-check'>
+                                                        <Input type='radio' name='recurring_type' value="weekly" onChange={handleServiceRequestInputField} />
+                                                        <Label className='form-check-label fs-5' for='sr4'>
+                                                            {'weekly - $' + Number.parseFloat(service.price_types.weekly ?? 0).toFixed(2)}
+                                                        </Label>
+                                                    </div>
+                                                    <div className='form-check'>
+                                                        <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleServiceRequestInputField} defaultChecked />
+                                                        <Label className='form-check-label fs-5' for='sr5'>
+                                                            {'monthly - $' + Number.parseFloat(service.price_types.monthly ?? 0).toFixed(2)}
+                                                        </Label>
+                                                    </div>
+                                                    <div className='form-check'>
+                                                        <Input type='radio' name='recurring_type' id='sr3' value="quarterly" onChange={handleServiceRequestInputField} />
+                                                        <Label className='form-check-label fs-5' for='sr3'>
+                                                            {'quarterly - $' + Number.parseFloat(service.price_types.quarterly ?? 0).toFixed(2)}
+                                                        </Label>
+                                                    </div>
+                                                    <div className='form-check'>
+                                                        <Input type='radio' name='recurring_type' id='sr2' value="biannually" onChange={handleServiceRequestInputField} />
+                                                        <Label className='form-check-label fs-5' for='sr2'>
+                                                            {'biannually - $' + Number.parseFloat(service.price_types.biannually ?? 0).toFixed(2)}
+                                                        </Label>
+                                                    </div>
+                                                    <div className='form-check'>
+                                                        <Input type='radio' name='recurring_type' id='sr1' value="annually" onChange={handleServiceRequestInputField} />
+                                                        <Label className='form-check-label fs-5' for='sr1'>
+                                                            {'annually - $' + Number.parseFloat(service.price_types.annually ?? 0).toFixed(2)}
+                                                        </Label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </Col>
@@ -182,13 +191,15 @@ const DetailServiceRequest = () => {
                                     <Label className='form-label fs-5' for='description'>
                                         Intake Description
                                     </Label>
-                                    <EditorComponent
-                                            serviceDetails={serivice_request?.intake_form[0]}
-                                            getEditorValue={getEditorValue}
-                                            id='description'
-                                            readOnly
-                                        />
-                                    {/* <Input type='textarea' value={serivice_request?.intake_form[0]?.description} name='description' id='description' placeholder='Enter Description' readOnly /> */}
+                                    <p className='text-wrap' contentEditable='false' dangerouslySetInnerHTML={{ __html: descriptionConversion(serivice_request?.intake_form[0]?.description) }}></p>
+                                </div>
+                            </Col>
+                            <Col md='12' sm='12'>
+                                <div className='mb-1'>
+                                    <Label className='form-label fs-5' for='quantity'>
+                                        Quantity
+                                    </Label>
+                                    <Input type='text' value={serivice_request?.quantity} name='quantity' id='quantity' readOnly />
                                 </div>
                             </Col>
                             <Col md='12' sm='12'>
