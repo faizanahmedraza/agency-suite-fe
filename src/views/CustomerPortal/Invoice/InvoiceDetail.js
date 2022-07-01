@@ -8,7 +8,8 @@ import {
     Input,
     CardBody,
     Button,
-    Form
+    Form,
+    Table
 } from 'reactstrap'
 import { useDispatch, useSelector } from '@store/store'
 import InvoiceDetailAction from "@store/V1/CustomerPortal/Invoice/Detail/InvoiceDetailAction"
