@@ -267,7 +267,7 @@ const CreateServiceRequest = () => {
                                                     }
                                                     {serviceRequestDetails.selected_service.price_types.monthly ?
                                                         <div className='form-check'>
-                                                            <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleInputField} defaultChecked />
+                                                            <Input type='radio' name='recurring_type' id='sr5' value="monthly" onChange={handleInputField} />
                                                             <Label className='form-check-label' for='sr5'>
                                                                 {'monthly - $' + Number.parseFloat(serviceRequestDetails.selected_service.price_types.monthly).toFixed(2)}
                                                             </Label>

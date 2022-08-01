@@ -72,7 +72,7 @@ const ServiceRequestList = ({ service_requests, pagination, tabIndex}) => {
                         <td>
                           <Link to={`/customer-service-requests/detail/${request.id}`}>
                             <span className="align-middle fw-bold">
-                              {request?.service_name}
+                              {request?.service?.name}
                             </span>
                           </Link>
                         </td>
